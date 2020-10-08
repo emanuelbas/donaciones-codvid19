@@ -28,6 +28,7 @@ def create_app(environment="development"):
     @app.route("/")
     def home():
         return render_template("index.html")
+        
 # prueba maxi
     @app.route('/quienesomos')
     def quienesomos():
@@ -37,10 +38,9 @@ def create_app(environment="development"):
     def centros():
         return render_template('centros.html')
     
-    @app.route('login'):
-    return render_template('/auth/login.html')
-
-
+    @app.route('/login')
+    def login():
+        return render_template('/auth/login.html')
 #prueba maxi
 
     # Rutas de API-rest
