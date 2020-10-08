@@ -3,58 +3,40 @@ from flask import Flask, url_for, render_template, g, request, session, flash, r
 from app.models.usuario import User
 from app.config import Config
 from app.db import db
+from flask_session import Session
+from app.resources import user
 #from flask_mysqldb import MySQL
 
 # Configuración inicial de la app
 app = Flask(__name__)
 app.config.from_object(Config)
-# Carga de la configuración
+#session
+app.config['SESSION_TYPE'] = 'filesystem'
+Session(app)
 
-# Server Side session
-
-# Configure db
+#config db
 app.secret_key = 'hola'
-app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://" + \
-    Config.DB_USER+":"+Config.DB_PASS+"@"+Config.DB_HOST+"/"+Config.DB_NAME
+app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://"+Config.DB_USER+":"+Config.DB_PASS+"@"+Config.DB_HOST+"/"+Config.DB_NAME
 db.init_app(app)
 
-# Funciones que se exportan al contexto de Jinja2
-
-# Autenticación
-
-# Rutas de Consultas
-
-# Rutas de Usuarios
-
-# Ruta para el Home (usando decorator)
 
 
+
+
+# ruta a quienes somos
+
+app.add_url_rule('/quienesomos', 'quienesomos', user.quienesomos, methods=["POST", "GET"])
+
+#ruta a centros
+app.add_url_rule('/centros', 'centros', user.centros, methods=["POST", "GET"])
+
+
+#ruta a login
+app.add_url_rule('/login', 'login', user.login)
+
+
+#index
 @app.route('/')
-def home():
+def index():
     return render_template('index.html')
 
-# prueba maxi
-
-
-@app.route('/quienesomos')
-def quienesomos():
-    usuario = User.all()
-    print(usuario)
-    return render_template('quienesomos.html', usuario=usuario)
-
-
-@app.route('/centros')
-def centros():
-    return render_template('centros.html')
-
-
-@app.route('/login')
-def login():
-    return render_template('/auth/login.html')
-# prueba maxi
-
-# Rutas de API-rest
-
-# Handlers
-
-# Retornar la instancia de app configurada
