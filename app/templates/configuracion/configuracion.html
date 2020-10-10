@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1>Configuracion</h1>
+<div class="card-body">
+    <span class="card-text">
+        <form method="POST" enctype="multipart/form-data">
+            <section class="form-group">
+                <label for="titulo"> Título </label>
+                <input type="text" class="form-control form-control-lg rounded-0" name="titulo"
+                    id="titulo" required>
+            </section>
+
+            <section class="form-group">
+                <label for="contenido"> Descripcion </label>
+                <textarea type="text" class="form-control form-control-lg rounded-0" name="descripcion"
+                    id="descripcion" required></textarea>
+            </section>
+
+            <section class="form-group">
+                <label for="titulo"> Mail </label>
+                <input type="text" class="form-control form-control-lg rounded-0" name="mail"
+                    id="mail" required>
+            </section>
+
+            <section class="form-group">
+                <label for="titulo"> Activo </label>
+                <input type="text" class="form-control form-control-lg rounded-0" name="activo"
+                    id="activo" required>
+            </section>
+            <section class="form-group">
+                <label for="titulo"> Cantidad de paginas </label>
+                <input type="text" class="form-control form-control-lg rounded-0" name="cantPagina"
+                    id="cantPagina" required>
+            </section>
+
+            <div class="text-right">
+                <a href="{{ url_for('index') }}" class="btn btn-white">Cancelar</a>
+                <button type="submit" class="btn btn-primary">Aceptar</button>
+            </div>
+        </form>
+    </span>
+</div>
+{% endblock %}
