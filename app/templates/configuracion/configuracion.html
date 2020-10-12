@@ -1,37 +1,44 @@
 {% extends "layout.html" %}
 {% block content %}
 <h1>Configuracion</h1>
+{% if mensaje %}
+<div class="alert alert-success" role="alert">
+	<ul>
+		<li>{{ mensaje }}</li>
+	</ul>
+</div>
+{% endif %}
 <div class="card-body">
     <span class="card-text">
         {% for act in actual %}
         <form method="POST" enctype="multipart/form-data">
             <section class="form-group">
                 <label for="titulo"> Título </label>
-                <input type="text" class="form-control form-control-lg rounded-0" name="titulo"
-                    id="titulo" value="{{act.titulo}}" required>
+                <input type="text" class="form-control form-control-lg rounded-0" name="titulo" id="titulo"
+                    value="{{act.titulo}}" required>
             </section>
 
             <section class="form-group">
                 <label for="contenido"> Descripcion </label>
-                <input type="text" class="form-control form-control-lg rounded-0" name="descripcion"
-                    id="descripcion" value="{{act.descripcion}}" required>
+                <input type="text" class="form-control form-control-lg rounded-0" name="descripcion" id="descripcion"
+                    value="{{act.descripcion}}" required>
             </section>
 
             <section class="form-group">
                 <label for="titulo"> Mail </label>
-                <input type="text" class="form-control form-control-lg rounded-0" name="mail"
-                    id="mail" value="{{act.mail}}" required>
+                <input type="text" class="form-control form-control-lg rounded-0" name="mail" id="mail"
+                    value="{{act.mail}}" required>
             </section>
 
             <section class="form-group">
                 <label for="titulo"> Activo </label>
-                <input type="text" class="form-control form-control-lg rounded-0" name="activo"
-                    id="activo" value="{{act.activo}}" required>
+                <input type="text" class="form-control form-control-lg rounded-0" name="activo" id="activo"
+                    value="{{act.activo}}" required>
             </section>
             <section class="form-group">
                 <label for="titulo"> Cantidad de paginas </label>
-                <input type="text" class="form-control form-control-lg rounded-0" name="cantPagina"
-                    id="cantPagina" value="{{act.cantPagina}}" required>
+                <input type="text" class="form-control form-control-lg rounded-0" name="cantPagina" id="cantPagina"
+                    value="{{act.cantPagina}}" required>
             </section>
 
             <div class="text-right">

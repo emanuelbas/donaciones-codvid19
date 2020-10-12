@@ -10,5 +10,7 @@ def vista_configuracion():
         print(datos)  # se muestran todos los datos por termina
         Config.edit(datos["titulo"], datos["descripcion"],
                     datos["mail"], datos["activo"], datos["cantPagina"])
-        flash('Se actualizo la configuracion con exito')
-    return render_template("configuracion/configuracion.html", actual=actual)
+        mensaje = "Se modifico la tabla configuracion correctamente"
+        return render_template("configuracion/configuracion.html", actual=actual, mensaje=mensaje)
+    elif request.method == 'GET':
+        return render_template("configuracion/configuracion.html", actual=actual)
