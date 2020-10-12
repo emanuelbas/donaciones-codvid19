@@ -36,7 +36,7 @@ app.add_url_rule('/centros', 'centros', user.centros, methods=["POST", "GET"])
 app.add_url_rule('/login', 'login', user.login)
 
 #CONFIGURACION
-app.add_url_rule('/vista_configuracion', 'vista_configuracion', config.vista_configuracion)
+app.add_url_rule('/configuracion/vista_configuracion', 'vista_configuracion', config.vista_configuracion, methods=["POST", "GET"])
 
 
 #index

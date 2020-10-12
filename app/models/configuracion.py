@@ -2,8 +2,6 @@ from app.db import db
 from sqlalchemy import update
 from datetime import datetime
 
-# falta implementar consultas de bd para la funcionalidad
-
 
 class Config(db.Model):
     __tablename__ = 'configuracion'
@@ -13,3 +11,17 @@ class Config(db.Model):
     mail = db.Column(db.String)
     activo = db.Column(db.Integer)
     cantPagina = db.Column(db.Integer)
+
+    def all():
+        return Config.query.all()
+
+    def edit(ti, de, ma, ac, cant):
+        datos = Config.query.filter_by(id=1).first()
+        datos.titulo = ti
+        datos.descripcion = de
+        datos.mail = ma
+        datos.activo = ac
+        datos.cantPagina = cant
+
+        db.session.commit()
+        return datos
