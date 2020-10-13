@@ -5,6 +5,7 @@ from app.config import Config
 from app.db import db
 from flask_session import Session
 from app.resources import user
+from app.resources import config
 #from flask_mysqldb import MySQL
 
 # Configuración inicial de la app
@@ -33,6 +34,9 @@ app.add_url_rule('/centros', 'centros', user.centros, methods=["POST", "GET"])
 
 #ruta a login
 app.add_url_rule('/login', 'login', user.login)
+
+#CONFIGURACION
+app.add_url_rule('/configuracion/vista_configuracion', 'vista_configuracion', config.vista_configuracion, methods=["POST", "GET"])
 
 
 #index

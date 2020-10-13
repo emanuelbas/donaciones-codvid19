@@ -9,7 +9,7 @@ def quienesomos():
     return render_template('quienesomos.html', usuario=usuario)
 
 def centros():
-    return render_template('centros.html', methods=["POST", "GET"])
+    return render_template('centros.html')
 
 def login():
     return render_template('/auth/login.html')

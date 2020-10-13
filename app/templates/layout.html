@@ -5,15 +5,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!--link de BOOTSTRAP-->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link rel="icon" type="image/png" href="../static/favicons.png">
+  <link rel="stylesheet"href="{{url_for('static', filename = 'css/bootstrap.min.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css')}}" />
+  <link rel="icon" type="image/png" href="../static/images/favicons.png">
   <title>Covid-19</title>
 </head>
 
 <body>
+<<<<<<< HEAD
   <nav class="navbar navbar-expand-lg navbar navbar-dark bg-primary">
     <a class="navbar navbar-dark bg-primary" title="Logo" href="/"><img src="../static/logo_gba_emergencia.png" alt="Logo de GBA Emergencia" /></a>
+=======
+  <nav class="navbar navbar-expand-lg navbar navbar-dark">
+    <a  title="Logo" href="/"><img class="gba-logo" src="../static/images/logo_gba_emergencia.png" alt="Logo de GBA Emergencia" /></a>
+>>>>>>> cae8337fbb32c6967445ebf1d268d0ed2abb5083
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
       aria-controls="	navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -30,13 +35,17 @@
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('centros')}}">CENTROS DE AYUDA</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('vista_configuracion')}}">Configuracion</a>
+          </li>
         </ul>
     </div>
   </nav>
   <!--  empieza el codigo en phyton para empezar el bloque a mostrar-->
   {% block content %}
   {% endblock %}
-  <!--  empieza el codigo en phyton para empezar el bloque a mostrar-->
+  <!--  empieza el codigo en phyton para empezar el bloque a mostrar--> 
+<script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
 </body>
 
 </html>
