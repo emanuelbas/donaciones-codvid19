@@ -25,3 +25,8 @@ class Config(db.Model):
 
         db.session.commit()
         return datos
+
+    #COMPLETAR
+    def habilitado():
+        #Devuelve true si el sitio esta habilitado
+        return True

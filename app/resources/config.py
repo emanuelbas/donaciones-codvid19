@@ -1,9 +1,11 @@
 from flask import render_template, abort, url_for, request, redirect, session, flash
 from app.models.configuracion import Config
+from app.helpers import permisos
 from datetime import date
 
 
 def vista_configuracion():
+    permisos.validarPermisos('ver_configuracion_del_sitio');
     actual = Config.all()
     if request.method == 'POST':
         datos = request.form

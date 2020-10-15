@@ -11,3 +11,11 @@ class User(db.Model):
 
     def all():
         return User.query.all()
+
+    #Completar
+    def tiene_rol(id_usuario, nombre_rol):
+    	return True
+
+    #Completar
+    def tiene_permiso(id_usuario, nombre_permiso):
+    	return True
