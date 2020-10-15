@@ -3,7 +3,11 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
+<<<<<<< HEAD
+-- Tiempo de generación: 08-10-2020 a las 23:02:33
+=======
 -- Tiempo de generación: 10-10-2020 a las 16:16:17
+>>>>>>> cae8337fbb32c6967445ebf1d268d0ed2abb5083
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.2.33
 
@@ -24,6 +28,8 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+<<<<<<< HEAD
+=======
 -- Estructura de tabla para la tabla `configuracion`
 --
 
@@ -46,6 +52,7 @@ INSERT INTO `configuracion` (`id`, `titulo`, `descripcion`, `mail`, `activo`, `c
 -- --------------------------------------------------------
 
 --
+>>>>>>> cae8337fbb32c6967445ebf1d268d0ed2abb5083
 -- Estructura de tabla para la tabla `usuario`
 --
 
@@ -69,12 +76,15 @@ INSERT INTO `usuario` (`id`, `usuario`, `clave`) VALUES
 --
 
 --
+<<<<<<< HEAD
+=======
 -- Indices de la tabla `configuracion`
 --
 ALTER TABLE `configuracion`
   ADD PRIMARY KEY (`id`);
 
 --
+>>>>>>> cae8337fbb32c6967445ebf1d268d0ed2abb5083
 -- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
@@ -85,12 +95,15 @@ ALTER TABLE `usuario`
 --
 
 --
+<<<<<<< HEAD
+=======
 -- AUTO_INCREMENT de la tabla `configuracion`
 --
 ALTER TABLE `configuracion`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+>>>>>>> cae8337fbb32c6967445ebf1d268d0ed2abb5083
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`

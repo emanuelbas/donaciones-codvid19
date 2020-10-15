@@ -12,18 +12,18 @@ def validarPermisos(un_permiso):
 	if not authenticated(session):
 		abort(401)
 	
-	#if no_tiene_el_permiso_solicitado(un_permiso):
-	#	abort(401)
+	if no_tiene_el_permiso_solicitado(un_permiso):
+		abort(401)
 	return
 
 
 ########   Funciones auxiliares   ########
 
 def no_es_admin():
-	return not User.tiene_rol(session["id"], 'administrador')
+	return not User.tiene_rol(session["usuario"], 'administrador')
 
 def sitio_cerrado():
 	return not Config.habilitado()
 
 def no_tiene_el_permiso_solicitado(un_permiso):
-	return not User.tiene_permiso(session[id], un_permiso)
+	return not User.tiene_permiso(session["usuario"], un_permiso)
