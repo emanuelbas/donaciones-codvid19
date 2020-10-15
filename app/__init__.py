@@ -21,11 +21,18 @@ app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://"+Config.DB_USER+":"+Co
 db.init_app(app)
 
 
+#session agregado por maxi
+app.config['SESSION_TYPE'] = 'filesystem'
+Session(app)
+
+#Autenticacion agregado por maxi
+app.add_url_rule('/login', 'login', user.login)
+app.add_url_rule('/backend','user_backend',user.backend, methods=['POST'])
+app.add_url_rule('/logout', 'logout', user.logout)
 
 
 
 # ruta a quienes somos
-
 app.add_url_rule('/quienesomos', 'quienesomos', user.quienesomos, methods=["POST", "GET"])
 
 #ruta a centros
@@ -37,6 +44,9 @@ app.add_url_rule('/login', 'login', user.login)
 
 #CONFIGURACION
 app.add_url_rule('/configuracion/vista_configuracion', 'vista_configuracion', config.vista_configuracion, methods=["POST", "GET"])
+
+#ruta al backend
+app.add_url_rule('/backend', 'backend', user.backend, methods=["POST", "GET"])
 
 
 #index

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,8 +9,8 @@
   <link rel="icon" type="image/png" href="../static/images/favicons.png">
   <title>Covid-19</title>
 </head>
-
 <body>
+
   <nav class="navbar navbar-expand-lg navbar navbar-dark">
     <a  title="Logo" href="/"><img class="gba-logo" src="../static/images/logo_gba_emergencia.png" alt="Logo de GBA Emergencia" /></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -32,6 +31,9 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('vista_configuracion')}}">Configuracion</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('logout')}}">cerrarsesion</a>
           </li>
         </ul>
     </div>
