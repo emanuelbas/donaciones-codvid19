@@ -3,23 +3,42 @@ from sqlalchemy import update
 from datetime import datetime
 from flask import session
 
+
 class User(db.Model):
     __tablename__ = 'usuario'
     id = db.Column(db.Integer, primary_key=True)
     usuario = db.Column(db.String)
     clave = db.Column(db.String)
+    nombre = db.Column(db.String)
+    apellido = db.Column(db.String)
+    email = db.Column(db.String)
+    activo = db.Column(db.Integer)
+
     def all():
         return User.query.all()
 
+    def get_by_id(id):
+        return User.query.get(id)
 
-    #COMPLETAR: Debe devolver True/False
+    def edit(i, us, cl, no, ap, em, ac):
+        datos = User.query.filter_by(id=i).first()
+        datos.usuario = us
+        datos.clave = cl
+        datos.nombre = no
+        datos.apellido = ap
+        datos.email = em
+        datos.activo = ac
+        db.session.commit()
+        return datos
+
+    # COMPLETAR: Debe devolver True/False
+
     def tiene_rol(usuario, nombre_rol):
-    	return True
+        return True
 
-    #COMPLETAR: Debe devolver True/False
+    # COMPLETAR: Debe devolver True/False
     def tiene_permiso(usuario, nombre_permiso):
-    	return True
+        return True
 
     def get_by_email_and_pass(usuario, clave):
-                return User.query.filter_by(usuario=usuario, clave=clave).first()
-
+        return User.query.filter_by(usuario=usuario, clave=clave).first()

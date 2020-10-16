@@ -9,7 +9,7 @@ def vista_configuracion():
     actual = Config.all()
     if request.method == 'POST':
         datos = request.form
-        print(datos)  # se muestran todos los datos por termina
+        #print(datos)  # se muestran todos los datos por termina
         Config.edit(datos["titulo"], datos["descripcion"],
                     datos["mail"], datos["activo"], datos["cantPagina"])
         mensaje = "Se modifico la tabla configuracion correctamente"
