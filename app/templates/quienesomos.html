@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
 {% for u in usuario %}
-<h1> {{ u.usuario }}</h1>
-<h1> {{ u.clave }} </h1>
+<h1> {{ u.usuario }} {{ u.clave }}</h1>
+
 {% endfor %}
 {% endblock %}

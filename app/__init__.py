@@ -11,46 +11,50 @@ from app.resources import config
 # Configuración inicial de la app
 app = Flask(__name__)
 app.config.from_object(Config)
-#session
+# session
 app.config['SESSION_TYPE'] = 'filesystem'
 Session(app)
 
-#config db
+# config db
 app.secret_key = 'hola'
-app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://"+Config.DB_USER+":"+Config.DB_PASS+"@"+Config.DB_HOST+"/"+Config.DB_NAME
+app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://" + \
+    Config.DB_USER+":"+Config.DB_PASS+"@"+Config.DB_HOST+"/"+Config.DB_NAME
 db.init_app(app)
 
 
-#session agregado por maxi
+# session agregado por maxi
 app.config['SESSION_TYPE'] = 'filesystem'
 Session(app)
 
-#Autenticacion agregado por maxi
+# Autenticacion agregado por maxi
 app.add_url_rule('/login', 'login', user.login)
-app.add_url_rule('/backend','user_backend',user.backend, methods=['POST'])
+app.add_url_rule('/backend', 'user_backend', user.backend, methods=['POST'])
 app.add_url_rule('/logout', 'logout', user.logout)
 
 
-
 # ruta a quienes somos
-app.add_url_rule('/quienesomos', 'quienesomos', user.quienesomos, methods=["POST", "GET"])
+app.add_url_rule('/quienesomos', 'quienesomos',
+                 user.quienesomos, methods=["POST", "GET"])
 
-#ruta a centros
+# ruta a centros
 app.add_url_rule('/centros', 'centros', user.centros, methods=["POST", "GET"])
 
 
-#ruta a login
+# ruta a login
 app.add_url_rule('/login', 'login', user.login)
 
-#CONFIGURACION
-app.add_url_rule('/configuracion/vista_configuracion', 'vista_configuracion', config.vista_configuracion, methods=["POST", "GET"])
+# CONFIGURACION
+app.add_url_rule('/configuracion/vista_configuracion', 'vista_configuracion',
+                 config.vista_configuracion, methods=["POST", "GET"])
+# usuario
+app.add_url_rule('/usuario/editarUsuario/<id>', 'edit_usuario', user.editarUsuario, methods=['POST', 'GET'])
+app.add_url_rule('/usuario/index_usuario', 'index_usuario', user.index_usuario, methods=["POST", "GET"])
 
-#ruta al backend
+# ruta al backend
 app.add_url_rule('/backend', 'backend', user.backend, methods=["POST", "GET"])
 
 
-#index
+# index
 @app.route('/')
 def index():
     return render_template('index.html')
-

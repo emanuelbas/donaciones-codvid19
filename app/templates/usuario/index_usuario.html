@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1 class="text-center py-5">Editar Usuario</h1>
+{% for u in usuario %}
+<div>
+    
+    <div class="container pb-5">
+        <h2> Usuario: {{ u.usuario }} </h2>
+        <h2> Clave: {{ u.clave}} </h2>
+        <h2> Email: {{ u.email}} </h2>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('edit_usuario', id=u.id)}}">Editar Usuario</a>
+        </li>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
