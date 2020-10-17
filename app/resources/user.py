@@ -17,13 +17,15 @@ def login():
 
 # agregado para el login
 
-
+# A tener en cuenta!
+# When the session data is stored in the server you can be sure that any 
+# data that you write to it is as secure as your server.
 def backend():
     params = request.form
     usuario = User.get_by_email_and_pass(params['usuario'], params['clave'])
     if usuario:
         mensaje = "se logueo correctamente"
-        session['usuario'] = request.form['usuario']
+        session['usuario'] = usuario
         print(session['usuario'])
         return render_template('backend.html', mensaje=mensaje)
     else:

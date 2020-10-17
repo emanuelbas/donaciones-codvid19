@@ -1,5 +1,5 @@
 from app.db import db
-from sqlalchemy import update, ForeignKey, PrimaryKeyConstraint
+from sqlalchemy import ForeignKey, PrimaryKeyConstraint
 from app.models.usuario import User
 from app.models.rol import Rol
 
