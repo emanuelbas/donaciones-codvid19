@@ -11,16 +11,14 @@
 </head>
 <body>
 
-  {% block navbar %}
-    {% include "navbar.html" %}
-  {% endblock %} 
-    <!--  empieza el codigo en phyton para empezar el bloque a mostrar-->
-  {% block content %}  
+  
+  {% include "navbar.html" %}
+  <!--  empieza el codigo en phyton para empezar el bloque a mostrar-->
+  {% block content %}
   {% endblock %}
   <!--  empieza el codigo en phyton para empezar el bloque a mostrar-->
-  {% block footer %}
-    {% include "footer.html" %}
-  {% endblock %} 
+  {% include "footer.html" %}
+
 <script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
 </body>
 
