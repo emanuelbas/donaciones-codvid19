@@ -1,63 +1,60 @@
-from os import path, environ
-from flask import Flask, render_template, g
+from os import path
+from flask import Flask, url_for, render_template, g, request, session, flash, redirect
+from app.models.usuario import User
+from app.config import Config
+from app.db import db
 from flask_session import Session
-from config import config
-from app import db
-from app.resources import issue
 from app.resources import user
-from app.resources import auth
-from app.resources.api import issue as api_issue
-from app.helpers import handler
-from app.helpers import auth as helper_auth
+from app.resources import config
+#from flask_mysqldb import MySQL
+
+# Configuración inicial de la app
+app = Flask(__name__)
+app.config.from_object(Config)
+# session
+app.config['SESSION_TYPE'] = 'filesystem'
+Session(app)
+
+# config db
+app.secret_key = 'hola'
+app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://" + \
+    Config.DB_USER+":"+Config.DB_PASS+"@"+Config.DB_HOST+"/"+Config.DB_NAME
+db.init_app(app)
 
 
-def create_app(environment="development"):
-    # Configuración inicial de la app
-    app = Flask(__name__)
+# session agregado por maxi
+app.config['SESSION_TYPE'] = 'filesystem'
+Session(app)
 
-    # Carga de la configuración
-    env = environ.get("FLASK_ENV", environment)
-    app.config.from_object(config[env])
+# Autenticacion agregado por maxi
+app.add_url_rule('/login', 'login', user.login)
+app.add_url_rule('/backend', 'user_backend', user.backend, methods=['POST'])
+app.add_url_rule('/logout', 'logout', user.logout)
 
-    # Server Side session
-    app.config["SESSION_TYPE"] = "filesystem"
-    Session(app)
 
-    # Configure db
-    db.init_app(app)
+# ruta a quienes somos
+app.add_url_rule('/quienesomos', 'quienesomos',
+                 user.quienesomos, methods=["POST", "GET"])
 
-    # Funciones que se exportan al contexto de Jinja2
-    app.jinja_env.globals.update(is_authenticated=helper_auth.authenticated)
+# ruta a centros
+app.add_url_rule('/centros', 'centros', user.centros, methods=["POST", "GET"])
 
-    # Autenticación
-    app.add_url_rule("/iniciar_sesion", "auth_login", auth.login)
-    app.add_url_rule("/cerrar_sesion", "auth_logout", auth.logout)
-    app.add_url_rule(
-        "/autenticacion", "auth_authenticate", auth.authenticate, methods=["POST"]
-    )
 
-    # Rutas de Consultas
-    app.add_url_rule("/consultas", "issue_index", issue.index)
-    app.add_url_rule("/consultas", "issue_create", issue.create, methods=["POST"])
-    app.add_url_rule("/consultas/nueva", "issue_new", issue.new)
+# ruta a login
+app.add_url_rule('/login', 'login', user.login)
 
-    # Rutas de Usuarios
-    app.add_url_rule("/usuarios", "user_index", user.index)
-    app.add_url_rule("/usuarios", "user_create", user.create, methods=["POST"])
-    app.add_url_rule("/usuarios/nuevo", "user_new", user.new)
+# CONFIGURACION
+app.add_url_rule('/configuracion/vista_configuracion', 'vista_configuracion',
+                 config.vista_configuracion, methods=["POST", "GET"])
+# usuario
+app.add_url_rule('/usuario/editarUsuario/<id>', 'edit_usuario', user.editarUsuario, methods=['POST', 'GET'])
+app.add_url_rule('/usuario/index_usuario', 'index_usuario', user.index_usuario, methods=["POST", "GET"])
 
-    # Ruta para el Home (usando decorator)
-    @app.route("/")
-    def home():
-        return render_template("home.html")
+# ruta al backend
+app.add_url_rule('/backend', 'backend', user.backend, methods=["POST", "GET"])
 
-    # Rutas de API-rest
-    app.add_url_rule("/api/consultas", "api_issue_index", api_issue.index)
 
-    # Handlers
-    app.register_error_handler(404, handler.not_found_error)
-    app.register_error_handler(401, handler.unauthorized_error)
-    # Implementar lo mismo para el error 500 y 401
-
-    # Retornar la instancia de app configurada
-    return app
+# index
+@app.route('/')
+def index():
+    return render_template('index.html')

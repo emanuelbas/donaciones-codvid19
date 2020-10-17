@@ -1,33 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    {% block head %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
-    <title>{% block title %}{% endblock %}</title>
-    {% endblock %}
-  </head>
-  <body>
-    <div id="navbar">
-      {% block navbar %}
-      {% endblock %}
-    </div>
-    <div id="content">
-      {% with messages = get_flashed_messages() %}
-        {% if messages %}
-          <ul class=flashes>
-          {% for message in messages %}
-            <li>{{ message }}</li>
-          {% endfor %}
-          </ul>
-        {% endif %}
-      {% endwith %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--link de BOOTSTRAP-->
+  <link rel="stylesheet"href="{{url_for('static', filename = 'css/bootstrap.min.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css')}}" />
+  <link rel="icon" type="image/png" href="../static/images/favicons.png">
+  <title>Covid-19</title>
+</head>
+<body>
 
-      {% block content %}
-      {% endblock %}
-    </div>
-    <div id="footer">
-      {% block footer %}
-      {% endblock %}
-    </div>
-  </body>
+  
+  {% include "navbar.html" %}
+  <!--  empieza el codigo en phyton para empezar el bloque a mostrar-->
+  {% block content %}
+  {% endblock %}
+  <!--  empieza el codigo en phyton para empezar el bloque a mostrar-->
+  {% include "footer.html" %}
+
+<script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
+</body>
+
 </html>

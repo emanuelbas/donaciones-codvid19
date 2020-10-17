@@ -1,0 +1,53 @@
+
+
+/* Formating Body area */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #444;
+}
+
+/* Formating Header area */
+nav {
+  background-color: #009aae;
+}
+
+.gba-logo {
+	height: 90px;
+	padding: 3%;
+}
+
+/* Formating Titles */
+h1 {
+  font-size: 35px;
+  color: #00ADC1;
+}
+
+h2 {
+  color: #00ADC1;
+}
+
+/* Formating Forms */
+
+form label {
+	color: #00ADC1;
+}
+
+/* Estaria bueno */
+form input {
+	border: #00ADC1;
+}
+
+footer {
+  position: fixed;
+  bottom:0;
+  background-color: #f0f0f0;
+  width: 100%;
+  left: 0;
+  
+}
+
+footer p {
+  text-align: center;
+}

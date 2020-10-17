@@ -1,0 +1,53 @@
+from app.db import db
+from datetime import datetime
+from flask import session
+
+class User(db.Model):
+    __tablename__ = 'usuario'
+    id = db.Column(db.Integer, primary_key=True)
+    usuario = db.Column(db.String)
+    clave = db.Column(db.String)
+    nombre = db.Column(db.String)
+    apellido = db.Column(db.String)
+    email = db.Column(db.String)
+    activo = db.Column(db.Integer)
+    fecha_actualizacion = db.Column(db.String)
+    fecha_creacion = db.Column(db.String)
+
+    def all():
+        return User.query.all()
+
+    def get_by_id(id):
+        return User.query.get(id)
+
+    def edit(i, us, cl, no, ap, em, ac):
+        datos = User.query.filter_by(id=i).first()
+        datos.usuario = us
+        datos.clave = cl
+        datos.nombre = no
+        datos.apellido = ap
+        datos.email = em
+        datos.activo = ac
+        db.session.commit()
+        return datos
+
+    # https://flask-sqlalchemy.palletsprojects.com/en/2.x/queries/
+    def create(us,cl,no,ap,em,ac):
+        today = datetime.now()
+        nuevo_usuario = User(usuario = us, clave=cl, nombre = no, apellido=ap, email=em, activo= True, fecha_actualizacion= today, fecha_creacion = today)
+        db.session.add (nuevo_usuario)
+        db.session.commit()
+
+
+    # COMPLETAR: Debe devolver True/False
+
+    def tiene_rol(user_id, rol_name):
+        return True
+
+    # COMPLETAR: Debe devolver True/False
+    def tiene_permiso(user_id, permiso_id):
+        # Necesito sacar de Usuario_tiene_rol(user_id) X Rol X (permis_id) Rol_tiene_permiso
+        return True
+
+    def get_by_email_and_pass(usuario, clave):
+        return User.query.filter_by(usuario=usuario, clave=clave).first()
