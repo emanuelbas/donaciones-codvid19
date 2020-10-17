@@ -29,7 +29,7 @@ def backend():
         print(session['usuario'])
         return render_template('backend.html', mensaje=mensaje)
     else:
-        mensaje = "el usuario no pudo loguearse porque no existe"
+        mensaje = "el usuario no pudo loguearse"
         return render_template('/auth/login.html', mensaje=mensaje)
         # return redirect( url_for('index'))
 
@@ -55,7 +55,7 @@ def index_usuario():
     return render_template('usuario/index_usuario.html', usuario=usuario)
 
 
-#agregado para el caso de activo/desactivo
+#funciones agregadas para el caso de activo/desactivo
 def searchEstado(v):
     v = str(v)
     uss=[]
@@ -64,3 +64,13 @@ def searchEstado(v):
     elif(v.lower() == 'bloqueado'):
         uss += User.BySate(0)
     return uss
+
+def states():
+    if not authenticated(session):
+        abort(401)
+    if not usuarioTienePermisoDe('usuario_index'):
+        return render_template('vistasErrores/errorPermisos.html', permiso='usuario_index')
+    v = User.change_status(request.args.get('email'), request.args.get('activo'))
+    if(not v):
+        flash("Hubo un error")
+
