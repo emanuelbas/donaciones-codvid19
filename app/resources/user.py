@@ -5,7 +5,6 @@ from datetime import date
 
 def quienesomos():
     usuario = User.all()
-    print(usuario)
     return render_template('quienesomos.html', usuario=usuario)
 
 
@@ -22,7 +21,6 @@ def login():
 def backend():
     params = request.form
     usuario = User.get_by_email_and_pass(params['usuario'], params['clave'])
-    # print(usuario)
     if usuario:
         mensaje = "se logueo correctamente"
         session['usuario'] = request.form['usuario']
