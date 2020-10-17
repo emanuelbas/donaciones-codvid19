@@ -53,3 +53,14 @@ def editarUsuario(id):
 def index_usuario():
     usuario = User.all()
     return render_template('usuario/index_usuario.html', usuario=usuario)
+
+
+#agregado para el caso de activo/desactivo
+def searchEstado(v):
+    v = str(v)
+    uss=[]
+    if(v.lower() == 'activo'):
+        uss = User.BySate(1)
+    elif(v.lower() == 'bloqueado'):
+        uss += User.BySate(0)
+    return uss
