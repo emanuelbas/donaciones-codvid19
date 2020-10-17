@@ -47,7 +47,12 @@
   <!--  empieza el codigo en phyton para empezar el bloque a mostrar-->
   {% block content %}
   {% endblock %}
-  <!--  empieza el codigo en phyton para empezar el bloque a mostrar--> 
+  <!--  empieza el codigo en phyton para empezar el bloque a mostrar-->
+  <footer id="footer">
+    {% block footer %}
+      {% include "footer.html" %}
+    {% endblock %}
+  </footer> 
 <script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
 </body>
 
