@@ -49,6 +49,7 @@ app.add_url_rule('/configuracion/vista_configuracion', 'vista_configuracion',
 # usuario
 app.add_url_rule('/usuario/editarUsuario/<id>', 'edit_usuario', user.editarUsuario, methods=['POST', 'GET'])
 app.add_url_rule('/usuario/index_usuario', 'index_usuario', user.index_usuario, methods=["POST", "GET"])
+app.add_url_rule('/usuario/crear_usuario', 'crear_usuario', user.crear_usuario, methods=["POST", "GET"])
 
 # ruta al backend
 app.add_url_rule('/backend', 'backend', user.backend, methods=["POST", "GET"])

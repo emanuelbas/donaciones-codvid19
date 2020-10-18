@@ -32,7 +32,7 @@ class User(db.Model):
         return datos
 
     # https://flask-sqlalchemy.palletsprojects.com/en/2.x/queries/
-    def create(us,cl,no,ap,em,ac):
+    def create(us,cl,no,ap,em):
         today = datetime.now()
         nuevo_usuario = User(usuario = us, clave=cl, nombre = no, apellido=ap, email=em, activo= True, fecha_actualizacion= today, fecha_creacion = today)
         db.session.add (nuevo_usuario)

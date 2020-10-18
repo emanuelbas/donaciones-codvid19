@@ -53,3 +53,12 @@ def editarUsuario(id):
 def index_usuario():
     usuario = User.all()
     return render_template('usuario/index_usuario.html', usuario=usuario)
+
+def crear_usuario():
+    if request.method == 'POST':
+        u = request.form
+        User.create(u['usuario'], u['clave'], u['nombre'], u['apellido'], u['email'])
+        mensaje = "Usuario creado exitosamente"
+        return render_template('usuario/crear_usuario.html', mensaje=mensaje)
+    else:
+        return render_template('usuario/crear_usuario.html')
