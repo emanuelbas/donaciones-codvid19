@@ -56,29 +56,13 @@ def index_usuario():
     usuario = User.all()
     return render_template('usuario/index_usuario.html', usuario=usuario)
 
-def new_usuario():
-
-<<<<<<< HEAD
-    if request.method == 'POST':
-        u = request.form
-        User.new(u['usuario'], u['clave'], u['nombre'], u['apellido'], u['email'], u['activo'])
-        mensaje = " Se agrego el usuario correctamente"
-        return render_template('usuario/new_usuario.html', mensaje=mensaje)
-    else:
-        return render_template('usuario/new_usuario.html')
-
-def delete_usuario(id):
-    usuario = User.all()
-    User.delete(id)
-    #return render_template('usuario/index_usuario.html', usuario=usuario)
-    return redirect(url_for('index_usuario', usuario=usuario))
-=======
 def crear_usuario():
     if request.method == 'POST':
         u = request.form
         User.create(u['usuario'], u['clave'], u['nombre'], u['apellido'], u['email'])
         mensaje = "Usuario creado exitosamente"
-        return render_template('usuario/crear_usuario.html', mensaje=mensaje)
+        lista_de_usuarios = User.all()
+        return render_template('usuario/index_usuario.html', usuario = lista_de_usuarios)
     else:
         return render_template('usuario/crear_usuario.html')
 
@@ -106,4 +90,4 @@ def states():
     v = User.change_status(request.args.get('email'), request.args.get('activo'))
     if(not v):
         flash("Hubo un error")
->>>>>>> 4cff957018d881d1329f82cbbae0ad654a9efd23
+

@@ -13,6 +13,8 @@ class User(db.Model):
     apellido = db.Column(db.String)
     email = db.Column(db.String)
     activo = db.Column(db.Integer)
+    fecha_actualizacion = db.Column(db.String)
+    fecha_creacion = db.Column(db.String)
 
     def all():
         return User.query.all()
