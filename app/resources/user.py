@@ -58,6 +58,7 @@ def index_usuario():
 
 def new_usuario():
 
+<<<<<<< HEAD
     if request.method == 'POST':
         u = request.form
         User.new(u['usuario'], u['clave'], u['nombre'], u['apellido'], u['email'], u['activo'])
@@ -71,3 +72,32 @@ def delete_usuario(id):
     User.delete(id)
     #return render_template('usuario/index_usuario.html', usuario=usuario)
     return redirect(url_for('index_usuario', usuario=usuario))
+=======
+def crear_usuario():
+    if request.method == 'POST':
+        u = request.form
+        User.create(u['usuario'], u['clave'], u['nombre'], u['apellido'], u['email'])
+        mensaje = "Usuario creado exitosamente"
+        return render_template('usuario/crear_usuario.html', mensaje=mensaje)
+    else:
+        return render_template('usuario/crear_usuario.html')
+
+#funciones agregadas para el caso de activo/desactivo
+def searchEstado(v):
+    v = str(v)
+    uss=[]
+    if(v.lower() == 'activo'):
+        uss = User.BySate(1)
+    elif(v.lower() == 'bloqueado'):
+        uss += User.BySate(0)
+    return uss
+
+def states():
+    if not authenticated(session):
+        abort(401)
+    if not usuarioTienePermisoDe('usuario_index'):
+        return render_template('vistasErrores/errorPermisos.html', permiso='usuario_index')
+    v = User.change_status(request.args.get('email'), request.args.get('activo'))
+    if(not v):
+        flash("Hubo un error")
+>>>>>>> 4cff957018d881d1329f82cbbae0ad654a9efd23

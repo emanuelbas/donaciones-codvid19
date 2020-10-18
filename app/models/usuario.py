@@ -30,10 +30,19 @@ class User(db.Model):
         datos.activo = ac
         db.session.commit()
         return datos
+<<<<<<< HEAD
     
     def new(us, cl, no, ap, em, ac):
         datos = User (usuario=us, clave=cl, nombre=no, apellido=ap, email=em, activo=ac)
         db.session.add (datos)
+=======
+
+    # https://flask-sqlalchemy.palletsprojects.com/en/2.x/queries/
+    def create(us,cl,no,ap,em):
+        today = datetime.now()
+        nuevo_usuario = User(usuario = us, clave=cl, nombre = no, apellido=ap, email=em, activo= True, fecha_actualizacion= today, fecha_creacion = today)
+        db.session.add (nuevo_usuario)
+>>>>>>> 4cff957018d881d1329f82cbbae0ad654a9efd23
         db.session.commit()
         return True
     
