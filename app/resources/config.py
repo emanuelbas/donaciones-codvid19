@@ -5,7 +5,7 @@ from datetime import date
 
 
 def vista_configuracion():
-    permisos.validarPermisos('ver_configuracion_del_sitio');
+    permisos.validar_permisos('ver_configuracion_del_sitio');
     actual = Config.all()
     if request.method == 'POST':
         datos = request.form

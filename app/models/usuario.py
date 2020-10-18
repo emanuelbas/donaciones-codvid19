@@ -59,10 +59,10 @@ class User(db.Model):
         db.session.commit()
         return True 
 
-    # COMPLETAR: Debe devolver True/False
-
     def tiene_rol(usuario, nombre_rol):
-        return True
+        roles_del_usuario = usuario.roles
+        roles_con_nombre_solicitado = [rol for rol in roles_del_usuario if rol.nombre == nombre_rol]
+        return roles_con_nombre_solicitado is not None
 
     # COMPLETAR: Debe devolver True/False
     def tiene_permiso(usuario, nombre_permiso):
@@ -74,9 +74,13 @@ class User(db.Model):
     
     def get_roles(id_usuario):
         return Usuario_tiene_rol.query.filter_by(usuario_id=id_usuario)
-        #OK, ahora tengo una lista de 
 
     def agregar_rol(usuario, rol):
         rol.usuarios.append(usuario)
+        db.session.commit()
+        return True
+
+    def quitar_rol(usuario,rol):
+        rol.usuarios.remove(usuario)
         db.session.commit()
         return True

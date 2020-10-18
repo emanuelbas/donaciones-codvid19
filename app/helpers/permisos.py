@@ -4,7 +4,7 @@ from app.models.configuracion import Config
 from app.models.usuario import User
 
 
-def validarPermisos(un_permiso):
+def validar_permisos(un_permiso):
 	if sitio_cerrado() and no_es_admin():
 		abort(503)
 
@@ -20,10 +20,11 @@ def validarPermisos(un_permiso):
 ########   Funciones auxiliares   ########
 
 def no_es_admin():
-	return not User.tiene_rol(session["usuario"], 'administrador')
+	return not User.tiene_rol(session["usuario"], 'admin')
 
 def sitio_cerrado():
 	return not Config.habilitado()
 
 def no_tiene_el_permiso_solicitado(un_permiso):
-	return not User.tiene_permiso(session["usuario"], un_permiso)
+	return False
+	#return not User.tiene_permiso(session["usuario"], un_permiso)

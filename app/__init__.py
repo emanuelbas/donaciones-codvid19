@@ -56,6 +56,17 @@ def create_app():
 	# ruta al backend
 	app.add_url_rule('/backend', 'backend', user.backend, methods=["POST", "GET"])
 
+	@app.errorhandler(404)
+	def page_not_found(e):
+		return render_template('errores/404.html'), 404
+
+	@app.errorhandler(503)
+	def page_not_found(e):
+		return render_template('errores/503.html'), 503
+
+	@app.errorhandler(401)
+	def page_not_found(e):
+		return render_template('errores/401.html'), 401
 
 	# index
 	@app.route('/')

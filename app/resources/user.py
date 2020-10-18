@@ -1,7 +1,7 @@
 from flask import render_template, abort, url_for, request, redirect, session, flash
 from app.models.usuario import User
 from datetime import date
-
+from app.helpers import permisos
 
 def quienesomos():
     usuario = User.all()
@@ -29,6 +29,7 @@ def backend():
         mensaje = "Se logueo correctamente"
         session['usuario'] = usuario
         print(session['usuario'])
+        permisos.validar_permisos('admin')
         return render_template('backend.html', mensaje=mensaje)
     else:
         mensaje = "No logro autenticarse, vuelva a intentarlo."

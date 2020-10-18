@@ -1,5 +1,4 @@
 from app.db import db
-from sqlalchemy import update
 from datetime import datetime
 
 
@@ -26,7 +25,8 @@ class Config(db.Model):
         db.session.commit()
         return datos
 
-    #COMPLETAR
+    def get_config():
+        return Config.query.filter_by(id=1).first()
+
     def habilitado():
-        #Devuelve true si el sitio esta habilitado
-        return True
+        return Config.query.filter_by(id=1).first().activo
