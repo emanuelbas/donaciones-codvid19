@@ -1,8 +1,22 @@
 {% extends "layout.html" %}
 {% block content %}
-<h2 class="text-center py-5">Usuario</h2>
+<h2 class="text-center py-5">Usuarios</h2>
 
 <div class="container">
+	<form name="usu" id="usu" action="{{ url_for('index_usuario')}}">
+        <div class="form-inline">
+            <label for="usuarios">Campos:</label><br>
+            <select class="form-control" name="campo" id="campo" onChange="seleccionarCampo()">
+                <option value="vacio">Seleccionar</option>
+                {% for u in usuarios %}
+                <option value="{{ u.id }}">{{ u.nombre }}</option>
+                {% endfor %}
+            </select><br>
+            <input name="best" id="sec" class="btn btn-info" type="submit" value="Buscar">
+		</div>
+  </form>
+  <br>
+
 	<div class="text-right">
 		<a href="{{ url_for('crear_usuario')}}" class="btn btn-info mb-2"> Agregar Usuario</a>
 	</div>
@@ -16,7 +30,7 @@
 	</tr>
 </thead>
 <tbody>
-{% for u in usuario %}
+	{% for u in usuario %}
 		<tr>
 	     	<td> {{ u.usuario }} </td>
 	     	<td> {{ u.clave }} </td>
@@ -26,8 +40,8 @@
                 <a href="" class="btn btn-danger">Eliminar Usuario</a>
             </td>
  		</tr>
-{% endfor %}
+	{% endfor %}
 </tbody>
- </table>
+</table>
 </div> 
 {% endblock %}
