@@ -1,20 +1,33 @@
 {% extends "layout.html" %}
 {% block content %}
-<h1 class="text-center py-5">Editar Usuario</h1>
+<h2 class="text-center py-5">Usuario</h2>
+
+<div class="container">
+	<div class="text-right">
+		<a href="" class="btn btn-info mb-2"> Agregar Usuario</a>
+	</div>
+<table class="table table-striped table-bordered bg-white table-sm" >
+<thead>
+	<tr>
+		<td>Usuario</td>
+		<td>Clave</td>
+		<td>Email</td>
+		<td>Operaciones</td>
+	</tr>
+</thead>
+<tbody>
 {% for u in usuario %}
-<div>
-    <div class="container pb-5">
-    	<li class="nav-item">
-        	Usuario: {{ u.usuario }}
-        </li>
-        <li class="nav-item">
-			Clave: {{ u.clave}}
-		</li>
-		<li class="nav-item">
-			Email: {{ u.email}}
-		</li>
-		<a class="" href="{{ url_for('edit_usuario', id=u.id)}}">Editar Usuario</a>
-    </div>
-</div>
+		<tr>
+	     	<td> {{ u.usuario }} </td>
+	     	<td> {{ u.clave }} </td>
+	     	<td> {{ u.email }} </td>
+            <td> 
+            	<a href="{{ url_for('edit_usuario', id=u.id)}}" class="btn btn-warning">Editar Usuario</a>
+                <a href="" class="btn btn-danger">Eliminar Usuario</a>
+            </td>
+ 		</tr>
 {% endfor %}
+</tbody>
+ </table>
+</div> 
 {% endblock %}
