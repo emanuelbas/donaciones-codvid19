@@ -64,6 +64,12 @@ def crear_usuario():
     else:
         return render_template('usuario/crear_usuario.html')
 
+def borrar(id):
+    mensaje= "Se borro el usuario"
+    User.delete(id)
+    usuarios = User.all()
+    return render_template('usuario/index_usuario.html', usuario=usuarios)
+
 #funciones agregadas para el caso de activo/desactivo
 def searchEstado(v):
     v = str(v)

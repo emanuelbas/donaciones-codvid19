@@ -37,6 +37,12 @@ class User(db.Model):
         nuevo_usuario = User(usuario = us, clave=cl, nombre = no, apellido=ap, email=em, activo= True, fecha_actualizacion= today, fecha_creacion = today)
         db.session.add (nuevo_usuario)
         db.session.commit()
+        return True
+
+    def delete(id):
+        User.query.filter_by(id=id).delete()
+        db.session.commit()
+        return True
 
 
     # COMPLETAR: Debe devolver True/False

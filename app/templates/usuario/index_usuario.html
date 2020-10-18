@@ -23,7 +23,7 @@
 	     	<td> {{ u.email }} </td>
             <td> 
             	<a href="{{ url_for('edit_usuario', id=u.id)}}" class="btn btn-warning">Editar Usuario</a>
-                <a href="" class="btn btn-danger">Eliminar Usuario</a>
+                <a href="{{ url_for('borrar_usuario', id=u.id)}}" class="btn btn-danger">Eliminar Usuario</a>
             </td>
  		</tr>
 {% endfor %}
