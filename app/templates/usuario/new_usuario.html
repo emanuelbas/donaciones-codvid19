@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1>Editar Usuario</h1>
+{% if mensaje %}
+<div class="alert alert-success" role="alert">
+    <ul>
+        <li>{{ mensaje }}</li>
+    </ul>
+</div>
+{% endif %}
+<div class="card-body">
+    <span class="card-text">
+        <form method="POST" enctype="multipart/form-data">
+            <section class="form-group">
+                <label for="titulo"> Usuario </label>
+                <input type="text" class="form-control form-control-lg rounded-0" name="usuario" id="usuario" required>
+            </section>
+
+            <section class="form-group">
+                <label for="contenido"> Clave </label>
+                <input type="text" class="form-control form-control-lg rounded-0" name="clave" id="clave" required>
+            </section>
+
+            <section class="form-group">
+                <label for="titulo"> Nombre </label>
+                <input type="text" class="form-control form-control-lg rounded-0" name="nombre" id="nombre" required>
+            </section>
+
+            <section class="form-group">
+                <label for="titulo"> Apellido </label>
+                <input type="text" class="form-control form-control-lg rounded-0" name="apellido" id="apellido"
+                 required>
+            </section>
+            <section class="form-group">
+                <label for="titulo"> Email </label>
+                <input type="text" class="form-control form-control-lg rounded-0" name="email" id="email" required>
+            </section>
+            <section class="form-group">
+                <label for="titulo"> Activo 1Si 0No </label>
+                <input type="text" class="form-control form-control-lg rounded-0" name="activo" id="activo" required>
+            </section>
+
+            <div class="text-right">
+                <a href="{{ url_for('index') }}" class="btn btn-white">Cancelar</a>
+                <button type="submit" class="btn btn-info">Aceptar</button>
+            </div>
+        </form>
+    </span>
+</div>
+{% endblock %}

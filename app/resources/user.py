@@ -5,6 +5,7 @@ from datetime import date
 
 def quienesomos():
     usuario = User.all()
+    print(usuario)
     return render_template('quienesomos.html', usuario=usuario)
 
 
@@ -17,19 +18,18 @@ def login():
 
 # agregado para el login
 
-# A tener en cuenta!
-# When the session data is stored in the server you can be sure that any 
-# data that you write to it is as secure as your server.
+
 def backend():
     params = request.form
     usuario = User.get_by_email_and_pass(params['usuario'], params['clave'])
+    # print(usuario)
     if usuario:
         mensaje = "se logueo correctamente"
-        session['usuario'] = usuario
+        session['usuario'] = request.form['usuario']
         print(session['usuario'])
         return render_template('backend.html', mensaje=mensaje)
     else:
-        mensaje = "el usuario no pudo loguearse"
+        mensaje = "el usuario no pudo loguearse porque no existe"
         return render_template('/auth/login.html', mensaje=mensaje)
         # return redirect( url_for('index'))
 
@@ -39,38 +39,35 @@ def logout():
     return redirect(url_for('index'))
 
 
-def editarUsuario(id):
+def edit_usuario(id):
     usuario = User.get_by_id(id)
     if request.method == 'POST':
         u = request.form
         User.edit(id, u['usuario'], u['clave'], u['nombre'], u['apellido'], u['email'], u['activo'])
         mensaje = "Se modifico el usuario correctamente"
         return render_template('usuario/editar_usuario.html', usuario=usuario, mensaje=mensaje)
+        #return redirect(url_for('edit_usuario', usuario=usuario, mensaje=mensaje))
     else:
         return render_template('usuario/editar_usuario.html', usuario=usuario)
+        #return redirect(url_for('edit_usuario', usuario=usuario))
 
 
 def index_usuario():
     usuario = User.all()
     return render_template('usuario/index_usuario.html', usuario=usuario)
 
+def new_usuario():
 
-#funciones agregadas para el caso de activo/desactivo
-def searchEstado(v):
-    v = str(v)
-    uss=[]
-    if(v.lower() == 'activo'):
-        uss = User.BySate(1)
-    elif(v.lower() == 'bloqueado'):
-        uss += User.BySate(0)
-    return uss
+    if request.method == 'POST':
+        u = request.form
+        User.new(u['usuario'], u['clave'], u['nombre'], u['apellido'], u['email'], u['activo'])
+        mensaje = " Se agrego el usuario correctamente"
+        return render_template('usuario/new_usuario.html', mensaje=mensaje)
+    else:
+        return render_template('usuario/new_usuario.html')
 
-def states():
-    if not authenticated(session):
-        abort(401)
-    if not usuarioTienePermisoDe('usuario_index'):
-        return render_template('vistasErrores/errorPermisos.html', permiso='usuario_index')
-    v = User.change_status(request.args.get('email'), request.args.get('activo'))
-    if(not v):
-        flash("Hubo un error")
-
+def delete_usuario(id):
+    usuario = User.all()
+    User.delete(id)
+    #return render_template('usuario/index_usuario.html', usuario=usuario)
+    return redirect(url_for('index_usuario', usuario=usuario))
