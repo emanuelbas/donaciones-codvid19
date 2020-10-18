@@ -1,5 +1,4 @@
 from app.db import db
-from sqlalchemy import update
 from datetime import datetime
 from flask import session
 

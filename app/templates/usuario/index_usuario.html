@@ -10,7 +10,8 @@
 <thead>
 	<tr>
 		<td>Usuario</td>
-		<td>Clave</td>
+		<td>Nombre</td>
+		<td>Apellido</td>
 		<td>Email</td>
 		<td>Operaciones</td>
 	</tr>
@@ -19,7 +20,8 @@
 {% for u in usuario %}
 		<tr>
 	     	<td> {{ u.usuario }} </td>
-	     	<td> {{ u.clave }} </td>
+	     	<td> {{ u.nombre }} </td>
+	     	<td> {{ u.apellido }} </td>
 	     	<td> {{ u.email }} </td>
             <td> 
             	<a href="{{ url_for('edit_usuario', id=u.id)}}" class="btn btn-warning">Editar Usuario</a>
