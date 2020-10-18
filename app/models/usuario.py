@@ -1,6 +1,15 @@
 from app.db import db
 from datetime import datetime
 from flask import session
+from app.models.rol import Rol
+
+# Siguiendo las diapo de la clase y este video https://www.youtube.com/watch?v=OvhoYbjtiKc
+# Hay un trucazo para generar la BD en el minuto 11:37
+roles = db.Table('usuario_tiene_rol',
+    db.Column('usuario_id', db.Integer, db.ForeignKey('usuario.id'), primary_key=True),
+    db.Column('rol_id', db.Integer, db.ForeignKey('rol.id'), primary_key=True)
+)
+
 
 
 class User(db.Model):
@@ -14,6 +23,10 @@ class User(db.Model):
     activo = db.Column(db.Integer)
     fecha_actualizacion = db.Column(db.String)
     fecha_creacion = db.Column(db.String)
+
+    # Voy a crear una relacion entre tablas
+    # Lleva como argumento las clases involucradas 
+    roles = db.relationship('Rol', secondary=roles, backref=db.backref('usuarios_con_el_rol', lazy = True), lazy='subquery')
 
     def all():
         return User.query.all()
@@ -57,3 +70,13 @@ class User(db.Model):
 
     def get_by_email_and_pass(usuario, clave):
         return User.query.filter_by(usuario=usuario, clave=clave).first()
+
+    
+    def get_roles(id_usuario):
+        return Usuario_tiene_rol.query.filter_by(usuario_id=id_usuario)
+        #OK, ahora tengo una lista de 
+
+    def agregar_rol(usuario, rol):
+        rol.usuarios.append(usuario)
+        db.session.commit()
+        return True

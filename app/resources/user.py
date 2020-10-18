@@ -91,3 +91,8 @@ def states():
     if(not v):
         flash("Hubo un error")
 
+def agregar_rol(usuario,rol):
+    User.agregar_rol(usuario,rol)
+    lista_de_usuarios = User.all()
+    return render_template('usuario/index_usuario.html', usuario = lista_de_usuarios)
+
