@@ -11,9 +11,9 @@
             <label for="usuarios">Campos:</label><br>
             <select class="form-control" name="campo" id="campo" onChange="seleccionarCampo()">
                 <option value="vacio">Seleccionar</option>
-                {% for u in usuarios %}
-                <option value="{{ u.id }}">{{ u.nombre }}</option>
-                {% endfor %}
+				<option value="nombre">nombre</option>
+				<option value="apellido">apellido</option>
+				<option value="activo">activo</option>
             </select><br>
             <input name="best" id="sec" class="btn btn-info" type="submit" value="Buscar">
 		</div>
