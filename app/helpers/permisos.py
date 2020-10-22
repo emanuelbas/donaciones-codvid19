@@ -1,6 +1,6 @@
 from flask import session, abort
 from app.helpers.auth import authenticated
-from app.models.configuracion import Config
+from app.models.configuracion import Configuracion
 from app.models.usuario import User
 
 

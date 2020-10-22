@@ -1,7 +1,17 @@
 {% extends "layout.html" %}
 {% block content %}
+		<div align="center">
+		{% for c in configuracion %}
+		<h1> Titulo: {{ c.titulo }} </h1>
+		<h1> Descripcion: {{ c.descripcion }} </h1>
+		
+		</div>
     <!--<h1> Informacion o fotos de Emergencias sanitarias</h1>-->
     	<div align="center">
     	<img  src="../static/images/img22.jpg">
-    	</div>
+		</div>
+		<div align="center">
+		<h1> mail de contacto: {{ c.mail }} </h1>
+		</div>
+		{% endfor %}
 {% endblock %}
