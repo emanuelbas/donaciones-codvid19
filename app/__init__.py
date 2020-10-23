@@ -80,8 +80,9 @@ def create_app():
     @app.route('/')
     def index():
         configuracion = Configuracion.get_config() #esto hay que poner en algunos def para que cuando este desactivado el user no pueda entrar
-        if configuracion.activo == 0:
-            return render_template('sitioDesactivado.html')
+ #       if configuracion.activo == 0:
+ #           return render_template('sitioDesactivado.html')
+ #  Creo que esta ventana siempre debe ser visible para que el admin pueda loguear
         return render_template('index.html', configuracion=configuracion)
 
     return app

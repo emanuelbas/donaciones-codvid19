@@ -60,8 +60,6 @@ class User(db.Model):
         return True 
 
     def tiene_rol(usuario, nombre_rol):
-
-        id_rol = Rol.query.filter_by(nombre=nombre_rol).first().id
         res = False
         for rol in usuario.roles:
             if rol.nombre == nombre_rol:
