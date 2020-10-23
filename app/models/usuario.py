@@ -30,6 +30,9 @@ class User(db.Model):
 
     def all():
         return User.query.all()
+    
+    def get_by_username(u):
+        return User.query.filter(User.usuario.contains(u)).first()
 
     def get_by_id(id):
         return User.query.get(id)
@@ -44,6 +47,9 @@ class User(db.Model):
         datos.activo = ac
         db.session.commit()
         return datos
+    
+    def get_config(ide):
+        return User.query.filter_by(id=ide).first()
 
 
     # https://flask-sqlalchemy.palletsprojects.com/en/2.x/queries/
