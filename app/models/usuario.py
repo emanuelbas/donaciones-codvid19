@@ -60,9 +60,13 @@ class User(db.Model):
         return True 
 
     def tiene_rol(usuario, nombre_rol):
-        roles_del_usuario = usuario.roles
-        roles_con_nombre_solicitado = [rol for rol in roles_del_usuario if rol.nombre == nombre_rol]
-        return roles_con_nombre_solicitado is not None
+
+        id_rol = Rol.query.filter_by(nombre=nombre_rol).first().id
+        res = False
+        for rol in usuario.roles:
+            if rol.nombre == nombre_rol:
+                res=True
+        return res
 
     # COMPLETAR: Debe devolver True/False
     def tiene_permiso(usuario, nombre_permiso):
