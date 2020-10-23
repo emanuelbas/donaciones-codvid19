@@ -14,12 +14,19 @@
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('quienesomos')}}">QUIENES SOMOS</a>
           </li>
+
+          {%if session['usuario'].tiene_permiso("site_config")%}
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('vista_configuracion')}}">CONFIGURACION</a>
           </li>
+          {%endif%}
+          
+          {%if session['usuario'].tiene_permiso("user_show")%}
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('index_usuario')}}">Manejo de usuarios</a>
           </li>
+          {%endif%}
+
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('logout')}}">CERRAR SESION</a>
           </li>
