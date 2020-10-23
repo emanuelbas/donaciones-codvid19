@@ -75,11 +75,13 @@ def create_app():
     def page_not_found(e):
         return render_template('errores/401.html'), 401
 
-    # index
+        # index
+
     @app.route('/')
     def index():
-        configuracion = Configuracion.all()
-        # print(configuracion)
+        configuracion = Configuracion.get_config() #esto hay que poner en algunos def para que cuando este desactivado el user no pueda entrar
+        if configuracion.activo == 0:
+            return render_template('sitioDesactivado.html')
         return render_template('index.html', configuracion=configuracion)
 
     return app
