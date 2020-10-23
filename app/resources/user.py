@@ -44,7 +44,7 @@ def backend():
     if usuario:
         mensaje = "Se logueo correctamente"
         session['usuario'] = usuario
-        #print(session['usuario'])
+        print(session['usuario'].usuario)
         permisos.validar_permisos('admin')
         return render_template('backend.html', mensaje=mensaje)
     else:
