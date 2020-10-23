@@ -2,18 +2,27 @@ from flask import render_template, abort, url_for, request, redirect, session, f
 from app.models.usuario import User
 from datetime import date
 from app.helpers import permisos
-
+from app.models.configuracion import Configuracion
 def quienesomos():
+    configuracion = Configuracion.get_config() #esto hay que poner en algunos def para que cuando este desactivado el user no pueda entrar
+    if configuracion.activo == 0:
+        return render_template('sitioDesactivado.html')
     usuario = User.all()
     print(usuario)
     return render_template('quienesomos.html', usuario=usuario)
 
 
 def centros():
+    configuracion = Configuracion.get_config() #esto hay que poner en algunos def para que cuando este desactivado el user no pueda entrar
+    if configuracion.activo == 0:
+        return render_template('sitioDesactivado.html')
     return render_template('centros.html')
 
 
 def login():
+    configuracion = Configuracion.get_config() #esto hay que poner en algunos def para que cuando este desactivado el user no pueda entrar
+    if configuracion.activo == 0:
+        return render_template('sitioDesactivado.html')
     return render_template('/auth/login.html')
 
 # agregado para el login
@@ -23,6 +32,9 @@ def login():
 # When the session data is stored in the server you can be sure that any 
 # data that you write to it is as secure as your server.
 def backend():
+    configuracion = Configuracion.get_config() #esto hay que poner en algunos def para que cuando este desactivado el user no pueda entrar
+    if configuracion.activo == 0:
+        return render_template('sitioDesactivado.html')
     params = request.form
     usuario = User.get_by_email_and_pass(params['usuario'], params['clave'])
     if usuario:
@@ -54,6 +66,9 @@ def edit_usuario(id):
 
 
 def index_usuario():
+    configuracion = Configuracion.get_config() #esto hay que poner en algunos def para que cuando este desactivado el user no pueda entrar
+    if configuracion.activo == 0:
+        return render_template('sitioDesactivado.html')
     usuario = User.all()
     return render_template('usuario/index_usuario.html', usuario=usuario)
 

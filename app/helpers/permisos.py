@@ -1,6 +1,6 @@
 from flask import session, abort
 from app.helpers.auth import authenticated
-from app.models.configuracion import Config
+from app.models.configuracion import Configuracion
 from app.models.usuario import User
 
 
@@ -23,7 +23,7 @@ def no_es_admin():
 	return not User.tiene_rol(session["usuario"], 'admin')
 
 def sitio_cerrado():
-	return not Config.habilitado()
+	return not Configuracion.habilitado()
 
 def no_tiene_el_permiso_solicitado(un_permiso):
 	return False

@@ -2,7 +2,7 @@ from app.db import db
 from datetime import datetime
 
 
-class Config(db.Model):
+class Configuracion(db.Model):
     __tablename__ = 'configuracion'
     id = db.Column(db.Integer, primary_key=True)
     titulo = db.Column(db.String)
@@ -12,10 +12,10 @@ class Config(db.Model):
     cantPagina = db.Column(db.Integer)
 
     def all():
-        return Config.query.all()
+        return Configuracion.query.all()
 
     def edit(ti, de, ma, ac, cant):
-        datos = Config.query.filter_by(id=1).first()
+        datos = Configuracion.query.filter_by(id=1).first()
         datos.titulo = ti
         datos.descripcion = de
         datos.mail = ma
@@ -26,7 +26,7 @@ class Config(db.Model):
         return datos
 
     def get_config():
-        return Config.query.filter_by(id=1).first()
+        return Configuracion.query.filter_by(id=1).first()
 
     def habilitado():
-        return Config.query.filter_by(id=1).first().activo
+        return Configuracion.query.filter_by(id=1).first().activo
