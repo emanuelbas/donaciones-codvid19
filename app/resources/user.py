@@ -2,14 +2,22 @@ from flask import render_template, abort, url_for, request, redirect, session, f
 from app.models.usuario import User
 from datetime import date
 from app.helpers import permisos
-
+from app.models.configuracion import Configuracion
 def quienesomos():
+    #configuracion = Configuracion.get_config() #esto hay que poner en algunos def para que cuando este desactivado el user no pueda entrar
+    #if configuracion.activo == 0:
+    #    return render_template('sitioDesactivado.html')
+    permisos.validar_permisos('')
     usuario = User.all()
     print(usuario)
     return render_template('quienesomos.html', usuario=usuario)
 
 
 def centros():
+    permisos.validar_permisos('')
+    #configuracion = Configuracion.get_config() #esto hay que poner en algunos def para que cuando este desactivado el user no pueda entrar
+    #if configuracion.activo == 0:
+    #    return render_template('sitioDesactivado.html')
     return render_template('centros.html')
 
 
@@ -23,13 +31,17 @@ def login():
 # When the session data is stored in the server you can be sure that any 
 # data that you write to it is as secure as your server.
 def backend():
+
     params = request.form
     usuario = User.get_by_email_and_pass(params['usuario'], params['clave'])
+    user = User.get_by_username(params['usuario'])
+    #print(user.activo)
+    if user.activo == 0:#preguntamos si el usuario esta desactivado
+        return render_template('usuarioDesactivar.html')
     if usuario:
         mensaje = "Se logueo correctamente"
         session['usuario'] = usuario
-        print(session['usuario'])
-        permisos.validar_permisos('admin')
+        permisos.validar_permisos('')
         return render_template('backend.html', mensaje=mensaje)
     else:
         mensaje = "No logro autenticarse, vuelva a intentarlo."
@@ -52,8 +64,21 @@ def edit_usuario(id):
         return render_template('usuario/editar_usuario.html', usuario=usuario)
         #return redirect(url_for('edit_usuario', usuario=usuario))
 
+def activar(id):
+    usuario = User.all()
+    User.activar_user(id)
+    return render_template('usuario/index_usuario.html', usuario=usuario)
+
+def desactivar(id):
+    usuario = User.all()
+    User.desactivar_user(id)
+    return render_template('usuario/index_usuario.html', usuario=usuario)
 
 def index_usuario():
+    #configuracion = Configuracion.get_config() #esto hay que poner en algunos def para que cuando este desactivado el user no pueda entrar
+    #if configuracion.activo == 0:
+    #    return render_template('sitioDesactivado.html')
+    permisos.validar_permisos('user_show')
     usuario = User.all()
     return render_template('usuario/index_usuario.html', usuario=usuario)
 
