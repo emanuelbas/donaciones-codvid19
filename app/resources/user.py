@@ -41,7 +41,7 @@ def backend():
     if usuario:
         mensaje = "Se logueo correctamente"
         session['usuario'] = usuario
-        permisos.validar_permisos('admin')
+        permisos.validar_permisos('')
         return render_template('backend.html', mensaje=mensaje)
     else:
         mensaje = "No logro autenticarse, vuelva a intentarlo."
@@ -78,6 +78,7 @@ def index_usuario():
     #configuracion = Configuracion.get_config() #esto hay que poner en algunos def para que cuando este desactivado el user no pueda entrar
     #if configuracion.activo == 0:
     #    return render_template('sitioDesactivado.html')
+    permisos.validar_permisos('user_show')
     usuario = User.all()
     return render_template('usuario/index_usuario.html', usuario=usuario)
 

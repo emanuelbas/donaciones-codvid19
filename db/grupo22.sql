@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-10-2020 a las 03:03:00
--- Versión del servidor: 10.1.38-MariaDB
--- Versión de PHP: 7.3.2
+-- Tiempo de generación: 23-10-2020 a las 20:08:07
+-- Versión del servidor: 10.4.14-MariaDB
+-- Versión de PHP: 7.2.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -42,7 +41,7 @@ CREATE TABLE `configuracion` (
 --
 
 INSERT INTO `configuracion` (`id`, `titulo`, `descripcion`, `mail`, `activo`, `cantPagina`) VALUES
-(1, 'Un Titulo', 'descripcion', 'centro@gmail.com', 1, 12);
+(1, 'Covid-19', 'Nuestro principal propósito es ayudar a quien más lo necesita', 'centro@gmail.com', 1, 5);
 
 -- --------------------------------------------------------
 
@@ -64,7 +63,12 @@ INSERT INTO `permiso` (`id`, `nombre`) VALUES
 (2, 'centro_new'),
 (3, 'centro_destroy'),
 (4, 'centro_update'),
-(5, 'centro_show');
+(5, 'centro_show'),
+(7, 'user_show'),
+(8, 'user_create'),
+(9, 'user_delete'),
+(10, 'user_edit'),
+(11, 'site_config');
 
 -- --------------------------------------------------------
 
@@ -96,6 +100,22 @@ CREATE TABLE `rol_tiene_permiso` (
   `permiso_id` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `rol_tiene_permiso`
+--
+
+INSERT INTO `rol_tiene_permiso` (`rol_id`, `permiso_id`) VALUES
+(1, 1),
+(1, 2),
+(1, 3),
+(1, 4),
+(1, 5),
+(1, 7),
+(1, 8),
+(1, 9),
+(1, 10),
+(1, 11);
+
 -- --------------------------------------------------------
 
 --
@@ -119,10 +139,8 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id`, `usuario`, `clave`, `nombre`, `apellido`, `email`, `activo`, `fecha_creacion`, `fecha_actualizacion`) VALUES
-(1, 'admin', '1234', 'administrador', 'administrador', 'admin@admin.com', 0, '0000-00-00', '0000-00-00'),
-(2, 'may', '1234', 'mayra', 'luengo', 'may@amail.com', 0, '0000-00-00', '0000-00-00'),
-(3, 'dario', '1234', 'Dario', 'Contrera', 'dario@mail.com', 0, '0000-00-00', '0000-00-00'),
-(4, 'ema', '1234', 'enmanuel', 'Bastons', 'ema@ema.com', 0, '0000-00-00', '0000-00-00');
+(8, 'admin', '1234', 'Homero', 'Simpson', 'hsimpson@gmail.com', 1, '2020-10-18', '2020-10-18'),
+(11, 'usuario', '1234', 'Ned', 'Flanders', 'flanders15@gmail.com', 1, '2020-10-18', '2020-10-18');
 
 -- --------------------------------------------------------
 
@@ -140,7 +158,8 @@ CREATE TABLE `usuario_tiene_rol` (
 --
 
 INSERT INTO `usuario_tiene_rol` (`usuario_id`, `rol_id`) VALUES
-(1, 1);
+(8, 1),
+(11, 2);
 
 --
 -- Índices para tablas volcadas
@@ -157,6 +176,12 @@ ALTER TABLE `configuracion`
 --
 ALTER TABLE `permiso`
   ADD PRIMARY KEY (`id`) USING BTREE;
+
+--
+-- Indices de la tabla `rol`
+--
+ALTER TABLE `rol`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `rol_tiene_permiso`
@@ -187,6 +212,24 @@ ALTER TABLE `usuario_tiene_rol`
 --
 ALTER TABLE `configuracion`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `permiso`
+--
+ALTER TABLE `permiso`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT de la tabla `rol`
+--
+ALTER TABLE `rol`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

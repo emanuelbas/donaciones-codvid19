@@ -86,9 +86,13 @@ class User(db.Model):
                 res = True
         return res
 
-    # COMPLETAR: Debe devolver True/False
     def tiene_permiso(usuario, nombre_permiso):
-        return True
+        res = False
+        for rol in usuario.roles:
+            for permiso in rol.permisos:
+                if permiso.nombre == nombre_permiso:
+                    res = True
+        return res
 
     def get_by_email_and_pass(usuario, clave):
         return User.query.filter_by(usuario=usuario, clave=clave).first()

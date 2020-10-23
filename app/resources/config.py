@@ -8,7 +8,7 @@ def vista_configuracion():
     #configuracion = Configuracion.get_config() #esto hay que poner en algunos def para que cuando este desactivado el user no pueda entrar
     #if configuracion.activo == 0:
     #    return render_template('sitioDesactivado.html')
-    permisos.validar_permisos('ver_configuracion_del_sitio');
+    permisos.validar_permisos('site_config');
     actual = Configuracion.all()
     if request.method == 'POST':
         datos = request.form
