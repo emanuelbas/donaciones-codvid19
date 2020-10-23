@@ -45,7 +45,7 @@
 			<td> {{ u.activo }} </td>
             <td> 
             	<a href="{{ url_for('edit_usuario', id=u.id)}}" class="btn btn-info">Editar Usuario</a>
-				<a href="{{ url_for('borrar_usuario', id=u.id)}}" class="btn btn-danger">Eliminar Usuario</a>
+				<a href="{{ url_for('borrar_usuario', id=u.id)}}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar el usuario?')">Eliminar Usuario</a>
 				{% if u.activo == 0 %}
 				<a href="{{ url_for('activar', id=u.id)}}" class="btn btn-info">Activar</a>
 				{% else %}
