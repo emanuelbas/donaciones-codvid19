@@ -58,6 +58,10 @@ def create_app():
                      user.crear_usuario, methods=["POST", "GET"])
     app.add_url_rule("/usuarios/borrar_usuario/<id>",
                      'borrar_usuario', user.borrar, methods=['GET'])
+    app.add_url_rule('/usuarios/activar/<id>', 'activar',
+                     user.activar,  methods=['POST', 'GET'])
+    app.add_url_rule('/usuarios/desactivar/<id>', 'desactivar',
+                     user.desactivar,  methods=['POST', 'GET'])
 
     # ruta al backend
     app.add_url_rule('/backend', 'backend', user.backend,
@@ -79,7 +83,8 @@ def create_app():
 
     @app.route('/')
     def index():
-        configuracion = Configuracion.get_config() #esto hay que poner en algunos def para que cuando este desactivado el user no pueda entrar
+        # esto hay que poner en algunos def para que cuando este desactivado el user no pueda entrar
+        configuracion = Configuracion.get_config()
         if configuracion.activo == 0:
             return render_template('sitioDesactivado.html')
         return render_template('index.html', configuracion=configuracion)

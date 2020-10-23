@@ -68,6 +68,15 @@ def edit_usuario(id):
         return render_template('usuario/editar_usuario.html', usuario=usuario)
         #return redirect(url_for('edit_usuario', usuario=usuario))
 
+def activar(id):
+    usuario = User.all()
+    User.activar_user(id)
+    return render_template('usuario/index_usuario.html', usuario=usuario)
+
+def desactivar(id):
+    usuario = User.all()
+    User.desactivar_user(id)
+    return render_template('usuario/index_usuario.html', usuario=usuario)
 
 def index_usuario():
     configuracion = Configuracion.get_config() #esto hay que poner en algunos def para que cuando este desactivado el user no pueda entrar

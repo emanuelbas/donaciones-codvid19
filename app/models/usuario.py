@@ -1,15 +1,17 @@
 from app.db import db
 from datetime import datetime
+from sqlalchemy import update
 from flask import session
 from app.models.rol import Rol
 
 # Siguiendo las diapo de la clase y este video https://www.youtube.com/watch?v=OvhoYbjtiKc
 # Hay un trucazo para generar la BD en el minuto 11:37
 roles = db.Table('usuario_tiene_rol',
-    db.Column('usuario_id', db.Integer, db.ForeignKey('usuario.id'), primary_key=True),
-    db.Column('rol_id', db.Integer, db.ForeignKey('rol.id'), primary_key=True)
-)
-
+                 db.Column('usuario_id', db.Integer, db.ForeignKey(
+                     'usuario.id'), primary_key=True),
+                 db.Column('rol_id', db.Integer, db.ForeignKey(
+                     'rol.id'), primary_key=True)
+                 )
 
 
 class User(db.Model):
@@ -25,12 +27,13 @@ class User(db.Model):
     fecha_creacion = db.Column(db.String)
 
     # Voy a crear una relacion entre tablas
-    # Lleva como argumento las clases involucradas 
-    roles = db.relationship('Rol', secondary=roles, backref=db.backref('usuarios_con_el_rol', lazy = True), lazy='subquery')
+    # Lleva como argumento las clases involucradas
+    roles = db.relationship('Rol', secondary=roles, backref=db.backref(
+        'usuarios_con_el_rol', lazy=True), lazy='subquery')
 
     def all():
         return User.query.all()
-    
+
     def get_by_username(u):
         return User.query.filter(User.usuario.contains(u)).first()
 
@@ -47,23 +50,34 @@ class User(db.Model):
         datos.activo = ac
         db.session.commit()
         return datos
-    
-    def get_config(ide):
-        return User.query.filter_by(id=ide).first()
 
+    # activar usuario
+    def activar_user(ide):
+        datos = User.query.filter_by(id=ide).first()
+        datos.activo = 1
+        db.session.commit()
+        return datos
+
+    # desactivar usuario
+    def desactivar_user(ide):
+        datos = User.query.filter_by(id=ide).first()
+        datos.activo = 0
+        db.session.commit()
+        return datos
 
     # https://flask-sqlalchemy.palletsprojects.com/en/2.x/queries/
-    def create(us,cl,no,ap,em):
+    def create(us, cl, no, ap, em):
         today = datetime.now()
-        nuevo_usuario = User(usuario = us, clave=cl, nombre = no, apellido=ap, email=em, activo= True, fecha_actualizacion= today, fecha_creacion = today)
-        db.session.add (nuevo_usuario)
+        nuevo_usuario = User(usuario=us, clave=cl, nombre=no, apellido=ap,
+                             email=em, activo=True, fecha_actualizacion=today, fecha_creacion=today)
+        db.session.add(nuevo_usuario)
         db.session.commit()
         return True
-    
+
     def delete(id):
         User.query.filter_by(id=id).delete()
         db.session.commit()
-        return True 
+        return True
 
     def tiene_rol(usuario, nombre_rol):
 
@@ -71,7 +85,7 @@ class User(db.Model):
         res = False
         for rol in usuario.roles:
             if rol.nombre == nombre_rol:
-                res=True
+                res = True
         return res
 
     # COMPLETAR: Debe devolver True/False
@@ -81,7 +95,6 @@ class User(db.Model):
     def get_by_email_and_pass(usuario, clave):
         return User.query.filter_by(usuario=usuario, clave=clave).first()
 
-    
     def get_roles(id_usuario):
         return Usuario_tiene_rol.query.filter_by(usuario_id=id_usuario)
 
@@ -90,7 +103,7 @@ class User(db.Model):
         db.session.commit()
         return True
 
-    def quitar_rol(usuario,rol):
+    def quitar_rol(usuario, rol):
         rol.usuarios.remove(usuario)
         db.session.commit()
         return True
