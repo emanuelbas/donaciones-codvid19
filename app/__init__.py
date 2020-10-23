@@ -58,6 +58,10 @@ def create_app():
                      user.crear_usuario, methods=["POST", "GET"])
     app.add_url_rule("/usuarios/borrar_usuario/<id>",
                      'borrar_usuario', user.borrar, methods=['GET'])
+    app.add_url_rule('/usuarios/activar/<id>', 'activar',
+                     user.activar,  methods=['POST', 'GET'])
+    app.add_url_rule('/usuarios/desactivar/<id>', 'desactivar',
+                     user.desactivar,  methods=['POST', 'GET'])
 
     # ruta al backend
     app.add_url_rule('/backend', 'backend', user.backend,

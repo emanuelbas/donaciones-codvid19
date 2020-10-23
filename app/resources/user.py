@@ -31,8 +31,13 @@ def login():
 # When the session data is stored in the server you can be sure that any 
 # data that you write to it is as secure as your server.
 def backend():
+
     params = request.form
     usuario = User.get_by_email_and_pass(params['usuario'], params['clave'])
+    user = User.get_by_username(params['usuario'])
+    #print(user.activo)
+    if user.activo == 0:#preguntamos si el usuario esta desactivado
+        return render_template('usuarioDesactivar.html')
     if usuario:
         mensaje = "Se logueo correctamente"
         session['usuario'] = usuario
@@ -59,6 +64,15 @@ def edit_usuario(id):
         return render_template('usuario/editar_usuario.html', usuario=usuario)
         #return redirect(url_for('edit_usuario', usuario=usuario))
 
+def activar(id):
+    usuario = User.all()
+    User.activar_user(id)
+    return render_template('usuario/index_usuario.html', usuario=usuario)
+
+def desactivar(id):
+    usuario = User.all()
+    User.desactivar_user(id)
+    return render_template('usuario/index_usuario.html', usuario=usuario)
 
 def index_usuario():
     #configuracion = Configuracion.get_config() #esto hay que poner en algunos def para que cuando este desactivado el user no pueda entrar

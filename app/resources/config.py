@@ -16,6 +16,8 @@ def vista_configuracion():
         Configuracion.edit(datos["titulo"], datos["descripcion"],
                     datos["mail"], datos["activo"], datos["cantPagina"])
         mensaje = "Se modifico la tabla configuracion correctamente"
-        return render_template("configuracion/configuracion.html", actual=actual, mensaje=mensaje)
+        #return render_template("configuracion/configuracion.html", actual=actual, mensaje=mensaje)
+        return redirect(url_for('index', mensaje=mensaje))
     elif request.method == 'GET':
         return render_template("configuracion/configuracion.html", actual=actual)
+        #return redirect(url_for('vista_configuracion', actual=actual))
