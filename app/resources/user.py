@@ -85,8 +85,11 @@ def index_usuario():
 def crear_usuario():
     if request.method == 'POST':
         u = request.form
-        User.create(u['usuario'], u['clave'], u['nombre'], u['apellido'], u['email'])
-        mensaje = "Usuario creado exitosamente"
+        res = User.create(u['usuario'], u['clave'], u['nombre'], u['apellido'], u['email'])
+        if res:
+            mensaje = "Usuario creado exitosamente"
+        else:
+            mensaje = "Hubo algun problema"
         lista_de_usuarios = User.all()
         return render_template('usuario/index_usuario.html', usuario = lista_de_usuarios)
     else:
