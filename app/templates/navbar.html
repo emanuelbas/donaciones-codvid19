@@ -1,39 +1,42 @@
+<div class="pb-3">
   <nav class="navbar navbar-expand-lg navbar navbar-dark">
     <a  title="Logo" href="/"><img class="gba-logo" src="{{ url_for('static', filename='images/logo_gba_emergencia.png') }}" alt="Logo de GBA Emergencia" /></a>
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
         <ul class="navbar-nav">
           {%if session['usuario'] is not defined%}
           <li class="nav-item">
             <a class="nav-link text-center" href="{{ url_for('login')}}">INICIAR SESION</a>
           </li>
           {%else%}
+
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('centros')}}">CENTROS DE AYUDA</a>
           </li>
+
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('quienesomos')}}">QUIENES SOMOS</a>
           </li>
 
-          {%if session['usuario'].tiene_permiso("site_config")%}
-          <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('vista_configuracion')}}">CONFIGURACION</a>
-          </li>
-          {%endif%}
-          
-          {%if session['usuario'].tiene_permiso("user_show")%}
-          <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('index_usuario')}}">Manejo de usuarios</a>
-          </li>
-          {%endif%}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {{ session['usuario'].usuario }}
+            </a>
+              
 
-          <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('logout')}}">CERRAR SESION</a>
-          </li>
-          <li class="nav-item">
-          <h5>bienvenido: {{ session['usuario'].usuario }}</h5>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+               {%if session['usuario'].tiene_permiso("site_config")%}
+               <a class="dropdown-item" href="{{ url_for('vista_configuracion')}}">CONFIGURACION</a>
+               {%endif%}
+              
+               {%if session['usuario'].tiene_permiso("user_show")%}
+               <a class="dropdown-item" href="{{ url_for('index_usuario')}}">Manejo de usuarios</a>
+               {%endif%}
+
+               <a class="dropdown-item" href="{{ url_for('logout')}}">CERRAR SESION</a>
+            </div>
           </li>
           {%endif%}
         </ul>
     </div>
   </nav>
+</div>
