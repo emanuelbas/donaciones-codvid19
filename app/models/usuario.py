@@ -25,6 +25,7 @@ class User(db.Model):
     activo = db.Column(db.Integer)
     fecha_actualizacion = db.Column(db.String)
     fecha_creacion = db.Column(db.String)
+    historico = db.Column(db.Integer)
 
     # Voy a crear una relacion entre tablas
     # Lleva como argumento las clases involucradas
@@ -32,7 +33,7 @@ class User(db.Model):
         'usuarios_con_el_rol', lazy=True), lazy='subquery')
 
     def all():
-        return User.query.all()
+        return User.query.filter_by(historico=0).all()
 
     def get_by_username(u):
         return User.query.filter(User.usuario.contains(u)).first()
@@ -74,8 +75,9 @@ class User(db.Model):
         db.session.commit()
         return True
 
-    def delete(id):
-        User.query.filter_by(id=id).delete()
+    def delete(idx):
+        user = User.query.filter_by(id=idx).first()
+        user.historico = 1
         db.session.commit()
         return True
 
