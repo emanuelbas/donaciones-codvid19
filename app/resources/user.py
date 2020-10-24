@@ -85,13 +85,21 @@ def index_usuario():
 def crear_usuario():
     if request.method == 'POST':
         u = request.form
-        res = User.create(u['usuario'], u['clave'], u['nombre'], u['apellido'], u['email'])
-        if res:
-            mensaje = "Usuario creado exitosamente"
+        mensaje_error = ''
+        mensaje_exito = ''
+        if User.existe_usuario(u['usuario']):
+            mensaje_error="El nombre de usuario ya existe"
+        elif User.existe_email(u['email']):
+            mensaje_error="El email ya existe"
         else:
-            mensaje = "Hubo algun problema"
-        lista_de_usuarios = User.all()
-        return render_template('usuario/index_usuario.html', usuario = lista_de_usuarios)
+            res = User.create(u['usuario'], u['clave'], u['nombre'], u['apellido'], u['email'])
+            if res:
+                mensaje_exito = "Usuario creado exitosamente"
+            else:
+                mensaje_error = "Hubo algun problema"
+            lista_de_usuarios = User.all()
+            return render_template('usuario/index_usuario.html', usuario = lista_de_usuarios, mensaje_error= mensaje_error, mensaje_exito=mensaje_exito)
+        return render_template('usuario/crear_usuario.html', mensaje_error= mensaje_error, mensaje_exito=mensaje_exito)
     else:
         return render_template('usuario/crear_usuario.html')
 

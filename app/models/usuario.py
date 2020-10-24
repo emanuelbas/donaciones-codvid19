@@ -79,6 +79,32 @@ class User(db.Model):
         db.session.commit()
         return True
 
+    def get_by_email_and_pass(usuario, clave):
+        return User.query.filter_by(usuario=usuario, clave=clave).first()
+
+######################## VALIDACIONES ########################
+
+    def existe_usuario(username):
+        return User.query.filter_by(usuario=username).first()
+
+    def existe_email(email):
+        return User.query.filter_by(email=email).first()
+
+######################## ROLES Y PERMISOS ########################
+
+    def get_roles(id_usuario):
+        return Usuario_tiene_rol.query.filter_by(usuario_id=id_usuario)
+
+    def agregar_rol(usuario, rol):
+        rol.usuarios.append(usuario)
+        db.session.commit()
+        return True
+
+    def quitar_rol(usuario, rol):
+        rol.usuarios.remove(usuario)
+        db.session.commit()
+        return True
+
     def tiene_rol(usuario, nombre_rol):
         res = False
         for rol in usuario.roles:
@@ -94,18 +120,4 @@ class User(db.Model):
                     res = True
         return res
 
-    def get_by_email_and_pass(usuario, clave):
-        return User.query.filter_by(usuario=usuario, clave=clave).first()
-
-    def get_roles(id_usuario):
-        return Usuario_tiene_rol.query.filter_by(usuario_id=id_usuario)
-
-    def agregar_rol(usuario, rol):
-        rol.usuarios.append(usuario)
-        db.session.commit()
-        return True
-
-    def quitar_rol(usuario, rol):
-        rol.usuarios.remove(usuario)
-        db.session.commit()
-        return True
+###################################################################
