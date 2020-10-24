@@ -25,14 +25,14 @@
 
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                {%if session['usuario'].tiene_permiso("site_config")%}
-               <a class="dropdown-item" href="{{ url_for('vista_configuracion')}}">CONFIGURACION</a>
+               <a class="dropdown-item" href="{{ url_for('vista_configuracion')}}">Configuración del sitio</a>
                {%endif%}
               
                {%if session['usuario'].tiene_permiso("user_show")%}
                <a class="dropdown-item" href="{{ url_for('index_usuario')}}">Manejo de usuarios</a>
                {%endif%}
 
-               <a class="dropdown-item" href="{{ url_for('logout')}}">CERRAR SESION</a>
+               <a class="dropdown-item" href="{{ url_for('logout')}}">Cerrar sesión</a>
             </div>
           </li>
           {%endif%}

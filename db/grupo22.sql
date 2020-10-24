@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-10-2020 a las 07:51:54
+-- Tiempo de generación: 24-10-2020 a las 23:04:39
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.2.33
 
@@ -41,7 +41,7 @@ CREATE TABLE `configuracion` (
 --
 
 INSERT INTO `configuracion` (`id`, `titulo`, `descripcion`, `mail`, `activo`, `cantPagina`) VALUES
-(1, 'Covid-19', 'Nuestro principal propósito es ayudar a quien más lo necesita', 'centro@gmail.com', 1, 5);
+(1, 'Covid-19', 'Somos un grupo de ya me canse de inventar voy a ahi viene el lorem ipsum Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. ', 'centro@gmail.com', 1, 5);
 
 -- --------------------------------------------------------
 
@@ -131,17 +131,18 @@ CREATE TABLE `usuario` (
   `email` varchar(255) NOT NULL,
   `activo` tinyint(1) NOT NULL,
   `fecha_creacion` date NOT NULL,
-  `fecha_actualizacion` date NOT NULL
+  `fecha_actualizacion` date NOT NULL,
+  `historico` tinyint(4) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`id`, `usuario`, `clave`, `nombre`, `apellido`, `email`, `activo`, `fecha_creacion`, `fecha_actualizacion`) VALUES
-(8, 'admin', '1234', 'Homero', 'Simpson', 'hsimpson@gmail.com', 1, '2020-10-18', '2020-10-18'),
-(11, 'usuario', '1234', 'Ned', 'Flanders', 'flanders15@gmail.com', 1, '2020-10-18', '2020-10-18'),
-(13, 'dsasd', '123', 'qwe', 'qweqwe', 'ewqwe@dqw', 1, '2020-10-24', '2020-10-24');
+INSERT INTO `usuario` (`id`, `usuario`, `clave`, `nombre`, `apellido`, `email`, `activo`, `fecha_creacion`, `fecha_actualizacion`, `historico`) VALUES
+(8, 'admin', '1234', 'Homero', 'Simpson', 'hsimpson@gmail.com', 1, '2020-10-18', '2020-10-18', 0),
+(11, 'usuario', '1234', 'Ned', 'Flanders', 'flanders15@gmail.com', 1, '2020-10-18', '2020-10-18', 0),
+(13, 'otro usuario', '123', 'qwe', 'qweqwe', 'ewqwe@dqw', 1, '2020-10-24', '2020-10-24', 1);
 
 -- --------------------------------------------------------
 
@@ -234,7 +235,7 @@ ALTER TABLE `rol`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
