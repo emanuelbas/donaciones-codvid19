@@ -31,10 +31,24 @@
             </section>
 
             <section class="form-group">
-                <label for="titulo"> Activo 1activo 0desactivo </label>
-                <input type="text" class="form-control form-control-lg rounded-0" name="activo" id="activo"
+                <label for="titulo"> Borrar </label>
+                <input type="text" class="form-control form-control-lg rounded-0" name="borrar" id="borrar"
                     value="{{act.activo}}" required>
             </section>
+
+            <section class="form-group">
+                <label for="estado">Estado del sitio</label>
+                <select id="activo" name="activo" class="custom-select ">
+                {% if (act.activo == 1) %}
+                    <option value=1>Habilitado</option>
+                    <option value=0>Deshabilitado</option>
+                {% else %}
+                    <option value=0>Deshabilitado</option>
+                    <option value=1>Habilitado</option>
+                {%  endif  %}
+                </select>
+            </section>
+
             <section class="form-group">
                 <label for="titulo"> Cantidad de paginas </label>
                 <input type="text" class="form-control form-control-lg rounded-0" name="cantPagina" id="cantPagina"

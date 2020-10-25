@@ -13,8 +13,9 @@ def vista_configuracion():
     if request.method == 'POST':
         datos = request.form
         #print(datos)  # se muestran todos los datos por termina
+        print (datos)
         Configuracion.edit(datos["titulo"], datos["descripcion"],
-                    datos["mail"], datos["activo"], datos["cantPagina"])
+                    datos["mail"], int(datos["activo"]), datos["cantPagina"])
         mensaje = "Se modifico la tabla configuracion correctamente"
         #return render_template("configuracion/configuracion.html", actual=actual, mensaje=mensaje)
         return redirect(url_for('index', mensaje=mensaje))
