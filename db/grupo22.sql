@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-10-2020 a las 23:04:39
+-- Tiempo de generación: 25-10-2020 a las 23:32:38
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.2.33
 
@@ -20,6 +20,55 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `grupo22`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `centro_de_ayuda`
+--
+
+CREATE TABLE `centro_de_ayuda` (
+  `id` int(35) NOT NULL,
+  `nombre` varchar(35) NOT NULL,
+  `direccion` varchar(35) NOT NULL,
+  `telefono` varchar(35) NOT NULL,
+  `hora_de_apertura` time(6) NOT NULL,
+  `hora_de_cierre` time(6) NOT NULL,
+  `sitio_web` varchar(35) NOT NULL,
+  `email` varchar(35) NOT NULL,
+  `publicado` tinyint(1) NOT NULL DEFAULT 1,
+  `protocolo_de_vista` varchar(35) NOT NULL DEFAULT 'PDF',
+  `coordenada_x` int(35) NOT NULL,
+  `coordenada_y` int(35) NOT NULL,
+  `historico` tinyint(1) NOT NULL DEFAULT 0,
+  `municipio_id` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `centro_de_ayuda`
+--
+
+INSERT INTO `centro_de_ayuda` (`id`, `nombre`, `direccion`, `telefono`, `hora_de_apertura`, `hora_de_cierre`, `sitio_web`, `email`, `publicado`, `protocolo_de_vista`, `coordenada_x`, `coordenada_y`, `historico`, `municipio_id`) VALUES
+(1, 'Centro de prueba', 'Calle 23, numero 35', '9111233255', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba.gov', 'contacto@centrodeprueba.gov', 1, 'PDF', 300, 54234, 0, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `centro_tiene_tipo`
+--
+
+CREATE TABLE `centro_tiene_tipo` (
+  `centro_id` int(20) NOT NULL,
+  `tipo_de_centro_id` int(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `centro_tiene_tipo`
+--
+
+INSERT INTO `centro_tiene_tipo` (`centro_id`, `tipo_de_centro_id`) VALUES
+(1, 1),
+(1, 2);
 
 -- --------------------------------------------------------
 
@@ -41,7 +90,25 @@ CREATE TABLE `configuracion` (
 --
 
 INSERT INTO `configuracion` (`id`, `titulo`, `descripcion`, `mail`, `activo`, `cantPagina`) VALUES
-(1, 'Covid-19', 'Somos un grupo de ya me canse de inventar voy a ahi viene el lorem ipsum Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. ', 'centro@gmail.com', 1, 5);
+(1, 'Covid-19', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. ', 'centro@gmail.com', 1, 5);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `municipio`
+--
+
+CREATE TABLE `municipio` (
+  `id` int(10) NOT NULL,
+  `nombre` varchar(35) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `municipio`
+--
+
+INSERT INTO `municipio` (`id`, `nombre`) VALUES
+(1, 'La Plata');
 
 -- --------------------------------------------------------
 
@@ -119,6 +186,27 @@ INSERT INTO `rol_tiene_permiso` (`rol_id`, `permiso_id`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `tipo_de_centro`
+--
+
+CREATE TABLE `tipo_de_centro` (
+  `id` int(20) NOT NULL,
+  `nombre` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `tipo_de_centro`
+--
+
+INSERT INTO `tipo_de_centro` (`id`, `nombre`) VALUES
+(2, 'Alimentos'),
+(4, 'Plasma'),
+(1, 'Ropa'),
+(3, 'Sangre');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `usuario`
 --
 
@@ -142,7 +230,7 @@ CREATE TABLE `usuario` (
 INSERT INTO `usuario` (`id`, `usuario`, `clave`, `nombre`, `apellido`, `email`, `activo`, `fecha_creacion`, `fecha_actualizacion`, `historico`) VALUES
 (8, 'admin', '1234', 'Homero', 'Simpson', 'hsimpson@gmail.com', 1, '2020-10-18', '2020-10-18', 0),
 (11, 'usuario', '1234', 'Ned', 'Flanders', 'flanders15@gmail.com', 1, '2020-10-18', '2020-10-18', 0),
-(13, 'otro usuario', '123', 'qwe', 'qweqwe', 'ewqwe@dqw', 1, '2020-10-24', '2020-10-24', 1);
+(13, 'otro usuario', '123', 'qwe', 'qweqwe', 'ewqwe@dqw', 1, '2020-10-24', '2020-10-24', 0);
 
 -- --------------------------------------------------------
 
@@ -168,10 +256,30 @@ INSERT INTO `usuario_tiene_rol` (`usuario_id`, `rol_id`) VALUES
 --
 
 --
+-- Indices de la tabla `centro_de_ayuda`
+--
+ALTER TABLE `centro_de_ayuda`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `nombre` (`nombre`);
+
+--
+-- Indices de la tabla `centro_tiene_tipo`
+--
+ALTER TABLE `centro_tiene_tipo`
+  ADD PRIMARY KEY (`centro_id`,`tipo_de_centro_id`);
+
+--
 -- Indices de la tabla `configuracion`
 --
 ALTER TABLE `configuracion`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `municipio`
+--
+ALTER TABLE `municipio`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `nombre` (`nombre`);
 
 --
 -- Indices de la tabla `permiso`
@@ -195,6 +303,13 @@ ALTER TABLE `rol_tiene_permiso`
   ADD KEY `FK_permiso_id` (`permiso_id`);
 
 --
+-- Indices de la tabla `tipo_de_centro`
+--
+ALTER TABLE `tipo_de_centro`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `nombre` (`nombre`);
+
+--
 -- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
@@ -214,9 +329,21 @@ ALTER TABLE `usuario_tiene_rol`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `centro_de_ayuda`
+--
+ALTER TABLE `centro_de_ayuda`
+  MODIFY `id` int(35) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT de la tabla `configuracion`
 --
 ALTER TABLE `configuracion`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `municipio`
+--
+ALTER TABLE `municipio`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
@@ -230,6 +357,12 @@ ALTER TABLE `permiso`
 --
 ALTER TABLE `rol`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `tipo_de_centro`
+--
+ALTER TABLE `tipo_de_centro`
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
