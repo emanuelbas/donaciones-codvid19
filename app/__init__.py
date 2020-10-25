@@ -7,6 +7,7 @@ from app.db import db
 from flask_session import Session
 from app.resources import user
 from app.resources import config
+from app.resources import centros_de_ayuda
 
 # from flask_mysqldb import MySQL
 
@@ -40,7 +41,7 @@ def create_app():
                      user.quienesomos, methods=["POST", "GET"])
 
     # ruta a centros
-    app.add_url_rule('/centros', 'centros', user.centros,
+    app.add_url_rule('/centros', 'centros', centros_de_ayuda.get_index,
                      methods=["POST", "GET"])
 
     # ruta a login

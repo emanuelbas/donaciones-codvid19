@@ -28,8 +28,8 @@ class Centro_de_ayuda(db.Model):
     tipos_de_centro = db.relationship('Tipo_de_centro', secondary=tipos_de_centro, backref=db.backref(
         'centros_de_ayuda_de_este_tipo', lazy=True), lazy='subquery')
 
-    # Comprobar si esto es correcto
-    municipio = db.Column('municipio_id', db.Integer, db.ForeignKey('municipio.id'))
+    municipio_id = db.Column(db.Integer, db.ForeignKey('municipio.id'))
+    municipio = db.relationship('Municipio', back_populates="centros_en_este_municipio", lazy='subquery')
 
     def all():
         return Centro_de_ayuda.query.filter_by(historico=0).all()
@@ -39,6 +39,7 @@ class Municipio(db.Model):
     __tablename__ = 'municipio'
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String, unique=True)
+    centros_en_este_municipio = db.relationship("Centro_de_ayuda", back_populates="municipio")
 
     def all():
         return Municipio.query.all()

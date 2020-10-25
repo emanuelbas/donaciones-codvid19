@@ -1,0 +1,16 @@
+<h1>Centros de ayuda</h1>
+
+{% for centro in lista_de_centros %}
+	<ul>
+		<li>
+			<p>Nombre: {{centro.nombre}}</p>
+			<p>Municipio: {{centro.municipio.nombre}}</p>
+			<p>Tags:</p>
+			{% for tag in centro.tipos_de_centro %}
+			<ul>
+				<li>{{tag.nombre}}</li>
+			</ul>
+			{% endfor %}
+		</li>
+	</ul>
+{% endfor %}
