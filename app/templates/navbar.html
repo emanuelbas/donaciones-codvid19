@@ -9,14 +9,6 @@
           </li>
           {%else%}
 
-          <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('centros')}}">CENTROS DE AYUDA</a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('quienesomos')}}">QUIENES SOMOS</a>
-          </li>
-
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               {{ session['usuario'].usuario }}
@@ -24,15 +16,16 @@
               
 
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-               {%if session['usuario'].tiene_permiso("site_config")%}
-               <a class="dropdown-item" href="{{ url_for('vista_configuracion')}}">Configuración del sitio</a>
-               {%endif%}
-              
-               {%if session['usuario'].tiene_permiso("user_show")%}
-               <a class="dropdown-item" href="{{ url_for('index_usuario')}}">Manejo de usuarios</a>
-               {%endif%}
-
-               <a class="dropdown-item" href="{{ url_for('logout')}}">Cerrar sesión</a>
+              {%if session['usuario'].tiene_permiso("site_config")%}
+              <a class="dropdown-item" href="{{ url_for('vista_configuracion')}}">Configuración del sitio</a>
+              {%endif%}
+              {%if session['usuario'].tiene_permiso("centro_index")%}
+              <a class="dropdown-item" href="{{ url_for('centros')}}">Centros de ayuda</a>
+              {%endif%}
+              {%if session['usuario'].tiene_permiso("user_show")%}
+              <a class="dropdown-item" href="{{ url_for('index_usuario')}}">Manejo de usuarios</a>
+              {%endif%}
+              <a class="dropdown-item" href="{{ url_for('logout')}}">Cerrar sesión</a>
             </div>
           </li>
           {%endif%}
