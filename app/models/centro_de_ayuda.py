@@ -29,7 +29,7 @@ class Centro_de_ayuda(db.Model):
         'centros_de_ayuda_de_este_tipo', lazy=True), lazy='subquery')
 
     municipio_id = db.Column(db.Integer, db.ForeignKey('municipio.id'))
-    municipio = db.relationship('Municipio', back_populates="centros_en_este_municipio", lazy='subquery')
+    municipio = db.relationship('Municipio', back_populates="centros_en_este_municipio")
 
     def all():
         return Centro_de_ayuda.query.filter_by(historico=0).all()
