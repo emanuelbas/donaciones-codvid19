@@ -4,7 +4,19 @@
 <h1>Centros de ayuda</h1>
 
 <div class="container">
-
+	<form action="{{url_for('filtrar_centros')}}" method="POST">
+		<!-- input nombre  -->
+		<input type="text" placeholder="Buscar por nombre" id="nombre" name="nombre">
+		<!-- select estado todos pendiente, aceptado, rechazado -->
+		<select name="estado" id="estado">
+			<option value="todos">Todos</option>
+			<option value="pendiente">Pendientes</option>
+			<option value="aceptado">Aceptados</option>
+			<option value="rechazado">Rechazados</option>
+		</select>
+		<!-- boton de submit -->
+		<input type="submit">
+	</form>
 	<table class="table table-striped table-bordered bg-white table-sm" >
 		<thead>
 			<tr>

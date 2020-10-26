@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-10-2020 a las 23:32:38
+-- Tiempo de generación: 26-10-2020 a las 06:04:45
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.2.33
 
@@ -36,7 +36,7 @@ CREATE TABLE `centro_de_ayuda` (
   `hora_de_cierre` time(6) NOT NULL,
   `sitio_web` varchar(35) NOT NULL,
   `email` varchar(35) NOT NULL,
-  `publicado` tinyint(1) NOT NULL DEFAULT 1,
+  `estado` varchar(20) NOT NULL DEFAULT '1',
   `protocolo_de_vista` varchar(35) NOT NULL DEFAULT 'PDF',
   `coordenada_x` int(35) NOT NULL,
   `coordenada_y` int(35) NOT NULL,
@@ -48,8 +48,9 @@ CREATE TABLE `centro_de_ayuda` (
 -- Volcado de datos para la tabla `centro_de_ayuda`
 --
 
-INSERT INTO `centro_de_ayuda` (`id`, `nombre`, `direccion`, `telefono`, `hora_de_apertura`, `hora_de_cierre`, `sitio_web`, `email`, `publicado`, `protocolo_de_vista`, `coordenada_x`, `coordenada_y`, `historico`, `municipio_id`) VALUES
-(1, 'Centro de prueba', 'Calle 23, numero 35', '9111233255', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba.gov', 'contacto@centrodeprueba.gov', 1, 'PDF', 300, 54234, 0, 1);
+INSERT INTO `centro_de_ayuda` (`id`, `nombre`, `direccion`, `telefono`, `hora_de_apertura`, `hora_de_cierre`, `sitio_web`, `email`, `estado`, `protocolo_de_vista`, `coordenada_x`, `coordenada_y`, `historico`, `municipio_id`) VALUES
+(1, 'Centro de prueba', 'Calle 23, numero 35', '9111233255', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba.gov', 'contacto@centrodeprueba.gov', '1', 'PDF', 300, 54234, 0, 1),
+(2, 'Centro de prueba 2', 'Calle 2, numero 33', '9111233353', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba2.gov', 'contacto@centrodeprueba2.gov', '1', 'PDF', 44, 54234, 0, 2);
 
 -- --------------------------------------------------------
 
@@ -68,7 +69,9 @@ CREATE TABLE `centro_tiene_tipo` (
 
 INSERT INTO `centro_tiene_tipo` (`centro_id`, `tipo_de_centro_id`) VALUES
 (1, 1),
-(1, 2);
+(1, 2),
+(2, 1),
+(2, 3);
 
 -- --------------------------------------------------------
 
@@ -108,6 +111,7 @@ CREATE TABLE `municipio` (
 --
 
 INSERT INTO `municipio` (`id`, `nombre`) VALUES
+(2, 'Ensenada'),
 (1, 'La Plata');
 
 -- --------------------------------------------------------
@@ -332,7 +336,7 @@ ALTER TABLE `usuario_tiene_rol`
 -- AUTO_INCREMENT de la tabla `centro_de_ayuda`
 --
 ALTER TABLE `centro_de_ayuda`
-  MODIFY `id` int(35) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(35) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `configuracion`
@@ -344,7 +348,7 @@ ALTER TABLE `configuracion`
 -- AUTO_INCREMENT de la tabla `municipio`
 --
 ALTER TABLE `municipio`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `permiso`

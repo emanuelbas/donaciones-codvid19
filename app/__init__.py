@@ -42,7 +42,9 @@ def create_app():
 
     # ruta a centros
     app.add_url_rule('/centros', 'centros', centros_de_ayuda.get_index,
-                     methods=["POST", "GET"])
+                     methods=["GET"])
+    app.add_url_rule('/centros', 'filtrar_centros', centros_de_ayuda.filtrar_centros,
+                     methods=["POST"])
 
     # ruta a login
     app.add_url_rule('/login', 'login', user.login)
@@ -84,10 +86,7 @@ def create_app():
 
     @app.route('/')
     def index():
-        configuracion = Configuracion.get_config() #esto hay que poner en algunos def para que cuando este desactivado el user no pueda entrar
- #       if configuracion.activo == 0:
- #           return render_template('sitioDesactivado.html')
- #  Creo que esta ventana siempre debe ser visible para que el admin pueda loguear
+        configuracion = Configuracion.get_config()
         return render_template('index.html', configuracion=configuracion)
 
     return app

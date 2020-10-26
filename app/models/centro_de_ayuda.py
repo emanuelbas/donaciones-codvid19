@@ -20,7 +20,7 @@ class Centro_de_ayuda(db.Model):
     hora_de_cierre = db.Column(db.String)
     sitio_web = db.Column(db.String)
     email = db.Column(db.String)
-    publicado = db.Column(db.Integer)
+    estado = db.Column(db.String)
     protocolo_de_vista = db.Column(db.String)
     coordenada_x = db.Column(db.Integer)
     coordenada_y = db.Column(db.Integer)
