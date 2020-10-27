@@ -13,14 +13,13 @@ tipos_de_centro = db.Table('centro_tiene_tipo',
 class Centro_de_ayuda(db.Model):
     __tablename__ = 'centro_de_ayuda'
     id = db.Column(db.Integer, primary_key=True)
-    nombre = db.Column(db.String, unique=True)
+    nombre = db.Column(db.String)
     direccion = db.Column(db.String)
     telefono = db.Column(db.String)
-    hora_de_apertura = db.Column(db.String)
-    hora_de_cierre = db.Column(db.String)
+    hora_de_apertura = db.Column(db.Time)
+    hora_de_cierre = db.Column(db.Time)
     sitio_web = db.Column(db.String)
     email = db.Column(db.String)
-    estado = db.Column(db.String)
     protocolo_de_vista = db.Column(db.String)
     coordenada_x = db.Column(db.Integer)
     coordenada_y = db.Column(db.Integer)
@@ -30,6 +29,9 @@ class Centro_de_ayuda(db.Model):
 
     municipio_id = db.Column(db.Integer, db.ForeignKey('municipio.id'))
     municipio = db.relationship('Municipio', back_populates="centros_en_este_municipio")
+
+    estado_id = db.Column(db.Integer, db.ForeignKey('estado_centro.id'))
+    estado = db.relationship('Estado_centro', back_populates="centros_en_este_estado")
 
     def all():
         return Centro_de_ayuda.query.filter_by(historico=0).all()
@@ -55,3 +57,14 @@ class Tipo_de_centro(db.Model):
     def all():
         return Tipo_de_centro.query.all()
 ######################## TIPO DE CENTRO ########################
+
+######################## ESTADO ########################
+class Estado_centro(db.Model):
+    __tablename__ = 'estado_centro'
+    id = db.Column(db.Integer, primary_key=True)
+    nombre = db.Column(db.String, unique=True)
+    centros_en_este_estado = db.relationship("Centro_de_ayuda", back_populates="estado")
+
+    def all():
+        return Estado_centro.query.all()
+######################## ESTADO ########################

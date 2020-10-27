@@ -10,9 +10,9 @@
 		<!-- select estado todos pendiente, aceptado, rechazado -->
 		<select name="estado" id="estado">
 			<option value="todos">Filtrar por estado</option>
-			<option value="pendiente">Pendientes</option>
-			<option value="aceptado">Aceptados</option>
-			<option value="rechazado">Rechazados</option>
+			{% for estado in estados %}
+			<option value="{{estado.id}}">{{estado.nombre}}</option>
+			{% endfor %}
 		</select>
 		<!-- boton de submit -->
 		<input type="submit" value="Buscar">
@@ -22,7 +22,7 @@
 			<tr>
 				<td>Nombre</td>
 				<td>Municipio</td>
-				<td>Tags</td>
+				<td>Tipo</td>
 				<td>Email</td>
 				<td>Estado</td>
 			</tr>
@@ -47,7 +47,7 @@
 					{{centro.email}}
 				</td>
 				<td>
-					{{centro.estado}}
+					{{centro.estado.nombre}}
 				</td>
 			</tr>
 			{% endfor %}

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-10-2020 a las 16:19:36
+-- Tiempo de generación: 27-10-2020 a las 22:05:58
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.2.33
 
@@ -36,7 +36,7 @@ CREATE TABLE `centro_de_ayuda` (
   `hora_de_cierre` time(6) NOT NULL,
   `sitio_web` varchar(35) NOT NULL,
   `email` varchar(35) NOT NULL,
-  `estado` varchar(20) NOT NULL DEFAULT '1',
+  `estado_id` int(11) NOT NULL DEFAULT 1,
   `protocolo_de_vista` varchar(35) NOT NULL DEFAULT 'PDF',
   `coordenada_x` int(35) NOT NULL,
   `coordenada_y` int(35) NOT NULL,
@@ -48,14 +48,14 @@ CREATE TABLE `centro_de_ayuda` (
 -- Volcado de datos para la tabla `centro_de_ayuda`
 --
 
-INSERT INTO `centro_de_ayuda` (`id`, `nombre`, `direccion`, `telefono`, `hora_de_apertura`, `hora_de_cierre`, `sitio_web`, `email`, `estado`, `protocolo_de_vista`, `coordenada_x`, `coordenada_y`, `historico`, `municipio_id`) VALUES
-(1, 'Centro de prueba', 'Calle 23, numero 35', '9111233255', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba.gov', 'contacto@centrodeprueba.gov', 'aceptado', 'PDF', 300, 54234, 0, 2),
-(2, 'Centro de prueba 2', 'Calle 2, numero 33', '9111233353', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba2.gov', 'contacto@centrodeprueba2.gov', 'pendiente', 'PDF', 44, 54234, 0, 2),
-(3, 'Donaciones Pepito', 'Calle 32, numero 12', '9111224525', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba.gov', 'contacto@centrodeprueba.gov', 'aceptado', 'PDF', 300, 54234, 0, 2),
-(4, 'Hospital Nacional', 'Calle 15, numero 3443', '9111233255', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba.gov', 'contacto@centrodeprueba.gov', 'aceptado', 'PDF', 300, 54234, 0, 1),
-(5, 'Hospital Enrique', 'Calle 53, numero 35', '9111233255', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba.gov', 'contacto@centrodeprueba.gov', 'aceptado', 'PDF', 300, 54234, 0, 1),
-(6, 'Centro la esperanza', 'Calle 23234, numero 35', '9111233255', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba.gov', 'contacto@centrodeprueba.gov', 'aceptado', 'PDF', 300, 54234, 0, 1),
-(7, 'Centro la poca imaginacion', 'Calle 123, numero 35', '9111233255', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba.gov', 'contacto@centrodeprueba.gov', 'aceptado', 'PDF', 300, 54234, 0, 2);
+INSERT INTO `centro_de_ayuda` (`id`, `nombre`, `direccion`, `telefono`, `hora_de_apertura`, `hora_de_cierre`, `sitio_web`, `email`, `estado_id`, `protocolo_de_vista`, `coordenada_x`, `coordenada_y`, `historico`, `municipio_id`) VALUES
+(1, 'Centro de prueba', 'Calle 23, numero 35', '9111233255', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba.gov', 'contacto@centrodeprueba.gov', 1, 'PDF', 300, 54234, 0, 2),
+(2, 'Centro de prueba 2', 'Calle 2, numero 33', '9111233353', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba2.gov', 'contacto@centrodeprueba2.gov', 2, 'PDF', 44, 54234, 0, 2),
+(3, 'Donaciones Pepito', 'Calle 32, numero 12', '9111224525', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba.gov', 'contacto@centrodeprueba.gov', 3, 'PDF', 300, 54234, 0, 2),
+(4, 'Hospital Nacional', 'Calle 15, numero 3443', '9111233255', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba.gov', 'contacto@centrodeprueba.gov', 2, 'PDF', 300, 54234, 0, 1),
+(5, 'Hospital Enrique', 'Calle 53, numero 35', '9111233255', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba.gov', 'contacto@centrodeprueba.gov', 1, 'PDF', 300, 54234, 0, 1),
+(6, 'Centro la esperanza', 'Calle 23234, numero 35', '9111233255', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba.gov', 'contacto@centrodeprueba.gov', 3, 'PDF', 300, 54234, 0, 1),
+(7, 'Centro la poca imaginacion', 'Calle 123, numero 35', '9111233255', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba.gov', 'contacto@centrodeprueba.gov', 1, 'PDF', 300, 54234, 0, 2);
 
 -- --------------------------------------------------------
 
@@ -105,7 +105,27 @@ CREATE TABLE `configuracion` (
 --
 
 INSERT INTO `configuracion` (`id`, `titulo`, `descripcion`, `mail`, `activo`, `cantPagina`) VALUES
-(1, 'Covid-19', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. ', 'centro@gmail.com', 1, 3);
+(1, 'Covid-19', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ', 'centro@gmail.com', 1, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `estado_centro`
+--
+
+CREATE TABLE `estado_centro` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `estado_centro`
+--
+
+INSERT INTO `estado_centro` (`id`, `nombre`) VALUES
+(2, 'aceptado'),
+(1, 'pendiente'),
+(3, 'rechazado');
 
 -- --------------------------------------------------------
 
@@ -275,8 +295,7 @@ INSERT INTO `usuario_tiene_rol` (`usuario_id`, `rol_id`) VALUES
 -- Indices de la tabla `centro_de_ayuda`
 --
 ALTER TABLE `centro_de_ayuda`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `nombre` (`nombre`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `centro_tiene_tipo`
@@ -289,6 +308,13 @@ ALTER TABLE `centro_tiene_tipo`
 --
 ALTER TABLE `configuracion`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `estado_centro`
+--
+ALTER TABLE `estado_centro`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `nombre` (`nombre`);
 
 --
 -- Indices de la tabla `municipio`
@@ -355,6 +381,12 @@ ALTER TABLE `centro_de_ayuda`
 --
 ALTER TABLE `configuracion`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `estado_centro`
+--
+ALTER TABLE `estado_centro`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `municipio`
