@@ -41,12 +41,9 @@ def create_app():
                      user.quienesomos, methods=["POST", "GET"])
 
     # ruta a centros
-    app.add_url_rule('/centros', 'centros', centros_de_ayuda.get_index,
-                     methods=["GET"])
-    app.add_url_rule('/centros/page/<int:page>', 'centros', centros_de_ayuda.get_index,
-                     methods=["GET"])
-    app.add_url_rule('/centros', 'filtrar_centros', centros_de_ayuda.filtrar_centros,
-                     methods=["POST", "GET"])
+    app.add_url_rule('/centros', 'centros', centros_de_ayuda.get_index, methods=["GET"])
+    app.add_url_rule('/centros/page/<int:page>', 'centros', centros_de_ayuda.get_index, methods=["GET"])
+    app.add_url_rule('/centros', 'filtrar_centros', centros_de_ayuda.filtrar_centros, methods=["POST", "GET"])
     app.add_url_rule('/centros/page/<int:page>','filtrar_centros', centros_de_ayuda.filtrar_centros, methods=["POST","GET"])
 
     # ruta a login

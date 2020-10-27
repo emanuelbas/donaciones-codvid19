@@ -58,7 +58,7 @@
 		<ul class="pagination">
 			{% if lista_de_centros.has_prev %}
 				<li class="page-item">
-				    <a class="page-link" href="{{ url_for('filtrar_centros', page=lista_de_centros.prev_num, lista=lista_de_centros) }}">«</a>
+				    <a class="page-link" href="{{ url_for('filtrar_centros', page=lista_de_centros.prev_num) }}">«</a>
 				</li>
 			{% else %}
 				<li class="page-item disabled">
@@ -70,7 +70,7 @@
 			    {% if page_num %}
 			        {% if page_num != lista_de_centros.page %}
 			        <li class="page-item">
-			            <a class="page-link" href="{{ url_for('filtrar_centros', page=page_num, lista=lista_de_centros) }}">{{ page_num }}</a>
+			            <a class="page-link" href="{{ url_for('filtrar_centros', page=page_num) }}">{{ page_num }}</a>
 			        </li>
 			        {% else %}
 			        <li class="page-item active">
@@ -86,7 +86,7 @@
 			<!-- next page -->
 			{% if lista_de_centros.has_next %}
 				<li class="page-item">
-				    <a class="page-link" href="{{ url_for('filtrar_centros', page=lista_de_centros.next_num, get_nombre=pasar_nombre, get_estado=pasar_estado) }}">»</a>
+				    <a class="page-link" href="{{ url_for('filtrar_centros', page=lista_de_centros.next_num) }}">»</a>
 				</li>
 			{% else %}
 				<li class="page-item disabled">
