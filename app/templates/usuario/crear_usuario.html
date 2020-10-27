@@ -17,17 +17,17 @@
         <form action="{{url_for('crear_usuario')}}" method="POST">
             <section class="form-group">
                 <label for="titulo"> Usuario </label>
-                <input type="text" class="form-control form-control-lg rounded-0" name="usuario" id="usuario" placeholder="Ingrese su nombre de usuario" required>
+                <input type="text" class="form-control form-control-lg rounded-0" name="usuario" id="usuario" placeholder="Ingrese el nombre usuario" required>
             </section>
 
             <section class="form-group">
                 <label for="contenido"> Clave </label>
-                <input type="password" class="form-control form-control-lg rounded-0" name="clave" id="clave" placeholder="Ingrese su clave" required>
+                <input type="password" class="form-control form-control-lg rounded-0" name="clave" id="clave" placeholder="Ingrese una clave" required>
             </section>
 
             <section class="form-group">
                 <label for="contenido"> Confirmar clave </label>
-                <input type="password" class="form-control form-control-lg rounded-0" name="clave" id="clave_2" oninput="check(this)" placeholder="Confirme su clave" required>
+                <input type="password" class="form-control form-control-lg rounded-0" name="clave" id="clave_2" oninput="check(this)" placeholder="Confirme la clave" required>
                 <script language='javascript' type='text/javascript'>
                     function check(input) {
                         if (input.value != document.getElementById('clave').value) {
@@ -41,17 +41,17 @@
 
             <section class="form-group">
                 <label for="titulo"> Nombre </label>
-                <input type="text" class="form-control form-control-lg rounded-0" name="nombre" id="nombre" placeholder="Ingrese su nombre" required>
+                <input type="text" class="form-control form-control-lg rounded-0" name="nombre" id="nombre" placeholder="Ingrese el nombre" required>
             </section>
 
             <section class="form-group">
                 <label for="titulo"> Apellido </label>
-                <input type="text" class="form-control form-control-lg rounded-0" name="apellido" id="apellido" placeholder="Ingrese su apellido"
+                <input type="text" class="form-control form-control-lg rounded-0" name="apellido" id="apellido" placeholder="Ingrese el apellido"
                 required>
             </section>
             <section class="form-group">
                 <label for="titulo"> Email </label>
-                <input type="email" class="form-control form-control-lg rounded-0" name="email" id="email" placeholder="Ingrese su correo" required>
+                <input type="email" class="form-control form-control-lg rounded-0" name="email" id="email" placeholder="Ingrese el correo" required>
             </section>
 
             <div class="text-right">

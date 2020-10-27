@@ -11,7 +11,7 @@
 <div class="card-body container">
     <span class="card-text">
         {% for act in actual %}
-        <form method="POST" enctype="multipart/form-data">
+        <form method="POST">
             <section class="form-group">
                 <label for="titulo"> Título </label>
                 <input type="text" class="form-control form-control-lg rounded-0" name="titulo" id="titulo"
@@ -45,7 +45,7 @@
 
             <section class="form-group">
                 <label for="titulo"> Elementos mostrados por página </label>
-                <input type="text" class="form-control form-control-lg rounded-0" name="cantPagina" id="cantPagina"
+                <input type="number" min="1" class="form-control form-control-lg rounded-0" name="cantPagina" id="cantPagina"
                     value="{{act.cantPagina}}" required>
             </section>
 

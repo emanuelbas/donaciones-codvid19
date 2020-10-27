@@ -38,7 +38,15 @@
             </section>
             <section class="form-group">
                 <label for="titulo"> Activo </label>
-                <input type="text" class="form-control form-control-lg rounded-0" name="activo" id="activo" value="{{usuario.activo}}" required>
+                <select id="activo" name="activo" class="custom-select ">
+                {% if (usuario.activo == 1) %}
+                    <option value=1>Si</option>
+                    <option value=0>No</option>
+                {% else %}
+                    <option value=0>No</option>
+                    <option value=1>Si</option>
+                {%  endif  %}
+                </select>
             </section>
 
             <div class="text-right">
