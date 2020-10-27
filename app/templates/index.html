@@ -8,22 +8,18 @@
   	</ul>
 </div>
 {% endif %}
-<div class="container">
-	<h1> {{ configuracion.titulo }} </h1>
-	<hr>
-	<div class="row">
-		<div class="col-4 p-5">
-			<p> {{ configuracion.descripcion }} </p>
-			<p> Escrbinos a {{ configuracion.mail }} </p>
+<div class="container-fluid">
+	<div class="row no-gutters">
+		<div class="col-md-6 text-center d-flex align-items-center">
+			<div class="card-body">
+				<h1 class="card-title mb-5">{{ configuracion.titulo }}</h1>
+				<h5 class="card-text text-muted mb-5">{{ configuracion.descripcion }}</h5>
+				<h5 class="card-text text-muted mb-5"> Escrbinos a {{ configuracion.mail }} </h5>
+			</div>			
 		</div>
-		<div class="col-4 p-5 m-5">
+		<div class="col-md-6">
 			<img width="500" src="../static/images/img22.jpg">
 		</div>
 	</div>
-</div>
-    <!--<h1> Informacion o fotos de Emergencias sanitarias</h1>-->
-
-
-
-		
+</div>	
 {% endblock %}

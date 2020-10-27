@@ -1,8 +1,11 @@
 <div class="pb-3">
   <nav class="navbar site-header navbar-expand-lg navbar navbar-dark">
     <a  title="Logo" href="/"><img class="gba-logo" src="{{ url_for('static', filename='images/logo_gba_emergencia.png') }}" alt="Logo de GBA Emergencia" /></a>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
+    <div class=" collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto">
+          <!-- Aca irian los botones de arriba -->
+        </ul>
+        <ul class="navbar-nav ml-auto">
           {%if session['usuario'] is not defined%}
           <li class="nav-item">
             <a class="nav-link text-center" href="{{ url_for('login')}}">INICIAR SESION</a>
@@ -10,12 +13,12 @@
           {%else%}
 
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="btn btn-outline-secondary nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               {{ session['usuario'].usuario }}
             </a>
               
 
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <div class="dropdown-menu dropdown-menu-right dropdown-default" aria-labelledby="navbarDropdownMenuLink-333">
               {%if session['usuario'].tiene_permiso("site_config")%}
               <a class="dropdown-item" href="{{ url_for('vista_configuracion')}}">Configuración del sitio</a>
               {%endif%}
