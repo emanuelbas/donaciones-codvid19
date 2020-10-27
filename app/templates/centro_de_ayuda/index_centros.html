@@ -6,16 +6,16 @@
 <div class="container">
 	<form action="{{url_for('filtrar_centros')}}" method="POST">
 		<!-- input nombre  -->
-		<input type="text" placeholder="Buscar por nombre" id="nombre" name="nombre">
+		<input type="text" value="{{ request.form['nombre'] }}" placeholder="Buscar por nombre" id="nombre" name="nombre">
 		<!-- select estado todos pendiente, aceptado, rechazado -->
 		<select name="estado" id="estado">
-			<option value="todos">Todos</option>
+			<option value="todos">Filtrar por estado</option>
 			<option value="pendiente">Pendientes</option>
 			<option value="aceptado">Aceptados</option>
 			<option value="rechazado">Rechazados</option>
 		</select>
 		<!-- boton de submit -->
-		<input type="submit">
+		<input type="submit" value="Buscar">
 	</form>
 	<table class="table table-striped table-bordered bg-white table-sm" >
 		<thead>
@@ -37,11 +37,11 @@
 					{{centro.municipio.nombre}}
 				</td>
 				<td>
-					{% for tag in centro.tipos_de_centro %}
 					<ul>
-						<li>{{tag.nombre}}</li>
-					</ul>
+					{% for tag in centro.tipos_de_centro %}					
+						<li class="badge badge-info">{{tag.nombre}}</li>				
 					{% endfor %}
+					</ul>
 				</td>
 				<td>
 					{{centro.email}}
@@ -54,35 +54,48 @@
 		</tbody>
 	</table>
 	<!-- PAGINACION -->
-	{% if lista_de_centros.has_prev %}
-	<li>
-	    <a href="{{ url_for('centros', page=lista_de_centros.prev_num) }}">Previous</a>
-	</li>
-	{% endif %}
-	<!-- all page numbers -->
-	{% for page_num in lista_de_centros.iter_pages() %}
-	    {% if page_num %}
-	        {% if page_num != lista_de_centros.page %}
-	            <li>
-	                <a href="{{ url_for('centros', page=page_num) }}">{{ page_num }}</a>
-	            </li>
-	        {% else %}
-	            <li class="active">
-	                <a href="#">{{ page_num }}</a>
-	            </li>
-	        {% endif %}
-	   {% else %}
-	       <li>
-	           <span class="ellipsis" style="white-space; nowrap; overflow: hidden; text-overflow: ellipsis">…</span>
-	       </li>
-	   {% endif %}
-	{% endfor %}
-	<!-- next page -->
-	{% if lista_de_centros.has_next %}
-	<li>
-	    <a href="{{ url_for('centros', page=lista_de_centros.next_num) }}">Next</a>
-	</li>
-	{% endif %}
+	<div class="text-center">
+		<ul class="pagination">
+			{% if lista_de_centros.has_prev %}
+				<li class="page-item">
+				    <a class="page-link" href="{{ url_for('filtrar_centros', page=lista_de_centros.prev_num, lista=lista_de_centros) }}">«</a>
+				</li>
+			{% else %}
+				<li class="page-item disabled">
+				    <a class="page-link">«</a>
+				</li>
+			{% endif %}
+			<!-- all page numbers -->
+			{% for page_num in lista_de_centros.iter_pages() %}
+			    {% if page_num %}
+			        {% if page_num != lista_de_centros.page %}
+			        <li class="page-item">
+			            <a class="page-link" href="{{ url_for('filtrar_centros', page=page_num, lista=lista_de_centros) }}">{{ page_num }}</a>
+			        </li>
+			        {% else %}
+			        <li class="page-item active">
+			            <a class="page-link" href="#">{{ page_num }}</a>
+			        </li>
+			        {% endif %}
+				{% else %}
+			    	<li class="page-item">
+			        	<span class="page-link ellipsis" style="white-space; nowrap; overflow: hidden; text-overflow: ellipsis">…</span>
+			    	</li>
+				{% endif %}
+			{% endfor %}
+			<!-- next page -->
+			{% if lista_de_centros.has_next %}
+				<li class="page-item">
+				    <a class="page-link" href="{{ url_for('filtrar_centros', page=lista_de_centros.next_num, get_nombre=pasar_nombre, get_estado=pasar_estado) }}">»</a>
+				</li>
+			{% else %}
+				<li class="page-item disabled">
+				    <a class="page-link">»</a>
+				</li>
+			{% endif %}
+		</ul>
+	</div>
+		
 	<!-- FIN PAGINACION -->
 
 </div>

@@ -15,18 +15,27 @@ def get_index(page=1):
     return render_template('centro_de_ayuda/index_centros.html', lista_de_centros=lista)
 
 
-def filtrar_centros(page=1):
+def filtrar_centros(get_estado='todos', get_nombre='', page=1):
 	permisos.validar_permisos('centro_index')
 	per_page = Configuracion.get_config().cantPagina
-	params = request.form
-	nombre = params['nombre'] or ''
+	
+	if request.method == 'POST':
+		#Por post me llega esto
+		print("Entro por post")
+		params = request.form
+		nombre = params['nombre'] or ''
+		estado = params['estado']
+	else:
+		nombre = get_nombre or ''
+		estado = get_estado or 'todos'
+
 	nombre = '%'+nombre+'%'
-	estado = params['estado']
 	if estado == 'todos':
 		lista = Centro_de_ayuda.query.filter(Centro_de_ayuda.nombre.like(nombre)).paginate(page, per_page=per_page)
 	else:
 		lista = Centro_de_ayuda.query.filter(Centro_de_ayuda.nombre.like(nombre)).filter_by(estado = estado).paginate(page, per_page=per_page)
 	
+		
 	print("Se levanto esta lista:")
 	print(lista)
-	return render_template('centro_de_ayuda/index_centros.html', lista_de_centros=lista)
+	return render_template('centro_de_ayuda/index_centros.html', lista_de_centros=lista, pasar_nombre=nombre, pasar_estado=estado)
