@@ -70,7 +70,7 @@ class User(db.Model):
     def create(us, cl, no, ap, em):
         today = datetime.now()
         nuevo_usuario = User(usuario=us, clave=cl, nombre=no, apellido=ap,
-                             email=em, activo=True, fecha_actualizacion=today, fecha_creacion=today)
+                             email=em, activo=True, fecha_actualizacion=today, fecha_creacion=today, historico=0)
         db.session.add(nuevo_usuario)
         db.session.commit()
         return True

@@ -19,13 +19,16 @@ def filtrar_centros(page=1):
 	todos_los_estados = Estado_centro.all()
 	per_page = Configuracion.get_config().cantPagina
 
-	params = request.form
-	nombre = params['nombre'] or ''
-	estado = params['estado']
+	nombre = ''
+	estado = 'todos'
+	if request.method == 'POST':
+		params = request.form
+		nombre = params['nombre'] or ''
+		estado = params['estado']
 
 	if estado == 'todos':
-		lista = Centro_de_ayuda.query.filter(Centro_de_ayuda.nombre.like('%'+nombre+'%')).paginate(page, per_page=per_page)
+		lista = Centro_de_ayuda.query.filter_by(historico=0).filter(Centro_de_ayuda.nombre.like('%'+nombre+'%')).paginate(page, per_page=per_page)
 	else:
-		lista = Centro_de_ayuda.query.filter(Centro_de_ayuda.nombre.like('%'+nombre+'%')).filter_by(estado_id = estado).paginate(page, per_page=per_page)
+		lista = Centro_de_ayuda.query.filter_by(historico=0).filter(Centro_de_ayuda.nombre.like('%'+nombre+'%')).filter_by(estado_id = estado).paginate(page, per_page=per_page)
 	
 	return render_template('centro_de_ayuda/index_centros.html', lista_de_centros=lista, estados=todos_los_estados, pasar_nombre=nombre, pasar_estado=estado)

@@ -53,6 +53,7 @@ def logout():
 
 
 def edit_usuario(id):
+    permisos.validar_permisos('user_edit')
     usuario = User.get_by_id(id)
     if request.method == 'POST':
         u = request.form
@@ -65,11 +66,13 @@ def edit_usuario(id):
         #return redirect(url_for('edit_usuario', usuario=usuario))
 
 def activar(id):
+    permisos.validar_permisos('user_edit')
     usuario = User.all()
     User.activar_user(id)
     return render_template('usuario/index_usuario.html', usuario=usuario)
 
 def desactivar(id):
+    permisos.validar_permisos('user_edit')
     usuario = User.all()
     User.desactivar_user(id)
     return render_template('usuario/index_usuario.html', usuario=usuario)
@@ -83,6 +86,7 @@ def index_usuario():
     return render_template('usuario/index_usuario.html', usuario=usuario)
 
 def crear_usuario():
+    permisos.validar_permisos('user_create')
     if request.method == 'POST':
         u = request.form
         mensaje_error = ''
@@ -104,6 +108,7 @@ def crear_usuario():
         return render_template('usuario/crear_usuario.html')
 
 def borrar(id):
+    permisos.validar_permisos('user_delete')
     mensaje= "Se borro el usuario"
     User.delete(id)
     usuarios = User.all()
@@ -129,6 +134,7 @@ def states():
         flash("Hubo un error")
 
 def agregar_rol(usuario,rol):
+    permisos.validar_permisos('user_edit')
     User.agregar_rol(usuario,rol)
     lista_de_usuarios = User.all()
     return render_template('usuario/index_usuario.html', usuario = lista_de_usuarios)
