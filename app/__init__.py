@@ -8,7 +8,7 @@ from flask_session import Session
 from app.resources import user
 from app.resources import config
 from app.resources import centros_de_ayuda
-
+from flask_fontawesome import FontAwesome
 # from flask_mysqldb import MySQL
 
 
@@ -16,6 +16,7 @@ def create_app():
     # Configuración inicial de la app
     app = Flask(__name__)
     app.config.from_object(Config)
+    fa = FontAwesome(app)
     # session
     app.config['SESSION_TYPE'] = 'filesystem'
     Session(app)

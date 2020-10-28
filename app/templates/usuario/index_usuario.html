@@ -50,7 +50,7 @@
 				{% else %}
 				<a href="{{ url_for('desactivar', id=u.id)}}" class="btn btn-danger">Desactivar</a>
 				{% endif %}
-				<a href="{{ url_for('borrar_usuario', id=u.id)}}" class="btn btn-danger" title="Eliminar Usuario" onclick="return confirm('¿Estás seguro de que deseas eliminar el usuario?')">🗑️</a>
+				<a href="{{ url_for('borrar_usuario', id=u.id)}}" class="btn btn-danger" title="Eliminar Usuario" onclick="return confirm('¿Estás seguro de que deseas eliminar el usuario?')"><span class="fas fa-trash"></span></a>
             </td>
  		</tr>
 	{% endfor %}
