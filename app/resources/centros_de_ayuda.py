@@ -14,7 +14,7 @@ def get_index( page=1):
     return render_template('centro_de_ayuda/index_centros.html', lista_de_centros=lista, estados=todos_los_estados)
 
 
-def filtrar_centros(page=1):
+def go_index(filtered_list='',page=1):
 	permisos.validar_permisos('centro_index')
 	todos_los_estados = Estado_centro.all()
 	per_page = Configuracion.get_config().cantPagina
@@ -26,9 +26,15 @@ def filtrar_centros(page=1):
 		nombre = params['nombre'] or ''
 		estado = params['estado']
 
-	if estado == 'todos':
-		lista = Centro_de_ayuda.query.filter_by(historico=0).filter(Centro_de_ayuda.nombre.like('%'+nombre+'%')).paginate(page, per_page=per_page)
+		if estado == 'todos':
+			lista = Centro_de_ayuda.query.filter_by(historico=0).filter(Centro_de_ayuda.nombre.like('%'+nombre+'%')).paginate(page, per_page=per_page)
+		else:
+			lista = Centro_de_ayuda.query.filter_by(historico=0).filter(Centro_de_ayuda.nombre.like('%'+nombre+'%')).filter_by(estado_id = estado).paginate(page, per_page=per_page)
 	else:
-		lista = Centro_de_ayuda.query.filter_by(historico=0).filter(Centro_de_ayuda.nombre.like('%'+nombre+'%')).filter_by(estado_id = estado).paginate(page, per_page=per_page)
-	
+		if filtered_list:
+			print("entre para usar la lista que ya tenia")
+			lista = filtered_list.paginate(page, per_page=per_page)
+		else:
+			print("Voy a filtrar para el primer get")
+			lista = Centro_de_ayuda.query.filter_by(historico=0).paginate(page, per_page=per_page)
 	return render_template('centro_de_ayuda/index_centros.html', lista_de_centros=lista, estados=todos_los_estados, pasar_nombre=nombre, pasar_estado=estado)
