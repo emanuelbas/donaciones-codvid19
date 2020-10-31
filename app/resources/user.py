@@ -57,13 +57,20 @@ def edit_usuario(id):
     usuario = User.get_by_id(id)
     if request.method == 'POST':
         u = request.form
-        User.edit(id, u['usuario'], u['clave'], u['nombre'], u['apellido'], u['email'], u['activo'])
-        mensaje = "Se modifico el usuario correctamente"
+        mensaje = ''
+        if User.existe_usuario(u['usuario']):
+            mensaje="El nombre de usuario ya existe"
+        elif User.existe_email(u['email']):
+            mensaje="El email ya existe"
+        else:
+            User.edit(id, u['usuario'], u['clave'], u['nombre'], u['apellido'], u['email'], u['activo'])
+            mensaje = "Usuario creado exitosamente"
+            usuarios = User.all()
+            #return render_template('usuario/editar_usuario.html', mensaje=mensaje, usuario=usuario)
+            return redirect(url_for('index_usuario', mensaje=mensaje, usuarios=usuarios))
         return render_template('usuario/editar_usuario.html', usuario=usuario, mensaje=mensaje)
-        #return redirect(url_for('edit_usuario', usuario=usuario, mensaje=mensaje))
     else:
         return render_template('usuario/editar_usuario.html', usuario=usuario)
-        #return redirect(url_for('edit_usuario', usuario=usuario))
 
 def activar(id):
     permisos.validar_permisos('user_edit')

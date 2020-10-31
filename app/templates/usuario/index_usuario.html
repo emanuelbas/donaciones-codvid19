@@ -1,5 +1,14 @@
 {% extends "layout.html" %}
 {% block content %}
+<div class="container">
+	{% if mensaje %}
+	<div class="alert alert-success" role="alert">
+		<ul>
+			<li>{{ mensaje }}</li>
+		</ul>
+	</div>
+	{% endif %} 
+  </div>
 <h2 class="text-center">Usuarios</h2>
 
 <div class="container">
@@ -42,7 +51,13 @@
 	     	<td> {{ u.nombre }} </td>
 	     	<td> {{ u.apellido }} </td>
 			<td> {{ u.email }} </td>
-			<td> {{ u.activo }} </td>
+			<td>
+				{% if (u.activo == 1) %}
+				<p>Si</p>
+			    {% else %}
+				<p>No</p>
+			    {%  endif  %}
+			</td>
             <td> 
             	<a href="{{ url_for('edit_usuario', id=u.id)}}" class="btn btn-info"><!-- span alt="Editar usuario" title="Editar usuario" class="fas fa-user-edit"></span-->Editar usuario</a>
 				{% if u.activo == 0 %}
@@ -60,5 +75,6 @@
     </div>
 </tbody>
 </table>
-</div> 
+</div>
+
 {% endblock %}
