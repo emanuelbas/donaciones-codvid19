@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-10-2020 a las 22:05:58
+-- Tiempo de generación: 31-10-2020 a las 02:18:05
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.2.33
 
@@ -243,6 +243,33 @@ INSERT INTO `tipo_de_centro` (`id`, `nombre`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `turnos_para_centro`
+--
+
+CREATE TABLE `turnos_para_centro` (
+  `id` int(10) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `bloque_turno` varchar(50) NOT NULL,
+  `dia` date NOT NULL,
+  `activo` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `turnos_para_centro`
+--
+
+INSERT INTO `turnos_para_centro` (`id`, `email`, `bloque_turno`, `dia`, `activo`) VALUES
+(1, 'dario@gmail.com', '9 a 9:30', '2020-10-30', 0),
+(2, 'ema@gmail.com', '10 a 10:30', '2020-10-30', 0),
+(3, 'maxi@gmail.com', '10:30 a 11', '2020-10-30', 1),
+(4, 'may@gmail.com', '00:00', '2020-10-30', 1),
+(5, 'juanp@gmail.com', '12:30', '2020-10-30', 1),
+(6, 'hugo@gmail.com', '19:00', '2020-10-30', 1),
+(9, 'nuevo@gmail.com', '14:00 a 14:30', '2020-10-30', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `usuario`
 --
 
@@ -266,7 +293,8 @@ CREATE TABLE `usuario` (
 INSERT INTO `usuario` (`id`, `usuario`, `clave`, `nombre`, `apellido`, `email`, `activo`, `fecha_creacion`, `fecha_actualizacion`, `historico`) VALUES
 (8, 'admin', '1234', 'Homero', 'Simpson', 'hsimpson@gmail.com', 1, '2020-10-18', '2020-10-18', 0),
 (11, 'usuario', '1234', 'Ned', 'Flanders', 'flanders15@gmail.com', 1, '2020-10-18', '2020-10-18', 0),
-(13, 'otro usuario', '123', 'qwe', 'qweqwe', 'ewqwe@dqw', 1, '2020-10-24', '2020-10-24', 0);
+(13, 'nuevo', '1234', 'new', 'new', 'new@gmail.com', 1, '2020-10-24', '2020-10-24', 1),
+(19, 'sarasa', '1234', 'sara', 'sars', 'sara@gmail.commm', 0, '2020-10-30', '2020-10-30', 0);
 
 -- --------------------------------------------------------
 
@@ -352,6 +380,12 @@ ALTER TABLE `tipo_de_centro`
   ADD UNIQUE KEY `nombre` (`nombre`);
 
 --
+-- Indices de la tabla `turnos_para_centro`
+--
+ALTER TABLE `turnos_para_centro`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
@@ -413,10 +447,16 @@ ALTER TABLE `tipo_de_centro`
   MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT de la tabla `turnos_para_centro`
+--
+ALTER TABLE `turnos_para_centro`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

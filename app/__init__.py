@@ -9,6 +9,7 @@ from app.resources import user
 from app.resources import config
 from app.resources import centros_de_ayuda
 from flask_fontawesome import FontAwesome
+from app.resources import turnos_para_centro
 # from flask_mysqldb import MySQL
 
 
@@ -42,10 +43,14 @@ def create_app():
                      user.quienesomos, methods=["POST", "GET"])
 
     # ruta a centros
-    app.add_url_rule('/centros', 'centros', centros_de_ayuda.filtrar_centros, methods=["GET"])
-    app.add_url_rule('/centros/page/<int:page>', 'centros', centros_de_ayuda.filtrar_centros, methods=["GET"])
-    app.add_url_rule('/centros', 'filtrar_centros', centros_de_ayuda.filtrar_centros, methods=["POST", "GET"])
-    app.add_url_rule('/centros/page/<int:page>','filtrar_centros', centros_de_ayuda.filtrar_centros, methods=["POST","GET"])
+    app.add_url_rule('/centros', 'centros',
+                     centros_de_ayuda.filtrar_centros, methods=["GET"])
+    app.add_url_rule('/centros/page/<int:page>', 'centros',
+                     centros_de_ayuda.filtrar_centros, methods=["GET"])
+    app.add_url_rule('/centros', 'filtrar_centros',
+                     centros_de_ayuda.filtrar_centros, methods=["POST", "GET"])
+    app.add_url_rule('/centros/page/<int:page>', 'filtrar_centros',
+                     centros_de_ayuda.filtrar_centros, methods=["POST", "GET"])
 
     # ruta a login
     app.add_url_rule('/login', 'login', user.login)
@@ -67,6 +72,13 @@ def create_app():
     app.add_url_rule('/usuarios/desactivar/<id>', 'desactivar',
                      user.desactivar,  methods=['POST', 'GET'])
 
+    # turno para centro
+    app.add_url_rule('/turnos_para_centro/index_turno',
+                     'index_turno', turnos_para_centro.index_turno, methods=["POST", "GET"])
+    app.add_url_rule('/turnos_para_centro/crear_turno', 'crear_turno', turnos_para_centro.crear_turno, methods=["POST", "GET"])
+    app.add_url_rule('/turnos_para_centro/editar_turno/<id>', 'editar_turno', turnos_para_centro.editar_turno, methods=["POST", "GET"])
+    app.add_url_rule('/turnos_para_centro/borrar_turno/<id>', 'borrar_turno', turnos_para_centro.borrar_turno, methods=["POST", "GET"])
+
     # ruta al backend
     app.add_url_rule('/backend', 'backend', user.backend,
                      methods=["POST", "GET"])
@@ -83,7 +95,7 @@ def create_app():
     def page_not_found(e):
         return render_template('errores/401.html'), 401
 
-        # index
+    # index
 
     @app.route('/')
     def index():
