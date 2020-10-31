@@ -1,5 +1,5 @@
 from os import path
-from flask import Flask, url_for, render_template, g, request, session, flash, redirect
+from flask import Flask, url_for, render_template, g, abort, request, session, flash, redirect
 from app.models.usuario import User
 from app.config import Config
 from app.models.configuracion import Configuracion
@@ -10,6 +10,7 @@ from app.resources import config
 from app.resources import centros_de_ayuda
 from flask_fontawesome import FontAwesome
 from app.resources import turnos_para_centro
+from app.helpers import permisos
 # from flask_mysqldb import MySQL
 
 
@@ -45,6 +46,7 @@ def create_app():
     # ruta a centros
     app.add_url_rule('/centros', 'centros', centros_de_ayuda.go_index, methods=["POST", "GET"])
     app.add_url_rule('/centros/page/<int:page>', 'centros', centros_de_ayuda.go_index, methods=["POST", "GET"])
+    app.add_url_rule('/centros/nombre/<nombre>/estado/<estado>/page/<int:page>', 'centros', centros_de_ayuda.go_index, methods=["POST", "GET"])
 
 
     # ruta a login
@@ -98,6 +100,8 @@ def create_app():
 
     @app.route('/')
     def index():
+        if permisos.sitio_cerrado() and permisos.no_es_admin():
+            abort(503)
         configuracion = Configuracion.get_config()
         return render_template('index.html', configuracion=configuracion)
 

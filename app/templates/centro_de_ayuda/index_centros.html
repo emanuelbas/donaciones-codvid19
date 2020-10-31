@@ -8,8 +8,9 @@
 		<!-- input nombre  -->
 		<input type="text" value="{{ request.form['nombre'] }}" placeholder="Buscar por nombre" id="nombre" name="nombre">
 		<!-- select estado todos pendiente, aceptado, rechazado -->
+		<label>Estado:</label>
 		<select name="estado" id="estado">
-			<option value="todos">Filtrar por estado</option>
+			<option value="todos">Cualquier estado</option>
 			{% for estado in estados %}
 			<option value="{{estado.id}}">{{estado.nombre}}</option>
 			{% endfor %}
@@ -62,7 +63,7 @@
 		<ul class="pagination">
 			{% if lista_de_centros.has_prev %}
 				<li class="page-item">
-				    <a class="page-link" href="{{ url_for('centros', page=lista_de_centros.prev_num) }}">«</a>
+				    <a class="page-link" href="{{ url_for('centros', page=lista_de_centros.prev_num, nombre=nombre, estado=estado) }}">«</a>
 				</li>
 			{% else %}
 				<li class="page-item disabled">
@@ -74,7 +75,7 @@
 			    {% if page_num %}
 			        {% if page_num != lista_de_centros.page %}
 			        <li class="page-item">
-			            <a class="page-link" href="{{ url_for('centros', page=page_num) }}">{{ page_num }}</a>
+			            <a class="page-link" href="{{ url_for('centros', page=page_num, nombre=nombre, estado=estado) }}">{{ page_num }}</a>
 			        </li>
 			        {% else %}
 			        <li class="page-item active">
@@ -90,7 +91,7 @@
 			<!-- next page -->
 			{% if lista_de_centros.has_next %}
 				<li class="page-item">
-				    <a class="page-link" href="{{ url_for('centros', page=lista_de_centros.next_num, filtered_list='algo') }}">»</a>
+				    <a class="page-link" href="{{ url_for('centros', page=lista_de_centros.next_num, nombre=nombre, estado=estado) }}">»</a>
 				</li>
 			{% else %}
 				<li class="page-item disabled">
