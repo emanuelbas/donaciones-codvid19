@@ -90,6 +90,10 @@ def create_app():
     def page_not_found(e):
         return render_template('errores/401.html'), 401
 
+    @app.errorhandler(403)
+    def page_not_found(e):
+        return render_template('errores/403.html'), 403
+
     # index
 
     @app.route('/')

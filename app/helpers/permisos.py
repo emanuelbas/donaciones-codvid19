@@ -15,11 +15,11 @@ def validar_permisos(un_permiso):
 		abort(401)
 	if not usuario_activo(session):
 		print("Salio xq no estaba activo")
-		abort(401)#cambiar por 403
+		abort(403)
 	if un_permiso != '' and no_tiene_el_permiso_solicitado(un_permiso):
 		print("Se solicito permiso para "+un_permiso)
 		print("Salio xq no tenia el permiso")
-		abort(401)
+		abort(403)
 	return
 
 
