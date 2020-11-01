@@ -11,6 +11,7 @@ from app.resources import centros_de_ayuda
 from flask_fontawesome import FontAwesome
 from app.resources import turnos_para_centro
 from app.helpers import permisos
+from requests import get
 # from flask_mysqldb import MySQL
 
 
@@ -95,6 +96,11 @@ def create_app():
     @app.errorhandler(403)
     def page_not_found(e):
         return render_template('errores/403.html'), 403
+
+    @app.route('/test')
+    def test():
+        municipios = get('https://api-referencias.proyecto2020.linti.unlp.edu.ar/municipios?per_page=1000').json()
+        return municipios['data']['Town']['1']['name']
 
     # index
 
