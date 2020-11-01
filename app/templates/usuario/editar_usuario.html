@@ -7,6 +7,13 @@
     </ul>
 </div>
 {% endif %}
+{% if mensaje_error %}
+<div class="alert alert-danger" role="alert">
+    <ul>
+        <li>{{ mensaje_error }}</li>
+    </ul>
+</div>
+{% endif %}
 <h1>Editar Usuario</h1>
 
 <div class="container card-body">

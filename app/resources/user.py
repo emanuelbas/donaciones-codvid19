@@ -68,7 +68,7 @@ def edit_usuario(id):
             usuarios = User.all()
             #return render_template('usuario/editar_usuario.html', mensaje=mensaje, usuario=usuario)
             return redirect(url_for('index_usuario', mensaje=mensaje, usuarios=usuarios))
-        return render_template('usuario/editar_usuario.html', usuario=usuario, mensaje=mensaje)
+        return render_template('usuario/editar_usuario.html', usuario=usuario, mensaje_error=mensaje)
     else:
         return render_template('usuario/editar_usuario.html', usuario=usuario)
 
