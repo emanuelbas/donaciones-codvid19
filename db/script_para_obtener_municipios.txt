@@ -1,0 +1,18 @@
+# Este scrpt se puede usar ingresando a python
+# Sirve para generar una consulta SQL en base a la API de referencia
+# que puede usarse para agregar a todos los municipios a la BD
+
+>>> municipios = get('https://api-referencias.proyecto2020.linti.unlp.edu.ar/municipios?per_page=1000').json()['data']['Town']
+
+>>> sql = "INSERT INTO `municipio` (`id`, `nombre`, `fase_id`) VALUES "
+
+# Agrego el primer municipio
+>>> sql += ' ('1', 'Almirante Brown', '3')'
+
+# Agrego el resto separados por coma
+>>> for x in range(2,len(municipios)+1):
+...     id = municipios[str(x)]['id']
+...     fase = municipios[str(x)]['phase']
+...     name = municipios[str(x)]['name']
+...     sql += ", ('"+str(id)+"', '"+name+"', '"+str(fase)+"')"
+
