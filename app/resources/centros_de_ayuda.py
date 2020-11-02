@@ -33,6 +33,10 @@ def go_index(nombre=' ',estado='todos',page=1):
 
 	return render_template('centro_de_ayuda/index_centros.html', lista_de_centros=lista, nombre=nombre, estado=estado, estados = todos_los_estados)
 
+def crear_centro():
+	return render_template('centro_de_ayuda/crear_centro.html')
+
+
 def obtener_municipios(lista):
 	dic_de_municipios = api_requests.dictionaryOfMunicipios()
 	for centro in lista:

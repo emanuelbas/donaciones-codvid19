@@ -1,0 +1,102 @@
+{% extends "layout.html" %}
+{% block content %}
+{% if mensaje_error %}
+<div class="alert alert-warning" role="alert">
+    <p> ⚠️ {{ mensaje_error }}</p>
+</div>
+{% endif %}
+{% if mensaje_exito %}
+<div class="alert alert-success" role="alert">
+    <p>{{ mensaje_exito }}</p>
+</div>
+{% endif %}
+<h1>Nuevo Centro de Ayuda</h1>
+
+<div class="container card-body">
+    <span class="card-text">
+        <form action="" method="POST">
+
+
+            <section class="form-group">
+                <label for="contenido"> Selecciones un municipio: </label>
+                <!-- Deberia poder seleccionar uno de los que vienen de la API -->
+                <select name="cars" id="cars">
+                  <option value="volvo">La Plata</option>
+                  <option value="saab">Beriso</option>
+                  <option value="mercedes">Ensenada</option>
+                  <option value="audi">Quilmes</option>
+                </select>
+            </section>
+
+
+            <section class="form-group">
+                <label for="titulo"> Nombre </label>
+                <input type="text" class="form-control form-control-lg rounded-0" name="nombre" id="nombre" placeholder="Ingrese el nombre" required>
+            </section>
+
+            <section class="form-group">
+                <label for="titulo"> Email </label>
+                <input type="email" class="form-control form-control-lg rounded-0" name="email" id="email" placeholder="Ingrese el correo" required>
+            </section>
+
+            <section class="form-group">
+                <label for="contenido"> Sitio Web </label>
+                <input type="text" class="form-control form-control-lg rounded-0" name="web" id="web" placeholder="Ingrese el sitio web" required>
+            </section>
+
+
+            <section class="form-group">
+                <label for="contenido"> Dirección </label>
+                <input type="text" class="form-control form-control-lg rounded-0" name="direccion" id="direccion" placeholder="Ingrese la dirección" required>
+            </section>
+
+
+
+            <section class="form-group">
+                <label for="contenido"> Coordenada x de Geolocalización </label>
+                <input type="text" class="form-control form-control-lg rounded-0" name="cor_x" id="cor_x" placeholder="La coordenada X" required>
+                <label for="contenido"> Coordenada y de Geolocalización </label>
+                <input type="text" class="form-control form-control-lg rounded-0" name="cor_y" id="cor_y" placeholder="La coordenada Y" required>
+            </section>
+
+
+            <section class="form-group">
+                <label for="contenido"> Hora de Apertura </label>
+                <input type="time" class="form-control form-control-lg rounded-0" name="hora_apertura" id="hora_apertura" required>
+                <label for="contenido"> Hora de Cierre </label>
+                <input type="time" class="form-control form-control-lg rounded-0" name="hora_cierre" id="hora_cierre" required>
+            </section>
+
+
+
+
+
+
+
+
+
+            <section class="form-group">
+                <label for="contenido"> Tipo de Centro </label><br>
+                <input type="checkbox" id="tipo1" name="tipo1" value="nombre_tipo_1">
+                <label for="vehicle1"> Sangre</label><br>
+                <input type="checkbox" id="tipo2" name="tipo2" value="nombre_tipo_2">
+                <label for="vehicle2"> Plasma</label><br>
+                <input type="checkbox" id="tipo3" name="tipo3" value="nombre_tipo_3">
+                <label for="vehicle3"> Comida</label><br> 
+                <input type="checkbox" id="tipo4" name="tipo4" value="nombre_tipo_4">
+                <label for="vehicle4"> Ropa</label><br> 
+            </section>
+
+
+
+            <!-- Viene publicado por defecto -->
+            <!-- Viene protocolo pdf por defecto -->
+
+            <div class="text-right">
+                <a href="{{ url_for('centros') }}" class="btn btn-white">Cancelar</a>
+                <button type="submit" class="btn btn-info">Aceptar</button>
+            </div>
+        </form>
+    </span>
+</div>
+{% endblock %}
