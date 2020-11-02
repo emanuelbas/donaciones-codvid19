@@ -1,5 +1,5 @@
 from os import path
-from flask import Flask, url_for, render_template, g, request, session, flash, redirect
+from flask import Flask, url_for, render_template, g, abort, request, session, flash, redirect
 from app.models.usuario import User
 from app.config import Config
 from app.models.configuracion import Configuracion
@@ -8,7 +8,10 @@ from flask_session import Session
 from app.resources import user
 from app.resources import config
 from app.resources import centros_de_ayuda
-
+from flask_fontawesome import FontAwesome
+from app.resources import turnos_para_centro
+from app.helpers import permisos
+from requests import get
 # from flask_mysqldb import MySQL
 
 
@@ -16,6 +19,7 @@ def create_app():
     # Configuración inicial de la app
     app = Flask(__name__)
     app.config.from_object(Config)
+    fa = FontAwesome(app)
     # session
     app.config['SESSION_TYPE'] = 'filesystem'
     Session(app)
@@ -41,10 +45,10 @@ def create_app():
                      user.quienesomos, methods=["POST", "GET"])
 
     # ruta a centros
-    app.add_url_rule('/centros', 'centros', centros_de_ayuda.get_index, methods=["GET"])
-    app.add_url_rule('/centros/page/<int:page>', 'centros', centros_de_ayuda.get_index, methods=["GET"])
-    app.add_url_rule('/centros', 'filtrar_centros', centros_de_ayuda.filtrar_centros, methods=["POST", "GET"])
-    app.add_url_rule('/centros/page/<int:page>','filtrar_centros', centros_de_ayuda.filtrar_centros, methods=["POST","GET"])
+    app.add_url_rule('/centros', 'centros', centros_de_ayuda.go_index, methods=["POST", "GET"])
+    app.add_url_rule('/centros/page/<int:page>', 'centros', centros_de_ayuda.go_index, methods=["POST", "GET"])
+    app.add_url_rule('/centros/nombre/<nombre>/estado/<estado>/page/<int:page>', 'centros', centros_de_ayuda.go_index, methods=["POST", "GET"])
+
 
     # ruta a login
     app.add_url_rule('/login', 'login', user.login)
@@ -66,6 +70,13 @@ def create_app():
     app.add_url_rule('/usuarios/desactivar/<id>', 'desactivar',
                      user.desactivar,  methods=['POST', 'GET'])
 
+    # turno para centro
+    app.add_url_rule('/turnos_para_centro/index_turno',
+                     'index_turno', turnos_para_centro.index_turno, methods=["POST", "GET"])
+    app.add_url_rule('/turnos_para_centro/crear_turno', 'crear_turno', turnos_para_centro.crear_turno, methods=["POST", "GET"])
+    app.add_url_rule('/turnos_para_centro/editar_turno/<id>', 'editar_turno', turnos_para_centro.editar_turno, methods=["POST", "GET"])
+    app.add_url_rule('/turnos_para_centro/borrar_turno/<id>', 'borrar_turno', turnos_para_centro.borrar_turno, methods=["POST", "GET"])
+
     # ruta al backend
     app.add_url_rule('/backend', 'backend', user.backend,
                      methods=["POST", "GET"])
@@ -82,10 +93,21 @@ def create_app():
     def page_not_found(e):
         return render_template('errores/401.html'), 401
 
-        # index
+    @app.errorhandler(403)
+    def page_not_found(e):
+        return render_template('errores/403.html'), 403
+
+    @app.route('/test')
+    def test():
+        municipios = get('https://api-referencias.proyecto2020.linti.unlp.edu.ar/municipios?per_page=1000').json()
+        return municipios['data']['Town']['1']['name']
+
+    # index
 
     @app.route('/')
     def index():
+        if permisos.sitio_cerrado() and permisos.no_es_admin():
+            abort(503)
         configuracion = Configuracion.get_config()
         return render_template('index.html', configuracion=configuracion)
 

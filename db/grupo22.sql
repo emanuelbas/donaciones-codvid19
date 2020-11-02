@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-10-2020 a las 22:05:58
+-- Tiempo de generación: 01-11-2020 a las 23:23:37
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.2.33
 
@@ -49,13 +49,13 @@ CREATE TABLE `centro_de_ayuda` (
 --
 
 INSERT INTO `centro_de_ayuda` (`id`, `nombre`, `direccion`, `telefono`, `hora_de_apertura`, `hora_de_cierre`, `sitio_web`, `email`, `estado_id`, `protocolo_de_vista`, `coordenada_x`, `coordenada_y`, `historico`, `municipio_id`) VALUES
-(1, 'Centro de prueba', 'Calle 23, numero 35', '9111233255', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba.gov', 'contacto@centrodeprueba.gov', 1, 'PDF', 300, 54234, 0, 2),
-(2, 'Centro de prueba 2', 'Calle 2, numero 33', '9111233353', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba2.gov', 'contacto@centrodeprueba2.gov', 2, 'PDF', 44, 54234, 0, 2),
-(3, 'Donaciones Pepito', 'Calle 32, numero 12', '9111224525', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba.gov', 'contacto@centrodeprueba.gov', 3, 'PDF', 300, 54234, 0, 2),
-(4, 'Hospital Nacional', 'Calle 15, numero 3443', '9111233255', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba.gov', 'contacto@centrodeprueba.gov', 2, 'PDF', 300, 54234, 0, 1),
-(5, 'Hospital Enrique', 'Calle 53, numero 35', '9111233255', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba.gov', 'contacto@centrodeprueba.gov', 1, 'PDF', 300, 54234, 0, 1),
-(6, 'Centro la esperanza', 'Calle 23234, numero 35', '9111233255', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba.gov', 'contacto@centrodeprueba.gov', 3, 'PDF', 300, 54234, 0, 1),
-(7, 'Centro la poca imaginacion', 'Calle 123, numero 35', '9111233255', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba.gov', 'contacto@centrodeprueba.gov', 1, 'PDF', 300, 54234, 0, 2);
+(1, 'Centro de prueba', 'Calle 23, numero 35', '9111233255', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba.gov', 'contacto@centrodeprueba.gov', 1, 'PDF', 300, 54234, 0, 19),
+(2, 'Centro de prueba 2', 'Calle 2, numero 33', '9111233353', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba2.gov', 'contacto@centrodeprueba2.gov', 2, 'PDF', 44, 54234, 0, 7),
+(3, 'Donaciones Pepito', 'Calle 32, numero 12', '9111224525', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba.gov', 'contacto@centrodeprueba.gov', 3, 'PDF', 300, 54234, 0, 4),
+(4, 'Hospital Nacional', 'Calle 15, numero 3443', '9111233255', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba.gov', 'contacto@centrodeprueba.gov', 2, 'PDF', 300, 54234, 0, 19),
+(5, 'Hospital Enrique', 'Calle 53, numero 35', '9111233255', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba.gov', 'contacto@centrodeprueba.gov', 1, 'PDF', 300, 54234, 0, 4),
+(6, 'Centro la esperanza', 'Calle 23234, numero 35', '9111233255', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba.gov', 'contacto@centrodeprueba.gov', 3, 'PDF', 300, 54234, 0, 7),
+(7, 'Centro la poca imaginacion', 'Calle 123, numero 35', '9111233255', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba.gov', 'contacto@centrodeprueba.gov', 1, 'PDF', 300, 54234, 0, 19);
 
 -- --------------------------------------------------------
 
@@ -105,7 +105,7 @@ CREATE TABLE `configuracion` (
 --
 
 INSERT INTO `configuracion` (`id`, `titulo`, `descripcion`, `mail`, `activo`, `cantPagina`) VALUES
-(1, 'Covid-19', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ', 'centro@gmail.com', 1, 3);
+(1, 'Covid-19', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ', 'centro@gmail.com', 1, 5);
 
 -- --------------------------------------------------------
 
@@ -135,16 +135,150 @@ INSERT INTO `estado_centro` (`id`, `nombre`) VALUES
 
 CREATE TABLE `municipio` (
   `id` int(10) NOT NULL,
-  `nombre` varchar(35) NOT NULL
+  `nombre` varchar(35) NOT NULL,
+  `fase_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `municipio`
 --
 
-INSERT INTO `municipio` (`id`, `nombre`) VALUES
-(2, 'Ensenada'),
-(1, 'La Plata');
+INSERT INTO `municipio` (`id`, `nombre`, `fase_id`) VALUES
+(1, 'Almirante Brown', 3),
+(2, 'Avellaneda', 3),
+(3, 'Berazategui', 3),
+(4, 'Berisso', 3),
+(5, 'Cañuelas', 3),
+(6, 'Coronel Pringles', 3),
+(7, 'Ensenada', 3),
+(8, 'Escobar', 3),
+(9, 'Esteban Echeverría', 3),
+(10, 'Ezeiza', 3),
+(11, 'Florencio Varela', 3),
+(12, 'General Las Heras', 3),
+(13, 'General Rodríguez', 3),
+(14, 'General San Martín', 3),
+(15, 'Hurlingham', 3),
+(16, 'Ituzaingó', 3),
+(17, 'José C. Paz', 3),
+(18, 'La Matanza', 3),
+(19, 'La Plata', 3),
+(20, 'Lanús', 3),
+(21, 'Lomas de Zamora', 3),
+(22, 'Luján', 3),
+(23, 'Malvinas Argentinas', 3),
+(24, 'Marcos Paz', 3),
+(25, 'Merlo', 3),
+(26, 'Moreno', 3),
+(27, 'Morón', 3),
+(28, 'Pilar', 3),
+(29, 'Presidente Perón', 3),
+(30, 'Quilmes', 3),
+(31, 'San Fernando', 3),
+(32, 'San Isidro', 3),
+(33, 'San Miguel', 3),
+(34, 'San Vicente', 3),
+(35, 'Tigre', 3),
+(36, 'Tres de Febrero', 3),
+(37, 'Vicente López', 3),
+(38, '25 de Mayo', 4),
+(39, 'Arrecifes', 4),
+(40, 'Ayacucho', 4),
+(41, 'Azul', 4),
+(42, 'Bahía Blanca', 4),
+(43, 'Balcarce', 4),
+(44, 'Baradero', 4),
+(45, 'Bolívar', 4),
+(46, 'Bragado', 4),
+(47, 'Brandsen', 4),
+(48, 'Campana', 4),
+(49, 'Capitán Sarmiento', 4),
+(50, 'Carmen de Areco', 4),
+(51, 'Castelli', 4),
+(52, 'Chacabuco', 4),
+(53, 'Chascomús', 4),
+(54, 'Chivilcoy', 4),
+(55, 'Coronel de Marina L. Rosales', 4),
+(56, 'Coronel Dorrego', 4),
+(57, 'Dolores', 4),
+(58, 'Exaltación de la Cruz', 4),
+(59, 'General Belgrano', 4),
+(60, 'General Juan Madariaga', 4),
+(61, 'General Paz', 4),
+(62, 'General Pueyrredon', 4),
+(63, 'HIpólito Yrigoyen', 4),
+(64, 'Laprida', 4),
+(65, 'Lobos', 4),
+(66, 'Magdalena', 4),
+(67, 'Mercedes', 4),
+(68, 'Monte', 4),
+(69, 'Navarro', 4),
+(70, 'Pellegrini', 4),
+(71, 'Pergamino', 4),
+(72, 'Pila', 4),
+(73, 'Pinamar', 4),
+(74, 'Punta Indio', 4),
+(75, 'Ramallo', 4),
+(76, 'Roque Pérez', 4),
+(77, 'Saladillo', 4),
+(78, 'Salto', 4),
+(79, 'San Andrés de Giles', 4),
+(80, 'San Antonio de Areco', 4),
+(81, 'San Pedro', 4),
+(82, 'Suipacha', 4),
+(83, 'Tordillo', 4),
+(84, 'Tornquist', 4),
+(85, 'Zárate', 4),
+(86, '9 de Julio', 5),
+(87, 'Adolfo Alsina', 5),
+(88, 'Adolfo Gonzales Chaves', 5),
+(89, 'Alberti', 5),
+(90, 'Benito Juárez', 5),
+(91, 'Carlos Casares', 5),
+(92, 'Carlos Tejedor', 5),
+(93, 'Colón', 5),
+(94, 'Coronel Suárez', 5),
+(95, 'Daireaux', 5),
+(96, 'Florentino Ameghino', 5),
+(97, 'General Alvarado', 5),
+(98, 'General Alvear', 5),
+(99, 'General Arenales', 5),
+(100, 'General Guido', 5),
+(101, 'General La Madrid', 5),
+(102, 'General Lavalle', 5),
+(103, 'General Pinto', 5),
+(104, 'General Viamonte', 5),
+(105, 'General Villegas', 5),
+(106, 'Guarrini', 5),
+(107, 'Junín', 5),
+(108, 'La Costa', 5),
+(109, 'Las Flores', 5),
+(110, 'Leandra N. Alem', 5),
+(111, 'Lezama', 5),
+(112, 'Lincoln', 5),
+(113, 'Lobería', 5),
+(114, 'Maipú', 5),
+(115, 'Mar Chiquita', 5),
+(116, 'Monte Hermoso', 5),
+(117, 'Necochea', 5),
+(118, 'Olavarría', 5),
+(119, 'Patagones', 5),
+(120, 'Pehuajó', 5),
+(121, 'Puán', 5),
+(122, 'Rauch', 5),
+(123, 'Rivadavia', 5),
+(124, 'Rojas', 5),
+(125, 'Saavedra', 5),
+(126, 'Salliqueló', 5),
+(127, 'San Cayetano', 5),
+(128, 'San Nicolás', 5),
+(129, 'Tandil', 5),
+(130, 'Tapalque', 5),
+(131, 'Trenque Lauquen', 5),
+(132, 'Tres Arroyos', 5),
+(133, 'Tres Lomas', 5),
+(134, 'Villa Gesell', 5),
+(135, 'Villarino', 5);
 
 -- --------------------------------------------------------
 
@@ -243,6 +377,35 @@ INSERT INTO `tipo_de_centro` (`id`, `nombre`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `turnos_para_centro`
+--
+
+CREATE TABLE `turnos_para_centro` (
+  `id` int(10) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `bloque_turno` varchar(50) NOT NULL,
+  `dia` date NOT NULL,
+  `activo` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `turnos_para_centro`
+--
+
+INSERT INTO `turnos_para_centro` (`id`, `email`, `bloque_turno`, `dia`, `activo`) VALUES
+(1, 'dario@gmail.com', '9 a 9:30', '2020-10-30', 0),
+(2, 'ema2@gmail.com', '10 a 10:30', '2020-10-30', 0),
+(3, 'maxi@gmail.com', '10:30 a 11', '2020-10-30', 0),
+(4, 'may@gmail.com', '00:00', '2020-10-30', 1),
+(5, 'juanp@gmail.com', '12:30', '2020-10-30', 1),
+(6, 'hugo@gmail.com', '19:00', '2020-10-30', 1),
+(9, 'nuevo@gmail.com', '14:00 a 14:30', '2020-10-30', 1),
+(10, 'unemai@l', '15:30', '2020-11-06', 1),
+(11, 'asa@sdsd', '00:00', '2020-10-31', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `usuario`
 --
 
@@ -266,7 +429,8 @@ CREATE TABLE `usuario` (
 INSERT INTO `usuario` (`id`, `usuario`, `clave`, `nombre`, `apellido`, `email`, `activo`, `fecha_creacion`, `fecha_actualizacion`, `historico`) VALUES
 (8, 'admin', '1234', 'Homero', 'Simpson', 'hsimpson@gmail.com', 1, '2020-10-18', '2020-10-18', 0),
 (11, 'usuario', '1234', 'Ned', 'Flanders', 'flanders15@gmail.com', 1, '2020-10-18', '2020-10-18', 0),
-(13, 'otro usuario', '123', 'qwe', 'qweqwe', 'ewqwe@dqw', 1, '2020-10-24', '2020-10-24', 0);
+(13, 'nuevo', '1234', 'new', 'new', 'new@gmail.com', 1, '2020-10-24', '2020-10-24', 1),
+(19, 'sarasa', '1234', 'sara', 'sars', 'sara@gmail.commm', 0, '2020-10-30', '2020-10-30', 0);
 
 -- --------------------------------------------------------
 
@@ -352,6 +516,12 @@ ALTER TABLE `tipo_de_centro`
   ADD UNIQUE KEY `nombre` (`nombre`);
 
 --
+-- Indices de la tabla `turnos_para_centro`
+--
+ALTER TABLE `turnos_para_centro`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
@@ -392,7 +562,7 @@ ALTER TABLE `estado_centro`
 -- AUTO_INCREMENT de la tabla `municipio`
 --
 ALTER TABLE `municipio`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=502;
 
 --
 -- AUTO_INCREMENT de la tabla `permiso`
@@ -413,10 +583,16 @@ ALTER TABLE `tipo_de_centro`
   MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT de la tabla `turnos_para_centro`
+--
+ALTER TABLE `turnos_para_centro`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

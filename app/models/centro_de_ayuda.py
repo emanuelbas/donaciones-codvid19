@@ -1,6 +1,7 @@
 from app.db import db
 from datetime import datetime
 from flask import session
+from requests import get
 
 tipos_de_centro = db.Table('centro_tiene_tipo',
                  db.Column('centro_id', db.Integer, db.ForeignKey(
@@ -42,6 +43,7 @@ class Municipio(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String, unique=True)
     centros_en_este_municipio = db.relationship("Centro_de_ayuda", back_populates="municipio")
+    fase_id = db.Column(db.Integer)
 
     def all():
         return Municipio.query.all()

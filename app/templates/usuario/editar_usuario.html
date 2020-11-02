@@ -7,11 +7,18 @@
     </ul>
 </div>
 {% endif %}
+{% if mensaje_error %}
+<div class="alert alert-danger" role="alert">
+    <ul>
+        <li>{{ mensaje_error }}</li>
+    </ul>
+</div>
+{% endif %}
 <h1>Editar Usuario</h1>
 
 <div class="container card-body">
     <span class="card-text">
-        <form method="POST" enctype="multipart/form-data">
+        <form action="{{ url_for('edit_usuario', id=usuario.id) }}" method="POST">
             <section class="form-group">
                 <label for="titulo"> Usuario </label>
                 <input type="text" class="form-control form-control-lg rounded-0" name="usuario" id="usuario" value="{{usuario.usuario}}" required>
@@ -19,9 +26,21 @@
 
             <section class="form-group">
                 <label for="contenido"> Clave </label>
-                <input type="text" class="form-control form-control-lg rounded-0" name="clave" id="clave" value="{{usuario.clave}}" required>
+                <input type="password" class="form-control form-control-lg rounded-0" name="clave" id="clave" value="{{usuario.clave}}" required>
             </section>
-
+            <section class="form-group">
+                <label for="contenido"> Confirmar clave </label>
+                <input type="password" class="form-control form-control-lg rounded-0" name="clave" id="clave_2" oninput="check(this)" placeholder="Confirme la clave" required>
+                <script language='javascript' type='text/javascript'>
+                    function check(input) {
+                        if (input.value != document.getElementById('clave').value) {
+                            input.setCustomValidity('La clave ingresada no coincide');
+                        } else {
+                            input.setCustomValidity('');
+                        }
+                    }
+                </script>
+            </section>
             <section class="form-group">
                 <label for="titulo"> Nombre </label>
                 <input type="text" class="form-control form-control-lg rounded-0" name="nombre" id="nombre" value="{{usuario.nombre}}" required>
@@ -50,7 +69,7 @@
             </section>
 
             <div class="text-right">
-                <a href="{{ url_for('index') }}" class="btn btn-white">Cancelar</a>
+                <a href="{{ url_for('index_usuario') }}" class="btn btn-white">Cancelar</a>
                 <button type="submit" class="btn btn-info">Aceptar</button>
             </div>
         </form>

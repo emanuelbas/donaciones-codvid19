@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block content %}
+{% if mensaje %}
+<div class="alert alert-success" role="alert">
+    <ul>
+        <li>{{ mensaje }}</li>
+    </ul>
+</div>
+{% endif %}
+<h1>Editar Turno</h1>
+
+<div class="container card-body">
+    <span class="card-text">
+        <form action="{{ url_for('editar_turno', id=turno.id) }}" method="POST">
+            <section class="form-group">
+                <label for="titulo"> Email </label>
+                <input type="email" class="form-control form-control-lg rounded-0" name="email" id="email" value="{{turno.email}}" required>
+            </section>
+            <section class="form-group">
+                <label for="titulo"> Hora del Turno </label>
+                <input type="text" class="form-control form-control-lg rounded-0" name="bloque_turno" id="bloque_turno" value="{{turno.bloque_turno}}" required>
+            </section>
+
+            <section class="form-group">
+                <label for="titulo"> Dia </label>
+                <input type="date" class="form-control form-control-lg rounded-0" name="dia" id="dia"
+                value="{{turno.dia}}" required>
+            
+            <div class="text-right">
+                <a href="{{ url_for('index_turno') }}" class="btn btn-white">Cancelar</a>
+                <button type="submit" class="btn btn-info">Aceptar</button>
+            </div>
+        </form>
+    </span>
+</div>
+{% endblock %}

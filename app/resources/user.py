@@ -53,36 +53,44 @@ def logout():
 
 
 def edit_usuario(id):
+    permisos.validar_permisos('user_edit')
     usuario = User.get_by_id(id)
     if request.method == 'POST':
         u = request.form
-        User.edit(id, u['usuario'], u['clave'], u['nombre'], u['apellido'], u['email'], u['activo'])
-        mensaje = "Se modifico el usuario correctamente"
-        return render_template('usuario/editar_usuario.html', usuario=usuario, mensaje=mensaje)
-        #return redirect(url_for('edit_usuario', usuario=usuario, mensaje=mensaje))
+        mensaje = ''
+        if User.existe_usuario(u['usuario']):
+            mensaje="El nombre de usuario ya existe"
+        elif User.existe_email(u['email']):
+            mensaje="El email ya existe"
+        else:
+            User.edit(id, u['usuario'], u['clave'], u['nombre'], u['apellido'], u['email'], u['activo'])
+            mensaje = "Usuario creado exitosamente"
+            usuarios = User.all()
+            #return render_template('usuario/editar_usuario.html', mensaje=mensaje, usuario=usuario)
+            return redirect(url_for('index_usuario', mensaje=mensaje, usuarios=usuarios))
+        return render_template('usuario/editar_usuario.html', usuario=usuario, mensaje_error=mensaje)
     else:
         return render_template('usuario/editar_usuario.html', usuario=usuario)
-        #return redirect(url_for('edit_usuario', usuario=usuario))
 
 def activar(id):
+    permisos.validar_permisos('user_edit')
     usuario = User.all()
     User.activar_user(id)
     return render_template('usuario/index_usuario.html', usuario=usuario)
 
 def desactivar(id):
+    permisos.validar_permisos('user_edit')
     usuario = User.all()
     User.desactivar_user(id)
     return render_template('usuario/index_usuario.html', usuario=usuario)
 
 def index_usuario():
-    #configuracion = Configuracion.get_config() #esto hay que poner en algunos def para que cuando este desactivado el user no pueda entrar
-    #if configuracion.activo == 0:
-    #    return render_template('sitioDesactivado.html')
     permisos.validar_permisos('user_show')
     usuario = User.all()
     return render_template('usuario/index_usuario.html', usuario=usuario)
 
 def crear_usuario():
+    permisos.validar_permisos('user_create')
     if request.method == 'POST':
         u = request.form
         mensaje_error = ''
@@ -104,6 +112,7 @@ def crear_usuario():
         return render_template('usuario/crear_usuario.html')
 
 def borrar(id):
+    permisos.validar_permisos('user_delete')
     mensaje= "Se borro el usuario"
     User.delete(id)
     usuarios = User.all()
@@ -129,6 +138,7 @@ def states():
         flash("Hubo un error")
 
 def agregar_rol(usuario,rol):
+    permisos.validar_permisos('user_edit')
     User.agregar_rol(usuario,rol)
     lista_de_usuarios = User.all()
     return render_template('usuario/index_usuario.html', usuario = lista_de_usuarios)
