@@ -76,14 +76,10 @@
 
             <section class="form-group">
                 <label for="contenido"> Tipo de Centro </label><br>
-                <input type="checkbox" id="tipo1" name="tipo1" value="nombre_tipo_1">
-                <label for="vehicle1"> Sangre</label><br>
-                <input type="checkbox" id="tipo2" name="tipo2" value="nombre_tipo_2">
-                <label for="vehicle2"> Plasma</label><br>
-                <input type="checkbox" id="tipo3" name="tipo3" value="nombre_tipo_3">
-                <label for="vehicle3"> Comida</label><br> 
-                <input type="checkbox" id="tipo4" name="tipo4" value="nombre_tipo_4">
-                <label for="vehicle4"> Ropa</label><br> 
+                {% for tag in tipos %}
+                <input type="checkbox" id="cb{{tag.id}}" name="tipos" value="{{tag.id}}">
+                <label for="cb{{tag.id}}"> {{tag.nombre}}</label><br>
+                {% endfor %}
             </section>
 
 
