@@ -21,10 +21,9 @@
                 <label for="contenido"> Selecciones un municipio: </label>
                 <!-- Deberia poder seleccionar uno de los que vienen de la API -->
                 <select name="municipio" id="municipio">
-                  <option value="19">La Plata</option>
-                  <option value="19">Beriso</option>
-                  <option value="19">Ensenada</option>
-                  <option value="19">Quilmes</option>
+                    {% for municipio in municipios %}
+                    <option value="{{ municipio }}">{{ municipios[municipio|string]['name'] }}</option>
+                    {% endfor %}
                 </select>
             </section>
 

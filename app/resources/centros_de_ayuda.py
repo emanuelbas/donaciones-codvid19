@@ -64,10 +64,15 @@ def crear_centro():
 				mensaje_error = "Hubo algun problema"
 			return render_template('index_centros.html', mensaje_error= mensaje_error, mensaje_exito=mensaje_exito)
 	else:
-		return render_template('centro_de_ayuda/crear_centro.html', mensaje_error= mensaje_error, mensaje_exito=mensaje_exito)
+		lista_de_municipios = obtener_dic_de_municipios()
+		return render_template('centro_de_ayuda/crear_centro.html', municipios=lista_de_municipios, mensaje_error= mensaje_error, mensaje_exito=mensaje_exito)
 
 
 def obtener_municipios(lista):
 	dic_de_municipios = api_requests.dictionaryOfMunicipios()
 	for centro in lista:
 		centro.municipio.nombre = dic_de_municipios['data']['Town'][str(centro.municipio.id)]['name']
+
+def obtener_dic_de_municipios():
+	''' Obtiene un diccionario municipios desde una API, separados por IDs '''
+	return api_requests.dictionaryOfMunicipios()['data']['Town']
