@@ -34,7 +34,37 @@ def go_index(nombre=' ',estado='todos',page=1):
 	return render_template('centro_de_ayuda/index_centros.html', lista_de_centros=lista, nombre=nombre, estado=estado, estados = todos_los_estados)
 
 def crear_centro():
-	return render_template('centro_de_ayuda/crear_centro.html')
+	mensaje_error = ''
+	mensaje_exito = ''
+	if request.method == "POST":
+		form = request.form
+		if Centro_de_ayuda.existe_nombre(form['municipio'],form['nombre']):
+			mensaje_error="Ya existe un centro con ese nombre para el municipio indicado"
+			return render_template('centro_de_ayuda/crear_centro.html', mensaje_error= mensaje_error, mensaje_exito=mensaje_exito)
+		else:
+			lista_de_tipos = []
+			res = Centro_de_ayuda.crear(
+				protocolo='PDF',
+				historico=0,
+				nombre=form['nombre'],
+				direccion=form['direccion'],
+				telefono=form['telefono'],
+				hapertura=form['hora_apertura'],
+				hcierre=form['hora_cierre'],
+				website=form['sitio_web'],
+				email=form['email'],
+				corx=form['corx'],
+				cory=form['cory'],
+				lista_de_tipos=lista_de_tipos,
+				id_municipio=form['municipio'],
+				id_estado=1)
+			if res:
+				mensaje_exito = "Centro creado exitosamente"
+			else:
+				mensaje_error = "Hubo algun problema"
+			return render_template('index_centros.html', mensaje_error= mensaje_error, mensaje_exito=mensaje_exito)
+	else:
+		return render_template('centro_de_ayuda/crear_centro.html', mensaje_error= mensaje_error, mensaje_exito=mensaje_exito)
 
 
 def obtener_municipios(lista):

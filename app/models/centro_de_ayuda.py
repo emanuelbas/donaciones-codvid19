@@ -37,6 +37,23 @@ class Centro_de_ayuda(db.Model):
     def all():
         return Centro_de_ayuda.query.filter_by(historico=0).all()
 
+    def borrar(id):
+        centro = Centro_de_ayuda.query.filter_by(id=id).first()
+        centro.historico = 1
+        db.session.commit()
+        return True
+
+    def crear( nombre, direccion, telefono, hapertura, hcierre, website, email, corx, cory, lista_de_tipos, id_municipio, id_estado,protocolo='PDF', historico=0):
+        nuevo_centro = Centro_de_ayuda(nombre = nombre, direccion = direccion, telefono = telefono, 
+            hora_de_apertura = hapertura, hora_de_cierre=hcierre, sitio_web=website,email=email,protocolo_de_vista=protocolo,
+            coordenada_y=cory, coordenada_x=corx, historico = historico, municipio_id=id_municipio, estado_id=id_estado, tipos_de_centro=lista_de_tipos)
+        db.session.add(nuevo_centro)
+        db.session.commit()
+        return True
+
+    def existe_nombre(municipio_id,nombre):
+        return Centro_de_ayuda.query.filter_by(municipio_id=municipio_id,nombre=nombre).first()
+
 ######################## MUNICIPIO ########################
 class Municipio(db.Model):
     __tablename__ = 'municipio'
