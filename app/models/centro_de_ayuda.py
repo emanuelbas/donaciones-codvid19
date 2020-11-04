@@ -43,16 +43,23 @@ class Centro_de_ayuda(db.Model):
         db.session.commit()
         return True
 
-    def crear( nombre, direccion, telefono, hapertura, hcierre, website, email, corx, cory, lista_de_tipos, id_municipio, id_estado,protocolo='PDF', historico=0):
-        nuevo_centro = Centro_de_ayuda(nombre = nombre, direccion = direccion, telefono = telefono, 
-            hora_de_apertura = hapertura, hora_de_cierre=hcierre, sitio_web=website,email=email,protocolo_de_vista=protocolo,
-            coordenada_y=cory, coordenada_x=corx, historico = historico, municipio_id=id_municipio, estado_id=id_estado, tipos_de_centro=lista_de_tipos)
+    def crear( nombre, direccion,telefono, hapertura, hcierre, email,sitio_web, corx, cory, lista_de_tipos, id_municipio, id_estado,protocolo='PDF', historico=0):
+        tipos = []
+        for tipo in lista_de_tipos:
+            tipos.append(Tipo_de_centro.query.filter_by(id=tipo).first())
+        print("Entre al crear del modelo")
+        nuevo_centro = Centro_de_ayuda(nombre = nombre, direccion = direccion,telefono = telefono, hora_de_apertura = hapertura, hora_de_cierre=hcierre, email=email, sitio_web=sitio_web,tipos_de_centro=tipos, protocolo_de_vista=protocolo, coordenada_y=cory, coordenada_x=corx, historico = historico, municipio_id=id_municipio, estado_id=id_estado)#, ,o)
+        print("Se creo en memoria el nuevo centro")
         db.session.add(nuevo_centro)
         db.session.commit()
         return True
 
     def existe_nombre(municipio_id,nombre):
         return Centro_de_ayuda.query.filter_by(municipio_id=municipio_id,nombre=nombre).first()
+
+    def hola_mundo():
+        print("Hola mundo")
+        return True
 
 ######################## MUNICIPIO ########################
 class Municipio(db.Model):
