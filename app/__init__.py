@@ -12,6 +12,7 @@ from flask_fontawesome import FontAwesome
 from app.resources import turnos_para_centro
 from app.helpers import permisos
 from requests import get
+from app.resources import api
 # from flask_mysqldb import MySQL
 
 
@@ -30,7 +31,7 @@ def create_app():
         Config.DB_USER+":"+Config.DB_PASS+"@"+Config.DB_HOST+"/"+Config.DB_NAME
     db.init_app(app)
 
-    # session agregado por maxi
+    
     app.config['SESSION_TYPE'] = 'filesystem'
     Session(app)
 
@@ -40,9 +41,10 @@ def create_app():
                      user.backend, methods=['POST'])
     app.add_url_rule('/logout', 'logout', user.logout)
 
-    # ruta a quienes somos
-    app.add_url_rule('/quienesomos', 'quienesomos',
-                     user.quienesomos, methods=["POST", "GET"])
+    # ruta a la api
+    app.add_url_rule('/api', 'api',
+                   api.mostrarApi, methods=["GET"])
+                      #'Api/centros/GetCentros.api.devolverCentros', methods=["GET"])
 
     # ruta a centros
     app.add_url_rule('/centros', 'centros', centros_de_ayuda.go_index, methods=["POST", "GET"])
