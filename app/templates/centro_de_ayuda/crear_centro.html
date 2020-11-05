@@ -55,7 +55,19 @@
                 <input type="text" class="form-control form-control-lg rounded-0" name="direccion" id="direccion" placeholder="Ingrese la dirección" required>
             </section>
 
-
+            <section class="form-group">
+                <label for="contenido"> Protocolo de visita </label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroupFileAddon01">Subir</span>
+                  </div>
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="inputGroupFile01"
+                      aria-describedby="inputGroupFileAddon01">
+                    <label class="custom-file-label" for="inputGroupFile01">Selecciona un archivo PDF</label>
+                  </div>
+                </div>
+            </section>
 
             <section class="form-group">
                 <label for="contenido"> Coordenada x de Geolocalización </label>
@@ -84,7 +96,7 @@
                 <label for="contenido"> Tipo de Centro </label><br>
                 {% for tag in tipos %}
                 <input type="checkbox" id="cb{{tag.id}}" name="tipos" value="{{tag.id}}">
-                <label for="cb{{tag.id}}"> {{tag.nombre}}</label><br>
+                <span class="badge badge-info">{{tag.nombre}}</span><br>
                 {% endfor %}
             </section>
 
