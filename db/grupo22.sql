@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-11-2020 a las 23:23:37
+-- Tiempo de generación: 05-11-2020 a las 21:28:45
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.2.33
 
@@ -20,6 +20,23 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `grupo22`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `api_turnos`
+--
+
+CREATE TABLE `api_turnos` (
+  `id` int(10) NOT NULL,
+  `centro_id` int(10) NOT NULL,
+  `hora_inicio` varchar(100) NOT NULL,
+  `hora_fin` varchar(100) NOT NULL,
+  `fecha` date NOT NULL,
+  `email_donante` varchar(100) NOT NULL,
+  `telefono_donante` int(100) NOT NULL,
+  `error` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -377,6 +394,18 @@ INSERT INTO `tipo_de_centro` (`id`, `nombre`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `turnos_para_cada_centro`
+--
+
+CREATE TABLE `turnos_para_cada_centro` (
+  `id` int(10) NOT NULL,
+  `turno_id` int(10) NOT NULL,
+  `centro_id` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `turnos_para_centro`
 --
 
@@ -385,23 +414,18 @@ CREATE TABLE `turnos_para_centro` (
   `email` varchar(50) NOT NULL,
   `bloque_turno` varchar(50) NOT NULL,
   `dia` date NOT NULL,
-  `activo` int(10) NOT NULL
+  `borrado` int(10) NOT NULL,
+  `centro_id` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `turnos_para_centro`
 --
 
-INSERT INTO `turnos_para_centro` (`id`, `email`, `bloque_turno`, `dia`, `activo`) VALUES
-(1, 'dario@gmail.com', '9 a 9:30', '2020-10-30', 0),
-(2, 'ema2@gmail.com', '10 a 10:30', '2020-10-30', 0),
-(3, 'maxi@gmail.com', '10:30 a 11', '2020-10-30', 0),
-(4, 'may@gmail.com', '00:00', '2020-10-30', 1),
-(5, 'juanp@gmail.com', '12:30', '2020-10-30', 1),
-(6, 'hugo@gmail.com', '19:00', '2020-10-30', 1),
-(9, 'nuevo@gmail.com', '14:00 a 14:30', '2020-10-30', 1),
-(10, 'unemai@l', '15:30', '2020-11-06', 1),
-(11, 'asa@sdsd', '00:00', '2020-10-31', 1);
+INSERT INTO `turnos_para_centro` (`id`, `email`, `bloque_turno`, `dia`, `borrado`, `centro_id`) VALUES
+(40, 'dario@gmail.com', '10:00', '2020-11-05', 1, 2),
+(41, 'juan@gmail.com', '09:00', '2020-11-05', 1, 3),
+(45, 'hugo@gmail.com', '11:00', '2020-11-05', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -454,6 +478,12 @@ INSERT INTO `usuario_tiene_rol` (`usuario_id`, `rol_id`) VALUES
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `api_turnos`
+--
+ALTER TABLE `api_turnos`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `centro_de_ayuda`
@@ -516,6 +546,12 @@ ALTER TABLE `tipo_de_centro`
   ADD UNIQUE KEY `nombre` (`nombre`);
 
 --
+-- Indices de la tabla `turnos_para_cada_centro`
+--
+ALTER TABLE `turnos_para_cada_centro`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `turnos_para_centro`
 --
 ALTER TABLE `turnos_para_centro`
@@ -539,6 +575,12 @@ ALTER TABLE `usuario_tiene_rol`
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
+
+--
+-- AUTO_INCREMENT de la tabla `api_turnos`
+--
+ALTER TABLE `api_turnos`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `centro_de_ayuda`
@@ -583,10 +625,16 @@ ALTER TABLE `tipo_de_centro`
   MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT de la tabla `turnos_para_cada_centro`
+--
+ALTER TABLE `turnos_para_cada_centro`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
+--
 -- AUTO_INCREMENT de la tabla `turnos_para_centro`
 --
 ALTER TABLE `turnos_para_centro`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`

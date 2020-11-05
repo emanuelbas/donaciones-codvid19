@@ -1,6 +1,20 @@
 {% extends "layout.html" %}
 {% block content %}
+<h1> CRUD turnos </h1>
+
 <div class="container">
+    <form action="" method="POST">
+        <label for="centros">Seleccione el centro</label>
+        <select id="centro" name="centro">
+            {% for centro in centros %}
+            <option value="{{centro.id}}">{{centro.nombre}}</option>
+            {% endfor %}
+        </select>
+        <div>
+            <button type="submit" class="btn btn-info">Buscar</button>
+        </div>
+
+    </form>
     <div class="text-right">
         <a href="{{ url_for('crear_turno')}}" class="btn btn-info mb-2">Nuevo turno
             <!-- span alt="Nuevo usuario" title="Agregar usuario" class="fas fa-user-plus"></span--></a>
@@ -11,24 +25,17 @@
                 <td>Email</td>
                 <td>Hora del Turno</td>
                 <td>Dia</td>
-                <td>Esta Borrado</td>
                 <td>Operaciones</td>
             </tr>
         </thead>
         <tbody>
             <div class="container">
                 {% for turno in turnos %}
+                {% if (turno.borrado == 1)%}
                 <tr>
                     <td> {{ turno.email }} </td>
                     <td> {{ turno.bloque_turno }} </td>
                     <td> {{ turno.dia }} </td>
-                    <td>
-                        {% if (turno.activo == 0) %}
-                            <p>Si</p>
-                        {% else %}
-                            <p>No</p>
-                        {%  endif  %}
-                    </td>
                     <td>
                         <a href="{{ url_for('editar_turno', id=turno.id)}}" class="btn btn-info">Editar turno</a>
                         <a href="{{ url_for('borrar_turno', id=turno.id)}}" class="btn btn-danger"
@@ -39,6 +46,7 @@
                         </a>
                     </td>
                 </tr>
+                {% endif %}
                 {% endfor %}
             </div>
         </tbody>

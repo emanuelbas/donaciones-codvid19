@@ -45,10 +45,14 @@ def create_app():
                      user.quienesomos, methods=["POST", "GET"])
 
     # ruta a centros
-    app.add_url_rule('/centros', 'centros', centros_de_ayuda.go_index, methods=["POST", "GET"])
-    app.add_url_rule('/centros/page/<int:page>', 'centros', centros_de_ayuda.go_index, methods=["POST", "GET"])
-    app.add_url_rule('/centros/nombre/<nombre>/estado/<estado>/page/<int:page>', 'centros', centros_de_ayuda.go_index, methods=["POST", "GET"])
-    app.add_url_rule('/centros/crear_centro', 'crear_centro', centros_de_ayuda.crear_centro,  methods=["POST", "GET"])
+    app.add_url_rule('/centros', 'centros',
+                     centros_de_ayuda.go_index, methods=["POST", "GET"])
+    app.add_url_rule('/centros/page/<int:page>', 'centros',
+                     centros_de_ayuda.go_index, methods=["POST", "GET"])
+    app.add_url_rule('/centros/nombre/<nombre>/estado/<estado>/page/<int:page>',
+                     'centros', centros_de_ayuda.go_index, methods=["POST", "GET"])
+    app.add_url_rule('/centros/crear_centro', 'crear_centro',
+                     centros_de_ayuda.crear_centro,  methods=["POST", "GET"])
 
     # ruta a login
     app.add_url_rule('/login', 'login', user.login)
@@ -73,9 +77,12 @@ def create_app():
     # turno para centro
     app.add_url_rule('/turnos_para_centro/index_turno',
                      'index_turno', turnos_para_centro.index_turno, methods=["POST", "GET"])
-    app.add_url_rule('/turnos_para_centro/crear_turno', 'crear_turno', turnos_para_centro.crear_turno, methods=["POST", "GET"])
-    app.add_url_rule('/turnos_para_centro/editar_turno/<id>', 'editar_turno', turnos_para_centro.editar_turno, methods=["POST", "GET"])
-    app.add_url_rule('/turnos_para_centro/borrar_turno/<id>', 'borrar_turno', turnos_para_centro.borrar_turno, methods=["POST", "GET"])
+    app.add_url_rule('/turnos_para_centro/crear_turno', 'crear_turno',
+                     turnos_para_centro.crear_turno, methods=["POST", "GET"])
+    app.add_url_rule('/turnos_para_centro/editar_turno/<id>', 'editar_turno',
+                     turnos_para_centro.editar_turno, methods=["POST", "GET"])
+    app.add_url_rule('/turnos_para_centro/borrar_turno/<id>', 'borrar_turno',
+                     turnos_para_centro.borrar_turno, methods=["POST", "GET"])
 
     # ruta al backend
     app.add_url_rule('/backend', 'backend', user.backend,
@@ -99,7 +106,8 @@ def create_app():
 
     @app.route('/test')
     def test():
-        municipios = get('https://api-referencias.proyecto2020.linti.unlp.edu.ar/municipios?per_page=1000').json()
+        municipios = get(
+            'https://api-referencias.proyecto2020.linti.unlp.edu.ar/municipios?per_page=1000').json()
         return municipios['data']['Town']['1']['name']
 
     # index

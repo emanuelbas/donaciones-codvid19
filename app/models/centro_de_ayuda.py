@@ -53,6 +53,9 @@ class Centro_de_ayuda(db.Model):
 
     def existe_nombre(municipio_id,nombre):
         return Centro_de_ayuda.query.filter_by(municipio_id=municipio_id,nombre=nombre).first()
+    
+    def get_by_id(id):
+        return Centro_de_ayuda.query.get(id)
 
 ######################## MUNICIPIO ########################
 class Municipio(db.Model):
