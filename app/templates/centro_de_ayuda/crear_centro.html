@@ -34,6 +34,12 @@
             </section>
 
             <section class="form-group">
+                <label for="telefono"> Telefono </label>
+                <input type="tel" class="form-control form-control-lg rounded-0" name="telefono" id="telefono" placeholder="Ingrese el telefono" required>
+            </section>
+
+
+            <section class="form-group">
                 <label for="titulo"> Email </label>
                 <input type="email" class="form-control form-control-lg rounded-0" name="email" id="email" placeholder="Ingrese el correo" required>
             </section>
@@ -49,13 +55,25 @@
                 <input type="text" class="form-control form-control-lg rounded-0" name="direccion" id="direccion" placeholder="Ingrese la dirección" required>
             </section>
 
-
+            <section class="form-group">
+                <label for="contenido"> Protocolo de visita </label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroupFileAddon01">Subir</span>
+                  </div>
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="inputGroupFile01"
+                      aria-describedby="inputGroupFileAddon01">
+                    <label class="custom-file-label" for="inputGroupFile01">Selecciona un archivo PDF</label>
+                  </div>
+                </div>
+            </section>
 
             <section class="form-group">
                 <label for="contenido"> Coordenada x de Geolocalización </label>
-                <input type="text" class="form-control form-control-lg rounded-0" name="cor_x" id="corx" placeholder="La coordenada X" required>
+                <input type="text" class="form-control form-control-lg rounded-0" name="corx" id="corx" placeholder="La coordenada X" required>
                 <label for="contenido"> Coordenada y de Geolocalización </label>
-                <input type="text" class="form-control form-control-lg rounded-0" name="cor_y" id="cory" placeholder="La coordenada Y" required>
+                <input type="text" class="form-control form-control-lg rounded-0" name="cory" id="cory" placeholder="La coordenada Y" required>
             </section>
 
 
@@ -78,7 +96,7 @@
                 <label for="contenido"> Tipo de Centro </label><br>
                 {% for tag in tipos %}
                 <input type="checkbox" id="cb{{tag.id}}" name="tipos" value="{{tag.id}}">
-                <label for="cb{{tag.id}}"> {{tag.nombre}}</label><br>
+                <span class="badge badge-info">{{tag.nombre}}</span><br>
                 {% endfor %}
             </section>
 
