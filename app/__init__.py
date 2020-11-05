@@ -13,6 +13,7 @@ from app.resources import turnos_para_centro
 from app.helpers import permisos
 from requests import get
 from app.resources import api
+from app.resources.Api import centros
 # from flask_mysqldb import MySQL
 
 
@@ -42,8 +43,8 @@ def create_app():
     app.add_url_rule('/logout', 'logout', user.logout)
 
     # ruta a la api
-    app.add_url_rule('/api', 'api',
-                   api.mostrarApi, methods=["GET"])
+    app.add_url_rule('/Api/centros', 'api_centros',
+                   centros.mostrarCentros, methods=["GET"])
                       #'Api/centros/GetCentros.api.devolverCentros', methods=["GET"])
 
     # ruta a centros

@@ -3,7 +3,7 @@ from flask import jsonify
 from flask import request 
 from app.models.centro_de_ayuda import Centro_de_ayuda, Municipio, Tipo_de_centro, Estado_centro
 
-def mostrarCentros():
+def mostrarCentros(page=1):
 	centros = Centro_de_ayuda.all()
 	lista = []
 	for centro in centros:
@@ -17,5 +17,5 @@ def mostrarCentros():
 				'tipos': lista_Tipos
 				}
 		lista.append(dic)
-	response = {'centros':lista, 'total':1, 'pagina':1 }
+	response = {'centros':lista, 'total':len(centros), 'pagina':page }
 	return jsonify(response)
