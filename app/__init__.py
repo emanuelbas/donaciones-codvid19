@@ -50,7 +50,7 @@ def create_app():
     app.add_url_rule('/centros', 'centros', centros_de_ayuda.go_index, methods=["POST", "GET"])
     app.add_url_rule('/centros/page/<int:page>', 'centros', centros_de_ayuda.go_index, methods=["POST", "GET"])
     app.add_url_rule('/centros/nombre/<nombre>/estado/<estado>/page/<int:page>', 'centros', centros_de_ayuda.go_index, methods=["POST", "GET"])
-
+    app.add_url_rule('/centros/crear_centro', 'crear_centro', centros_de_ayuda.crear_centro,  methods=["POST", "GET"])
 
     # ruta a login
     app.add_url_rule('/login', 'login', user.login)
