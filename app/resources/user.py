@@ -3,6 +3,7 @@ from app.models.usuario import User
 from datetime import date
 from app.helpers import permisos
 from app.models.configuracion import Configuracion
+from app.models.rol import Rol
 def quienesomos():
     #configuracion = Configuracion.get_config() #esto hay que poner en algunos def para que cuando este desactivado el user no pueda entrar
     #if configuracion.activo == 0:
@@ -55,6 +56,7 @@ def logout():
 def edit_usuario(id):
     permisos.validar_permisos('user_edit')
     usuario = User.get_by_id(id)
+    roles = Rol.query.all()
     if request.method == 'POST':
         u = request.form
         mensaje = ''
@@ -63,14 +65,14 @@ def edit_usuario(id):
         elif User.existe_email(u['email']):
             mensaje="El email ya existe"
         else:
-            User.edit(id, u['usuario'], u['clave'], u['nombre'], u['apellido'], u['email'], u['activo'])
+            User.edit(id, u['usuario'], u['clave'], u['nombre'], u['apellido'], u['email'], u['activo'], u['roles'])
             mensaje = "Usuario creado exitosamente"
             usuarios = User.all()
             #return render_template('usuario/editar_usuario.html', mensaje=mensaje, usuario=usuario)
             return redirect(url_for('index_usuario', mensaje=mensaje, usuarios=usuarios))
         return render_template('usuario/editar_usuario.html', usuario=usuario, mensaje_error=mensaje)
     else:
-        return render_template('usuario/editar_usuario.html', usuario=usuario)
+        return render_template('usuario/editar_usuario.html', usuario=usuario, roles=roles)
 
 def activar(id):
     permisos.validar_permisos('user_edit')

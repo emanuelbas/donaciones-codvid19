@@ -41,7 +41,10 @@ class User(db.Model):
     def get_by_id(id):
         return User.query.get(id)
 
-    def edit(i, us, cl, no, ap, em, ac):
+    def edit(i, us, cl, no, ap, em, ac, roles):
+        lista_roles = []
+        for rol in roles:
+            lista_roles.append(Rol.query.filter_by(id = rol).first())
         datos = User.query.filter_by(id=i).first()
         datos.usuario = us
         datos.clave = cl
@@ -49,6 +52,7 @@ class User(db.Model):
         datos.apellido = ap
         datos.email = em
         datos.activo = ac
+        datos.roles = lista_roles
         db.session.commit()
         return datos
 

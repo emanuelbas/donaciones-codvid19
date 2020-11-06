@@ -68,6 +68,14 @@
                 </select>
             </section>
 
+            <section class="form-group">
+                <label for="roles"> Roles de usuario </label><br>
+                {% for rol in roles %}
+                <input type="checkbox" id="cb{{rol.id}}" name="roles" value="{{rol.id}}">
+                <span class="badge badge-info">{{rol.nombre}}</span><br>
+                {% endfor %}
+            </section>
+
             <div class="text-right">
                 <a href="{{ url_for('index_usuario') }}" class="btn btn-white">Cancelar</a>
                 <button type="submit" class="btn btn-info">Aceptar</button>
