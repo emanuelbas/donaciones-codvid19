@@ -56,13 +56,17 @@
 				</td>
 				<td>
 					<a href="{{ url_for('editar_centro', id=centro.id)}}" class="btn btn-info mb-2">Editar</a>
-					<a href="{{ url_for('editar_centro', id=centro.id)}}" 
+					<a href="{{ url_for('borrar_centro', id=centro.id)}}" 
 						class="btn btn-info mb-2"
                         title="Eliminar Centro de Ayuda"
                         onclick="return confirm('¿Estás seguro de que deseas eliminar este Centro de Ayuda?')">Borrar
                     </a>
-					<a href="{{ url_for('editar_centro', id=centro.id)}}" class="btn btn-info mb-2">Aprobar</a>
-					<a href="{{ url_for('editar_centro', id=centro.id)}}" class="btn btn-info mb-2">Rechazar</a>
+                    {% if centro.estado.nombre != 'aceptado' %}
+					<a href="{{ url_for('aprobar_centro', id=centro.id)}}" class="btn btn-info mb-2">Aprobar</a>
+					{% endif %}
+					{% if centro.estado.nombre != 'rechazado' %}
+					<a href="{{ url_for('rechazar_centro', id=centro.id)}}" class="btn btn-info mb-2">Rechazar</a>
+					{% endif %}
 				</td>
 			</tr>
 			{% endfor %}

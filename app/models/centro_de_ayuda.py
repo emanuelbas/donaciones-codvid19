@@ -60,6 +60,19 @@ class Centro_de_ayuda(db.Model):
     def get_by_id(id):
         return Centro_de_ayuda.query.get(id)
 
+    def aprobar(id):
+        centro = Centro_de_ayuda.query.get(id)
+        centro.estado = Estado_centro.query.filter_by(nombre='aceptado').first()
+        db.session.commit()
+        return True
+
+    def rechazar(id):
+        centro = Centro_de_ayuda.query.get(id)
+        centro.estado = Estado_centro.query.filter_by(nombre='rechazado').first()
+        db.session.commit()
+        return True
+
+
     def hola_mundo():
         print("Hola mundo")
         return True

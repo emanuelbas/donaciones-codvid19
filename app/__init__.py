@@ -66,6 +66,14 @@ def create_app():
                      centros_de_ayuda.crear_centro,  methods=["POST", "GET"])
     app.add_url_rule('/centros/editar_centro/<id>', 'editar_centro',
         centros_de_ayuda.editar_centro, methods=['POST', 'GET'])
+    app.add_url_rule('/centros/borrar_centro/<id>', 'borrar_centro',
+        centros_de_ayuda.borrar_centro, methods=['POST', 'GET'])
+    
+    app.add_url_rule('/centros/aprobar_centro/<id>', 'aprobar_centro',
+                     centros_de_ayuda.aprobar_centro,  methods=["POST", "GET"])
+    app.add_url_rule('/centros/rechazar_centro/<id>', 'rechazar_centro',
+                     centros_de_ayuda.rechazar_centro,  methods=["POST", "GET"])
+    
 
     # ruta a login
     app.add_url_rule('/login', 'login', user.login)

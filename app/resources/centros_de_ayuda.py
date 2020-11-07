@@ -91,4 +91,14 @@ def obtener_dic_de_municipios():
 def borrar_centro(id):
 	permisos.validar_permisos('centro_index')
 	Centro_de_ayuda.borrar(id)
-	return redirect(url_for('index_turno'))
+	return redirect(url_for('centros'))
+
+def aprobar_centro(id):
+	permisos.validar_permisos('centro_edit')
+	Centro_de_ayuda.aprobar(id)
+	return redirect(url_for('centros'))
+
+def rechazar_centro(id):
+	permisos.validar_permisos('centro_edit')
+	Centro_de_ayuda.rechazar(id)
+	return redirect(url_for('centros'))
