@@ -76,6 +76,36 @@ def editar_centro(id):
 			municipios=lista_de_municipios,
 			mensaje_error= mensaje_error,
 			mensaje_exito=mensaje_exito)
+	else:
+		form = request.form
+		res = Centro_de_ayuda.editar(id=id,
+			nombre=form['nombre'],
+			direccion=form['direccion'],
+			telefono=form['telefono'],
+			hapertura=form['hora_apertura'],
+			hcierre=form['hora_cierre'],
+			email=form['email'],
+			sitio_web=form['web'],
+			corx=form['corx'],
+			cory=form['cory'],
+			lista_de_tipos=form.getlist("tipos"),
+			id_municipio=form['municipio'],
+			id_estado=1,
+			protocolo='PDF',
+			historico=0)
+		if res:
+			mensaje_exito = "Centro editado exitosamente"
+		else:
+			mensaje_error = "Hubo algun problema"
+		lista_de_municipios = obtener_dic_de_municipios()
+		lista_de_tipos = Tipo_de_centro.all()
+		return render_template('centro_de_ayuda/editar_centro.html',
+			centro=centro,
+			tipos= lista_de_tipos,
+			municipios=lista_de_municipios,
+			mensaje_error= mensaje_error,
+			mensaje_exito=mensaje_exito)
+
 
 
 def obtener_municipios(lista):

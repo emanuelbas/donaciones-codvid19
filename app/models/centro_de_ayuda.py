@@ -54,6 +54,27 @@ class Centro_de_ayuda(db.Model):
         db.session.commit()
         return True
 
+
+    def editar(id, nombre, direccion,telefono, hapertura, hcierre, email,sitio_web, corx, cory, lista_de_tipos, id_municipio, id_estado,protocolo='PDF', historico=0):
+        centro = Centro_de_ayuda.query.get(id)
+        centro.nombre = nombre
+        centro.direccion = direccion
+        centro.telefono = telefono
+        centro.hora_de_apertura = hapertura
+        centro.hora_de_cierre = hcierre
+        centro.sitio_web = sitio_web
+        centro.email = email
+        centro.protocolo_de_vista = protocolo
+        centro.coordenada_x = corx
+        centro.coordenada_y = cory
+        centro.historico = historico
+        tipos = []
+        for tipo in lista_de_tipos:
+            tipos.append(Tipo_de_centro.query.filter_by(id=tipo).first())
+        centro.tipos_de_centro=tipos
+        db.session.commit()
+        return True
+
     def existe_nombre(municipio_id,nombre):
         return Centro_de_ayuda.query.filter_by(municipio_id=municipio_id,nombre=nombre).first()
     
