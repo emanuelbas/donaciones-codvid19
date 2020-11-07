@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-11-2020 a las 21:28:45
+-- Tiempo de generación: 07-11-2020 a las 01:20:07
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.2.33
 
@@ -20,23 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `grupo22`
 --
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `api_turnos`
---
-
-CREATE TABLE `api_turnos` (
-  `id` int(10) NOT NULL,
-  `centro_id` int(10) NOT NULL,
-  `hora_inicio` varchar(100) NOT NULL,
-  `hora_fin` varchar(100) NOT NULL,
-  `fecha` date NOT NULL,
-  `email_donante` varchar(100) NOT NULL,
-  `telefono_donante` int(100) NOT NULL,
-  `error` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -411,21 +394,28 @@ CREATE TABLE `turnos_para_cada_centro` (
 
 CREATE TABLE `turnos_para_centro` (
   `id` int(10) NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `bloque_turno` varchar(50) NOT NULL,
+  `email` varchar(50) DEFAULT NULL,
+  `hora_ini` varchar(50) NOT NULL,
+  `hora_fin` varchar(50) NOT NULL,
   `dia` date NOT NULL,
   `borrado` int(10) NOT NULL,
-  `centro_id` int(10) NOT NULL
+  `centro_id` int(10) NOT NULL,
+  `disponible` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `turnos_para_centro`
 --
 
-INSERT INTO `turnos_para_centro` (`id`, `email`, `bloque_turno`, `dia`, `borrado`, `centro_id`) VALUES
-(40, 'dario@gmail.com', '10:00', '2020-11-05', 1, 2),
-(41, 'juan@gmail.com', '09:00', '2020-11-05', 1, 3),
-(45, 'hugo@gmail.com', '11:00', '2020-11-05', 1, 1);
+INSERT INTO `turnos_para_centro` (`id`, `email`, `hora_ini`, `hora_fin`, `dia`, `borrado`, `centro_id`, `disponible`) VALUES
+(40, 'dario@gmail.com', '10:00', '10:30', '2020-11-05', 1, 2, 0),
+(41, 'hugo@gmail.com', '09:00', '09:30', '2020-11-05', 1, 3, 0),
+(45, '', '11:00', '11:30', '2020-11-05', 1, 1, 1),
+(46, '', '11:30', '12:00', '2020-11-05', 1, 1, 1),
+(47, '', '12:00', '12:30', '2020-11-05', 1, 1, 1),
+(48, '', '09:00', '09:30', '2020-11-05', 1, 7, 1),
+(49, '', '09:00', '09:30', '2020-11-12', 1, 4, 1),
+(50, '', '09:00', '09:00', '2020-11-06', 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -478,12 +468,6 @@ INSERT INTO `usuario_tiene_rol` (`usuario_id`, `rol_id`) VALUES
 --
 -- Índices para tablas volcadas
 --
-
---
--- Indices de la tabla `api_turnos`
---
-ALTER TABLE `api_turnos`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `centro_de_ayuda`
@@ -577,12 +561,6 @@ ALTER TABLE `usuario_tiene_rol`
 --
 
 --
--- AUTO_INCREMENT de la tabla `api_turnos`
---
-ALTER TABLE `api_turnos`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT de la tabla `centro_de_ayuda`
 --
 ALTER TABLE `centro_de_ayuda`
@@ -634,7 +612,7 @@ ALTER TABLE `turnos_para_cada_centro`
 -- AUTO_INCREMENT de la tabla `turnos_para_centro`
 --
 ALTER TABLE `turnos_para_centro`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
