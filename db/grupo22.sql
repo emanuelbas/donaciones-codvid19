@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-11-2020 a las 01:20:07
+-- Tiempo de generación: 07-11-2020 a las 08:10:03
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.2.33
 
@@ -55,7 +55,8 @@ INSERT INTO `centro_de_ayuda` (`id`, `nombre`, `direccion`, `telefono`, `hora_de
 (4, 'Hospital Nacional', 'Calle 15, numero 3443', '9111233255', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba.gov', 'contacto@centrodeprueba.gov', 2, 'PDF', 300, 54234, 0, 19),
 (5, 'Hospital Enrique', 'Calle 53, numero 35', '9111233255', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba.gov', 'contacto@centrodeprueba.gov', 1, 'PDF', 300, 54234, 0, 4),
 (6, 'Centro la esperanza', 'Calle 23234, numero 35', '9111233255', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba.gov', 'contacto@centrodeprueba.gov', 3, 'PDF', 300, 54234, 0, 7),
-(7, 'Centro la poca imaginacion', 'Calle 123, numero 35', '9111233255', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba.gov', 'contacto@centrodeprueba.gov', 1, 'PDF', 300, 54234, 0, 19);
+(7, 'Centro la poca imaginacion', 'Calle 123, numero 35', '9111233255', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba.gov', 'contacto@centrodeprueba.gov', 1, 'PDF', 300, 54234, 0, 19),
+(8, 'Otro centro', 'wedswdq', '12123123', '22:22:00.000000', '22:22:00.000000', 'asdasddas', 'weqqwew@asdsda', 1, 'PDF', 2, 3, 0, 5);
 
 -- --------------------------------------------------------
 
@@ -83,7 +84,9 @@ INSERT INTO `centro_tiene_tipo` (`centro_id`, `tipo_de_centro_id`) VALUES
 (5, 3),
 (6, 1),
 (6, 4),
-(7, 1);
+(7, 1),
+(8, 2),
+(8, 4);
 
 -- --------------------------------------------------------
 
@@ -296,12 +299,17 @@ CREATE TABLE `permiso` (
 --
 
 INSERT INTO `permiso` (`id`, `nombre`) VALUES
-(3, 'centro_destroy'),
+(2, 'centro_create'),
+(3, 'centro_delete'),
+(4, 'centro_edit'),
 (1, 'centro_index'),
-(2, 'centro_new'),
 (5, 'centro_show'),
-(4, 'centro_update'),
 (11, 'site_config'),
+(15, 'turno_create'),
+(14, 'turno_delete'),
+(16, 'turno_edit'),
+(13, 'turno_index'),
+(17, 'turno_show'),
 (8, 'user_create'),
 (9, 'user_delete'),
 (10, 'user_edit'),
@@ -351,7 +359,17 @@ INSERT INTO `rol_tiene_permiso` (`rol_id`, `permiso_id`) VALUES
 (1, 8),
 (1, 9),
 (1, 10),
-(1, 11);
+(1, 11),
+(1, 13),
+(1, 14),
+(1, 15),
+(1, 16),
+(1, 17),
+(2, 13),
+(2, 14),
+(2, 15),
+(2, 16),
+(2, 17);
 
 -- --------------------------------------------------------
 
@@ -415,7 +433,10 @@ INSERT INTO `turnos_para_centro` (`id`, `email`, `hora_ini`, `hora_fin`, `dia`, 
 (47, '', '12:00', '12:30', '2020-11-05', 1, 1, 1),
 (48, '', '09:00', '09:30', '2020-11-05', 1, 7, 1),
 (49, '', '09:00', '09:30', '2020-11-12', 1, 4, 1),
-(50, '', '09:00', '09:00', '2020-11-06', 1, 1, 1);
+(50, '', '09:00', '09:00', '2020-11-06', 1, 1, 1),
+(51, 'das@asdasd', '04:44', '04:04', '2020-11-20', 0, 8, 1),
+(52, '', '04:04', '04:04', '2020-11-20', 1, 1, 1),
+(53, 'asdasd@sdads', '22:22', '22:22', '2020-12-04', 1, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -444,7 +465,7 @@ INSERT INTO `usuario` (`id`, `usuario`, `clave`, `nombre`, `apellido`, `email`, 
 (8, 'admin', '1234', 'Homero', 'Simpson', 'hsimpson@gmail.com', 1, '2020-10-18', '2020-10-18', 0),
 (11, 'usuario', '1234', 'Ned', 'Flanders', 'flanders15@gmail.com', 1, '2020-10-18', '2020-10-18', 0),
 (13, 'nuevo', '1234', 'new', 'new', 'new@gmail.com', 1, '2020-10-24', '2020-10-24', 1),
-(19, 'sarasa', '1234', 'sara', 'sars', 'sara@gmail.commm', 0, '2020-10-30', '2020-10-30', 0);
+(19, 'Pantera', '1234', 'sara', 'sars', 'sara@gmail.commm', 1, '2020-10-30', '2020-10-30', 0);
 
 -- --------------------------------------------------------
 
@@ -463,7 +484,8 @@ CREATE TABLE `usuario_tiene_rol` (
 
 INSERT INTO `usuario_tiene_rol` (`usuario_id`, `rol_id`) VALUES
 (8, 1),
-(11, 2);
+(11, 2),
+(19, 1);
 
 --
 -- Índices para tablas volcadas
@@ -564,7 +586,7 @@ ALTER TABLE `usuario_tiene_rol`
 -- AUTO_INCREMENT de la tabla `centro_de_ayuda`
 --
 ALTER TABLE `centro_de_ayuda`
-  MODIFY `id` int(35) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(35) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `configuracion`
@@ -588,7 +610,7 @@ ALTER TABLE `municipio`
 -- AUTO_INCREMENT de la tabla `permiso`
 --
 ALTER TABLE `permiso`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `rol`
@@ -612,7 +634,7 @@ ALTER TABLE `turnos_para_cada_centro`
 -- AUTO_INCREMENT de la tabla `turnos_para_centro`
 --
 ALTER TABLE `turnos_para_centro`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`

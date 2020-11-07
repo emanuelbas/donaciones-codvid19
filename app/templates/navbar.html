@@ -28,7 +28,9 @@
               {%if session['usuario'].tiene_permiso("user_show")%}
               <a class="dropdown-item" href="{{ url_for('index_usuario')}}">Manejo de usuarios</a>
               {%endif%}
+              {%if session['usuario'].tiene_permiso("turno_index")%}
               <a class="dropdown-item" href="{{ url_for('index_turno')}}">Turnos</a>
+              {%endif%}
               <a class="dropdown-item" href="{{ url_for('logout')}}">Cerrar sesión</a>
             </div>
           </li>

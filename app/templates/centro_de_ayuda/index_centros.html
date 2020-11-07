@@ -55,7 +55,14 @@
 					{{centro.estado.nombre}}
 				</td>
 				<td>
-					<span class="fas fa-trash"></span>
+					<a href="{{ url_for('editar_centro', id=centro.id)}}" class="btn btn-info mb-2">Editar</a>
+					<a href="{{ url_for('editar_centro', id=centro.id)}}" 
+						class="btn btn-info mb-2"
+                        title="Eliminar Centro de Ayuda"
+                        onclick="return confirm('¿Estás seguro de que deseas eliminar este Centro de Ayuda?')">Borrar
+                    </a>
+					<a href="{{ url_for('editar_centro', id=centro.id)}}" class="btn btn-info mb-2">Aprobar</a>
+					<a href="{{ url_for('editar_centro', id=centro.id)}}" class="btn btn-info mb-2">Rechazar</a>
 				</td>
 			</tr>
 			{% endfor %}

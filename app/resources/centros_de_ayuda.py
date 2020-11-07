@@ -34,6 +34,7 @@ def go_index(nombre=' ',estado='todos',page=1):
 	return render_template('centro_de_ayuda/index_centros.html', lista_de_centros=lista, nombre=nombre, estado=estado, estados = todos_los_estados)
 
 def crear_centro():
+	permisos.validar_permisos('centro_create')
 	mensaje_error = ''
 	mensaje_exito = ''
 	if request.method == "POST":
@@ -59,6 +60,7 @@ def crear_centro():
 		return render_template('centro_de_ayuda/crear_centro.html', tipos= lista_de_tipos, municipios=lista_de_municipios, mensaje_error= mensaje_error, mensaje_exito=mensaje_exito)
 
 def editar_centro(id):
+	permisos.validar_permisos('centro_edit')
 	mensaje_error = ''
 	mensaje_exito = ''
 
@@ -84,3 +86,9 @@ def obtener_municipios(lista):
 def obtener_dic_de_municipios():
 	''' Obtiene un diccionario municipios desde una API, separados por IDs '''
 	return api_requests.dictionaryOfMunicipios()['data']['Town']
+
+
+def borrar_centro(id):
+	permisos.validar_permisos('centro_index')
+	Centro_de_ayuda.borrar(id)
+	return redirect(url_for('index_turno'))
