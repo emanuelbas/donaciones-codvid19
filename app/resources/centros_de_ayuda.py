@@ -58,6 +58,23 @@ def crear_centro():
 		lista_de_tipos = Tipo_de_centro.all()
 		return render_template('centro_de_ayuda/crear_centro.html', tipos= lista_de_tipos, municipios=lista_de_municipios, mensaje_error= mensaje_error, mensaje_exito=mensaje_exito)
 
+def editar_centro(id):
+	mensaje_error = ''
+	mensaje_exito = ''
+
+	#Obtener el centro a editar
+	centro = Centro_de_ayuda.query.get(id)
+
+	if request.method == "GET":
+		lista_de_municipios = obtener_dic_de_municipios()
+		lista_de_tipos = Tipo_de_centro.all()
+		return render_template('centro_de_ayuda/editar_centro.html',
+			centro=centro,
+			tipos= lista_de_tipos,
+			municipios=lista_de_municipios,
+			mensaje_error= mensaje_error,
+			mensaje_exito=mensaje_exito)
+
 
 def obtener_municipios(lista):
 	dic_de_municipios = api_requests.dictionaryOfMunicipios()

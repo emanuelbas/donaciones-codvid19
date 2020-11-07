@@ -60,9 +60,9 @@ def edit_usuario(id):
     if request.method == 'POST':
         u = request.form
         mensaje = ''
-        if User.existe_usuario(u['usuario']):
+        if User.existe_usuario(u['usuario']) and not u['usuario'] == usuario.nombre:
             mensaje="El nombre de usuario ya existe"
-        elif User.existe_email(u['email']):
+        elif User.existe_email(u['email']) and not u['email'] == usuario.email:
             mensaje="El email ya existe"
         else:
             User.edit(id, u['usuario'], u['clave'], u['nombre'], u['apellido'], u['email'], u['activo'], u['roles'])
