@@ -24,6 +24,7 @@ class Centro_de_ayuda(db.Model):
     protocolo_de_vista = db.Column(db.String)
     coordenada_x = db.Column(db.Integer)
     coordenada_y = db.Column(db.Integer)
+    publicado = db.Column(db.Boolean)
     historico = db.Column(db.Integer)
     tipos_de_centro = db.relationship('Tipo_de_centro', secondary=tipos_de_centro, backref=db.backref(
         'centros_de_ayuda_de_este_tipo', lazy=True), lazy='subquery')
@@ -48,7 +49,21 @@ class Centro_de_ayuda(db.Model):
         for tipo in lista_de_tipos:
             tipos.append(Tipo_de_centro.query.filter_by(id=tipo).first())
         print("Entre al crear del modelo")
-        nuevo_centro = Centro_de_ayuda(nombre = nombre, direccion = direccion,telefono = telefono, hora_de_apertura = hapertura, hora_de_cierre=hcierre, email=email, sitio_web=sitio_web,tipos_de_centro=tipos, protocolo_de_vista=protocolo, coordenada_y=cory, coordenada_x=corx, historico = historico, municipio_id=id_municipio, estado_id=id_estado)#, ,o)
+        nuevo_centro = Centro_de_ayuda(nombre = nombre,
+            direccion = direccion,
+            telefono = telefono,
+            hora_de_apertura = hapertura,
+            hora_de_cierre=hcierre,
+            email=email,
+            sitio_web=sitio_web,
+            tipos_de_centro=tipos,
+            protocolo_de_vista=protocolo,
+            coordenada_y=cory,
+            coordenada_x=corx,
+            historico = historico,
+            municipio_id=id_municipio,
+            estado_id=id_estado,
+            publicado=False)
         print("Se creo en memoria el nuevo centro")
         db.session.add(nuevo_centro)
         db.session.commit()
@@ -93,6 +108,17 @@ class Centro_de_ayuda(db.Model):
         db.session.commit()
         return True
 
+    def publicar(id):
+        centro = Centro_de_ayuda.query.get(id)
+        centro.publicado = 1
+        db.session.commit()
+        return True
+
+    def despublicar(id):
+        centro = Centro_de_ayuda.query.get(id)
+        centro.publicado = 0
+        db.session.commit()
+        return True
 
     def hola_mundo():
         print("Hola mundo")

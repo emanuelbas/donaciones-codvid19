@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-11-2020 a las 08:10:03
+-- Tiempo de generación: 07-11-2020 a las 18:52:26
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.2.33
 
@@ -37,6 +37,7 @@ CREATE TABLE `centro_de_ayuda` (
   `sitio_web` varchar(35) NOT NULL,
   `email` varchar(35) NOT NULL,
   `estado_id` int(11) NOT NULL DEFAULT 1,
+  `publicado` tinyint(1) NOT NULL DEFAULT 0,
   `protocolo_de_vista` varchar(35) NOT NULL DEFAULT 'PDF',
   `coordenada_x` int(35) NOT NULL,
   `coordenada_y` int(35) NOT NULL,
@@ -48,15 +49,16 @@ CREATE TABLE `centro_de_ayuda` (
 -- Volcado de datos para la tabla `centro_de_ayuda`
 --
 
-INSERT INTO `centro_de_ayuda` (`id`, `nombre`, `direccion`, `telefono`, `hora_de_apertura`, `hora_de_cierre`, `sitio_web`, `email`, `estado_id`, `protocolo_de_vista`, `coordenada_x`, `coordenada_y`, `historico`, `municipio_id`) VALUES
-(1, 'Centro de prueba', 'Calle 23, numero 35', '9111233255', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba.gov', 'contacto@centrodeprueba.gov', 1, 'PDF', 300, 54234, 0, 19),
-(2, 'Centro de prueba 2', 'Calle 2, numero 33', '9111233353', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba2.gov', 'contacto@centrodeprueba2.gov', 2, 'PDF', 44, 54234, 0, 7),
-(3, 'Donaciones Pepito', 'Calle 32, numero 12', '9111224525', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba.gov', 'contacto@centrodeprueba.gov', 3, 'PDF', 300, 54234, 0, 4),
-(4, 'Hospital Nacional', 'Calle 15, numero 3443', '9111233255', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba.gov', 'contacto@centrodeprueba.gov', 2, 'PDF', 300, 54234, 0, 19),
-(5, 'Hospital Enrique', 'Calle 53, numero 35', '9111233255', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba.gov', 'contacto@centrodeprueba.gov', 1, 'PDF', 300, 54234, 0, 4),
-(6, 'Centro la esperanza', 'Calle 23234, numero 35', '9111233255', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba.gov', 'contacto@centrodeprueba.gov', 3, 'PDF', 300, 54234, 0, 7),
-(7, 'Centro la poca imaginacion', 'Calle 123, numero 35', '9111233255', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba.gov', 'contacto@centrodeprueba.gov', 1, 'PDF', 300, 54234, 0, 19),
-(8, 'Otro centro', 'wedswdq', '12123123', '22:22:00.000000', '22:22:00.000000', 'asdasddas', 'weqqwew@asdsda', 1, 'PDF', 2, 3, 0, 5);
+INSERT INTO `centro_de_ayuda` (`id`, `nombre`, `direccion`, `telefono`, `hora_de_apertura`, `hora_de_cierre`, `sitio_web`, `email`, `estado_id`, `publicado`, `protocolo_de_vista`, `coordenada_x`, `coordenada_y`, `historico`, `municipio_id`) VALUES
+(1, 'Centro de prueba pepito', 'Calle 23, numero 35', '9111233255', '09:00:00.000000', '09:00:00.000000', 'http://www.centrodeprueba.gov', 'contacto@centrodeprueba.gov', 3, 0, 'PDF', 300, 54234, 0, 19),
+(2, 'Centro de prueba 2', 'Calle 2, numero 33', '9111233353', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba2.gov', 'contacto@centrodeprueba2.gov', 2, 0, 'PDF', 44, 54234, 0, 7),
+(3, 'Donaciones Pepito', 'Calle 32, numero 12', '9111224525', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba.gov', 'contacto@centrodeprueba.gov', 2, 0, 'PDF', 300, 54234, 0, 4),
+(4, 'Hospital Nacional', 'Calle 15, numero 3443', '9111233255', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba.gov', 'contacto@centrodeprueba.gov', 3, 0, 'PDF', 300, 54234, 0, 19),
+(5, 'Hospital Enrique', 'Calle 53, numero 35', '9111233255', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba.gov', 'contacto@centrodeprueba.gov', 2, 0, 'PDF', 300, 54234, 0, 4),
+(6, 'Centro la esperanza', 'Calle 23234, numero 35', '9111233255', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba.gov', 'contacto@centrodeprueba.gov', 3, 0, 'PDF', 300, 54234, 0, 7),
+(7, 'Centro la poca imaginacion', 'Calle 123, numero 35', '9111233255', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba.gov', 'contacto@centrodeprueba.gov', 2, 0, 'PDF', 300, 54234, 0, 19),
+(8, 'Otro centro', 'wedswdq', '12123123', '22:22:00.000000', '22:22:00.000000', 'asdasddas', 'weqqwew@asdsda', 1, 0, 'PDF', 2, 3, 0, 5),
+(9, 'Hola centros22', 'sadasdasdasd', '31231123', '22:22:00.000000', '22:22:00.000000', 'asdasddas', 'e@b', 1, 0, 'PDF', 2, 2, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -75,7 +77,6 @@ CREATE TABLE `centro_tiene_tipo` (
 
 INSERT INTO `centro_tiene_tipo` (`centro_id`, `tipo_de_centro_id`) VALUES
 (1, 1),
-(1, 2),
 (2, 1),
 (2, 3),
 (3, 1),
@@ -86,7 +87,8 @@ INSERT INTO `centro_tiene_tipo` (`centro_id`, `tipo_de_centro_id`) VALUES
 (6, 4),
 (7, 1),
 (8, 2),
-(8, 4);
+(8, 4),
+(9, 2);
 
 -- --------------------------------------------------------
 
@@ -365,6 +367,10 @@ INSERT INTO `rol_tiene_permiso` (`rol_id`, `permiso_id`) VALUES
 (1, 15),
 (1, 16),
 (1, 17),
+(2, 1),
+(2, 2),
+(2, 4),
+(2, 5),
 (2, 13),
 (2, 14),
 (2, 15),
@@ -586,7 +592,7 @@ ALTER TABLE `usuario_tiene_rol`
 -- AUTO_INCREMENT de la tabla `centro_de_ayuda`
 --
 ALTER TABLE `centro_de_ayuda`
-  MODIFY `id` int(35) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(35) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `configuracion`

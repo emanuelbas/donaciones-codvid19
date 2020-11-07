@@ -132,3 +132,13 @@ def rechazar_centro(id):
 	permisos.validar_permisos('centro_edit')
 	Centro_de_ayuda.rechazar(id)
 	return redirect(url_for('centros'))
+
+def publicar_centro(id):
+	permisos.validar_permisos('centro_edit')
+	Centro_de_ayuda.publicar(id)
+	return redirect(url_for('centros'))
+
+def despublicar_centro(id):
+	permisos.validar_permisos('centro_edit')
+	Centro_de_ayuda.despublicar(id)
+	return redirect(url_for('centros'))

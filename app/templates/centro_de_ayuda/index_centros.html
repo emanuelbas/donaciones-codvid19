@@ -55,18 +55,23 @@
 					{{centro.estado.nombre}}
 				</td>
 				<td>
-					<a href="{{ url_for('editar_centro', id=centro.id)}}" class="btn btn-info mb-2">Editar</a>
+					<a href="{{ url_for('editar_centro', id=centro.id)}}" class="btn btn-info mb-2">Modificar</a>
 					<a href="{{ url_for('borrar_centro', id=centro.id)}}" 
 						class="btn btn-info mb-2"
                         title="Eliminar Centro de Ayuda"
-                        onclick="return confirm('¿Estás seguro de que deseas eliminar este Centro de Ayuda?')">Borrar
+                        onclick="return confirm('¿Estás seguro de que deseas eliminar este Centro de Ayuda?')">Eliminar
                     </a>
-                    {% if centro.estado.nombre != 'aceptado' %}
+                    {% if centro.estado.nombre == 'pendiente' %}
 					<a href="{{ url_for('aprobar_centro', id=centro.id)}}" class="btn btn-info mb-2">Aprobar</a>
-					{% endif %}
-					{% if centro.estado.nombre != 'rechazado' %}
 					<a href="{{ url_for('rechazar_centro', id=centro.id)}}" class="btn btn-info mb-2">Rechazar</a>
+					{% elif centro.estado.nombre == 'aceptado' %}
+						{% if centro.publicado == 0 %}
+							<a href="{{ url_for('publicar_centro', id=centro.id)}}" class="btn btn-info mb-2">Publicar</a>
+						{% else %}
+							<a href="{{ url_for('despublicar_centro', id=centro.id)}}" class="btn btn-info mb-2">Despublicar</a>
+						{% endif %}
 					{% endif %}
+					<a href="{{ url_for('index_turno', id=centro.id)}}" class="btn btn-info mb-2">Turnos</a>
 				</td>
 			</tr>
 			{% endfor %}
