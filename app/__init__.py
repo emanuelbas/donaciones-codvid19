@@ -14,6 +14,7 @@ from app.helpers import permisos
 from requests import get
 from app.resources import api
 from app.resources.Api import centros
+from app.resources.Api import turnos
 # from flask_mysqldb import MySQL
 
 
@@ -32,7 +33,6 @@ def create_app():
         Config.DB_USER+":"+Config.DB_PASS+"@"+Config.DB_HOST+"/"+Config.DB_NAME
     db.init_app(app)
 
-    
     app.config['SESSION_TYPE'] = 'filesystem'
     Session(app)
 
@@ -42,10 +42,18 @@ def create_app():
                      user.backend, methods=['POST'])
     app.add_url_rule('/logout', 'logout', user.logout)
 
-    # ruta a la api
+    # ruta a la api centros
     app.add_url_rule('/Api/centros', 'api_centros',
-                   centros.mostrarCentros, methods=["GET"])
-                      #'Api/centros/GetCentros.api.devolverCentros', methods=["GET"])
+                     centros.mostrarCentros, methods=["GET"])
+    # 'Api/centros/GetCentros.api.devolverCentros', methods=["GET"])
+
+    # ruta a la api turnos
+    app.add_url_rule('/Api/turnos_disponibles_con_fecha/<fecha>', 'turnos_disponibles_con_fecha',
+                     turnos.turnos_disponibles_con_fecha, methods=['GET'])
+    app.add_url_rule('/Api/turnos_disponibles_sin_fecha', 'turnos_disponibles_sin_fecha',
+                     turnos.turnos_disponibles_sin_fecha, methods=['GET'])
+    app.add_url_rule('/Api/reserva', 'reserva',
+                     turnos.reserva, methods=['POST', 'GET'])
 
     # ruta a centros
     app.add_url_rule('/centros', 'centros',
@@ -86,6 +94,8 @@ def create_app():
                      turnos_para_centro.editar_turno, methods=["POST", "GET"])
     app.add_url_rule('/turnos_para_centro/borrar_turno/<id>', 'borrar_turno',
                      turnos_para_centro.borrar_turno, methods=["POST", "GET"])
+    app.add_url_rule('/turnos_para_centro/sacar_turno/<id>', 'sacar_turno',
+                     turnos_para_centro.sacar_turno, methods=["POST", "GET"])
 
     # ruta al backend
     app.add_url_rule('/backend', 'backend', user.backend,

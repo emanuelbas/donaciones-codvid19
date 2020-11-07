@@ -27,11 +27,11 @@ def crear_turno():
 
         for turno in turnos:
 
-            if turno.bloque_turno == t['bloque_turno']:
+            if turno.hora_ini == t['hora_ini']:
                 mensaje = "El turno en esa hora no esta disponible"
                 return render_template('turnos_para_centro/crear_turno.html', centros=centros, mensaje=mensaje)
 
-        Turno.create(t['email'], t['bloque_turno'],
+        Turno.create(t['email'], t['hora_ini'], t['hora_fin'],
                      t['dia'], t['centro'])
         return redirect(url_for('index_turno', turnos=turnos_todos))
 
@@ -42,16 +42,38 @@ def crear_turno():
 
 def editar_turno(id):
     turno = Turno.get_by_id(id)
-    print(turno.bloque_turno)
     if request.method == 'POST':
         t = request.form
-        #if turno.bloque_turno == t['bloque_turno']:
+        if t['email'] == '':
+            disponible = 1
+        else:
+            disponible = 0
+        # if turno.bloque_turno == t['bloque_turno']:
          #       mensaje = "El turno en esa hora no esta disponible"
           #      return render_template('turnos_para_centro/crear_turno.html', mensaje=mensaje)
-        Turno.edit(id, t['email'], t['bloque_turno'], t['dia'])
+        Turno.edit(id, t['email'], t['hora_ini'],
+                   t['hora_fin'], t['dia'], disponible)
         return redirect(url_for('index_turno', turno=turno))
     else:
         return render_template('turnos_para_centro/editar_turno.html', turno=turno)
+
+
+def sacar_turno(id):
+    turno = Turno.get_by_id(id)
+    if request.method == 'POST':
+        t = request.form
+        if t['email'] == '':
+            disponible = 1
+        else:
+            disponible = 0
+        # if turno.bloque_turno == t['bloque_turno']:
+         #       mensaje = "El turno en esa hora no esta disponible"
+          #      return render_template('turnos_para_centro/crear_turno.html', mensaje=mensaje)
+        Turno.edit(id, t['email'], turno.hora_ini,
+                   turno.hora_fin, turno.dia, disponible)
+        return redirect(url_for('index_turno', turno=turno))
+    else:
+        return render_template('turnos_para_centro/sacar_turno.html', turno=turno)
 
 
 def borrar_turno(id):

@@ -16,15 +16,18 @@
 
     </form>
     <div class="text-right">
-        <a href="{{ url_for('crear_turno')}}" class="btn btn-info mb-2">Nuevo turno
+        <a href="{{ url_for('crear_turno')}}" class="btn btn-info mb-2">Crear turno
             <!-- span alt="Nuevo usuario" title="Agregar usuario" class="fas fa-user-plus"></span--></a>
     </div>
     <table class="table table-striped table-bordered bg-white table-sm">
         <thead>
             <tr>
+                <td>centro id</td>
                 <td>Email</td>
-                <td>Hora del Turno</td>
+                <td>Hora de Inicio</td>
+                <td>Hora de Fin</td>
                 <td>Dia</td>
+                <td>Disponible</td>
                 <td>Operaciones</td>
             </tr>
         </thead>
@@ -33,9 +36,18 @@
                 {% for turno in turnos %}
                 {% if (turno.borrado == 1)%}
                 <tr>
+                    <td> {{ turno.centro_id }} </td>
                     <td> {{ turno.email }} </td>
-                    <td> {{ turno.bloque_turno }} </td>
+                    <td> {{ turno.hora_ini }} </td>
+                    <td> {{ turno.hora_fin }} </td>
                     <td> {{ turno.dia }} </td>
+                    <td>
+                        {% if (turno.disponible == 1) %}
+				        <p>Si</p>
+			            {% else %}
+				        <p>No</p>
+			            {%  endif  %}
+                    </td>
                     <td>
                         <a href="{{ url_for('editar_turno', id=turno.id)}}" class="btn btn-info">Editar turno</a>
                         <a href="{{ url_for('borrar_turno', id=turno.id)}}" class="btn btn-danger"
@@ -44,6 +56,9 @@
                             <!--span alt="Eliminar" title="Eliminar usuario" class="fas fa-user-slash"></span-->
                             Eliminar
                         </a>
+                        {% if turno.disponible == 1 %}
+                        <a href="{{ url_for('sacar_turno', id=turno.id)}}" class="btn btn-info">Sacar el Turno</a>
+                        {% endif %}
                     </td>
                 </tr>
                 {% endif %}
