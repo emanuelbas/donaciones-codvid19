@@ -5,7 +5,7 @@ from app.helpers import permisos, api_requests
 from app.models.configuracion import Configuracion
 from app.models.centro_de_ayuda import Centro_de_ayuda, Municipio, Tipo_de_centro, Estado_centro
 from requests import get
-
+from werkzeug import secure_filename
 # https://sodocumentation.net/flask/topic/6460/pagination
 
 def go_index(nombre=' ',estado='todos',page=1):
@@ -44,11 +44,25 @@ def crear_centro():
 			mensaje_error="Ya existe un centro con ese nombre para el municipio indicado"
 			return render_template('centro_de_ayuda/crear_centro.html', mensaje_error= mensaje_error, mensaje_exito=mensaje_exito)
 		else:
-			print("Voy a intentar crear el centro")
-			print(form)
-			Centro_de_ayuda.hola_mundo()		
-			res = Centro_de_ayuda.crear(nombre=form['nombre'],direccion=form['direccion'],telefono=form['telefono'],hapertura=form['hora_apertura'],hcierre=form['hora_cierre'],email=form['email'],sitio_web=form['web'],corx=form['corx'],cory=form['cory'],lista_de_tipos=form.getlist("tipos"),id_municipio=form['municipio'],id_estado=1,protocolo='PDF',historico=0)
-			print("Bien, no se rompio")	
+			file = request.files['pdf']
+			path = 'app/static/uploads'
+			filename = secure_filename(file.filename)
+			file.save(path+filename)
+			res = Centro_de_ayuda.crear(
+				nombre=form['nombre'],
+				direccion=form['direccion'],
+				telefono=form['telefono'],
+				hapertura=form['hora_apertura'],
+				hcierre=form['hora_cierre'],
+				email=form['email'],
+				sitio_web=form['web'],
+				corx=form['corx'],
+				cory=form['cory'],
+				lista_de_tipos=form.getlist("tipos"),
+				id_municipio=form['municipio'],
+				id_estado=1,
+				protocolo=filename,
+				historico=0)
 			if res:
 				mensaje_exito = "Centro creado exitosamente"
 			else:

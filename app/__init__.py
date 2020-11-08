@@ -15,6 +15,7 @@ from requests import get
 from app.resources import api
 from app.resources.Api import centros
 from app.resources.Api import turnos
+
 # from flask_mysqldb import MySQL
 
 
@@ -25,6 +26,9 @@ def create_app():
     fa = FontAwesome(app)
     # session
     app.config['SESSION_TYPE'] = 'filesystem'
+    app.config['UPLOAD_FOLDER'] = 'app/static/uploads'
+    # Max size of files abajo
+    #app.config['MAX_CONTENT_PATH'] = ???
     Session(app)
 
     # config db
