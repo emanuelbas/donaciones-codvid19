@@ -30,6 +30,10 @@ h2 {
   color: #00ADC1;
 }
 
+h3 {
+  color: #00ADC1;
+}
+
 /* Formating Forms */
 
 form label {
@@ -52,4 +56,21 @@ footer {
 
 footer p {
   text-align: center;
+}
+
+details > summary {
+  padding: 4px;
+  background-color: #eeeeee;
+  border: none;
+  box-shadow: 1px 1px 2px #bbbbbb;
+  color: #00ADC1;
+  cursor: pointer;
+  font-size: 20px
+}
+
+details > p {
+  background-color: #eeeeee;
+  padding: 4px;
+  margin: 0;
+  box-shadow: 1px 1px 2px #bbbbbb;
 }

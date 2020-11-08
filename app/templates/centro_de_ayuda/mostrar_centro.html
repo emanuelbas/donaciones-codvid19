@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+{% block content %}
+{% if mensaje_error %}
+<div class="alert alert-warning" role="alert">
+    <p> ⚠️ {{ mensaje_error }}</p>
+</div>
+{% endif %}
+{% if mensaje_exito %}
+<div class="alert alert-success" role="alert">
+    <p>{{ mensaje_exito }}</p>
+</div>
+{% endif %}
+<h1>Detalles de {{centro.nombre}}</h1>
+
+<div class="container card-body">
+
+
+
+    
+<details>
+  <summary>Datos de contacto</summary>
+  <p><b>Nombre:</b> {{centro.nombre}}</p>
+  <p><b>Teléfono:</b> {{centro.telefono}}</p>
+  <p><b>Sitio Web:</b> {{centro.sitio_web}}</p>
+  <p><b>Email:</b> {{centro.email}}</p>
+</details>
+
+<details>
+  <summary>Ubicación y horarios</summary>
+  <p><b>Direccion:</b> {{municipio}},{{centro.direccion}}</p>
+  <p><b>Hora de apertura:</b> {{centro.hora_de_apertura}}</p>
+  <p><b>Hora de cierre:</b> {{centro.hora_de_cierre}}</p>
+  <!-- Podria mostrar centro.coordenada_x, coordenada_y, protocolo_de_vista-->
+</details>
+<a href="{{ url_for('index_turno', id=centro.id)}}" class="btn btn-info mt-5 mb-2">Turnos</a>
+
+{% if centro.estado.nombre == 'pendiente' %}
+<a href="{{ url_for('aprobar_centro', id=centro.id)}}" class="btn btn-info mt-5 mb-2">Aprobar</a>
+<a href="{{ url_for('rechazar_centro', id=centro.id)}}" class="btn btn-info mt-5 mb-2">Rechazar</a>
+{% elif centro.estado.nombre == 'aceptado' %}
+    {% if centro.publicado == 0 %}
+        <a href="{{ url_for('publicar_centro', id=centro.id)}}" class="btn btn-info mt-5 mb-2">Publicar</a>
+    {% else %}
+        <a href="{{ url_for('despublicar_centro', id=centro.id)}}" class="btn btn-info mt-5 mb-2">Despublicar</a>
+    {% endif %}
+{% endif %}
+
+
+
+
+
+</div>
+{% endblock %}

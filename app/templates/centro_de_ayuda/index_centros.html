@@ -55,6 +55,7 @@
 					{{centro.estado.nombre}}
 				</td>
 				<td>
+					<a href="{{ url_for('mostrar_centro', id=centro.id)}}" class="btn btn-info mb-2">Ver</a>
 					<a href="{{ url_for('editar_centro', id=centro.id)}}" class="btn btn-info mb-2">Modificar</a>
 					<a href="{{ url_for('borrar_centro', id=centro.id)}}" 
 						class="btn btn-info mb-2"
@@ -71,7 +72,6 @@
 							<a href="{{ url_for('despublicar_centro', id=centro.id)}}" class="btn btn-info mb-2">Despublicar</a>
 						{% endif %}
 					{% endif %}
-					<a href="{{ url_for('index_turno', id=centro.id)}}" class="btn btn-info mb-2">Turnos</a>
 				</td>
 			</tr>
 			{% endfor %}
