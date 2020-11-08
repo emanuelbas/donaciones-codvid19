@@ -34,6 +34,7 @@ def go_index(nombre=' ',estado='todos',page=1):
 	return render_template('centro_de_ayuda/index_centros.html', lista_de_centros=lista, nombre=nombre, estado=estado, estados = todos_los_estados)
 
 def crear_centro():
+	permisos.validar_permisos('centro_create')
 	mensaje_error = ''
 	mensaje_exito = ''
 	if request.method == "POST":
@@ -58,6 +59,54 @@ def crear_centro():
 		lista_de_tipos = Tipo_de_centro.all()
 		return render_template('centro_de_ayuda/crear_centro.html', tipos= lista_de_tipos, municipios=lista_de_municipios, mensaje_error= mensaje_error, mensaje_exito=mensaje_exito)
 
+def editar_centro(id):
+	permisos.validar_permisos('centro_edit')
+	mensaje_error = ''
+	mensaje_exito = ''
+
+	#Obtener el centro a editar
+	centro = Centro_de_ayuda.query.get(id)
+
+	if request.method == "GET":
+		lista_de_municipios = obtener_dic_de_municipios()
+		lista_de_tipos = Tipo_de_centro.all()
+		return render_template('centro_de_ayuda/editar_centro.html',
+			centro=centro,
+			tipos= lista_de_tipos,
+			municipios=lista_de_municipios,
+			mensaje_error= mensaje_error,
+			mensaje_exito=mensaje_exito)
+	else:
+		form = request.form
+		res = Centro_de_ayuda.editar(id=id,
+			nombre=form['nombre'],
+			direccion=form['direccion'],
+			telefono=form['telefono'],
+			hapertura=form['hora_apertura'],
+			hcierre=form['hora_cierre'],
+			email=form['email'],
+			sitio_web=form['web'],
+			corx=form['corx'],
+			cory=form['cory'],
+			lista_de_tipos=form.getlist("tipos"),
+			id_municipio=form['municipio'],
+			id_estado=1,
+			protocolo='PDF',
+			historico=0)
+		if res:
+			mensaje_exito = "Centro editado exitosamente"
+		else:
+			mensaje_error = "Hubo algun problema"
+		lista_de_municipios = obtener_dic_de_municipios()
+		lista_de_tipos = Tipo_de_centro.all()
+		return render_template('centro_de_ayuda/editar_centro.html',
+			centro=centro,
+			tipos= lista_de_tipos,
+			municipios=lista_de_municipios,
+			mensaje_error= mensaje_error,
+			mensaje_exito=mensaje_exito)
+
+
 
 def obtener_municipios(lista):
 	dic_de_municipios = api_requests.dictionaryOfMunicipios()
@@ -67,3 +116,29 @@ def obtener_municipios(lista):
 def obtener_dic_de_municipios():
 	''' Obtiene un diccionario municipios desde una API, separados por IDs '''
 	return api_requests.dictionaryOfMunicipios()['data']['Town']
+
+
+def borrar_centro(id):
+	permisos.validar_permisos('centro_index')
+	Centro_de_ayuda.borrar(id)
+	return redirect(url_for('centros'))
+
+def aprobar_centro(id):
+	permisos.validar_permisos('centro_edit')
+	Centro_de_ayuda.aprobar(id)
+	return redirect(url_for('centros'))
+
+def rechazar_centro(id):
+	permisos.validar_permisos('centro_edit')
+	Centro_de_ayuda.rechazar(id)
+	return redirect(url_for('centros'))
+
+def publicar_centro(id):
+	permisos.validar_permisos('centro_edit')
+	Centro_de_ayuda.publicar(id)
+	return redirect(url_for('centros'))
+
+def despublicar_centro(id):
+	permisos.validar_permisos('centro_edit')
+	Centro_de_ayuda.despublicar(id)
+	return redirect(url_for('centros'))

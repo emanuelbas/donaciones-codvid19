@@ -60,6 +60,7 @@
 			    {%  endif  %}
 			</td>
             <td> 
+            	{% if u.usuario != session['usuario'].usuario %}
             	<a href="{{ url_for('edit_usuario', id=u.id)}}" class="btn btn-info"><!-- span alt="Editar usuario" title="Editar usuario" class="fas fa-user-edit"></span-->Editar usuario</a>
 				{% if u.activo == 0 %}
 				<a href="{{ url_for('activar', id=u.id)}}" class="btn btn-info"><!--span alt="Activar" title="Activar usuario" class="fas fa-user-check"></span-->Activar</a>
@@ -68,6 +69,7 @@
 				{% endif %}
 				<a href="{{ url_for('borrar_usuario', id=u.id)}}" class="btn btn-danger" title="Eliminar Usuario" onclick="return confirm('¿Estás seguro de que deseas eliminar el usuario?')">Eliminar Usuario</a>
 				<!-- span alt="Desactivar" title="Desactivar usuario" class="fas fa-user-lock"></span-->	<!--span alt="Eliminar" title="Eliminar usuario" class="fas fa-user-slash"></span-->
+				{% endif %}
             </td>
  		</tr>
 	{% endfor %}

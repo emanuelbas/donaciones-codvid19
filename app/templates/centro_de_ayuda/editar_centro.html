@@ -10,7 +10,7 @@
     <p>{{ mensaje_exito }}</p>
 </div>
 {% endif %}
-<h1>Nuevo Centro de Ayuda</h1>
+<h1>Editar Centro de Ayuda</h1>
 
 <div class="container card-body">
     <span class="card-text">
@@ -19,10 +19,15 @@
 
             <section class="form-group">
                 <label for="contenido"> Selecciones un municipio: </label>
-                <!-- Deberia poder seleccionar uno de los que vienen de la API -->
+                
+                
                 <select name="municipio" id="municipio">
                     {% for municipio in municipios %}
-                    <option value="{{ municipio }}">{{ municipios[municipio|string]['name'] }}</option>
+
+                    <!-- Pongo en selected el municipio del centro -->
+                    <option value="{{ municipio }}" 
+                    {% if municipios[municipio|string]['id'] == centro.municipio_id %}selected{% endif %}>
+                        {{ municipios[municipio|string]['name'] }}</option>
                     {% endfor %}
                 </select>
             </section>
@@ -30,29 +35,29 @@
 
             <section class="form-group">
                 <label for="nombre"> Nombre </label>
-                <input type="text" class="form-control form-control-lg rounded-0" name="nombre" id="nombre" placeholder="Ingrese el nombre" required>
+                <input type="text" class="form-control form-control-lg rounded-0" name="nombre" id="nombre" placeholder="Ingrese el nombre" value="{{ centro.nombre }}" required>
             </section>
 
             <section class="form-group">
                 <label for="telefono"> Telefono </label>
-                <input type="tel" class="form-control form-control-lg rounded-0" name="telefono" id="telefono" placeholder="Ingrese el telefono" required>
+                <input value="{{ centro.telefono }}" type="tel" class="form-control form-control-lg rounded-0" name="telefono" id="telefono" placeholder="Ingrese el telefono" required>
             </section>
 
 
             <section class="form-group">
                 <label for="titulo"> Email </label>
-                <input type="email" class="form-control form-control-lg rounded-0" name="email" id="email" placeholder="Ingrese el correo">
+                <input value="{{ centro.email }}" type="email" class="form-control form-control-lg rounded-0" name="email" id="email" placeholder="Ingrese el correo" >
             </section>
 
             <section class="form-group">
                 <label for="contenido"> Sitio Web </label>
-                <input type="text" class="form-control form-control-lg rounded-0" name="web" id="sitio_web" placeholder="Ingrese el sitio web">
+                <input value="{{ centro.sitio_web }}" type="text" class="form-control form-control-lg rounded-0" name="web" id="sitio_web" placeholder="Ingrese el sitio web" >
             </section>
 
 
             <section class="form-group">
                 <label for="contenido"> Dirección </label>
-                <input type="text" class="form-control form-control-lg rounded-0" name="direccion" id="direccion" placeholder="Ingrese la dirección" required>
+                <input value="{{ centro.direccion }}" type="text" class="form-control form-control-lg rounded-0" name="direccion" id="direccion" placeholder="Ingrese la dirección" required>
             </section>
 
             <section class="form-group">
@@ -71,17 +76,17 @@
 
             <section class="form-group">
                 <label for="contenido"> Coordenada x de Geolocalización </label>
-                <input type="text" class="form-control form-control-lg rounded-0" name="corx" id="corx" placeholder="La coordenada X">
+                <input value="{{ centro.coordenada_x }}" type="text" class="form-control form-control-lg rounded-0" name="corx" id="corx" placeholder="La coordenada X" >
                 <label for="contenido"> Coordenada y de Geolocalización </label>
-                <input type="text" class="form-control form-control-lg rounded-0" name="cory" id="cory" placeholder="La coordenada Y">
+                <input value="{{ centro.coordenada_y }}" type="text" class="form-control form-control-lg rounded-0" name="cory" id="cory" placeholder="La coordenada Y" >
             </section>
 
 
             <section class="form-group">
                 <label for="contenido"> Hora de Apertura </label>
-                <input type="time" class="form-control form-control-lg rounded-0" name="hora_apertura" id="hora_apertura" required>
+                <input value="{{ centro.hora_de_apertura }}" type="time" class="form-control form-control-lg rounded-0" name="hora_apertura" id="hora_apertura" required>
                 <label for="contenido"> Hora de Cierre </label>
-                <input type="time" class="form-control form-control-lg rounded-0" name="hora_cierre" id="hora_cierre" required>
+                <input value="{{ centro.hora_de_apertura }}" type="time" class="form-control form-control-lg rounded-0" name="hora_cierre" id="hora_cierre" required>
             </section>
 
 
@@ -91,11 +96,13 @@
 
 
 
-
+            <!-- Deberia poner en checked los que correspondan -->
             <section class="form-group">
                 <label for="contenido"> Tipo de Centro </label><br>
                 {% for tag in tipos %}
-                <input type="checkbox" id="cb{{tag.id}}" name="tipos" value="{{tag.id}}">
+                <input type="checkbox" id="cb{{tag.id}}" name="tipos" value="{{tag.id}}" 
+                    {% if tag in centro.tipos_de_centro %}checked{% endif %}
+                >
                 <span class="badge badge-info">{{tag.nombre}}</span><br>
                 {% endfor %}
             </section>

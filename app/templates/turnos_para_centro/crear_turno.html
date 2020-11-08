@@ -1,13 +1,9 @@
 {% extends "layout.html" %}
 {% block content %}
-{% if mensaje_error %}
-<div class="alert alert-warning" role="alert">
-    <p> ⚠️ {{ mensaje_error }}</p>
-</div>
-{% endif %}
-{% if mensaje_exito %}
+
+{% if mensaje %}
 <div class="alert alert-success" role="alert">
-    <p>{{ mensaje_exito }}</p>
+    <p>{{ mensaje }}</p>
 </div>
 {% endif %}
 <h1>Nuevo Turno</h1>
@@ -17,18 +13,31 @@
         <form action="{{url_for('crear_turno')}}" method="POST">
             <section class="form-group">
                 <label for="titulo"> Email </label>
-                <input type="email" class="form-control form-control-lg rounded-0" name="email" id="email" placeholder="Ingrese el Email" required>
+                <input type="email" class="form-control form-control-lg rounded-0" name="email" id="email" placeholder="Ingrese el Email" >
             </section>
 
             <section class="form-group">
-                <label for="titulo"> Bloque de Turno </label>
-                <input type="text" class="form-control form-control-lg rounded-0" name="bloque_turno" id="bloque_turno" placeholder="Ingrese el Turno"
+                <label for="titulo"> Hora del Inicio </label>
+                <input type="time" class="form-control form-control-lg rounded-0" name="hora_ini" id="hora_ini" placeholder="Ingrese hora de inicio del turno"
+                required>
+            </section>
+            <section class="form-group">
+                <label for="titulo"> Hora del Fin </label>
+                <input type="time" class="form-control form-control-lg rounded-0" name="hora_fin" id="hora_fin" placeholder="Ingrese hora de fin del turno"
                 required>
             </section>
             <section class="form-group">
                 <label for="titulo"> Dia </label>
                 <input type="date" class="form-control form-control-lg rounded-0" name="dia" id="dia" placeholder="Ingrese el dia" required>
             </section>
+
+            <label for="centros">Seleccione el centro</label>
+            
+            <select id="centro" name="centro">
+            {% for centro in centros %}
+                <option value="{{centro.id}}">{{centro.nombre}}</option>
+            {% endfor %}
+            </select>
 
             <div class="text-right">
                 <a href="{{ url_for('index_turno') }}" class="btn btn-white">Cancelar</a>

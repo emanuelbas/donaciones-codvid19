@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-11-2020 a las 23:23:37
+-- Tiempo de generación: 07-11-2020 a las 18:52:26
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.2.33
 
@@ -37,6 +37,7 @@ CREATE TABLE `centro_de_ayuda` (
   `sitio_web` varchar(35) NOT NULL,
   `email` varchar(35) NOT NULL,
   `estado_id` int(11) NOT NULL DEFAULT 1,
+  `publicado` tinyint(1) NOT NULL DEFAULT 0,
   `protocolo_de_vista` varchar(35) NOT NULL DEFAULT 'PDF',
   `coordenada_x` int(35) NOT NULL,
   `coordenada_y` int(35) NOT NULL,
@@ -48,14 +49,16 @@ CREATE TABLE `centro_de_ayuda` (
 -- Volcado de datos para la tabla `centro_de_ayuda`
 --
 
-INSERT INTO `centro_de_ayuda` (`id`, `nombre`, `direccion`, `telefono`, `hora_de_apertura`, `hora_de_cierre`, `sitio_web`, `email`, `estado_id`, `protocolo_de_vista`, `coordenada_x`, `coordenada_y`, `historico`, `municipio_id`) VALUES
-(1, 'Centro de prueba', 'Calle 23, numero 35', '9111233255', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba.gov', 'contacto@centrodeprueba.gov', 1, 'PDF', 300, 54234, 0, 19),
-(2, 'Centro de prueba 2', 'Calle 2, numero 33', '9111233353', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba2.gov', 'contacto@centrodeprueba2.gov', 2, 'PDF', 44, 54234, 0, 7),
-(3, 'Donaciones Pepito', 'Calle 32, numero 12', '9111224525', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba.gov', 'contacto@centrodeprueba.gov', 3, 'PDF', 300, 54234, 0, 4),
-(4, 'Hospital Nacional', 'Calle 15, numero 3443', '9111233255', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba.gov', 'contacto@centrodeprueba.gov', 2, 'PDF', 300, 54234, 0, 19),
-(5, 'Hospital Enrique', 'Calle 53, numero 35', '9111233255', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba.gov', 'contacto@centrodeprueba.gov', 1, 'PDF', 300, 54234, 0, 4),
-(6, 'Centro la esperanza', 'Calle 23234, numero 35', '9111233255', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba.gov', 'contacto@centrodeprueba.gov', 3, 'PDF', 300, 54234, 0, 7),
-(7, 'Centro la poca imaginacion', 'Calle 123, numero 35', '9111233255', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba.gov', 'contacto@centrodeprueba.gov', 1, 'PDF', 300, 54234, 0, 19);
+INSERT INTO `centro_de_ayuda` (`id`, `nombre`, `direccion`, `telefono`, `hora_de_apertura`, `hora_de_cierre`, `sitio_web`, `email`, `estado_id`, `publicado`, `protocolo_de_vista`, `coordenada_x`, `coordenada_y`, `historico`, `municipio_id`) VALUES
+(1, 'Centro de prueba pepito', 'Calle 23, numero 35', '9111233255', '09:00:00.000000', '09:00:00.000000', 'http://www.centrodeprueba.gov', 'contacto@centrodeprueba.gov', 3, 0, 'PDF', 300, 54234, 0, 19),
+(2, 'Centro de prueba 2', 'Calle 2, numero 33', '9111233353', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba2.gov', 'contacto@centrodeprueba2.gov', 2, 0, 'PDF', 44, 54234, 0, 7),
+(3, 'Donaciones Pepito', 'Calle 32, numero 12', '9111224525', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba.gov', 'contacto@centrodeprueba.gov', 2, 0, 'PDF', 300, 54234, 0, 4),
+(4, 'Hospital Nacional', 'Calle 15, numero 3443', '9111233255', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba.gov', 'contacto@centrodeprueba.gov', 3, 0, 'PDF', 300, 54234, 0, 19),
+(5, 'Hospital Enrique', 'Calle 53, numero 35', '9111233255', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba.gov', 'contacto@centrodeprueba.gov', 2, 0, 'PDF', 300, 54234, 0, 4),
+(6, 'Centro la esperanza', 'Calle 23234, numero 35', '9111233255', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba.gov', 'contacto@centrodeprueba.gov', 3, 0, 'PDF', 300, 54234, 0, 7),
+(7, 'Centro la poca imaginacion', 'Calle 123, numero 35', '9111233255', '09:00:00.000000', '16:00:00.000000', 'http://www.centrodeprueba.gov', 'contacto@centrodeprueba.gov', 2, 0, 'PDF', 300, 54234, 0, 19),
+(8, 'Otro centro', 'wedswdq', '12123123', '22:22:00.000000', '22:22:00.000000', 'asdasddas', 'weqqwew@asdsda', 1, 0, 'PDF', 2, 3, 0, 5),
+(9, 'Hola centros22', 'sadasdasdasd', '31231123', '22:22:00.000000', '22:22:00.000000', 'asdasddas', 'e@b', 1, 0, 'PDF', 2, 2, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -74,7 +77,6 @@ CREATE TABLE `centro_tiene_tipo` (
 
 INSERT INTO `centro_tiene_tipo` (`centro_id`, `tipo_de_centro_id`) VALUES
 (1, 1),
-(1, 2),
 (2, 1),
 (2, 3),
 (3, 1),
@@ -83,7 +85,10 @@ INSERT INTO `centro_tiene_tipo` (`centro_id`, `tipo_de_centro_id`) VALUES
 (5, 3),
 (6, 1),
 (6, 4),
-(7, 1);
+(7, 1),
+(8, 2),
+(8, 4),
+(9, 2);
 
 -- --------------------------------------------------------
 
@@ -296,12 +301,17 @@ CREATE TABLE `permiso` (
 --
 
 INSERT INTO `permiso` (`id`, `nombre`) VALUES
-(3, 'centro_destroy'),
+(2, 'centro_create'),
+(3, 'centro_delete'),
+(4, 'centro_edit'),
 (1, 'centro_index'),
-(2, 'centro_new'),
 (5, 'centro_show'),
-(4, 'centro_update'),
 (11, 'site_config'),
+(15, 'turno_create'),
+(14, 'turno_delete'),
+(16, 'turno_edit'),
+(13, 'turno_index'),
+(17, 'turno_show'),
 (8, 'user_create'),
 (9, 'user_delete'),
 (10, 'user_edit'),
@@ -351,7 +361,21 @@ INSERT INTO `rol_tiene_permiso` (`rol_id`, `permiso_id`) VALUES
 (1, 8),
 (1, 9),
 (1, 10),
-(1, 11);
+(1, 11),
+(1, 13),
+(1, 14),
+(1, 15),
+(1, 16),
+(1, 17),
+(2, 1),
+(2, 2),
+(2, 4),
+(2, 5),
+(2, 13),
+(2, 14),
+(2, 15),
+(2, 16),
+(2, 17);
 
 -- --------------------------------------------------------
 
@@ -377,31 +401,48 @@ INSERT INTO `tipo_de_centro` (`id`, `nombre`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `turnos_para_cada_centro`
+--
+
+CREATE TABLE `turnos_para_cada_centro` (
+  `id` int(10) NOT NULL,
+  `turno_id` int(10) NOT NULL,
+  `centro_id` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `turnos_para_centro`
 --
 
 CREATE TABLE `turnos_para_centro` (
   `id` int(10) NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `bloque_turno` varchar(50) NOT NULL,
+  `email` varchar(50) DEFAULT NULL,
+  `hora_ini` varchar(50) NOT NULL,
+  `hora_fin` varchar(50) NOT NULL,
   `dia` date NOT NULL,
-  `activo` int(10) NOT NULL
+  `borrado` int(10) NOT NULL,
+  `centro_id` int(10) NOT NULL,
+  `disponible` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `turnos_para_centro`
 --
 
-INSERT INTO `turnos_para_centro` (`id`, `email`, `bloque_turno`, `dia`, `activo`) VALUES
-(1, 'dario@gmail.com', '9 a 9:30', '2020-10-30', 0),
-(2, 'ema2@gmail.com', '10 a 10:30', '2020-10-30', 0),
-(3, 'maxi@gmail.com', '10:30 a 11', '2020-10-30', 0),
-(4, 'may@gmail.com', '00:00', '2020-10-30', 1),
-(5, 'juanp@gmail.com', '12:30', '2020-10-30', 1),
-(6, 'hugo@gmail.com', '19:00', '2020-10-30', 1),
-(9, 'nuevo@gmail.com', '14:00 a 14:30', '2020-10-30', 1),
-(10, 'unemai@l', '15:30', '2020-11-06', 1),
-(11, 'asa@sdsd', '00:00', '2020-10-31', 1);
+INSERT INTO `turnos_para_centro` (`id`, `email`, `hora_ini`, `hora_fin`, `dia`, `borrado`, `centro_id`, `disponible`) VALUES
+(40, 'dario@gmail.com', '10:00', '10:30', '2020-11-05', 1, 2, 0),
+(41, 'hugo@gmail.com', '09:00', '09:30', '2020-11-05', 1, 3, 0),
+(45, '', '11:00', '11:30', '2020-11-05', 1, 1, 1),
+(46, '', '11:30', '12:00', '2020-11-05', 1, 1, 1),
+(47, '', '12:00', '12:30', '2020-11-05', 1, 1, 1),
+(48, '', '09:00', '09:30', '2020-11-05', 1, 7, 1),
+(49, '', '09:00', '09:30', '2020-11-12', 1, 4, 1),
+(50, '', '09:00', '09:00', '2020-11-06', 1, 1, 1),
+(51, 'das@asdasd', '04:44', '04:04', '2020-11-20', 0, 8, 1),
+(52, '', '04:04', '04:04', '2020-11-20', 1, 1, 1),
+(53, 'asdasd@sdads', '22:22', '22:22', '2020-12-04', 1, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -430,7 +471,7 @@ INSERT INTO `usuario` (`id`, `usuario`, `clave`, `nombre`, `apellido`, `email`, 
 (8, 'admin', '1234', 'Homero', 'Simpson', 'hsimpson@gmail.com', 1, '2020-10-18', '2020-10-18', 0),
 (11, 'usuario', '1234', 'Ned', 'Flanders', 'flanders15@gmail.com', 1, '2020-10-18', '2020-10-18', 0),
 (13, 'nuevo', '1234', 'new', 'new', 'new@gmail.com', 1, '2020-10-24', '2020-10-24', 1),
-(19, 'sarasa', '1234', 'sara', 'sars', 'sara@gmail.commm', 0, '2020-10-30', '2020-10-30', 0);
+(19, 'Pantera', '1234', 'sara', 'sars', 'sara@gmail.commm', 1, '2020-10-30', '2020-10-30', 0);
 
 -- --------------------------------------------------------
 
@@ -449,7 +490,8 @@ CREATE TABLE `usuario_tiene_rol` (
 
 INSERT INTO `usuario_tiene_rol` (`usuario_id`, `rol_id`) VALUES
 (8, 1),
-(11, 2);
+(11, 2),
+(19, 1);
 
 --
 -- Índices para tablas volcadas
@@ -516,6 +558,12 @@ ALTER TABLE `tipo_de_centro`
   ADD UNIQUE KEY `nombre` (`nombre`);
 
 --
+-- Indices de la tabla `turnos_para_cada_centro`
+--
+ALTER TABLE `turnos_para_cada_centro`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `turnos_para_centro`
 --
 ALTER TABLE `turnos_para_centro`
@@ -544,7 +592,7 @@ ALTER TABLE `usuario_tiene_rol`
 -- AUTO_INCREMENT de la tabla `centro_de_ayuda`
 --
 ALTER TABLE `centro_de_ayuda`
-  MODIFY `id` int(35) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(35) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `configuracion`
@@ -568,7 +616,7 @@ ALTER TABLE `municipio`
 -- AUTO_INCREMENT de la tabla `permiso`
 --
 ALTER TABLE `permiso`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `rol`
@@ -583,10 +631,16 @@ ALTER TABLE `tipo_de_centro`
   MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT de la tabla `turnos_para_cada_centro`
+--
+ALTER TABLE `turnos_para_cada_centro`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
+--
 -- AUTO_INCREMENT de la tabla `turnos_para_centro`
 --
 ALTER TABLE `turnos_para_centro`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
