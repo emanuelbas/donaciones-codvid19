@@ -46,7 +46,7 @@
 </thead>
 <tbody>
 	<div class="container">
-	{% for u in usuario %}
+	{% for u in usuario.items %}
 		<tr>
 	     	<td> {{ u.usuario }} </td>
 	     	<td> {{ u.nombre }} </td>
@@ -76,6 +76,50 @@
     </div>
 </tbody>
 </table>
+<!-- PAGINACION -->
+<div class="text-center">
+	<ul class="pagination">
+		{% if usuario.has_prev %}
+			<li class="page-item">
+ 				<a class="page-link" href="{{ url_for('index_usuario', page=usuario.prev_num, nombre=nombre, estado=estado) }}">«</a>
+			</li>
+		{% else %}
+			<li class="page-item disabled">
+				<a class="page-link">«</a>
+			</li>
+		{% endif %}
+		<!-- all page numbers -->
+		{% for page_num in usuario.iter_pages() %}
+			{% if page_num %}
+				{% if page_num != usuario.page %}
+					<li class="page-item">
+						<a class="page-link" href="{{ url_for('index_usuario', page=page_num, nombre=nombre, estado=estado) }}">{{ page_num }}</a>
+					</li>
+				{% else %}
+				<li class="page-item active">
+					<a class="page-link" href="#">{{ page_num }}</a>
+				</li>
+			{% endif %}
+			{% else %}
+				<li class="page-item">
+					<span class="page-link ellipsis" style="white-space; nowrap; overflow: hidden; text-overflow: ellipsis">…</span>
+				</li>
+			{% endif %}
+		{% endfor %}
+		<!-- next page -->
+		{% if usuario.has_next %}
+			<li class="page-item">
+				<a class="page-link" href="{{ url_for('index_usuario', page=usuario.next_num, nombre=nombre, estado=estado) }}">»</a>
+			</li>
+		{% else %}
+			<li class="page-item disabled">
+				<a class="page-link">»</a>
+			</li>
+		{% endif %}
+	</ul>
+</div>
+	
+<!-- FIN PAGINACION -->
 </div>
 
 {% endblock %}
