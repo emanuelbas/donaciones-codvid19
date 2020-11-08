@@ -15,14 +15,15 @@
 	<!-- Traer los campos a filtrar, para mostrarlos en el select-->
 	<!-- implementar el evento seleccionarCampo-->
 	<!-- implementar el evento en botón buscar -->
-	<form name="usu" id="usu" action="{{ url_for('index_usuario')}}">
+	<form name="usu" id="usu" action="" method="POST">
         <div class="form-inline">
-            <label for="usuarios">Campos:</label><br>
-            <select class="form-control" name="campo" id="campo" onChange="seleccionarCampo()">
-                <option value="vacio">Seleccionar</option>
-				<option value="nombre">nombre</option>
-				<option value="apellido">apellido</option>
-				<option value="activo">activo</option>
+			<label for="nombre">Nombre:</label>
+			<input type="text" placeholder="Buscar por nombre" id="nombre" name="nombre">
+            <label for="usuarios">Estado:</label><br>
+            <select class="form-control" name="estado" id="estado">
+				<option value="todos">Todos</option>
+				<option value="1">Activo</option>
+				<option value="0">Inactivo</option>
             </select><br>
             <input name="best" id="sec" class="btn btn-info" type="submit" value="Buscar">
 		</div>

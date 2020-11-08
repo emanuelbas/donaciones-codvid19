@@ -86,10 +86,26 @@ def desactivar(id):
     User.desactivar_user(id)
     return render_template('usuario/index_usuario.html', usuario=usuario)
 
-def index_usuario():
+def index_usuario(nombre='',estado='todos',page=1):
     permisos.validar_permisos('user_show')
+    per_page = Configuracion.get_config().cantPagina
     usuario = User.all()
-    return render_template('usuario/index_usuario.html', usuario=usuario)
+    if request.method == 'GET':
+        nombre = nombre
+        estado = estado
+    if request.method == 'POST':
+        page=1
+        params = request.form
+        nombre = params['nombre'] or ' '
+        estado = params['estado']
+    if estado == 'todos':
+        usuario = User.query.filter_by(historico=0).filter(User.nombre.like('%'+nombre+'%'))
+    else:
+        usuario = User.query.filter_by(historico=0)#.filter(User.nombre.like('%'+nombre+'%')).filter_by(activo=estado)
+   # usuario = usuario.paginate(page, per_page=per_page)
+    print(usuario)
+
+    return render_template('usuario/index_usuario.html', usuario=usuario, nombre = nombre, estado = estado)
 
 def crear_usuario():
     permisos.validar_permisos('user_create')
