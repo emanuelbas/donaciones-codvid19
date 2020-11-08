@@ -99,6 +99,10 @@ def create_app():
                      user.activar,  methods=['POST', 'GET'])
     app.add_url_rule('/usuarios/desactivar/<id>', 'desactivar',
                      user.desactivar,  methods=['POST', 'GET'])
+    app.add_url_rule('/usuarios/page/<int:page>', 'index_usuario',
+                     user.index_usuario, methods=["POST", "GET"])
+    app.add_url_rule('/usuarios/nombre/<nombre>/estado/<estado>/page/<int:page>',
+                     'index_usuario', user.index_usuario, methods=["POST", "GET"])
 
     # turno para centro
     app.add_url_rule('/turnos_para_centro/index_turno',

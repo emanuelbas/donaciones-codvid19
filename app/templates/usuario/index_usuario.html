@@ -15,14 +15,15 @@
 	<!-- Traer los campos a filtrar, para mostrarlos en el select-->
 	<!-- implementar el evento seleccionarCampo-->
 	<!-- implementar el evento en botón buscar -->
-	<form name="usu" id="usu" action="{{ url_for('index_usuario')}}">
+	<form name="usu" id="usu" action="" method="POST">
         <div class="form-inline">
-            <label for="usuarios">Campos:</label><br>
-            <select class="form-control" name="campo" id="campo" onChange="seleccionarCampo()">
-                <option value="vacio">Seleccionar</option>
-				<option value="nombre">nombre</option>
-				<option value="apellido">apellido</option>
-				<option value="activo">activo</option>
+			<label for="nombre">Nombre:</label>
+			<input type="text" placeholder="Buscar por nombre" id="nombre" name="nombre">
+            <label for="usuarios">Estado:</label><br>
+            <select class="form-control" name="estado" id="estado">
+				<option value="todos">Todos</option>
+				<option value="1">Activo</option>
+				<option value="0">Inactivo</option>
             </select><br>
             <input name="best" id="sec" class="btn btn-info" type="submit" value="Buscar">
 		</div>
@@ -45,7 +46,7 @@
 </thead>
 <tbody>
 	<div class="container">
-	{% for u in usuario %}
+	{% for u in usuario.items %}
 		<tr>
 	     	<td> {{ u.usuario }} </td>
 	     	<td> {{ u.nombre }} </td>
@@ -75,6 +76,50 @@
     </div>
 </tbody>
 </table>
+<!-- PAGINACION -->
+<div class="text-center">
+	<ul class="pagination">
+		{% if usuario.has_prev %}
+			<li class="page-item">
+ 				<a class="page-link" href="{{ url_for('index_usuario', page=usuario.prev_num, nombre=nombre, estado=estado) }}">«</a>
+			</li>
+		{% else %}
+			<li class="page-item disabled">
+				<a class="page-link">«</a>
+			</li>
+		{% endif %}
+		<!-- all page numbers -->
+		{% for page_num in usuario.iter_pages() %}
+			{% if page_num %}
+				{% if page_num != usuario.page %}
+					<li class="page-item">
+						<a class="page-link" href="{{ url_for('index_usuario', page=page_num, nombre=nombre, estado=estado) }}">{{ page_num }}</a>
+					</li>
+				{% else %}
+				<li class="page-item active">
+					<a class="page-link" href="#">{{ page_num }}</a>
+				</li>
+			{% endif %}
+			{% else %}
+				<li class="page-item">
+					<span class="page-link ellipsis" style="white-space; nowrap; overflow: hidden; text-overflow: ellipsis">…</span>
+				</li>
+			{% endif %}
+		{% endfor %}
+		<!-- next page -->
+		{% if usuario.has_next %}
+			<li class="page-item">
+				<a class="page-link" href="{{ url_for('index_usuario', page=usuario.next_num, nombre=nombre, estado=estado) }}">»</a>
+			</li>
+		{% else %}
+			<li class="page-item disabled">
+				<a class="page-link">»</a>
+			</li>
+		{% endif %}
+	</ul>
+</div>
+	
+<!-- FIN PAGINACION -->
 </div>
 
 {% endblock %}
