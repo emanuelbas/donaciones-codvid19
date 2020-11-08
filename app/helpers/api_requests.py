@@ -16,7 +16,7 @@ def dictionaryOfMunicipios():
 	try:
 		return get('https://api-referencias.proyecto2020.linti.unlp.edu.ar/municipios?per_page=1000').json()
 	except Exception as e:
-		return False
+		return 'API_ERROR'
 
 #def actualizarDB():
 #	try:

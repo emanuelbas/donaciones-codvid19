@@ -69,6 +69,11 @@ class Centro_de_ayuda(db.Model):
         db.session.commit()
         return True
 
+    def set_protocolo(id,fn):
+        centro = Centro_de_ayuda.query.get(id)
+        centro.protocolo_de_vista = fn
+        db.session.commit()
+        return True
 
     def editar(id, nombre, direccion,telefono, hapertura, hcierre, email,sitio_web, corx, cory, lista_de_tipos, id_municipio, id_estado,protocolo='PDF', historico=0):
         centro = Centro_de_ayuda.query.get(id)

@@ -44,10 +44,6 @@ def crear_centro():
 			mensaje_error="Ya existe un centro con ese nombre para el municipio indicado"
 			return render_template('centro_de_ayuda/crear_centro.html', mensaje_error= mensaje_error, mensaje_exito=mensaje_exito)
 		else:
-			file = request.files['pdf']
-			path = 'app/static/uploads'
-			filename = secure_filename(file.filename)
-			file.save(path+filename)
 			res = Centro_de_ayuda.crear(
 				nombre=form['nombre'],
 				direccion=form['direccion'],
@@ -63,6 +59,13 @@ def crear_centro():
 				id_estado=1,
 				protocolo=filename,
 				historico=0)
+			# Teniendo la id del nuevo centro puedo guardar su archivo
+			file = request.files['pdf']
+			path = 'app/static/uploads/'
+			filename = str(res.id)+'_' + secure_filename(file.filename)
+			file.save(path+filename)
+			Centro_de_ayuda.set_protocolo(id=res.id,fn=filename)
+
 			if res:
 				mensaje_exito = "Centro creado exitosamente"
 			else:
