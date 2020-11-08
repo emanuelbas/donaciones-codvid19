@@ -61,7 +61,7 @@ def crear_centro():
 				historico=0)
 			# Teniendo la id del nuevo centro puedo guardar su archivo
 			file = request.files['pdf']
-			path = 'app/static/uploads/'
+			path = '/home/grupo22.proyecto2020.linti.unlp.edu.ar/app/static/uploads/'
 			filename = str(res.id)+'_' + secure_filename(file.filename)
 			file.save(path+filename)
 			Centro_de_ayuda.set_protocolo(id=res.id,fn=filename)
