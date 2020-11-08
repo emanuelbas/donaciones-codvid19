@@ -3,10 +3,14 @@ from flask import json
 
 # Devuelve un json con el municipio que corresponde a la id
 def request_town(id):
-    try:
-       return get('https://api-referencias.proyecto2020.linti.unlp.edu.ar/'+id).json()
-    except Exception as e:
-       return False
+	return False
+
+def name_of_town(id):
+	try:
+		dic = get('https://api-referencias.proyecto2020.linti.unlp.edu.ar/municipios/'+str(id)).json()
+		return dic['data']['Town'][str(id)]['name']
+	except Exception as e:
+		return 'API_ERROR'
 
 def dictionaryOfMunicipios():
 	try:

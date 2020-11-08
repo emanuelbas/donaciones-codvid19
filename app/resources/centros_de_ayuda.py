@@ -106,6 +106,11 @@ def editar_centro(id):
 			mensaje_error= mensaje_error,
 			mensaje_exito=mensaje_exito)
 
+def mostrar_centro(id):
+	permisos.validar_permisos('centro_show')
+	centro = Centro_de_ayuda.query.get(id)
+	nombre_municipio = api_requests.name_of_town(centro.municipio_id)
+	return render_template('centro_de_ayuda/mostrar_centro.html', centro=centro, municipio=nombre_municipio)
 
 
 def obtener_municipios(lista):
