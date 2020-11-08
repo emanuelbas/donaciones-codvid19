@@ -67,7 +67,7 @@ class Centro_de_ayuda(db.Model):
         print("Se creo en memoria el nuevo centro")
         db.session.add(nuevo_centro)
         db.session.commit()
-        return True
+        return nuevo_centro
 
     def set_protocolo(id,fn):
         centro = Centro_de_ayuda.query.get(id)

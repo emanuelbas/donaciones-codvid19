@@ -57,7 +57,7 @@ def crear_centro():
 				lista_de_tipos=form.getlist("tipos"),
 				id_municipio=form['municipio'],
 				id_estado=1,
-				protocolo=filename,
+				protocolo='PDF',
 				historico=0)
 			# Teniendo la id del nuevo centro puedo guardar su archivo
 			file = request.files['pdf']
