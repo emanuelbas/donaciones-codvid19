@@ -100,12 +100,10 @@ def index_usuario(nombre=' ',estado='todos',page=1):
         estado = params['estado']
     usuario = User.query.filter_by(historico=0)
     if nombre != ' ':
-        #Si llega un espacio no lo filtro
-        usuario = usuario.filter(User.nombre.like('%'+nombre+'%'))
+        usuario = usuario.filter(User.nombre.like('%' + nombre + '%'))
     if estado != 'todos':
         usuario = usuario.filter_by(activo = estado)
     usuario = usuario.paginate(page, per_page=per_page)
-    print("Pase hasta el return")
 
     return render_template('usuario/index_usuario.html', usuario=usuario, nombre = nombre, estado = estado)
 
