@@ -64,7 +64,7 @@ def crear_centro():
 			# En local 'app/static/uploads/'
 			# Este path funciona para subir pero no puedo recuperar los file
 			# '/home/grupo22.proyecto2020.linti.unlp.edu.ar/app/static/uploads/'
-			path = '/app/static/uploads/'
+			path = 'app/static/uploads/'
 			filename = str(res.id)+'_' + secure_filename(file.filename)
 			file.save(path+filename)
 			Centro_de_ayuda.set_protocolo(id=res.id,fn=filename)
