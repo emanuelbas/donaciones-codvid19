@@ -33,7 +33,7 @@
   <!-- Podria mostrar centro.coordenada_x, coordenada_y, protocolo_de_vista-->
 </details>
 
-<a href="https://grupo22.proyecto2020.linti.unlp.edu.ar/static/uploads/{centro.protocolo_de_vista}" class="btn btn-info mt-5 mb-2">Ver protocolo de visita</a>
+<a href="https://grupo22.proyecto2020.linti.unlp.edu.ar/static/uploads/{{centro.protocolo_de_vista}}" class="btn btn-info mt-5 mb-2">Ver protocolo de visita</a>
 <a href="{{ url_for('index_turno', id=centro.id)}}" class="btn btn-info mt-5 mb-2">Turnos</a>
 
 {% if centro.estado.nombre == 'pendiente' %}
