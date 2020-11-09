@@ -1,19 +1,16 @@
 {% extends "layout.html" %}
 {% block content %}
-{% if mensaje_error %}
+{% if centro.estado.nombre == 'rechazado' %}
 <div class="alert alert-warning" role="alert">
-    <p> ⚠️ {{ mensaje_error }}</p>
+    <p> ⚠️  Este centro fue rechazado por lo que no se mostrará al publico</p>
 </div>
 {% endif %}
-{% if mensaje_exito %}
-<div class="alert alert-success" role="alert">
-    <p>{{ mensaje_exito }}</p>
-</div>
-{% endif %}
+
+
+
 <h1>Detalles de {{centro.nombre}}</h1>
 
 <div class="container card-body">
-
 
 
     
