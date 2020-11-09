@@ -61,9 +61,6 @@ def crear_centro():
 				historico=0)
 			# Teniendo la id del nuevo centro puedo guardar su archivo
 			file = request.files['pdf']
-			# En local 'app/static/uploads/'
-			# Este path funciona para subir pero no puedo recuperar los file
-			# '/home/grupo22.proyecto2020.linti.unlp.edu.ar/app/static/uploads/'
 			path = 'app/static/uploads/'
 			filename = str(res.id)+'_' + secure_filename(file.filename)
 			file.save(path+filename)
