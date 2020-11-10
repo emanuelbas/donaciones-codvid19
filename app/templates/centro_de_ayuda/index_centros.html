@@ -55,13 +55,20 @@
 					{{centro.estado.nombre}}
 				</td>
 				<td>
+					{%if session['usuario'].tiene_permiso("centro_show")%}
 					<a href="{{ url_for('mostrar_centro', id=centro.id)}}" class="btn btn-info mb-2">Ver</a>
+					{% endif %}
+					{%if session['usuario'].tiene_permiso("centro_edit")%}
 					<a href="{{ url_for('editar_centro', id=centro.id)}}" class="btn btn-info mb-2">Modificar</a>
+					{% endif %}
+					{%if session['usuario'].tiene_permiso("centro_delete")%}
 					<a href="{{ url_for('borrar_centro', id=centro.id)}}" 
 						class="btn btn-info mb-2"
                         title="Eliminar Centro de Ayuda"
                         onclick="return confirm('¿Estás seguro de que deseas eliminar este Centro de Ayuda?')">Eliminar
                     </a>
+                    {% endif %}
+                    {%if session['usuario'].tiene_permiso("centro_edit")%}
                     {% if centro.estado.nombre == 'pendiente' %}
 					<a href="{{ url_for('aprobar_centro', id=centro.id)}}" class="btn btn-info mb-2">Aprobar</a>
 					<a href="{{ url_for('rechazar_centro', id=centro.id)}}" class="btn btn-info mb-2">Rechazar</a>
@@ -71,6 +78,7 @@
 						{% else %}
 							<a href="{{ url_for('despublicar_centro', id=centro.id)}}" class="btn btn-info mb-2">Despublicar</a>
 						{% endif %}
+					{% endif %}
 					{% endif %}
 				</td>
 			</tr>

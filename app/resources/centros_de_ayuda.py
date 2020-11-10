@@ -141,7 +141,7 @@ def obtener_dic_de_municipios():
 
 
 def borrar_centro(id):
-	permisos.validar_permisos('centro_index')
+	permisos.validar_permisos('centro_delete')
 	Centro_de_ayuda.borrar(id)
 	return redirect(url_for('centros'))
 
