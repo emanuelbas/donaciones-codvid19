@@ -76,15 +76,13 @@ def edit_usuario(id):
 
 def activar(id):
     permisos.validar_permisos('user_edit')
-    usuario = User.all()
     User.activar_user(id)
-    return render_template('usuario/index_usuario.html', usuario=usuario)
+    return redirect(url_for('index_usuario'))
 
 def desactivar(id):
     permisos.validar_permisos('user_edit')
-    usuario = User.all()
     User.desactivar_user(id)
-    return render_template('usuario/index_usuario.html', usuario=usuario)
+    return redirect(url_for('index_usuario'))
 
 def index_usuario(nombre=' ',estado='todos',page=1):
     permisos.validar_permisos('user_show')
@@ -133,8 +131,8 @@ def borrar(id):
     permisos.validar_permisos('user_delete')
     mensaje= "Se borro el usuario"
     User.delete(id)
-    usuarios = User.all()
-    return render_template('usuario/index_usuario.html', usuario=usuarios)
+    return redirect(url_for('index_usuario'))
+
 
 #funciones agregadas para el caso de activo/desactivo
 def searchEstado(v):
