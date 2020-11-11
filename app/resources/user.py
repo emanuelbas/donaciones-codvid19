@@ -60,7 +60,7 @@ def edit_usuario(id):
     if request.method == 'POST':
         u = request.form
         mensaje = ''
-        if User.existe_usuario(u['usuario']) and not u['usuario'] == usuario.nombre:
+        if User.existe_usuario(u['usuario']) and not u['usuario'] == usuario.usuario:
             mensaje="El nombre de usuario ya existe"
         elif User.existe_email(u['email']) and not u['email'] == usuario.email:
             mensaje="El email ya existe"
@@ -70,7 +70,7 @@ def edit_usuario(id):
             usuarios = User.all()
             #return render_template('usuario/editar_usuario.html', mensaje=mensaje, usuario=usuario)
             return redirect(url_for('index_usuario', mensaje=mensaje, usuarios=usuarios))
-        return render_template('usuario/editar_usuario.html', usuario=usuario, mensaje_error=mensaje)
+        return render_template('usuario/editar_usuario.html', usuario=usuario, mensaje_error=mensaje, roles=roles)
     else:
         return render_template('usuario/editar_usuario.html', usuario=usuario, roles=roles)
 
@@ -121,8 +121,7 @@ def crear_usuario():
                 mensaje_exito = "Usuario creado exitosamente"
             else:
                 mensaje_error = "Hubo algun problema"
-            lista_de_usuarios = User.all()
-            return render_template('usuario/index_usuario.html', usuario = lista_de_usuarios, mensaje_error= mensaje_error, mensaje_exito=mensaje_exito)
+            return redirect(url_for('index_usuario', mensaje_error= mensaje_error, mensaje_exito=mensaje_exito))
         return render_template('usuario/crear_usuario.html', mensaje_error= mensaje_error, mensaje_exito=mensaje_exito)
     else:
         return render_template('usuario/crear_usuario.html')
