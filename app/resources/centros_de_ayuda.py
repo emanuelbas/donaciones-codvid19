@@ -68,9 +68,10 @@ def crear_centro():
 
 			if res:
 				mensaje_exito = "Centro creado exitosamente"
+				return redirect(url_for('centros', mensaje_exito=mensaje_exito))
 			else:
 				mensaje_error = "Hubo algun problema"
-			return render_template('centro_de_ayuda/crear_centro.html', mensaje_error= mensaje_error, mensaje_exito=mensaje_exito)
+				return render_template('centro_de_ayuda/crear_centro.html', mensaje_error= mensaje_error, mensaje_exito=mensaje_exito)
 	else:
 		lista_de_municipios = obtener_dic_de_municipios()
 		lista_de_tipos = Tipo_de_centro.all()

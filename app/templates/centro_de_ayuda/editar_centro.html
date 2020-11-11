@@ -40,7 +40,9 @@
 
             <section class="form-group">
                 <label for="telefono"> Telefono </label>
-                <input value="{{ centro.telefono }}" type="tel" class="form-control form-control-lg rounded-0" name="telefono" id="telefono" placeholder="Ingrese el telefono" required>
+                <input type="tel" value="centro.telefono" class="form-control form-control-lg rounded-0" name="telefono" id="telefono" placeholder="Ingrese el telefono" required>
+                <small>Ingresar codigo de area y numero sin espacios</small>
+                <small>Ej: 92211234567</small>
             </section>
 
 
@@ -61,17 +63,9 @@
             </section>
 
             <section class="form-group">
-                <label for="contenido"> Protocolo de visita </label>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroupFileAddon01">Subir</span>
-                  </div>
-                  <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="inputGroupFile01"
-                      aria-describedby="inputGroupFileAddon01">
-                    <label class="custom-file-label" for="inputGroupFile01">Selecciona un archivo PDF</label>
-                  </div>
-                </div>
+                <label for="contenido"> Protocolo de visita </label><br>
+                <input type="file" id="pdf" name="pdf" accept=".pdf"><br>
+                <a target="_blank" href="/static/uploads/{{centro.protocolo_de_vista}}">Ver protocolo actual</a>
             </section>
 
             <section class="form-group">

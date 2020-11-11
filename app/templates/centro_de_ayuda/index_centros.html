@@ -1,5 +1,15 @@
 {% extends "layout.html" %}
 {% block content %}
+{% if mensaje_error %}
+<div class="alert alert-warning" role="alert">
+    <p> ⚠️ {{ mensaje_error }}</p>
+</div>
+{% endif %}
+{% if mensaje_exito %}
+<div class="alert alert-success" role="alert">
+    <p>{{ mensaje_exito }}</p>
+</div>
+{% endif %}
 
 <h1>Centros de ayuda</h1>
 
