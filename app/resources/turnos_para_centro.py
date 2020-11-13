@@ -10,10 +10,7 @@ import datetime
 
 def index_turno(id='', page=1, email=' '):
     per_page = Configuracion.get_config().cantPagina
-    if id:
-        turnos_todos = Turno.query.filter_by(id=id).all()
-    else:
-        turnos_todos = Turno.query.all()
+    
     
     centros = Centro_de_ayuda.all()
     if request.method == 'GET':
@@ -23,11 +20,20 @@ def index_turno(id='', page=1, email=' '):
         params = request.form
         email = params['email'] or ' '
     if email ==' ':
-        turnos_todos = Turno.query.filter(Turno.email.like('%'+'%')).paginate(page, per_page=per_page)
+        if id:
+           
+           turnos_todos = Turno.query.filter_by(centro_id=id).filter(Turno.email.like('%'+'%')).paginate(page, per_page=per_page)
+           return render_template('turnos_para_centro/index_turno.html', turnos=turnos_todos, centros=centros, email=email, id=id)
+        else:
+           turnos_todos = Turno.query.filter(Turno.email.like('%'+'%')).paginate(page, per_page=per_page)
+           return render_template('turnos_para_centro/index_turno.html', turnos=turnos_todos, centros=centros, email=email)
     else:
-        turnos_todos = Turno.query.filter(Turno.email.like('%'+email+'%')).paginate(page, per_page=per_page)
-
-    return render_template('turnos_para_centro/index_turno.html', turnos=turnos_todos, centros=centros, email=email)
+        if id:
+            turnos_todos = Turno.query.filter_by(centro_id=id).filter(Turno.email.like('%'+email+'%')).paginate(page, per_page=per_page)
+            return render_template('turnos_para_centro/index_turno.html', turnos=turnos_todos, centros=centros, email=email, id=id)
+        else:
+            turnos_todos = Turno.query.filter(Turno.email.like('%'+email+'%')).paginate(page, per_page=per_page)
+            return render_template('turnos_para_centro/index_turno.html', turnos=turnos_todos, centros=centros, email=email)
 
     # if request.method == 'POST':
     #   c = request.form

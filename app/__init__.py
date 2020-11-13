@@ -113,7 +113,7 @@ def create_app():
 
     app.add_url_rule('/turnos_para_centro/index_turno',
                      'index_turno', turnos_para_centro.index_turno, methods=["POST", "GET"])
-    app.add_url_rule('/turnos_para_centro/index_turno/<id>',
+    app.add_url_rule('/turnos_para_centro/index_turno/id/<id>',
                      'index_turno', turnos_para_centro.index_turno, methods=["POST", "GET"])
     app.add_url_rule('/turnos_para_centro/page/<int:page>/id/<id>', 'index_turno',
                      turnos_para_centro.index_turno, methods=["POST", "GET"])
