@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-11-2020 a las 18:52:26
+-- Tiempo de generación: 13-11-2020 a las 04:55:39
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.2.33
 
@@ -110,7 +110,7 @@ CREATE TABLE `configuracion` (
 --
 
 INSERT INTO `configuracion` (`id`, `titulo`, `descripcion`, `mail`, `activo`, `cantPagina`) VALUES
-(1, 'Covid-19', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ', 'centro@gmail.com', 1, 5);
+(1, 'Covid-19', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ', 'centro@gmail.com', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -419,6 +419,7 @@ CREATE TABLE `turnos_para_cada_centro` (
 CREATE TABLE `turnos_para_centro` (
   `id` int(10) NOT NULL,
   `email` varchar(50) DEFAULT NULL,
+  `telefono` varchar(50) DEFAULT NULL,
   `hora_ini` varchar(50) NOT NULL,
   `hora_fin` varchar(50) NOT NULL,
   `dia` date NOT NULL,
@@ -431,18 +432,17 @@ CREATE TABLE `turnos_para_centro` (
 -- Volcado de datos para la tabla `turnos_para_centro`
 --
 
-INSERT INTO `turnos_para_centro` (`id`, `email`, `hora_ini`, `hora_fin`, `dia`, `borrado`, `centro_id`, `disponible`) VALUES
-(40, 'dario@gmail.com', '10:00', '10:30', '2020-11-05', 1, 2, 0),
-(41, 'hugo@gmail.com', '09:00', '09:30', '2020-11-05', 1, 3, 0),
-(45, '', '11:00', '11:30', '2020-11-05', 1, 1, 1),
-(46, '', '11:30', '12:00', '2020-11-05', 1, 1, 1),
-(47, '', '12:00', '12:30', '2020-11-05', 1, 1, 1),
-(48, '', '09:00', '09:30', '2020-11-05', 1, 7, 1),
-(49, '', '09:00', '09:30', '2020-11-12', 1, 4, 1),
-(50, '', '09:00', '09:00', '2020-11-06', 1, 1, 1),
-(51, 'das@asdasd', '04:44', '04:04', '2020-11-20', 0, 8, 1),
-(52, '', '04:04', '04:04', '2020-11-20', 1, 1, 1),
-(53, 'asdasd@sdads', '22:22', '22:22', '2020-12-04', 1, 1, 0);
+INSERT INTO `turnos_para_centro` (`id`, `email`, `telefono`, `hora_ini`, `hora_fin`, `dia`, `borrado`, `centro_id`, `disponible`) VALUES
+(866, 'hugo@gmail.com', '1111111111', '8:0', '8:30', '2020-11-12', 1, 8, 0),
+(867, '', '', '8:30', '9:0', '2020-11-12', 1, 8, 1),
+(868, '', '', '9:0', '9:30', '2020-11-12', 1, 8, 1),
+(869, '', '', '9:30', '10:0', '2020-11-12', 1, 8, 1),
+(870, '', '', '8:0', '8:30', '2020-11-14', 1, 3, 1),
+(871, '', '', '8:30', '9:0', '2020-11-14', 1, 3, 1),
+(872, '', '', '9:0', '9:30', '2020-11-14', 1, 3, 1),
+(873, '', '', '9:30', '10:0', '2020-11-14', 1, 3, 1),
+(874, '', '', '8:0', '8:30', '2020-11-13', 1, 5, 1),
+(875, '', '', '8:30', '9:0', '2020-11-13', 1, 5, 1);
 
 -- --------------------------------------------------------
 
@@ -640,7 +640,7 @@ ALTER TABLE `turnos_para_cada_centro`
 -- AUTO_INCREMENT de la tabla `turnos_para_centro`
 --
 ALTER TABLE `turnos_para_centro`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=876;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`

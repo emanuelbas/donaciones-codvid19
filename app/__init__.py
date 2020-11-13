@@ -52,9 +52,12 @@ def create_app():
     # 'Api/centros/GetCentros.api.devolverCentros', methods=["GET"])
 
     # ruta a la api turnos
-    app.add_url_rule('/centros/id/<id>/turnos_disponibles/fecha/<fecha>', 'turnos_disponibles', turnos.turnos_disponibles, methods=["GET"])
-    app.add_url_rule('/centros/id/<id>/turnos_disponibles', 'turnos_disponibles', turnos.turnos_disponibles, methods=["GET"])
-    app.add_url_rule('/centros/id/<id>/reserva', 'reserva', turnos.reserva, methods=["POST", "GET"])
+    app.add_url_rule('/centros/id/<id>/turnos_disponibles/fecha=<fecha>',
+                     'turnos_disponibles', turnos.turnos_disponibles, methods=["POST", "GET"])
+    #app.add_url_rule('/centros/id/<id>/turnos_disponibles',
+    #                 'turnos_disponibles', turnos.turnos_disponibles, methods=["GET"])
+    app.add_url_rule('/centros/id/<id>/reserva', 'reserva',
+                     turnos.reserva, methods=["POST", "GET"])
 
     # ruta a centros
     app.add_url_rule('/centros', 'centros',
@@ -105,8 +108,10 @@ def create_app():
                      'index_usuario', user.index_usuario, methods=["POST", "GET"])
 
     # turno para centro
-    app.add_url_rule('/turnos_para_centro/index_turno', 'index_turno', turnos_para_centro.index_turno, methods=["POST", "GET"])
-    app.add_url_rule('/turnos_para_centro/page/<int:page>', 'index_turno', turnos_para_centro.index_turno, methods=["POST", "GET"])
+    app.add_url_rule('/turnos_para_centro/index_turno', 'index_turno',
+                     turnos_para_centro.index_turno, methods=["POST", "GET"])
+    app.add_url_rule('/turnos_para_centro/page/<int:page>', 'index_turno',
+                     turnos_para_centro.index_turno, methods=["POST", "GET"])
 
     app.add_url_rule('/turnos_para_centro/index_turno',
                      'index_turno', turnos_para_centro.index_turno, methods=["POST", "GET"])
