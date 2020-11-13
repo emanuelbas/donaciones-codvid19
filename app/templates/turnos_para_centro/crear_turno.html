@@ -2,41 +2,38 @@
 {% block content %}
 
 {% if mensaje %}
-<div class="alert alert-success" role="alert">
+<div class="alert alert-danger" role="alert">
     <p>{{ mensaje }}</p>
 </div>
 {% endif %}
-<h1>Nuevo Turno</h1>
+<h1>Nuevos Turnos</h1>
 
 <div class="container card-body">
     <span class="card-text">
         <form action="{{url_for('crear_turno')}}" method="POST">
-            <section class="form-group">
-                <label for="titulo"> Email </label>
-                <input type="email" class="form-control form-control-lg rounded-0" name="email" id="email" placeholder="Ingrese el Email" >
-            </section>
 
             <section class="form-group">
                 <label for="titulo"> Hora del Inicio </label>
-                <input type="time" class="form-control form-control-lg rounded-0" name="hora_ini" id="hora_ini" placeholder="Ingrese hora de inicio del turno"
-                required>
+                <input type="time" class="form-control form-control-lg rounded-0" name="hora_ini" id="hora_ini"
+                    placeholder="Ingrese hora de inicio del turno" value="{{h_ini}}" required>
             </section>
             <section class="form-group">
                 <label for="titulo"> Hora del Fin </label>
-                <input type="time" class="form-control form-control-lg rounded-0" name="hora_fin" id="hora_fin" placeholder="Ingrese hora de fin del turno"
-                required>
+                <input type="time" class="form-control form-control-lg rounded-0" name="hora_fin" id="hora_fin"
+                    placeholder="Ingrese hora de fin del turno" value="{{h_fin}}" required>
             </section>
             <section class="form-group">
                 <label for="titulo"> Dia </label>
-                <input type="date" class="form-control form-control-lg rounded-0" name="dia" id="dia" placeholder="Ingrese el dia" required>
+                <input type="date" class="form-control form-control-lg rounded-0" name="dia" id="dia"
+                    placeholder="Ingrese el dia" value="{{dia}}" required>
             </section>
 
             <label for="centros">Seleccione el centro</label>
-            
+
             <select id="centro" name="centro">
-            {% for centro in centros %}
+                {% for centro in centros %}
                 <option value="{{centro.id}}">{{centro.nombre}}</option>
-            {% endfor %}
+                {% endfor %}
             </select>
 
             <div class="text-right">

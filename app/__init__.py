@@ -28,7 +28,7 @@ def create_app():
     app.config['SESSION_TYPE'] = 'filesystem'
     app.config['UPLOAD_FOLDER'] = 'app/static/uploads'
     # Max size of files abajo
-    #app.config['MAX_CONTENT_PATH'] = ???
+    # app.config['MAX_CONTENT_PATH'] = ???
     Session(app)
 
     # config db
@@ -69,9 +69,9 @@ def create_app():
     app.add_url_rule('/centros/crear_centro', 'crear_centro',
                      centros_de_ayuda.crear_centro,  methods=["POST", "GET"])
     app.add_url_rule('/centros/editar_centro/<id>', 'editar_centro',
-        centros_de_ayuda.editar_centro, methods=['POST', 'GET'])
+                     centros_de_ayuda.editar_centro, methods=['POST', 'GET'])
     app.add_url_rule('/centros/borrar_centro/<id>', 'borrar_centro',
-        centros_de_ayuda.borrar_centro, methods=['POST', 'GET'])
+                     centros_de_ayuda.borrar_centro, methods=['POST', 'GET'])
     app.add_url_rule('/centros/aprobar_centro/<id>', 'aprobar_centro',
                      centros_de_ayuda.aprobar_centro,  methods=["POST", "GET"])
     app.add_url_rule('/centros/rechazar_centro/<id>', 'rechazar_centro',
@@ -82,7 +82,6 @@ def create_app():
                      centros_de_ayuda.despublicar_centro,  methods=["POST", "GET"])
     app.add_url_rule('/centros/mostrar_centro/<id>', 'mostrar_centro',
                      centros_de_ayuda.mostrar_centro,  methods=["POST", "GET"])
-    
 
     # ruta a login
     app.add_url_rule('/login', 'login', user.login)
@@ -109,8 +108,18 @@ def create_app():
                      'index_usuario', user.index_usuario, methods=["POST", "GET"])
 
     # turno para centro
+    app.add_url_rule('/turnos_para_centro/index_turno', 'index_turno', turnos_para_centro.index_turno, methods=["POST", "GET"])
+    app.add_url_rule('/turnos_para_centro/page/<int:page>', 'index_turno', turnos_para_centro.index_turno, methods=["POST", "GET"])
+
     app.add_url_rule('/turnos_para_centro/index_turno',
                      'index_turno', turnos_para_centro.index_turno, methods=["POST", "GET"])
+    app.add_url_rule('/turnos_para_centro/index_turno/<id>',
+                     'index_turno', turnos_para_centro.index_turno, methods=["POST", "GET"])
+    app.add_url_rule('/turnos_para_centro/page/<int:page>/id/<id>', 'index_turno',
+                     turnos_para_centro.index_turno, methods=["POST", "GET"])
+    app.add_url_rule('/turnos_para_centro/email/<email>/page/<int:page>',
+                     'index_turno', turnos_para_centro.index_turno, methods=["POST", "GET"])
+    #app.add_url_rule('turnos_para_centro/page/<int:page>', 'index_turno', turnos_para_centro.index_turno, methods=["POST", "GET"])
     app.add_url_rule('/turnos_para_centro/crear_turno', 'crear_turno',
                      turnos_para_centro.crear_turno, methods=["POST", "GET"])
     app.add_url_rule('/turnos_para_centro/editar_turno/<id>', 'editar_turno',

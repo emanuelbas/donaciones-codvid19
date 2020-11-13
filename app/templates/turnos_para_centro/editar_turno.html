@@ -14,26 +14,31 @@
         <form action="{{ url_for('editar_turno', id=turno.id) }}" method="POST">
             <section class="form-group">
                 <label for="titulo"> Email </label>
-                <input type="email" class="form-control form-control-lg rounded-0" name="email" id="email" value="{{turno.email}}">
+                <input type="email" class="form-control form-control-lg rounded-0" name="email" id="email"
+                    value="{{turno.email}}">
             </section>
             <section class="form-group">
+                <label for="titulo"> Telefono </label>
+                <input type="text" class="form-control form-control-lg rounded-0" name="telefono" id="telefono"
+                    value="{{turno.telefono}}">
+            </section>
+            <section class="form-group text-center">
                 <label for="titulo"> Hora de Inicio del Turno </label>
-                <input type="time" class="form-control form-control-lg rounded-0" name="hora_ini" id="hora_ini" value="{{turno.hora_ini}}" required>
+                <h3>{{ turno.hora_ini}}</h3>
             </section>
-            <section class="form-group">
+            <section class="form-group text-center">
                 <label for="titulo"> Hora de Fin del Turno </label>
-                <input type="time" class="form-control form-control-lg rounded-0" name="hora_fin" id="hora_fin" value="{{turno.hora_fin}}" required>
+                <h3>{{ turno.hora_fin}}</h3>
             </section>
 
-            <section class="form-group">
+            <section class="form-group text-center">
                 <label for="titulo"> Dia </label>
-                <input type="date" class="form-control form-control-lg rounded-0" name="dia" id="dia"
-                value="{{turno.dia}}" required>
-            
-            <div class="text-right">
-                <a href="{{ url_for('index_turno') }}" class="btn btn-white">Cancelar</a>
-                <button type="submit" class="btn btn-info">Aceptar</button>
-            </div>
+                <h3>{{ turno.dia}}</h3>
+
+                <div class="text-right">
+                    <a href="{{ url_for('index_turno') }}" class="btn btn-white">Cancelar</a>
+                    <button type="submit" class="btn btn-info">Aceptar</button>
+                </div>
         </form>
     </span>
 </div>
