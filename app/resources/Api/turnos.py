@@ -8,11 +8,12 @@ from datetime import date, time
 # terminar las apis, hay que hacer otro def para cuando no tengo fecha
 
 
-def turnos_disponibles_con_fecha(fecha):
+def turnos_disponibles(id, fecha):
     #centros = Centro_de_ayuda.all()
-
-    turnos = Turno.all()
+    
+    turnos = Turno.select_turno(id)
     lista = []
+    
     for turno in turnos:
         if turno.disponible == 1:
             if str(turno.dia) == fecha:
@@ -22,11 +23,11 @@ def turnos_disponibles_con_fecha(fecha):
                        'centro_id': turno.centro_id
                        }
                 lista.append(dic)
-    response = {'Turnos': lista, 'Error': '500 Internal Server Error'}
+    response = {'Turnos': lista, 'Error': 'No existe turno para la fecha seleccionada'}
     return jsonify(response)
 
 
-def turnos_disponibles_sin_fecha():
+def turnos_disponibles(id):
     turnos = Turno.all()   #filtrar por fecha y si esta disponible 
     lista = []             # la hora y la fecha no son modificables solo mostrarlas, generar todos los turnos de un dia vacios y irlos reservando 
     for turno in turnos:   #directamente filtrar los turnos disponibles y por fecha para no hacer esos 2 if
@@ -38,10 +39,11 @@ def turnos_disponibles_sin_fecha():
                        'centro_id': turno.centro_id
                        }
                 lista.append(dic)
-    response = {'Turnos': lista, 'Error': 'no esxiste turno para la fecha seleccionada'}
+    response = {'Turnos': lista, 'Error': 'No esxiste turno para la fecha seleccionada'}
     return jsonify(response)
 
 
-def reserva():
+def reserva(id):
+    print("el id reserva es", id)
     reserva = "hola reserva"
     return reserva

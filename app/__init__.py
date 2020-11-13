@@ -52,12 +52,9 @@ def create_app():
     # 'Api/centros/GetCentros.api.devolverCentros', methods=["GET"])
 
     # ruta a la api turnos
-    app.add_url_rule('/Api/turnos_disponibles_con_fecha/<fecha>', 'turnos_disponibles_con_fecha',
-                     turnos.turnos_disponibles_con_fecha, methods=['GET'])
-    app.add_url_rule('/Api/turnos_disponibles_sin_fecha', 'turnos_disponibles_sin_fecha',
-                     turnos.turnos_disponibles_sin_fecha, methods=['GET'])
-    app.add_url_rule('/Api/reserva', 'reserva',
-                     turnos.reserva, methods=['POST', 'GET'])
+    app.add_url_rule('/centros/id/<id>/turnos_disponibles/fecha/<fecha>', 'turnos_disponibles', turnos.turnos_disponibles, methods=["GET"])
+    app.add_url_rule('/centros/id/<id>/turnos_disponibles', 'turnos_disponibles', turnos.turnos_disponibles, methods=["GET"])
+    app.add_url_rule('/centros/id/<id>/reserva', 'reserva', turnos.reserva, methods=["POST", "GET"])
 
     # ruta a centros
     app.add_url_rule('/centros', 'centros',
