@@ -28,6 +28,17 @@ class Turno(db.Model):
         db.session.add(nuevo_turno)
         db.session.commit()
         return True
+    
+    def create_reserva(hi, hf, di, ce):
+        em = "reservado@gmail.com"
+        te = "00000000000"
+        act = 1
+        disponible = 0
+        nuevo_turno = Turno(email=em, telefono=te, hora_ini=hi, hora_fin=hf,
+                            dia=di, borrado=act, centro_id=ce, disponible=disponible)
+        db.session.add(nuevo_turno)
+        db.session.commit()
+        return True
 
     def get_by_id(id):
         return Turno.query.get(id)
