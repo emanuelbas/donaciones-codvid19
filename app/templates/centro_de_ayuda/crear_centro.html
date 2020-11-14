@@ -11,6 +11,19 @@
 </div>
 {% endif %}
 <!-- script src="{{ url_for('static', filename='js/leaflet.js')}}"></script-->
+<head>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+   integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+   crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+   crossorigin=""></script>
+   
+</head>
+
+<body>
+
+
 <h1>Nuevo Centro de Ayuda</h1>
 
 
@@ -66,10 +79,10 @@
             </section>
 
             <!-- Leaflet -->
-    <div id="map"></div>    
+    <div id="mapid"></div>    
     <script>
       // initialize Leaflet
-      var map = L.map('map').setView({lon: -57.87921667, lat: -34.88050948}, 15);
+      var map = L.map('mapid').setView({lon: -57.87921667, lat: -34.88050948}, 15);
 
       // add the OpenStreetMap tiles
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -131,4 +144,5 @@
         </form>
     </span>
 </div>
+</body>
 {% endblock %}
