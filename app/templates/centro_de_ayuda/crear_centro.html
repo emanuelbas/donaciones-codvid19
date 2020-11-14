@@ -10,11 +10,14 @@
     <p>{{ mensaje_exito }}</p>
 </div>
 {% endif %}
+<!-- script src="{{ url_for('static', filename='js/leaflet.js')}}"></script-->
 <h1>Nuevo Centro de Ayuda</h1>
+
+
 
 <div class="container card-body">
     <span class="card-text">
-        <form action="" method="POST" enctype = "multipart/form-data">
+        <form action="" method="POST" onsubmit="submitHandler(event)" enctype = "multipart/form-data">
 
 
             <section class="form-group">
@@ -61,6 +64,29 @@
                 <label for="contenido"> Protocolo de visita </label><br>
                 <input type="file" id="pdf" name="pdf" accept=".pdf">
             </section>
+
+            <!-- Leaflet -->
+    <div id="map"></div>    
+    <script>
+      // initialize Leaflet
+      var map = L.map('map').setView({lon: -57.87921667, lat: -34.88050948}, 15);
+
+      // add the OpenStreetMap tiles
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
+      }).addTo(map);
+
+      // show the scale bar on the lower left corner
+      L.control.scale().addTo(map);
+
+      // show a marker on the map
+     var marker1 = L.marker({lon: -57.892863750, lat: -34.876179100}).bindPopup('EP 6').addTo(map);
+     var marker2 = L.marker({lon: -57.898464200, lat: -34.883889130}).bindPopup('EP 7').addTo(map);
+     var marker3 = L.marker({lon: -57.864239220, lat: -34.884399590}).bindPopup('J.I. 904').addTo(map);
+     var marker4 = L.marker({lon: -57.860355380, lat: -34.881319200}).bindPopup('E.E  501').addTo(map);
+     var marker5 = L.marker({lon: -57.857651710, lat: -34.881847280}).bindPopup('CIC').addTo(map);
+    </script>
 
             <section class="form-group">
                 <label for="contenido"> Coordenada x de Geolocalización </label>

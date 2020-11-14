@@ -11,7 +11,44 @@
             <a class="nav-link text-center" href="{{ url_for('login')}}">INICIAR SESION</a>
           </li>
           {%else%}
+          
+<!-- BOTONES TEMPORALES -->
 
+
+
+              {%if session['usuario'].tiene_permiso("site_config")%}
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('vista_configuracion')}}">Configuración del sitio</a>
+              </li>
+              {%endif%}
+
+              {%if session['usuario'].tiene_permiso("centro_index")%}
+              <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('centros')}}">Centros de ayuda</a>
+              </li>
+              {%endif%}
+
+              {%if session['usuario'].tiene_permiso("user_show")%}
+              <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('index_usuario')}}">Manejo de usuarios</a>
+              </li>
+              {%endif%}
+
+              {%if session['usuario'].tiene_permiso("turno_index")%}
+              <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('index_turno')}}">Turnos</a>
+              </li>
+              {%endif%}
+
+              <li class="nav-item">
+                <p class="nav-link">¡Bienvenido/a {{ session['usuario'].usuario }}!</p>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('logout')}}">Cerrar sesión</a> 
+              </li>
+<!-- FIN BOTONES TEMPORALES -->
+
+<!-- HERMOSO DROPDOWN QUE SE BUGUEA ->
           <li class="nav-item dropdown">
             <a class="btn btn-outline-secondary nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               {{ session['usuario'].usuario }}
@@ -34,6 +71,9 @@
               <a class="dropdown-item" href="{{ url_for('logout')}}">Cerrar sesión</a>
             </div>
           </li>
+<-- -->
+
+
           {%endif%}
         </ul>
     </div>
