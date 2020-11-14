@@ -18,7 +18,7 @@
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
    crossorigin=""></script>
-   
+
 </head>
 
 <body>
@@ -79,33 +79,17 @@
             </section>
 
             <!-- Leaflet -->
-    <div id="mapid"></div>    
-    <script>
-      // initialize Leaflet
-      var map = L.map('mapid').setView({lon: -57.87921667, lat: -34.88050948}, 15);
-
-      // add the OpenStreetMap tiles
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
-      }).addTo(map);
-
-      // show the scale bar on the lower left corner
-      L.control.scale().addTo(map);
-
-      // show a marker on the map
-     var marker1 = L.marker({lon: -57.892863750, lat: -34.876179100}).bindPopup('EP 6').addTo(map);
-     var marker2 = L.marker({lon: -57.898464200, lat: -34.883889130}).bindPopup('EP 7').addTo(map);
-     var marker3 = L.marker({lon: -57.864239220, lat: -34.884399590}).bindPopup('J.I. 904').addTo(map);
-     var marker4 = L.marker({lon: -57.860355380, lat: -34.881319200}).bindPopup('E.E  501').addTo(map);
-     var marker5 = L.marker({lon: -57.857651710, lat: -34.881847280}).bindPopup('CIC').addTo(map);
-    </script>
-
             <section class="form-group">
-                <label for="contenido"> Coordenada x de Geolocalización </label>
-                <input type="text" class="form-control form-control-lg rounded-0" name="corx" id="corx" placeholder="La coordenada X">
-                <label for="contenido"> Coordenada y de Geolocalización </label>
-                <input type="text" class="form-control form-control-lg rounded-0" name="cory" id="cory" placeholder="La coordenada Y">
+                <label for="geolocalizacion"> Geolocalización </label>
+    
+                <div id="mapid"></div>    
+                <script src="{{url_for('static', filename='js/leaflet.js')}}"></script>
+
+            
+                <label for="contenido"> Latitud </label>
+                <input type="text" class="form-control form-control-lg rounded-0" name="corx" id="corx" disabled placeholder="Selecciona la ubicación en el mapa">
+                <label for="contenido"> Longitud </label>
+                <input type="text" class="form-control form-control-lg rounded-0" name="cory" id="cory" disabled placeholder="Selecciona la ubicación en el mapa">
             </section>
 
 

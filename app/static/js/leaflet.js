@@ -1,3 +1,26 @@
+// initialize Leaflet
+var map = L.map('mapid').setView({lon: -60.569722, lat: -36.157222}, 5);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    //maxZoom: 19,
+    attribution: 'Este humilde mapa es propiedad del grupo22'
+}).addTo(map);
+
+function onMapClick(e) {
+	document.getElementById('corx').setAttribute('value', e.latlng.lat)
+	document.getElementById('cory').setAttribute('value', e.latlng.lng)
+}
+map.on('click', onMapClick)
+
+//Ejemplo de agregar un marker
+//var marker1 = L.marker({lon: -57.892863750, lat: -34.876179100}).bindPopup('TITULO DEL MARKER').addTo(map);
+
+
+
+
+
+/* CODIGO HECHO A PARTIR DE LA EXPLICACION PRACTICA
+
 var mymap = L.map('mapid').setView([51.505, -0.09], 13);
 
 const initializeMap = (selector) => {
@@ -31,3 +54,4 @@ window.onload = () => {
 
 	initializeMap('mapid');
 }
+*/
