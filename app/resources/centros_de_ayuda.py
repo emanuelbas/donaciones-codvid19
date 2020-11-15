@@ -102,7 +102,14 @@ def editar_centro(id):
 
 	#Obtener el centro a editar
 	centro = Centro_de_ayuda.query.get(id)
-	print(centro.coordenada_x)
+
+	#Formateo los horarios
+	print(centro.hora_de_apertura.hour)
+	h1 = datetime.time(centro.hora_de_apertura.hour,centro.hora_de_apertura.minute)
+	h2 = datetime.time(centro.hora_de_apertura.hour,centro.hora_de_apertura.minute)
+	formated_hora_de_apertura = h1
+	formated_hora_de_cierre = h2
+
 	lista_de_tipos = Tipo_de_centro.all()
 	lista_de_municipios = obtener_dic_de_municipios()
 	if request.method == "GET":
@@ -146,6 +153,7 @@ def editar_centro(id):
 			mensaje_error= mensaje_error,
 			mensaje_exito=mensaje_exito)
 
+		print("Hora de apertura quedo en: "+form['hora_apertura'])
 		res = Centro_de_ayuda.editar(id=id,
 			nombre=form['nombre'],
 			direccion=form['direccion'],
@@ -161,6 +169,7 @@ def editar_centro(id):
 			id_estado=1,
 			protocolo='PDF',
 			historico=0)
+
 		if res:
 			mensaje_exito = "Centro editado exitosamente"
 		else:
