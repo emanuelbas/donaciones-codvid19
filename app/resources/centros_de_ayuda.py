@@ -6,6 +6,8 @@ from app.models.configuracion import Configuracion
 from app.models.centro_de_ayuda import Centro_de_ayuda, Municipio, Tipo_de_centro, Estado_centro
 from requests import get
 from werkzeug import secure_filename
+import datetime
+
 # https://sodocumentation.net/flask/topic/6460/pagination
 
 def go_index(nombre=' ',estado='todos',page=1):
@@ -39,6 +41,22 @@ def crear_centro():
 	mensaje_exito = ''
 	if request.method == "POST":
 		form = request.form
+		l_tipos = form.getlist("tipos")
+		if len(l_tipos) == 0:
+			mensaje_error= "Debe ingresar algún tipo de Centro"
+			return render_template('centro_de_ayuda/crear_centro.html', mensaje_error= mensaje_error, mensaje_exito=mensaje_exito)
+
+		h_ini= form["hora_apertura"]
+		h_fin = form["hora_cierre"]
+	
+		if not horas_validas(h_ini, h_fin):
+			mensaje_error= "La hora de apertura debe ser menor que la hora de cierre"
+			return render_template('centro_de_ayuda/crear_centro.html', mensaje_error= mensaje_error, mensaje_exito=mensaje_exito)
+
+		if not '@' in form['email']:
+			mensaje_error= "El email debe contener '@'"
+			return render_template('centro_de_ayuda/crear_centro.html', mensaje_error= mensaje_error, mensaje_exito=mensaje_exito) 
+			
 		if Centro_de_ayuda.existe_nombre(form['municipio'],form['nombre']):
 			print(form.getlist("tipos"))
 			mensaje_error="Ya existe un centro con ese nombre para el municipio indicado"
@@ -54,7 +72,7 @@ def crear_centro():
 				sitio_web=form['web'],
 				corx=form['corx'],
 				cory=form['cory'],
-				lista_de_tipos=form.getlist("tipos"),
+				lista_de_tipos=l_tipos,
 				id_municipio=form['municipio'],
 				id_estado=1,
 				protocolo='PDF',
@@ -85,9 +103,10 @@ def editar_centro(id):
 	#Obtener el centro a editar
 	centro = Centro_de_ayuda.query.get(id)
 
+	lista_de_tipos = Tipo_de_centro.all()
+	lista_de_municipios = obtener_dic_de_municipios()
 	if request.method == "GET":
-		lista_de_municipios = obtener_dic_de_municipios()
-		lista_de_tipos = Tipo_de_centro.all()
+			
 		return render_template('centro_de_ayuda/editar_centro.html',
 			centro=centro,
 			tipos= lista_de_tipos,
@@ -96,6 +115,37 @@ def editar_centro(id):
 			mensaje_exito=mensaje_exito)
 	else:
 		form = request.form
+		l_tipos = form.getlist("tipos")
+		if len(l_tipos) == 0:
+			mensaje_error= "Debe ingresar algún tipo de Centro"
+			return render_template('centro_de_ayuda/editar_centro.html',
+			centro=centro,
+			tipos= lista_de_tipos,
+			municipios=lista_de_municipios,
+			mensaje_error= mensaje_error,
+			mensaje_exito=mensaje_exito)
+
+		h_ini= form["hora_apertura"]
+		h_fin = form["hora_cierre"]
+		
+		if not horas_validas(h_ini, h_fin):
+			mensaje_error= "La hora de apertura debe ser menor que la hora de cierre"
+			return render_template('centro_de_ayuda/editar_centro.html',
+			centro=centro,
+			tipos= lista_de_tipos,
+			municipios=lista_de_municipios,
+			mensaje_error= mensaje_error,
+			mensaje_exito=mensaje_exito)
+
+		if not '@' in form['email']:
+			mensaje_error= "El email debe contener '@'"
+			return render_template('centro_de_ayuda/editar_centro.html',
+			centro=centro,
+			tipos= lista_de_tipos,
+			municipios=lista_de_municipios,
+			mensaje_error= mensaje_error,
+			mensaje_exito=mensaje_exito)
+
 		res = Centro_de_ayuda.editar(id=id,
 			nombre=form['nombre'],
 			direccion=form['direccion'],
@@ -106,7 +156,7 @@ def editar_centro(id):
 			sitio_web=form['web'],
 			corx=form['corx'],
 			cory=form['cory'],
-			lista_de_tipos=form.getlist("tipos"),
+			lista_de_tipos=l_tipos,
 			id_municipio=form['municipio'],
 			id_estado=1,
 			protocolo='PDF',
@@ -123,6 +173,19 @@ def editar_centro(id):
 			municipios=lista_de_municipios,
 			mensaje_error= mensaje_error,
 			mensaje_exito=mensaje_exito)
+
+def horas_validas(h_ini, h_fin):
+	h_ini= h_ini.split(":")
+	ini_horas = int(h_ini[0])
+	ini_mins = int(h_ini[1])
+	h_fin= h_fin.split(":")
+	fin_horas = int(h_fin[0])
+	fin_mins = int(h_fin[1])
+	if ini_horas < fin_horas:
+		if ini_mins < fin_mins:
+			return True
+	return False 
+
 
 def mostrar_centro(id):
 	permisos.validar_permisos('centro_show')

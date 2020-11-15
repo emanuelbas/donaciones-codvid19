@@ -95,13 +95,23 @@
 
             <section class="form-group">
                 <label for="contenido"> Hora de Apertura </label>
-                <input type="time" class="form-control form-control-lg rounded-0" name="hora_apertura" id="hora_apertura" required>
+                <input type="time" class="form-control form-control-lg rounded-0" value= "{{h_ini}}" name="hora_apertura" id="hora_apertura" required>
                 <label for="contenido"> Hora de Cierre </label>
-                <input type="time" class="form-control form-control-lg rounded-0" name="hora_cierre" id="hora_cierre" required>
+                <input type="time" class="form-control form-control-lg rounded-0" value= "{{h_fin}}" name="hora_cierre" id="hora_cierre" required>
             </section>
 
+            <script>
+            function submitHandler(event){
+                hora_apertura= document.getElementById('hora_apertura').value
+                hora_cierre = document.getElementById('hora_apertura').value
+                console.log(hora_apertura)
+                if (hora_cierre < hora_apertura) {
+                    event.preventDefault();
+                    alert('La hora de apertura debe ser menor que la hora de cierre')
+                }
+            }
 
-
+            </script>
 
 
 
