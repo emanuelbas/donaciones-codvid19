@@ -16,6 +16,24 @@
                 <label for="titulo"> Email </label>
                 <input type="email" class="form-control form-control-lg rounded-0" name="email" id="email" value="{{turno.email}}">
             </section> 
+            <section class="form-group">
+                <label for="titulo"> Telefono </label>
+                <input type="text" class="form-control form-control-lg rounded-0" name="telefono" id="telefono"
+                    value="{{turno.telefono}}">
+            </section>
+            <section class="form-group text-center">
+                <label for="titulo"> Hora de Inicio del Turno </label>
+                <h3>{{ turno.hora_ini}}</h3>
+            </section>
+            <section class="form-group text-center">
+                <label for="titulo"> Hora de Fin del Turno </label>
+                <h3>{{ turno.hora_fin}}</h3>
+            </section>
+
+            <section class="form-group text-center">
+                <label for="titulo"> Dia </label>
+                <h3>{{ turno.dia}}</h3>
+            </section>
             <div class="text-right">
                 <a href="{{ url_for('index_turno') }}" class="btn btn-white">Cancelar</a>
                 <button type="submit" class="btn btn-info">Aceptar</button>
