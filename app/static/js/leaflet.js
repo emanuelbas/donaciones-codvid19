@@ -2,7 +2,7 @@
 var map = L.map('mapid').setView({lon: -60.569722, lat: -36.157222}, 5);
 var marker;
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    //maxZoom: 19,
+    minZoom: 5,
     attribution: 'Este humilde mapa es propiedad del grupo22'
 }).addTo(map);
 
