@@ -10,6 +10,19 @@
     <p>{{ mensaje_exito }}</p>
 </div>
 {% endif %}
+<head>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+   integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+   crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+   crossorigin=""></script>
+
+</head>
+
+
+
+
 <h1>Editar Centro de Ayuda</h1>
 
 <div class="container card-body">
@@ -68,11 +81,19 @@
                 <a target="_blank" href="/static/uploads/{{centro.protocolo_de_vista}}">Ver protocolo actual</a>
             </section>
 
+
+            <!-- Leaflet -->
             <section class="form-group">
-                <label for="contenido"> Coordenada x de Geolocalización </label>
-                <input value="{{ centro.coordenada_x }}" type="text" class="form-control form-control-lg rounded-0" name="corx" id="corx" placeholder="La coordenada X" >
-                <label for="contenido"> Coordenada y de Geolocalización </label>
-                <input value="{{ centro.coordenada_y }}" type="text" class="form-control form-control-lg rounded-0" name="cory" id="cory" placeholder="La coordenada Y" >
+                <label for="geolocalizacion"> Geolocalización </label>
+    
+                <div id="mapid"></div>    
+                <script src="{{url_for('static', filename='js/leaflet.js')}}"></script>
+
+            
+                <label for="contenido"> Latitud </label>
+                <input type="text" class="form-control form-control-lg rounded-0" name="corx" id="corx" placeholder="Selecciona la ubicación en el mapa" value="{{ centro.coordenada_x }}">
+                <label for="contenido"> Longitud </label>
+                <input type="text" class="form-control form-control-lg rounded-0" name="cory" id="cory" placeholder="Selecciona la ubicación en el mapa" value="{{ centro.coordenada_y }}">
             </section>
 
 
@@ -113,4 +134,9 @@
         </form>
     </span>
 </div>
+<script type="text/javascript">
+    lat = {{ centro.coordenada_x|float }} 
+    lng = {{ centro.coordenada_y|float }}
+    marker = L.marker({lon:  lng, lat: lat}).bindPopup('Centro de Ayuda').addTo(map);
+</script>
 {% endblock %}

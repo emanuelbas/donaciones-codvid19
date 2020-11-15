@@ -70,8 +70,8 @@ def crear_centro():
 				hcierre=form['hora_cierre'],
 				email=form['email'],
 				sitio_web=form['web'],
-				corx=form['corx'],
-				cory=form['cory'],
+				corx=str(form['corx']),
+				cory=str(form['cory']),
 				lista_de_tipos=l_tipos,
 				id_municipio=form['municipio'],
 				id_estado=1,
@@ -102,7 +102,7 @@ def editar_centro(id):
 
 	#Obtener el centro a editar
 	centro = Centro_de_ayuda.query.get(id)
-
+	print(centro.coordenada_x)
 	lista_de_tipos = Tipo_de_centro.all()
 	lista_de_municipios = obtener_dic_de_municipios()
 	if request.method == "GET":
@@ -154,8 +154,8 @@ def editar_centro(id):
 			hcierre=form['hora_cierre'],
 			email=form['email'],
 			sitio_web=form['web'],
-			corx=form['corx'],
-			cory=form['cory'],
+			corx=str(form['corx']),
+			cory=str(form['cory']),
 			lista_de_tipos=l_tipos,
 			id_municipio=form['municipio'],
 			id_estado=1,
@@ -182,8 +182,12 @@ def horas_validas(h_ini, h_fin):
 	fin_horas = int(h_fin[0])
 	fin_mins = int(h_fin[1])
 	if ini_horas < fin_horas:
-		if ini_mins < fin_mins:
+		return True
+	else:
+		if ini_horas == fin_horas and ini_mins < fin_mins:
 			return True
+		else:
+			return False
 	return False 
 
 
