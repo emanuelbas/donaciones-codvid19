@@ -48,10 +48,10 @@ def create_app():
 
     # ruta a la api centros
     app.add_url_rule('/Api/centros', 'api_centros',
-                     centros.mostrarCentros, methods=["GET"])
+                     centros.mostrar_centros, methods=["GET"])
     app.add_url_rule('/Api/centros/page/<int:page>', 'api_centros',
-                     centros.mostrarCentros, methods=["GET"])
-    # 'Api/centros/GetCentros.api.devolverCentros', methods=["GET"])
+                     centros.mostrar_centros, methods=["GET"])
+    app.add_url_rule('/Api/centros/<int:id>', 'api_centro', centros.mostrar_centro, methods=["GET"])
 
     # ruta a la api turnos
     app.add_url_rule('/centros/id/<id>/turnos_disponibles/fecha=<fecha>',
