@@ -50,8 +50,8 @@ def crear_turno():
         t = request.form
         h_i = t['hora_ini']
         h_f = t['hora_fin']
-        hora_ini = datetime.datetime.strptime(h_i, "%I:%M")
-        hora_fin = datetime.datetime.strptime(h_f, "%I:%M")
+        hora_ini = datetime.datetime.strptime(h_i, "%H:%M")
+        hora_fin = datetime.datetime.strptime(h_f, "%H:%M")
 
         print(hora_ini.hour, ':', hora_ini.minute)
         if str(t['dia']) < str(date.today()):
@@ -106,3 +106,16 @@ def borrar_turno(id):
     Turno.delete(id)
     turno = Turno.all()
     return redirect(url_for('index_turno', turno=turno))
+
+
+def horas_validas(h_ini, h_fin):
+    h_ini = h_ini.split(":")
+    ini_horas = int(h_ini[0])
+    ini_mins = int(h_ini[1])
+    h_fin = h_fin.split(":")
+    fin_horas = int(h_fin[0])
+    fin_mins = int(h_fin[1])
+    if ini_horas < fin_horas:
+        if ini_mins < fin_mins:
+            return True
+    return False        
