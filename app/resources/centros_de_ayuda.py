@@ -25,10 +25,11 @@ def go_index(nombre=' ',estado='todos',page=1):
 		nombre = params['nombre'] or ' '
 		estado = params['estado']
 
-	if estado == 'todos':
-		lista = Centro_de_ayuda.query.filter_by(historico=0).filter(Centro_de_ayuda.nombre.like('%'+nombre+'%'))
-	else:
-		lista = Centro_de_ayuda.query.filter_by(historico=0).filter(Centro_de_ayuda.nombre.like('%'+nombre+'%')).filter_by(estado_id = estado)
+	lista = Centro_de_ayuda.query.filter_by(historico=0)
+	if estado != 'todos':
+		lista = lista.filter_by(estado_id = estado)
+	if nombre != ' ':
+		lista = lista.filter(Centro_de_ayuda.nombre.like('%'+nombre+'%'))
 
 	obtener_municipios(lista)
 	lista = lista.paginate(page, per_page=per_page)
