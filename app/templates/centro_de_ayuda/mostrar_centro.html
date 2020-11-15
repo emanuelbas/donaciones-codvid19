@@ -5,6 +5,15 @@
     <p> ⚠️  Este centro fue rechazado por lo que no se mostrará al publico</p>
 </div>
 {% endif %}
+<head>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+   integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+   crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+   crossorigin=""></script>
+
+</head>
 
 
 
@@ -13,7 +22,15 @@
 <div class="container card-body">
 
 
-    
+<div id="mapid"></div>
+<script>
+var map = L.map('mapid').setView({lon: {{centro.coordenada_y}}, lat: {{centro.coordenada_x}}}, 20);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    //maxZoom: 19,
+    attribution: 'Este humilde mapa es propiedad del grupo22'
+}).addTo(map);
+</script>
 <details>
   <summary>Datos de contacto</summary>
   <p><b>Nombre:</b> {{centro.nombre}}</p>
@@ -45,7 +62,13 @@
 {% endif %}
 
 
-
+<script type="text/javascript">
+  
+    // Colocar un marker
+    lat = {{ centro.coordenada_x|float }} 
+    lng = {{ centro.coordenada_y|float }}
+    marker = L.marker({lon:  lng, lat: lat}).bindPopup('Centro de Ayuda').addTo(map);
+</script>
 
 
 </div>
