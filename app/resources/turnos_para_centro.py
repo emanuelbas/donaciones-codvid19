@@ -96,8 +96,7 @@ def sacar_turno(id):
             disponible = 1
         else:
             disponible = 0
-        Turno.edit(id, t['email'], turno.hora_ini,
-                   turno.hora_fin, turno.dia, disponible)
+        Turno.edit(id, t['email'], t['telefono'], disponible)
         return redirect(url_for('index_turno', turno=turno))
     else:
         return render_template('turnos_para_centro/sacar_turno.html', turno=turno)
