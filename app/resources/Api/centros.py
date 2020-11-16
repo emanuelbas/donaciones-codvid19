@@ -4,12 +4,14 @@ from flask import request
 from app.models.centro_de_ayuda import Centro_de_ayuda, Municipio, Tipo_de_centro, Estado_centro
 from flask import Response
 from app.models.configuracion import Configuracion
+import math
 
 def mostrar_centros(page=1):
 
 	try:
 		per_page = Configuracion.get_config().cantPagina
-		total = len(Centro_de_ayuda.query.filter_by(publicado=True).all())/per_page
+		#Redondeo hacia arriba con ceil para obtener el total de paginas
+		total = math.ceil(len(Centro_de_ayuda.query.filter_by(publicado=True).all())/per_page)
 		centros = Centro_de_ayuda.query.filter_by(publicado=True).paginate(page, per_page=per_page).items
 	except:
 		return jsonify({"error":"500 Internal Server Error"}), 500
