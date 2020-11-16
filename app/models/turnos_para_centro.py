@@ -17,7 +17,6 @@ class Turno(db.Model):
     def all():
         return Turno.query.all()
 
-
     def create(hi, hf, di, ce):
         em = ""
         te = ""
@@ -28,17 +27,15 @@ class Turno(db.Model):
         db.session.add(nuevo_turno)
         db.session.commit()
         return True
-    
-    def create_reserva(hi, hf, di, ce):
-        em = "reservado@gmail.com"
-        te = "00000000000"
-        act = 1
-        disponible = 0
-        nuevo_turno = Turno(email=em, telefono=te, hora_ini=hi, hora_fin=hf,
-                            dia=di, borrado=act, centro_id=ce, disponible=disponible)
-        db.session.add(nuevo_turno)
+
+    def create_reserva(i, em, te, ce):
+        datos = Turno.query.filter_by(centro_id=ce).first()
+        datos.email = em
+        datos.telefono = te
+        datos.borrado = 1
+        datos.disponible = 0
         db.session.commit()
-        return True
+        return datos
 
     def get_by_id(id):
         return Turno.query.get(id)

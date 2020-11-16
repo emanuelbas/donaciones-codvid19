@@ -38,14 +38,17 @@ def turnos_disponibles(id, fecha):
 
 
 def reserva(id):
-    fecha = '2020-11-13'
-    h_i = '11:00'
-    # mirar el %i por ahi no es el param correcto
-    hora_ini = datetime.datetime.strptime(h_i, "%I:%M")
+    ide = 942
+    em = "reservado@gmail.com"
+    te = "00000000000"
+    fecha = '2020-11-15'
+    h_i = '11:00:00'
+    disponible = 0
+    hora_ini = datetime.datetime.strptime(h_i, "%H:%M:%S")
     var1 = hora_ini
-    var1 = str(var1.hour)+':'+str(var1.minute)
+    var1 = str(var1.hour)+':'+str(var1.minute)+":"+str(var1.second)
     var = hora_ini + datetime.timedelta(minutes=30)
-    var = str(var.hour)+':'+str(var.minute)
+    var = str(var.hour)+':'+str(var.minute)+":"+str(var.second)
     hora_fin = var
     turnos = Turno.query.filter_by(dia=fecha).all()
 
@@ -56,8 +59,8 @@ def reserva(id):
 
         if str(turno.centro_id) == str(id):
             dic = {'centro_id': turno.centro_id,
-                   'hora_inicio': turno.hora_ini,
-                   'hora_fin': turno.hora_fin,
+                   'hora_inicio': str(turno.hora_ini),
+                   'hora_fin': str(turno.hora_fin),
                    'fecha': str(turno.dia)
                    }
             lista.append(dic)
@@ -67,10 +70,14 @@ def reserva(id):
             ok = False
 
     if ok == True:
-        Turno.create_reserva(var1, hora_fin, fecha, id)
-        print("el turno se creo correctamente!!!!")
+        try:
+            Turno.edit(ide, em, te, disponible)
+        except:
+            response = {'error': 'No existe el id del centro'}
+            return jsonify(response)
+        print("el turno se edito correctamente!!!!")
     else:
-        print("EL TURNO NO SE CREO POR QUE YA EXISTE!!!!")
+        print("EL TURNO NO SE EDITO POR QUE YA EXISTE!!!!")
 
     response = {'Turnos': lista,
                 'Error': 'El turno que quiere reservar ya no esta disponible'}
