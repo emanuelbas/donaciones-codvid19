@@ -38,7 +38,7 @@ def turnos_disponibles(id, fecha):
 
 
 def reserva(id):
-    ide = 942
+    ide = 892
     em = "reservado@gmail.com"
     te = "00000000000"
     fecha = '2020-11-15'
