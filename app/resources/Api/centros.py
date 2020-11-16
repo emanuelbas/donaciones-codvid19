@@ -19,3 +19,40 @@ def mostrarCentros(page=1):
 		lista.append(dic)
 	response = {'centros':lista, 'total':len(centros), 'pagina':page }
 	return jsonify(response)
+
+def cargarCentros():
+	#crear centro
+	#pasarlo al diccionario
+	#armar la respuesta
+	if request.method == "GET" :
+		response = { "nombre" : "centro1" , 
+		 "direccion" : "Calle 23",
+		 "telefono" : "9111233255",
+         "hora_de_apertura" : "09:00",
+         "hora_de_cierre" : "10:00",
+         "tipos" : [],
+         "sitio_web" : "http://www.centrodeprueba.gov",
+         "email" : "contacto@centrodeprueba.gov",
+		 "id_municipio" : "1" 
+        }
+		return jsonify(response)
+	datos = request.get_json()
+	nombre = datos["nombre"]
+	res = Centro_de_ayuda.crear(
+				nombre=datos['nombre'],
+				direccion=datos['direccion'],
+				telefono=datos['telefono'],
+				hapertura=datos['hora_de_apertura'],
+				hcierre=datos['hora_de_cierre'],
+				email=datos['email'],
+				sitio_web=datos['sitio_web'],
+				corx="-38",
+				cory="-58",
+				lista_de_tipos=datos['tipos'],
+				id_municipio=datos['id_municipio'],
+				id_estado=1,
+				protocolo='PDF',
+				historico=0)
+	response = {"atributos" : datos} 
+
+	return jsonify(response)

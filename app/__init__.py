@@ -51,6 +51,10 @@ def create_app():
                      centros.mostrarCentros, methods=["GET"])
     # 'Api/centros/GetCentros.api.devolverCentros', methods=["GET"])
 
+    #ruta Post de Api centros
+    app.add_url_rule('/Api/crear_centro', 'api_crear_centro',
+                     centros.cargarCentros, methods=["GET", "POST"])
+
     # ruta a la api turnos
     app.add_url_rule('/centros/id/<id>/turnos_disponibles/fecha=<fecha>',
                      'turnos_disponibles', turnos.turnos_disponibles, methods=["POST", "GET"])
