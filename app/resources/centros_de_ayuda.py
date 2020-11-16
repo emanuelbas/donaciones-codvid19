@@ -25,10 +25,11 @@ def go_index(nombre=' ',estado='todos',page=1):
 		nombre = params['nombre'] or ' '
 		estado = params['estado']
 
-	if estado == 'todos':
-		lista = Centro_de_ayuda.query.filter_by(historico=0).filter(Centro_de_ayuda.nombre.like('%'+nombre+'%'))
-	else:
-		lista = Centro_de_ayuda.query.filter_by(historico=0).filter(Centro_de_ayuda.nombre.like('%'+nombre+'%')).filter_by(estado_id = estado)
+	lista = Centro_de_ayuda.query.filter_by(historico=0)
+	if estado != 'todos':
+		lista = lista.filter_by(estado_id = estado)
+	if nombre != ' ':
+		lista = lista.filter(Centro_de_ayuda.nombre.like('%'+nombre+'%'))
 
 	obtener_municipios(lista)
 	lista = lista.paginate(page, per_page=per_page)
@@ -70,8 +71,8 @@ def crear_centro():
 				hcierre=form['hora_cierre'],
 				email=form['email'],
 				sitio_web=form['web'],
-				corx=form['corx'],
-				cory=form['cory'],
+				corx=str(form['corx']),
+				cory=str(form['cory']),
 				lista_de_tipos=l_tipos,
 				id_municipio=form['municipio'],
 				id_estado=1,
@@ -102,6 +103,13 @@ def editar_centro(id):
 
 	#Obtener el centro a editar
 	centro = Centro_de_ayuda.query.get(id)
+
+	#Formateo los horarios
+	print(centro.hora_de_apertura.hour)
+	h1 = datetime.time(centro.hora_de_apertura.hour,centro.hora_de_apertura.minute)
+	h2 = datetime.time(centro.hora_de_apertura.hour,centro.hora_de_apertura.minute)
+	formated_hora_de_apertura = h1
+	formated_hora_de_cierre = h2
 
 	lista_de_tipos = Tipo_de_centro.all()
 	lista_de_municipios = obtener_dic_de_municipios()
@@ -146,6 +154,7 @@ def editar_centro(id):
 			mensaje_error= mensaje_error,
 			mensaje_exito=mensaje_exito)
 
+		print("Hora de apertura quedo en: "+form['hora_apertura'])
 		res = Centro_de_ayuda.editar(id=id,
 			nombre=form['nombre'],
 			direccion=form['direccion'],
@@ -154,13 +163,14 @@ def editar_centro(id):
 			hcierre=form['hora_cierre'],
 			email=form['email'],
 			sitio_web=form['web'],
-			corx=form['corx'],
-			cory=form['cory'],
+			corx=str(form['corx']),
+			cory=str(form['cory']),
 			lista_de_tipos=l_tipos,
 			id_municipio=form['municipio'],
 			id_estado=1,
 			protocolo='PDF',
 			historico=0)
+
 		if res:
 			mensaje_exito = "Centro editado exitosamente"
 		else:
@@ -182,8 +192,12 @@ def horas_validas(h_ini, h_fin):
 	fin_horas = int(h_fin[0])
 	fin_mins = int(h_fin[1])
 	if ini_horas < fin_horas:
-		if ini_mins < fin_mins:
+		return True
+	else:
+		if ini_horas == fin_horas and ini_mins < fin_mins:
 			return True
+		else:
+			return False
 	return False 
 
 

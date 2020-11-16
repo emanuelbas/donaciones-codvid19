@@ -3,7 +3,7 @@ from flask import jsonify
 from flask import request
 from app.models.turnos_para_centro import Turno
 from app.models.centro_de_ayuda import Centro_de_ayuda
-import time
+from datetime import time, date
 import datetime
 
 # terminar las apis, hay que hacer otro def para cuando no tengo fecha
@@ -12,30 +12,36 @@ import datetime
 def turnos_disponibles(id, fecha):
     #centros = Centro_de_ayuda.all()
     print("la fecha es:", str(fecha))
-    turnos = Turno.select_turno(id)
-    lista = []
     if fecha == 'fecha':
         fecha = str(date.today())
         print("ahora la fecha es:", fecha)
+    turnos = Turno.query.filter_by(centro_id=id).filter_by(
+        dia=fecha).filter_by(disponible=1).all()
+    print(turnos)
+
+    if len(turnos) == 0:
+        response = {'turnos': [],
+                    'error': 'No existe turno para la fecha seleccionada'}
+        return jsonify(response)
+
+    lista = []
 
     for turno in turnos:
-        if turno.disponible == 1:
-            if str(turno.dia) == fecha:
-                dic = {'centro_id': turno.centro_id,
-                       'hora_inicio': turno.hora_ini,
-                       'hora_fin': turno.hora_fin,
-                       'fecha': str(turno.dia)
-                       }
-                lista.append(dic)
-    response = {'Turnos': lista,
-                'Error': 'No existe turno para la fecha seleccionada'}
+        dic = {'centro_id': turno.centro_id,
+               'hora_inicio': str(turno.hora_ini),
+               'hora_fin': str(turno.hora_fin),
+               'fecha': str(turno.dia)
+               }
+        lista.append(dic)
+    response = {'turnos': lista}
     return jsonify(response)
 
 
 def reserva(id):
     fecha = '2020-11-13'
     h_i = '11:00'
-    hora_ini = datetime.datetime.strptime(h_i, "%I:%M") #mirar el %i por ahi no es el param correcto
+    # mirar el %i por ahi no es el param correcto
+    hora_ini = datetime.datetime.strptime(h_i, "%I:%M")
     var1 = hora_ini
     var1 = str(var1.hour)+':'+str(var1.minute)
     var = hora_ini + datetime.timedelta(minutes=30)
@@ -59,13 +65,13 @@ def reserva(id):
     for l in lista:
         if l['hora_inicio'] == var1:
             ok = False
-       
+
     if ok == True:
         Turno.create_reserva(var1, hora_fin, fecha, id)
         print("el turno se creo correctamente!!!!")
     else:
-        print("EL TURNO NO SE CREO POR QUE YA EXISTE!!!!")    
-    
+        print("EL TURNO NO SE CREO POR QUE YA EXISTE!!!!")
+
     response = {'Turnos': lista,
                 'Error': 'El turno que quiere reservar ya no esta disponible'}
     return jsonify(response)
