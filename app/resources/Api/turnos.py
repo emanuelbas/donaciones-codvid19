@@ -72,15 +72,15 @@ def reserva(id):
     if ok == True:
         try:
             Turno.edit(ide, em, te, disponible)
+            response = {'exito': 'Se agrego la reserva'}
+            return jsonify(response)
         except:
             response = {'error': 'No existe el id del centro'}
             return jsonify(response)
-        print("el turno se edito correctamente!!!!")
-    else:
-        print("EL TURNO NO SE EDITO POR QUE YA EXISTE!!!!")
 
-    response = {'Turnos': lista,
-                'Error': 'El turno que quiere reservar ya no esta disponible'}
+    else:
+        response = {'Turnos': lista,
+                    'Error': 'El turno que quiere reservar ya no esta disponible'}
     return jsonify(response)
 
 
