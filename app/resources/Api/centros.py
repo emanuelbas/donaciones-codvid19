@@ -80,6 +80,7 @@ def cargarCentros():
 		return jsonify(response)
 	datos = request.get_json()
 	nombre = datos["nombre"]
+	tipos = []
 	for tipo in datos['tipos']:
 		tipos.append({'id':tipo.id, 'nombre':tipo.nombre})
 	res = Centro_de_ayuda.crear(

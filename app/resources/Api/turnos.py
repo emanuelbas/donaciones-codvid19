@@ -9,7 +9,7 @@ import datetime
 # terminar las apis, hay que hacer otro def para cuando no tengo fecha
 
 
-def turnos_disponibles(id, fecha):
+def turnos_disponibles(id_centro, fecha):
     #centros = Centro_de_ayuda.all()
     print("la fecha es:", str(fecha))
     if fecha == 'fecha':
