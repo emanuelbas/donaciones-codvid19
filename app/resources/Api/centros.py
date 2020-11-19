@@ -63,16 +63,14 @@ def get_list_of_tipos(centro):
 	return tipos
 
 def cargarCentros():
-	#crear centro
-	#pasarlo al diccionario
-	#armar la respuesta
+	''' Controlador para el API Endpoint /Api/crear_centro '''
 	if request.method == "GET" :
-		response = { "nombre" : "centro1" , 
-		 "direccion" : "Calle 23",
+		response = { "nombre" : "Nombre de Centro" , 
+		 "direccion" : "La Plata, Calle 23 numero 123",
 		 "telefono" : "9111233255",
          "hora_de_apertura" : "09:00",
-         "hora_de_cierre" : "10:00",
-         "tipos" : [],
+         "hora_de_cierre" : "18:00",
+         "tipos" : [3,2],
          "sitio_web" : "http://www.centrodeprueba.gov",
          "email" : "contacto@centrodeprueba.gov",
 		 "id_municipio" : "1" 
@@ -80,6 +78,8 @@ def cargarCentros():
 		return jsonify(response)
 	datos = request.get_json()
 	nombre = datos["nombre"]
+	for tipo in datos['tipos']:
+		tipos.append({'id':tipo.id, 'nombre':tipo.nombre})
 	res = Centro_de_ayuda.crear(
 				nombre=datos['nombre'],
 				direccion=datos['direccion'],
