@@ -50,7 +50,7 @@ def mostrar_centro(id):
 	"tipos": tipos, "web": centro.sitio_web, "email": centro.email}
 
 	response = {'atributos':dic}
-	return jsonify(response), 202
+	return jsonify(response), 200
 
 
 
