@@ -52,7 +52,7 @@ def mostrar_centro(id):
 	"tipos": tipos, "web": centro.sitio_web, "email": centro.email}
 
 	response = {'atributos':dic}
-	return jsonify(response), 202
+	return jsonify(response), 200
 
 
 
@@ -63,3 +63,40 @@ def get_list_of_tipos(centro):
 	for tipo in centro.tipos_de_centro:
 		tipos.append({'id':tipo.id, 'nombre':tipo.nombre})
 	return tipos
+
+def cargarCentros():
+	''' Controlador para el API Endpoint /Api/crear_centro '''
+	if request.method == "GET" :
+		response = { "nombre" : "Nombre de Centro" , 
+		 "direccion" : "La Plata, Calle 23 numero 123",
+		 "telefono" : "9111233255",
+         "hora_de_apertura" : "09:00",
+         "hora_de_cierre" : "18:00",
+         "tipos" : [3,2],
+         "sitio_web" : "http://www.centrodeprueba.gov",
+         "email" : "contacto@centrodeprueba.gov",
+		 "id_municipio" : "1" 
+        }
+		return jsonify(response)
+	datos = request.get_json()
+	nombre = datos["nombre"]
+	for tipo in datos['tipos']:
+		tipos.append({'id':tipo.id, 'nombre':tipo.nombre})
+	res = Centro_de_ayuda.crear(
+				nombre=datos['nombre'],
+				direccion=datos['direccion'],
+				telefono=datos['telefono'],
+				hapertura=datos['hora_de_apertura'],
+				hcierre=datos['hora_de_cierre'],
+				email=datos['email'],
+				sitio_web=datos['sitio_web'],
+				corx="-38",
+				cory="-58",
+				lista_de_tipos=datos['tipos'],
+				id_municipio=datos['id_municipio'],
+				id_estado=1,
+				protocolo='PDF',
+				historico=0)
+	response = {"atributos" : datos} 
+
+	return jsonify(response)
