@@ -84,22 +84,21 @@ def reserva(id):
     return jsonify(response)
 
 
-def pedir_reserva(id_centro):
+def pedir_reserva(centro_id):
     if request.method == "GET" :
         # Devuelvo el cuerpo de la consulta post
         response = {
-            "centro_id": "1",
             "email_donante" : "juan.perez@gmail.com",
             "telefono_donante": "2215930941",
             "hora_inicio": "15:00",
             "hora_fin": "18:00",
-            "fecha": "2020-1"
+            "fecha": "2020-12-25"
         }
         return jsonify(response), 200
     else:
         # Me estan haciendo post!
         nuevo_turno = request.get_json()
-        if Turno.es_valido(centro_id = nuevo_turno["centro_id"],
+        if Turno.es_valido(centro_id = centro_id,
             fecha= nuevo_turno["fecha"],
             hora_inicio= nuevo_turno["hora_inicio"]):
             try:
