@@ -98,7 +98,8 @@ def pedir_reserva(centro_id):
     else:
         # Me estan haciendo post!
         nuevo_turno = request.get_json()
-        if Turno.es_valido(centro_id = centro_id,
+        print(request.get_json())
+        if Turno.es_valido(centro_id = nuevo_turno["centro_id"],
             fecha= nuevo_turno["fecha"],
             hora_inicio= nuevo_turno["hora_inicio"]):
             try:
@@ -108,7 +109,7 @@ def pedir_reserva(centro_id):
                     telefono_donante = nuevo_turno["telefono_donante"],
                     hora_inicio = nuevo_turno["hora_inicio"],
                     hora_fin = nuevo_turno["hora_fin"],
-                    fecha = fecha
+                    fecha =  nuevo_turno["fecha"]
                     ):
                     diccionario = {
                         "centro_id": nuevo_turno["centro_id"],
@@ -116,7 +117,7 @@ def pedir_reserva(centro_id):
                         "telefono_donante": nuevo_turno["telefono_donante"],
                         "hora_inicio": nuevo_turno["hora_inicio"],
                         "hora_fin": nuevo_turno["hora_fin"],
-                        "fecha": fecha
+                        "fecha":  nuevo_turno["fecha"]
                         }
                     response = {"atributos": diccionario}
                     return jsonify(response), 200

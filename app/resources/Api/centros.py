@@ -100,4 +100,4 @@ def cargarCentros():
 				historico=0)
 	response = {"atributos" : datos} 
 
-	return jsonify(response)
+	return jsonify(response),202
