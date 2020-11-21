@@ -63,7 +63,8 @@ def create_app():
     #app.add_url_rule('/centros/id/<id>/turnos_disponibles',
     #                 'turnos_disponibles', turnos.turnos_disponibles, methods=["GET"])
     app.add_url_rule('/Api/centros/id_centro/<int:id_centro>/reserva', 'pedir_reserva',
-                     turnos.pedir_reserva, methods=["POST", "GET"])
+        turnos.pedir_reserva, methods=["POST", "GET"])
+
 
     # ruta a centros
     app.add_url_rule('/centros', 'centros',

@@ -84,16 +84,17 @@ def reserva(id):
     return jsonify(response)
 
 
+
 def pedir_reserva(id_centro):
     if request.method == "GET" :
         # Devuelvo el cuerpo de la consulta post
         response = {
-            "centro_id": "1",
-            "email_donante" : "juan.perez@gmail.com",
-            "telefono_donante": "2215930941",
-            "hora_inicio": "15:00",
-            "hora_fin": "18:00",
-            "fecha": "2020-1"
+            "centro_id":"8",
+            "email_donante": "juan.perez@gmail.com",
+            "fecha": "2020-11-12",
+            "hora_fin": "10:00",
+            "hora_inicio": "09:30",
+            "telefono_donante": "2215930941"
         }
         return jsonify(response), 200
     else:
@@ -120,11 +121,12 @@ def pedir_reserva(id_centro):
                         "fecha": nuevo_turno["fecha"]
                         }
                     response = {"atributos": diccionario}
-                    return jsonify(response), 200
+                    return jsonify(response), 201
             except Exception as e:
                 return jsonify({"error":"500 Internal Server Error"}), 500
         else:
             return jsonify({"error":"400 Bad request"}), 400
+
 
 
 
