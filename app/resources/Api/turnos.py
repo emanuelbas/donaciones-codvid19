@@ -108,7 +108,7 @@ def pedir_reserva(centro_id):
                     telefono_donante = nuevo_turno["telefono_donante"],
                     hora_inicio = nuevo_turno["hora_inicio"],
                     hora_fin = nuevo_turno["hora_fin"],
-                    fecha = nuevo_turno["fecha"] 
+                    fecha = fecha
                     ):
                     diccionario = {
                         "centro_id": nuevo_turno["centro_id"],
@@ -116,7 +116,7 @@ def pedir_reserva(centro_id):
                         "telefono_donante": nuevo_turno["telefono_donante"],
                         "hora_inicio": nuevo_turno["hora_inicio"],
                         "hora_fin": nuevo_turno["hora_fin"],
-                        "fecha": nuevo_turno["fecha"]
+                        "fecha": fecha
                         }
                     response = {"atributos": diccionario}
                     return jsonify(response), 200
