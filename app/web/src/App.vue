@@ -1,9 +1,12 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Centros</router-link> |
-      <router-link to="/about">Turnos</router-link>
+      <router-link to="/">Home</router-link> |
+      <router-link to="/centros">Centros</router-link> |
+      <router-link to="/turnos">Turnos</router-link>
+      
     </div>
+    <img alt="Vue logo" src="./assets/logo.png">
     <router-view />
     
   
