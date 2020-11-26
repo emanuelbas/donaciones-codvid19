@@ -1,5 +1,6 @@
 <template>
   <div class="about">
-    <h1>Esta es otra pagina</h1>
+    <h1>Esta es pagina para turnos
+    </h1>
   </div>
 </template>
