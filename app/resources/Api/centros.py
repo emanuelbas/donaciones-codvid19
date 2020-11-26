@@ -4,12 +4,14 @@ from flask import request
 from app.models.centro_de_ayuda import Centro_de_ayuda, Municipio, Tipo_de_centro, Estado_centro
 from flask import Response
 from app.models.configuracion import Configuracion
+import math
 
 def mostrar_centros(page=1):
 
 	try:
 		per_page = Configuracion.get_config().cantPagina
-		total = len(Centro_de_ayuda.query.filter_by(publicado=True).all())/per_page
+		#Redondeo hacia arriba con ceil para obtener el total de paginas
+		total = math.ceil(len(Centro_de_ayuda.query.filter_by(publicado=True).all())/per_page)
 		centros = Centro_de_ayuda.query.filter_by(publicado=True).paginate(page, per_page=per_page).items
 	except:
 		return jsonify({"error":"500 Internal Server Error"}), 500
@@ -50,7 +52,7 @@ def mostrar_centro(id):
 	"tipos": tipos, "web": centro.sitio_web, "email": centro.email}
 
 	response = {'atributos':dic}
-	return jsonify(response), 202
+	return jsonify(response), 200
 
 
 
@@ -63,16 +65,14 @@ def get_list_of_tipos(centro):
 	return tipos
 
 def cargarCentros():
-	#crear centro
-	#pasarlo al diccionario
-	#armar la respuesta
+	''' Controlador para el API Endpoint /Api/crear_centro '''
 	if request.method == "GET" :
-		response = { "nombre" : "centro1" , 
-		 "direccion" : "Calle 23",
+		response = { "nombre" : "Nombre de Centro" , 
+		 "direccion" : "La Plata, Calle 23 numero 123",
 		 "telefono" : "9111233255",
          "hora_de_apertura" : "09:00",
-         "hora_de_cierre" : "10:00",
-         "tipos" : [],
+         "hora_de_cierre" : "18:00",
+         "tipos" : [3,2],
          "sitio_web" : "http://www.centrodeprueba.gov",
          "email" : "contacto@centrodeprueba.gov",
 		 "id_municipio" : "1" 
@@ -80,6 +80,9 @@ def cargarCentros():
 		return jsonify(response)
 	datos = request.get_json()
 	nombre = datos["nombre"]
+	tipos = []
+	for tipo in datos['tipos']:
+		tipos.append({'id':tipo.id, 'nombre':tipo.nombre})
 	res = Centro_de_ayuda.crear(
 				nombre=datos['nombre'],
 				direccion=datos['direccion'],
@@ -97,4 +100,4 @@ def cargarCentros():
 				historico=0)
 	response = {"atributos" : datos} 
 
-	return jsonify(response)
+	return jsonify(response),202

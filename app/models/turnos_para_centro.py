@@ -63,3 +63,21 @@ class Turno(db.Model):
         turno.disponible = 1
         db.session.commit()
         return True
+
+    def reservar_turno(centro_id,email_donante,telefono_donante,hora_inicio,hora_fin,fecha):
+        turno = Turno.query.filter_by(centro_id=centro_id).filter_by(hora_ini=hora_inicio).filter_by(dia=fecha).first()
+        if turno and turno.disponible:
+            turno.email = email_donante
+            turno.telefono = telefono_donante
+            turno.disponible = 0
+            db.session.commit()
+            return True
+        else:
+            return False
+
+    def es_valido(centro_id, hora_inicio, fecha):
+        turno = Turno.query.filter_by(centro_id=centro_id).filter_by(hora_ini=hora_inicio).filter_by(dia=fecha).first()
+        if turno:
+            return True
+        else:
+            return False
