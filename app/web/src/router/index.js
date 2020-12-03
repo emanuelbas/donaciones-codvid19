@@ -4,8 +4,8 @@ import Centros from '../views/Centros.vue'
 import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
-
-const routes = [
+  //Aqui van las rutas de las vistas
+const routes = [ 
   {
     path: '/',
     name: 'Home',
