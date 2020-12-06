@@ -13,7 +13,14 @@
   </div>
 </template>
 
+<script>
 
+export default {
+  
+}
+</script>
+
+<!-- Estos son lo estilos de la pagina pueden ir en un doc separado o directamente unar bootstrap --> 
 
 <style>
 #app {

@@ -10,11 +10,11 @@
         <b-row>
           <b-col md="6">
             <input v-model="fecha" type="date" :state="false" />
-            
-            <a href="/" class="btn btn-danger">Cancelar</a>
-            <button v-on:click="Form" type="submit" class="btn btn-primary">Aceptar</button>
+                   
           </b-col>
         </b-row>
+        <a href="/" class="btn btn-danger">Cancelar</a>
+        <button v-on:click="Form" type="submit" class="btn btn-primary">Aceptar</button>
       </form>
     </div>
   </div>
