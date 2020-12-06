@@ -52,6 +52,7 @@ def create_app():
     app.add_url_rule('/Api/centros/page/<int:page>', 'api_centros',
                      centros.mostrar_centros, methods=["GET"])
     app.add_url_rule('/Api/centros/<int:id>', 'api_centro', centros.mostrar_centro, methods=["GET"])
+    app.add_url_rule('/Api/centros/todos', 'mostrar_todos_centros', centros.mostrar_todos_centros, methods=["GET"])
 
     #ruta Post de Api centros
     app.add_url_rule('/Api/crear_centro', 'api_crear_centro',

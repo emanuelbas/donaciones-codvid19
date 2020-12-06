@@ -101,3 +101,31 @@ def cargarCentros():
 	response = {"atributos" : datos} 
 
 	return jsonify(response),202
+
+
+def mostrar_todos_centros():
+
+	try:
+		centros = Centro_de_ayuda.query.filter_by(publicado=True).all()
+	except:
+		return jsonify({"error":"500 Internal Server Error"}), 500
+	
+	lista = []
+	for centro in centros:
+
+	# Necesito jsonificarlo,
+	# Como es un objeto de SQLAlchemy, no puedo jsonificarlo, tengo que pasarlo a diccionarios y listas
+		lista_Tipos = []
+		for tipo in centro.tipos_de_centro:
+			lista_Tipos.append({'id':tipo.id, 'nombre':tipo.nombre})
+		dic = {'nombre': centro.nombre, 'direccion': centro.direccion,
+				'telefono': centro.telefono,'hora_apertura': str(centro.hora_de_apertura),
+				'hora_cierre': str(centro.hora_de_cierre),
+				'web': centro.sitio_web,'email': centro.email,
+				'tipos': lista_Tipos
+				}
+		lista.append(dic)
+
+	# Generar la respuesta con lo que piden en la actividad
+	response = {'centros':lista }
+	return jsonify(response), 200
