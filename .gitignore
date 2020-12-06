@@ -116,3 +116,4 @@ app/static/uploads
 
 #node module
 node_modules
+web/package-lock.json

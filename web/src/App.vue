@@ -6,7 +6,7 @@
       <router-link to="/turnos">Turnos</router-link>
       
     </div>
-    <img alt="Vue logo" src="./assets/logo.png">
+    
     <router-view />
     
   
