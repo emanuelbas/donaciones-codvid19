@@ -2,15 +2,27 @@
 https://gitlab.catedras.linti.unlp.edu.ar/proyecto2020/grupo22/-/blob/5de60a76b00fcc6bb43592f370c442d3036c5634/web/src/views/Centros.vue
 -->
 <template>
-  <div>
+  <div style="height: 500px; width: 100%">
     <Title title="Mapa de Centros de Ayuda"/>
-    <ul>
-      <li v-for="centro in centros" :key="centro.id">{{centro.nombre}}</li>
-    </ul>
+    <div style="height: 200px overflow: auto;">
+      <ul>
+        <li v-for="centro in centros" :key="centro.id">{{centro.nombre}}</li>
+      </ul>
+      <p>Se ubicó el primer marker en {{ withPopup.lat }}, {{ withPopup.lng }}</p>
+      <p>El centro está en: {{ currentCenter }} y el zoom es: {{ currentZoom }}</p>
+      <button @click="showLongText">
+        Toggle long popup
+      </button>
+      <button @click="showMap = !showMap">
+        Toggle map
+      </button>
+    </div>
     <l-map
       v-if="showMap"
       :zoom="zoom"
       :center="center"
+      :bounds="bounds"
+      :max-bounds="maxBounds"
       :options="mapOptions"
       style="height: 80%"
       @update:center="centerUpdate"
@@ -20,18 +32,44 @@ https://gitlab.catedras.linti.unlp.edu.ar/proyecto2020/grupo22/-/blob/5de60a76b0
         :url="url"
         :attribution="attribution"
       />
+      <l-marker :lat-lng="withPopup">
+        <l-popup>
+          <div @click="innerClick">
+            Esto es un popup
+            <p v-show="showParagraph">
+              Acá podría incluir los detalles del centro como
+              Nombre: sdsdasdad
+              Otra cosa: sdasdasds
+              Mas cosas: sasdaasdasd
+              y un botón...
+              <button>Pedir turno</button>
+            </p>
+          </div>
+        </l-popup>
+      </l-marker>
+      <l-marker :lat-lng="withTooltip">
+        <l-tooltip :options="{ permanent: true, interactive: true }">
+          <div @click="innerClick">
+            Esto es un tooltip
+            <p v-show="showParagraph">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
+              sed pretium nisl, ut sagittis sapien. Sed vel sollicitudin nisi.
+              Donec finibus semper metus id malesuada.
+            </p>
+          </div>
+        </l-tooltip>
+      </l-marker>
     </l-map>
   </div>
-
 
 </template>
 
 <script>
 import axios from "axios";
 import Title from '@/components/Title.vue';
-//import L from 'leaflet';
-import { LMap, LTileLayer  } from 'vue2-leaflet';//LMarker
-import { latLng } from "leaflet";
+import { latLng, latLngBounds } from "leaflet";
+import { LMap, LTileLayer, LMarker, LPopup, LTooltip } from "vue2-leaflet";
+
 
 
 export default {
@@ -40,20 +78,29 @@ export default {
     Title,
     LMap,
     LTileLayer,
-    //LMarker
+    LMarker,
+    LPopup,
+    LTooltip
   },
   data() {
     return {
-      centros: [],
-      zoom: 13,
-      center: latLng(47.41322, -1.219482),
+      zoom: 5.5,
+      center: latLng(-36.977297, -58.904511),
+      bounds: latLngBounds([
+        [-32.26184, -67.108055],
+        [-42.988576, -45.74707]
+      ]),
+      maxBounds: latLngBounds([
+        [-32.26184, -67.108055],
+        [-42.988576, -45.74707]
+      ]),
       url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       attribution:
         '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-      withPopup: latLng(47.41322, -1.219482),
-      withTooltip: latLng(47.41422, -1.250482),
-      currentZoom: 11.5,
-      currentCenter: latLng(47.41322, -1.219482),
+      withPopup: latLng(-36.977297, -58.904511),
+      withTooltip: latLng(-35.977500, -59.904530),
+      currentZoom: 5.5,
+      currentCenter: latLng(-36.977297, -58.904511),
       showParagraph: false,
       mapOptions: {
         zoomSnap: 0.5
@@ -65,18 +112,28 @@ export default {
     this.getCentros();
   },
   methods: {
-    getCentros() {      
-      axios
-        .get(
-          "https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/Api/centros"
-        )
-        .then((response) => {
-          console.log(response)
-          this.centros = response.data.centros;
-        })
-        .catch((e) => alert(e));
+    zoomUpdate(zoom) {
+      this.currentZoom = zoom;
     },
-  },
+    centerUpdate(center) {
+      this.currentCenter = center;
+    },
+    showLongText() {
+      this.showParagraph = !this.showParagraph;
+    },
+    innerClick() {
+      alert("Hiciste click :o");
+    },
+    getCentros() {
+      axios
+        .get("https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/Api/centros")
+        .then((response) => {
+          this.centros = response.data.centros;
+          // Agregar marcadores
+        })
+        .catch((e) => console.log(e));
+    }
+  }
 };
 </script>
 
