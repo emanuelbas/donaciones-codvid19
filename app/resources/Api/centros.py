@@ -75,7 +75,7 @@ def cargarCentros():
          "tipos" : [3,2],
          "sitio_web" : "http://www.centrodeprueba.gov",
          "email" : "contacto@centrodeprueba.gov",
-		 "id_municipio" : "1" 
+		 "id_municipio" : "1"
         }
 		return jsonify(response)
 	datos = request.get_json()
@@ -122,7 +122,9 @@ def mostrar_todos_centros():
 				'telefono': centro.telefono,'hora_apertura': str(centro.hora_de_apertura),
 				'hora_cierre': str(centro.hora_de_cierre),
 				'web': centro.sitio_web,'email': centro.email,
-				'tipos': lista_Tipos
+				'tipos': lista_Tipos,
+				"lat" : centro.coordenada_x,
+				"lng" : centro.coordenada_y
 				}
 		lista.append(dic)
 

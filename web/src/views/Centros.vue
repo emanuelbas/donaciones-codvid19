@@ -32,7 +32,7 @@ https://gitlab.catedras.linti.unlp.edu.ar/proyecto2020/grupo22/-/blob/5de60a76b0
         :url="url"
         :attribution="attribution"
       />
-      <l-marker :lat-lng="withPopup">
+      <l-marker v-for="centro in centros" :lat-lng="{lat:-36.977297, lng:-58.904511}" :key="centro.id">
         <l-popup>
           <div @click="innerClick">
             Esto es un popup
@@ -96,7 +96,7 @@ export default {
       ]),
       url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       attribution:
-        '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+        '&copy; Grupo 22 - 2020',
       withPopup: latLng(-36.977297, -58.904511),
       withTooltip: latLng(-35.977500, -59.904530),
       currentZoom: 5.5,
@@ -122,11 +122,11 @@ export default {
       this.showParagraph = !this.showParagraph;
     },
     innerClick() {
-      alert("Hiciste click :o");
+      alert("click");
     },
     getCentros() {
       axios
-        .get("https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/Api/centros")
+        .get("https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/Api/centros/todos")
         .then((response) => {
           this.centros = response.data.centros;
           // Agregar marcadores
