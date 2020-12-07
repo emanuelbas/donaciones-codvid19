@@ -24,7 +24,7 @@ https://gitlab.catedras.linti.unlp.edu.ar/proyecto2020/grupo22/-/blob/5de60a76b0
       :bounds="bounds"
       :max-bounds="maxBounds"
       :options="mapOptions"
-      style="height: 80%"
+      style="height: 100%"
       @update:center="centerUpdate"
       @update:zoom="zoomUpdate"
     >
@@ -32,32 +32,18 @@ https://gitlab.catedras.linti.unlp.edu.ar/proyecto2020/grupo22/-/blob/5de60a76b0
         :url="url"
         :attribution="attribution"
       />
-      <l-marker v-for="centro in centros" :lat-lng="{lat:-36.977297, lng:-58.904511}" :key="centro.id">
+      <l-marker v-for="centro in centros" :lat-lng="{lat:centro.lat, lng:centro.lng}" :key="centro.id">
         <l-popup>
           <div @click="innerClick">
-            Esto es un popup
-            <p v-show="showParagraph">
-              Acá podría incluir los detalles del centro como
-              Nombre: sdsdasdad
-              Otra cosa: sdasdasds
-              Mas cosas: sasdaasdasd
-              y un botón...
+            <h5>{{centro.nombre}}</h5>
+            <p>
+              <b>Dirección:</b> {{centro.direccion}}<br>
+              <b>Horario:</b> {{centro.hora_apertura}} - {{centro.hora_cierre}}<br>
+              <b>Teléfono:</b> {{centro.telefono}}<br><br>
               <button>Pedir turno</button>
             </p>
           </div>
         </l-popup>
-      </l-marker>
-      <l-marker :lat-lng="withTooltip">
-        <l-tooltip :options="{ permanent: true, interactive: true }">
-          <div @click="innerClick">
-            Esto es un tooltip
-            <p v-show="showParagraph">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
-              sed pretium nisl, ut sagittis sapien. Sed vel sollicitudin nisi.
-              Donec finibus semper metus id malesuada.
-            </p>
-          </div>
-        </l-tooltip>
       </l-marker>
     </l-map>
   </div>
@@ -68,7 +54,7 @@ https://gitlab.catedras.linti.unlp.edu.ar/proyecto2020/grupo22/-/blob/5de60a76b0
 import axios from "axios";
 import Title from '@/components/Title.vue';
 import { latLng, latLngBounds } from "leaflet";
-import { LMap, LTileLayer, LMarker, LPopup, LTooltip } from "vue2-leaflet";
+import { LMap, LTileLayer, LMarker, LPopup } from "vue2-leaflet";//LTooltip
 
 
 
@@ -79,8 +65,8 @@ export default {
     LMap,
     LTileLayer,
     LMarker,
-    LPopup,
-    LTooltip
+    LPopup
+    //LTooltip
   },
   data() {
     return {
