@@ -124,7 +124,8 @@ def mostrar_todos_centros():
 				'web': centro.sitio_web,'email': centro.email,
 				'tipos': lista_Tipos,
 				"lat" : centro.coordenada_x,
-				"lng" : centro.coordenada_y
+				"lng" : centro.coordenada_y,
+				"id_municipio" : centro.municipio_id
 				}
 		lista.append(dic)
 
