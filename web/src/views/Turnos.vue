@@ -26,12 +26,12 @@
             <select v-model="cent">
               <option
                 v-for="centro in centros"
-                :key="centro.id"
-                :value="centro.id"
+                :key="centro.id_centro"
+                :value="centro.id_centro"
               >
-                
-                 {{ centro.nombre }}
-        
+                <td v-if="centro.id_municipio == muni">
+                  {{ centro.nombre }}
+                </td>     
               </option>
             </select>
           </v-col>
@@ -45,7 +45,7 @@
           </v-row>
         </div>
         <a href="/" class="btn btn-danger">Cancelar</a>
-        <button  v-on:click="saludo()" class="btn btn-primary">
+        <button  v-on:click="getTurnos()" class="btn btn-primary">
           Aceptar
         </button>
       </div>
@@ -97,7 +97,7 @@ export default {
     };
   },
   mounted() {
-    this.getTurnos();
+    
     this.getCentros();
     this.getMunicipios();
     
@@ -130,8 +130,8 @@ export default {
         .catch((e) => console.log(e));
     },
 
-    getTurnos() {
-      var url = "https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/Api/centros/id_centro/13/turnos_disponibles/fecha=2020-11-15"
+    getTurnos: function() {
+      var url = "https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/Api/centros/id_centro/"+this.cent+"/turnos_disponibles/fecha="+this.fecha
       axios
         .get(
           url
