@@ -125,7 +125,8 @@ def mostrar_todos_centros():
 				'tipos': lista_Tipos,
 				"lat" : centro.coordenada_x,
 				"lng" : centro.coordenada_y,
-				"id_municipio" : centro.municipio_id
+				"id_municipio" : centro.municipio_id,
+				"id_centro" : centro.id
 				}
 		lista.append(dic)
 
