@@ -6,14 +6,21 @@
       <router-link to="/turnos">Turnos</router-link>
       
     </div>
-    <img alt="Vue logo" src="./assets/logo.png">
+    
     <router-view />
     
   
   </div>
 </template>
 
+<script>
 
+export default {
+  
+}
+</script>
+
+<!-- Estos son lo estilos de la pagina pueden ir en un doc separado o directamente unar bootstrap --> 
 
 <style>
 #app {
