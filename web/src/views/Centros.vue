@@ -57,8 +57,8 @@ export default {
   },
   data() {
     return {
-      zoom: 5.5,
-      center: latLng(-36.977297, -58.904511),
+      zoom: 6,
+      center: latLng(-34.925033, -57.933933),
       bounds: latLngBounds([
         [-32.26184, -67.108055],
         [-42.988576, -45.74707]
@@ -70,10 +70,10 @@ export default {
       url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       attribution:
         '&copy; Grupo 22 - 2020',
-      withPopup: latLng(-36.977297, -58.904511),
-      withTooltip: latLng(-35.977500, -59.904530),
-      currentZoom: 5.5,
-      currentCenter: latLng(-36.977297, -58.904511),
+      withPopup: latLng(34.925033, -57.933933),
+      withTooltip: latLng(34.925033, -57.933933),
+      currentZoom:  12.5,
+      currentCenter: latLng(-34.925033, -57.933933),
       showParagraph: false,
       mapOptions: {
         zoomSnap: 0.5,
