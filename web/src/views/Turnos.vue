@@ -2,39 +2,38 @@
   <div id="turnos">
     <div>
       <div class="conteiner">
-        <h1>Seleccione un Municipio, un Centro y una Fecha para el turno</h1>
+        <h1>Seleccione un Municipio, un Centro y una Fecha para el turno id:{{ this.cent}} y fecha:{{this.fecha}}</h1>
+        <Datos ide="Esto es un id" />
       </div>
 
       <div>
         <div>
           <label>Municipios:</label>
-          <v-col md="3">
-            <select v-model="muni">
-              <option
-                v-for="municipio in municipios"
-                :key="municipio.id"
-                :value="municipio.id"
-              >
-                {{ municipio.name }}
-              </option>
-            </select>
-          </v-col>
+
+          <select v-model="muni">
+            <option
+              v-for="municipio in municipios"
+              :key="municipio.id"
+              :value="municipio.id"
+            >
+              {{ municipio.name }}
+            </option>
+          </select>
         </div>
         <div>
           <label>Centros:</label>
-          <v-col md="3">
-            <select v-model="cent">
-              <option
-                v-for="centro in centros"
-                :key="centro.id_centro"
-                :value="centro.id_centro"
-              >
-                <td v-if="centro.id_municipio == muni">
-                  {{ centro.nombre }}
-                </td>     
-              </option>
-            </select>
-          </v-col>
+
+          <select v-model="cent">
+            <option
+              v-for="centro in centros"
+              :key="centro.id_centro"
+              :value="centro.id_centro"
+            >
+              <td v-if="centro.id_municipio == muni">
+                {{ centro.nombre }}
+              </td>
+            </option>
+          </select>
         </div>
         <div>
           <label>Fecha:</label>
@@ -45,7 +44,7 @@
           </v-row>
         </div>
         <a href="/" class="btn btn-danger">Cancelar</a>
-        <button  v-on:click="getTurnos()" class="btn btn-primary">
+        <button v-on:click="getTurnos()" class="btn btn-primary">
           Aceptar
         </button>
       </div>
@@ -67,24 +66,23 @@
             <td>{{ turno.fecha }}</td>
             <td>{{ turno.hora_inicio }}</td>
             <td>{{ turno.hora_fin }}</td>
-            <a href="#" class="btn btn-info mb-2">Reservar Turno</a>
+            <a href="/FormTurnos" class="btn btn-info mb-2">Reservar Turno</a>
           </tr>
         </tbody>
       </table>
-      
     </div>
   </div>
-    
 </template>
 
 <script>
 import axios from "axios";
+import Datos from '@/components/Datos.vue';
 
 export default {
   name: "turnos",
-  
-  
-
+  components: {
+    Datos
+  },
   data() {
     return {
       turnos: null,
@@ -93,22 +91,17 @@ export default {
       fecha: "", //la fecha seleccionada
       cent: null, //el centro seleccionado
       muni: null, //el municipio selecionado
-      c: null,
+      
     };
-  },
-  mounted() {
     
+  },
+
+  mounted() {
     this.getCentros();
     this.getMunicipios();
-    
   },
   methods: {
-    saludo: function (){
-      console.log("fecha", this.fecha)
-      console.log("centro", this.cent)
-      console.log("municipalidad", this.muni)
 
-    },
     getMunicipios() {
       axios
         .get(
@@ -130,12 +123,16 @@ export default {
         .catch((e) => console.log(e));
     },
 
-    getTurnos: function() {
-      var url = "https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/Api/centros/id_centro/"+this.cent+"/turnos_disponibles/fecha="+this.fecha
+    getTurnos: function () {
+      
+      
+      var url =
+        "https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/Api/centros/id_centro/" +
+        this.cent +
+        "/turnos_disponibles/fecha=" +
+        this.fecha;
       axios
-        .get(
-          url
-        )
+        .get(url)
         .then((response) => {
           this.turnos = response.data.turnos;
         })

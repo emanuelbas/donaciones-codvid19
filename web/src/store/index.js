@@ -5,11 +5,27 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    id: '',
+    fecha: '',
+    nombre:'',
+    apellido:'',
+    email:'',
+    telefono:'',
   },
-  mutations: {
-  },
-  actions: {
-  },
-  modules: {
+  getters: {
+    nombre: state => state.nombre
   }
 })
+
+
+
+//export default new Vuex.Store({
+//  state: {
+//  },
+//  mutations: {
+//  },
+//  actions: {
+//  },
+//  modules: {
+//  }
+//})
