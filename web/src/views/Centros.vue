@@ -4,7 +4,7 @@ https://gitlab.catedras.linti.unlp.edu.ar/proyecto2020/grupo22/-/blob/5de60a76b0
 <template>
   <div style="height: 500px; width: 100%">
     <Title title="Mapa de Centros de Ayuda"/>
-    <l-map
+    <l-map 
       v-if="showMap"
       :zoom="zoom"
       :center="center"
@@ -12,13 +12,11 @@ https://gitlab.catedras.linti.unlp.edu.ar/proyecto2020/grupo22/-/blob/5de60a76b0
       :max-bounds="maxBounds"
       :options="mapOptions"
       style="height: 100%"
-      @update:center="centerUpdate"
-      @update:zoom="zoomUpdate"
     >
       <l-tile-layer
         :url="url"
         :attribution="attribution"
-      />
+      ></l-tile-layer>
       <l-marker v-for="centro in centros" :lat-lng="{lat:centro.lat, lng:centro.lng}" :key="centro.id">
         <l-popup>
           <div>
@@ -33,6 +31,10 @@ https://gitlab.catedras.linti.unlp.edu.ar/proyecto2020/grupo22/-/blob/5de60a76b0
         </l-popup>
       </l-marker>
     </l-map>
+    <div v-else>
+      <p> ¡Espera! </p>
+      <p> El mapa se está cargando </p>
+    </div>
   </div>
 
 </template>
@@ -57,8 +59,8 @@ export default {
   },
   data() {
     return {
-      zoom: 6,
-      center: latLng(-34.925033, -57.933933),
+      zoom: 10,
+      center: latLng(-34.921624, -57.954371),
       bounds: latLngBounds([
         [-32.26184, -67.108055],
         [-42.988576, -45.74707]
@@ -70,10 +72,6 @@ export default {
       url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       attribution:
         '&copy; Grupo 22 - 2020',
-      withPopup: latLng(34.925033, -57.933933),
-      withTooltip: latLng(34.925033, -57.933933),
-      currentZoom:  12.5,
-      currentCenter: latLng(-34.925033, -57.933933),
       showParagraph: false,
       mapOptions: {
         zoomSnap: 0.5,
@@ -86,17 +84,11 @@ export default {
     this.getCentros();
   },
   methods: {
-    zoomUpdate(zoom) {
-      this.currentZoom = zoom;
-    },
-    centerUpdate(center) {
-      this.currentCenter = center;
-    },
     showLongText() {
       this.showParagraph = !this.showParagraph;
     },
     innerClick(centro) {
-      alert("Se abre la ventana de turnos para el centro "+centro.nombre);
+      window.location.href = 'https://grupo22.proyecto2020.linti.unlp.edu.ar/turnos'+'?centro_id='+centro.id_centro;
     },
     getCentros() {
       axios

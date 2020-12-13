@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div id="nav">
+    <div id="nav" class="bg-black">
       <router-link to="/">Home</router-link> |
       <router-link to="/centros">Centros</router-link> |
       <router-link to="/turnos">Turnos</router-link>
@@ -42,5 +42,9 @@ export default {
 
 #nav a.router-link-exact-active {
   color: #42b983;
+.bg-back {
+  background-color: coral;
+}
+
 }
 </style>
