@@ -8,7 +8,6 @@ https://gitlab.catedras.linti.unlp.edu.ar/proyecto2020/grupo22/-/blob/5de60a76b0
       v-if="showMap"
       :zoom="zoom"
       :center="center"
-      :bounds="bounds"
       :max-bounds="maxBounds"
       :options="mapOptions"
       style="height: 100%"
@@ -35,6 +34,7 @@ https://gitlab.catedras.linti.unlp.edu.ar/proyecto2020/grupo22/-/blob/5de60a76b0
       <p> ¡Espera! </p>
       <p> El mapa se está cargando </p>
     </div>
+
   </div>
 
 </template>
@@ -59,8 +59,8 @@ export default {
   },
   data() {
     return {
-      zoom: 10,
-      center: latLng(-34.921624, -57.954371),
+      zoom: 13,
+      center: latLng(-34.921127, -57.937775),
       bounds: latLngBounds([
         [-32.26184, -67.108055],
         [-42.988576, -45.74707]
