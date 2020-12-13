@@ -1,90 +1,126 @@
 <template>
   <div id="turnos">
-    <div>
+    
       <div class="conteiner">
-        <h1>Seleccione un Municipio, un Centro y una Fecha para el turno</h1>
+        <h1>
+          Seleccione un Municipio, un Centro y una Fecha para el turno id:{{
+            this.cent
+          }}
+          y fecha:{{ this.fecha }} y Hora: {{ this.hora }}
+        </h1>
+        
       </div>
 
       <div>
-        <div>
-          <label>Municipios:</label>
-          <v-col md="3">
-            <select v-model="muni">
-              <option
-                v-for="municipio in municipios"
-                :key="municipio.id"
-                :value="municipio.id"
-              >
-                {{ municipio.name }}
-              </option>
-            </select>
-          </v-col>
-        </div>
-        <div>
-          <label>Centros:</label>
-          <v-col md="3">
-            <select v-model="cent">
-              <option
-                v-for="centro in centros"
-                :key="centro.id"
-                :value="centro.id"
-              >
-                
-                 {{ centro.nombre }}
-        
-              </option>
-            </select>
-          </v-col>
-        </div>
-        <div>
-          <label>Fecha:</label>
-          <v-row>
-            <v-col md="3">
-              <input v-model="fecha" type="date" :state="false" />
-            </v-col>
-          </v-row>
-        </div>
-        <a href="/" class="btn btn-danger">Cancelar</a>
-        <button  v-on:click="saludo()" class="btn btn-primary">
-          Aceptar
-        </button>
+        <label>Municipios:</label>
+
+        <select v-model="muni" class="browser-default custom-select">
+          <option
+            v-for="municipio in municipios"
+            :key="municipio.id"
+            :value="municipio.id"
+          >
+            {{ municipio.name }}
+          </option>
+        </select>
       </div>
-    </div>
+      <div>
+        <label>Centros:</label>
+
+        <select v-model="cent" class="browser-default custom-select">
+          <option
+            v-for="centro in centros"
+            :key="centro.id_centro"
+            :value="centro.id_centro"
+          >
+            <td v-if="centro.id_municipio == muni">
+              {{ centro.nombre }}
+            </td>
+          </option>
+        </select>
+      </div>
+      <div>
+        <label>Fecha para el turno:</label>
+        <input v-model="fecha" type="date" :state="false" class="form-control my-3" />
+         
+      </div>
+    <a href="/" class="btn btn-danger">Cancelar</a>
+    <button v-on:click="getTurnos()" class="btn btn-primary">Aceptar</button>
     <div>
-      <table class="table table-striped table-bordered bg-white table-sm">
-        <thead>
-          <tr>
-            <td>Centro Id</td>
-            <td>Fecha</td>
-            <td>Hora Inicio</td>
-            <td>Hora Fin</td>
-            <td>Operaciones</td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="turno in turnos" :key="turno.id">
-            <td>{{ turno.centro_id }}</td>
-            <td>{{ turno.fecha }}</td>
-            <td>{{ turno.hora_inicio }}</td>
-            <td>{{ turno.hora_fin }}</td>
-            <a href="#" class="btn btn-info mb-2">Reservar Turno</a>
-          </tr>
-        </tbody>
-      </table>
-      
+      <label>Hora de turno:</label>
+
+      <select v-model="hora" class="browser-default custom-select">
+        <option
+          v-for="turno in turnos"
+          :key="turno.id"
+          :value="turno.hora_inicio"
+        >
+          {{ turno.hora_inicio }}
+        </option>
+      </select>
     </div>
-  </div>
     
+  
+  <div id="FormTurnos">
+    <h1>
+      Ingrese los datos para el turno nombre: {{ this.nombre }} y apellido:
+      {{ this.apellido }} , telefono: {{ this.telefono}} y mail: {{this.email}}
+    </h1>
+
+    <form>
+      <div>
+        <label>Nombre:</label>
+        <input
+          type="text"
+          v-model="nombre"
+          placeholder="Ingrese el nombre"
+          class="form-control my-3"
+          required
+        />
+      </div>
+      <div>
+        <label>Apellido:</label>
+        <input
+          type="text"
+          v-model="apellido"
+          placeholder="Ingrese el apellido"
+          class="form-control my-3"
+          required
+        />
+      </div>
+      <div>
+        <label>Email:</label>
+        <input
+          type="text"
+          v-model="email"
+          placeholder="Ingese el email"
+          class="form-control my-3"
+          required
+        />
+      </div>
+      <div>
+        <label>Telefono:</label>
+        <input
+          v-model="telefono"
+          placeholder="Ingrese el telefono"
+          class="form-control my-3"
+          required
+        />
+      </div>
+      <a href="/turnos" class="btn btn-danger">Cancelar</a>
+      <button v-on:click="setTurnos()" class="btn btn-primary">Guardar Turno</button>
+    </form>
+  </div>
+</div>
 </template>
 
 <script>
 import axios from "axios";
 
+
 export default {
   name: "turnos",
   
-  
-
   data() {
     return {
       turnos: null,
@@ -93,22 +129,19 @@ export default {
       fecha: "", //la fecha seleccionada
       cent: null, //el centro seleccionado
       muni: null, //el municipio selecionado
-      c: null,
+      hora: null, //hora seleccionada para el turno
+      nombre: "", //datos del fomulario
+      apellido: "",
+      telefono: "",
+      email: "",
     };
   },
+
   mounted() {
-    this.getTurnos();
     this.getCentros();
     this.getMunicipios();
-    
   },
   methods: {
-    saludo: function (){
-      console.log("fecha", this.fecha)
-      console.log("centro", this.cent)
-      console.log("municipalidad", this.muni)
-
-    },
     getMunicipios() {
       axios
         .get(
@@ -130,16 +163,26 @@ export default {
         .catch((e) => console.log(e));
     },
 
-    getTurnos() {
-      var url = "https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/Api/centros/id_centro/13/turnos_disponibles/fecha=2020-11-15"
+    getTurnos: function () {
+      var url =
+        "https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/Api/centros/id_centro/" +
+        this.cent +
+        "/turnos_disponibles/fecha=" +
+        this.fecha;
       axios
-        .get(
-          url
-        )
+        .get(url)
         .then((response) => {
           this.turnos = response.data.turnos;
         })
         .catch((e) => console.log(e));
+    },
+    setTurnos: function(){
+      var url =  "https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/Api/centros/id_centro/"+this.centro+"/reserva";
+      axios
+        .post(url)
+        
+
+
     },
   },
 };

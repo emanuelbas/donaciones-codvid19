@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Centros from '../views/Centros.vue'
 import Home from '../views/Home.vue'
 import Turnos from '../views/Turnos.vue'
+
 Vue.use(VueRouter)
   //Aqui van las rutas de las vistas
 const routes = [ 
@@ -20,7 +21,8 @@ const routes = [
     path: '/turnos',
     name: 'Turnos',
     component: Turnos
-  }
+  },
+  
 ]
 
 const router = new VueRouter({
