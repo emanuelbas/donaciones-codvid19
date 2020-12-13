@@ -38,11 +38,11 @@ def turnos_disponibles(id_centro, fecha):
 
 
 def reserva(id):
-    ide = 892
+    ide = id
     em = "reservado@gmail.com"
     te = "00000000000"
-    fecha = '2020-11-15'
-    h_i = '11:00:00'
+    fecha = '2020-12-24'
+    h_i = '08:00:00'
     disponible = 0
     hora_ini = datetime.datetime.strptime(h_i, "%H:%M:%S")
     var1 = hora_ini

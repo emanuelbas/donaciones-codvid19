@@ -4,9 +4,9 @@
       <div class="conteiner">
         <h1>
           Seleccione un Municipio, un Centro y una Fecha para el turno id:{{
-            this.cent
+            this.form.cent
           }}
-          y fecha:{{ this.fecha }} y Hora: {{ this.hora }}
+          y fecha:{{ this.form.fecha }} y Hora: {{ this.form.hora }}
         </h1>
         
       </div>
@@ -14,9 +14,9 @@
       <div>
         <label>Municipios:</label>
 
-        <select v-model="muni" class="browser-default custom-select">
+        <select v-model="form.muni" class="browser-default custom-select">
           <option
-            v-for="municipio in municipios"
+            v-for="municipio in form.municipios"
             :key="municipio.id"
             :value="municipio.id"
           >
@@ -27,13 +27,13 @@
       <div>
         <label>Centros:</label>
 
-        <select v-model="cent" class="browser-default custom-select">
+        <select v-model="form.cent" class="browser-default custom-select">
           <option
-            v-for="centro in centros"
+            v-for="centro in form.centros"
             :key="centro.id_centro"
             :value="centro.id_centro"
           >
-            <td v-if="centro.id_municipio == muni">
+            <td v-if="centro.id_municipio == form.muni">
               {{ centro.nombre }}
             </td>
           </option>
@@ -41,7 +41,7 @@
       </div>
       <div>
         <label>Fecha para el turno:</label>
-        <input v-model="fecha" type="date" :state="false" class="form-control my-3" />
+        <input v-model="form.fecha" type="date" :state="false" class="form-control my-3" />
          
       </div>
     <a href="/" class="btn btn-danger">Cancelar</a>
@@ -49,9 +49,9 @@
     <div>
       <label>Hora de turno:</label>
 
-      <select v-model="hora" class="browser-default custom-select">
+      <select v-model="form.hora" class="browser-default custom-select">
         <option
-          v-for="turno in turnos"
+          v-for="turno in form.turnos"
           :key="turno.id"
           :value="turno.hora_inicio"
         >
@@ -63,16 +63,16 @@
   
   <div id="FormTurnos">
     <h1>
-      Ingrese los datos para el turno nombre: {{ this.nombre }} y apellido:
-      {{ this.apellido }} , telefono: {{ this.telefono}} y mail: {{this.email}}
+      Ingrese los datos para el turno nombre: {{ this.form.nombre }} y apellido:
+      {{ this.form.apellido }} , telefono: {{ this.form.telefono}} y mail: {{this.form.email}}
     </h1>
 
-    <form>
+    <form name="formulario">
       <div>
         <label>Nombre:</label>
         <input
           type="text"
-          v-model="nombre"
+          v-model="form.nombre"
           placeholder="Ingrese el nombre"
           class="form-control my-3"
           required
@@ -82,7 +82,7 @@
         <label>Apellido:</label>
         <input
           type="text"
-          v-model="apellido"
+          v-model="form.apellido"
           placeholder="Ingrese el apellido"
           class="form-control my-3"
           required
@@ -91,8 +91,8 @@
       <div>
         <label>Email:</label>
         <input
-          type="text"
-          v-model="email"
+          type="email"
+          v-model="form.email"
           placeholder="Ingese el email"
           class="form-control my-3"
           required
@@ -101,7 +101,8 @@
       <div>
         <label>Telefono:</label>
         <input
-          v-model="telefono"
+          type="number"
+          v-model="form.telefono"
           placeholder="Ingrese el telefono"
           class="form-control my-3"
           required
@@ -123,18 +124,22 @@ export default {
   
   data() {
     return {
-      turnos: null,
-      centros: null,
-      municipios: null,
-      fecha: "", //la fecha seleccionada
-      cent: null, //el centro seleccionado
-      muni: null, //el municipio selecionado
-      hora: null, //hora seleccionada para el turno
-      nombre: "", //datos del fomulario
-      apellido: "",
-      telefono: "",
-      email: "",
+       
+      form:{
+        turnos: "",
+        centros: "",
+        municipios: "",  
+        cent: "", //el centro seleccionado
+        fecha: "", //la fecha seleccionada
+        muni: "", //el municipio selecionado
+        hora: "", //hora seleccionada para el turno
+        nombre: "", //datos del fomulario
+        apellido: "",
+        telefono: "",
+        email: "",
+      },  
     };
+  
   },
 
   mounted() {
@@ -148,7 +153,7 @@ export default {
           "https://api-referencias.proyecto2020.linti.unlp.edu.ar/municipios"
         )
         .then((response) => {
-          this.municipios = response.data.data.Town;
+          this.form.municipios = response.data.data.Town;
         })
         .catch((e) => console.log(e));
     },
@@ -158,7 +163,7 @@ export default {
           "https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/Api/centros/todos"
         )
         .then((response) => {
-          this.centros = response.data.centros;
+          this.form.centros = response.data.centros;
         })
         .catch((e) => console.log(e));
     },
@@ -166,20 +171,47 @@ export default {
     getTurnos: function () {
       var url =
         "https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/Api/centros/id_centro/" +
-        this.cent +
+        this.form.cent +
         "/turnos_disponibles/fecha=" +
-        this.fecha;
+        this.form.fecha;
       axios
         .get(url)
         .then((response) => {
-          this.turnos = response.data.turnos;
+          this.form.turnos = response.data.turnos;
         })
         .catch((e) => console.log(e));
     },
     setTurnos: function(){
-      var url =  "https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/Api/centros/id_centro/"+this.centro+"/reserva";
+      console.log("el boton esta funcionando")
+      var url =  "https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/Api/centros/id_centro/8/reserva";
+      const parms = {
+        centro_id : "13",
+        email_donante : "probando.post@gmail.com",
+        fecha : "2020-11-15",
+        hora_fin : "11:00:00",
+        hora_inicio : "11:30:00",
+        telefono_donante : "2215930941"  
+      }
+      
+      //let config = {
+       // headers:{
+         // "Content-Type": "application/json",
+       // },
+
+      //};
       axios
-        .post(url)
+        .post(url, parms)
+        .then((response) => {
+          console.log(response);
+          console.log(parms)
+          alert(parms)
+          
+          //document.formulario.reset();
+          //this.$router.push('/turnos?s=1')
+          
+        }
+        )
+        .catch((e) => console.log(e));
         
 
 
