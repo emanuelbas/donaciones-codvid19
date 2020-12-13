@@ -143,6 +143,7 @@ export default {
   },
 
   mounted() {
+    this.test();
     this.getCentros();
     this.getMunicipios();
   },
@@ -181,6 +182,9 @@ export default {
         })
         .catch((e) => console.log(e));
     },
+    test: function(){
+      alert(this.$route.query.centro_id)
+    },
     setTurnos: function(){
       console.log("el boton esta funcionando")
       var url =  "https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/Api/centros/id_centro/8/reserva";
@@ -192,7 +196,11 @@ export default {
         hora_inicio : "11:30:00",
         telefono_donante : "2215930941"  
       }
-      
+      let json = JSON.stringify(parms)
+
+      console.log(json)
+      alert(json)
+
       //let config = {
        // headers:{
          // "Content-Type": "application/json",
@@ -200,7 +208,7 @@ export default {
 
       //};
       axios
-        .post(url, parms)
+        .post(url, JSON.stringify(parms))
         .then((response) => {
           console.log(response);
           console.log(parms)
