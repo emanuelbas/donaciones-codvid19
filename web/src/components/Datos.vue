@@ -1,5 +1,5 @@
 <template>
-  <div class="title">
+  <div class="datos">
     <h1>{{ ide }}</h1>
     <h1>{{ fecha }}</h1>
   </div>  
@@ -10,11 +10,11 @@
 
 <script>
 export default {
-  el: 'app',
+  el: 'datos',
   name: 'Datos',
   props: {
-    ide: Number,  
-    title: Date
+    ide: String,  
+    fecha: Date
   }
 }
 </script>

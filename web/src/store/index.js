@@ -7,6 +7,7 @@ export default new Vuex.Store({
   state: {
     id: '',
     fecha: '',
+    hora: '',
     nombre:'',
     apellido:'',
     email:'',
