@@ -183,18 +183,19 @@ export default {
         .catch((e) => console.log(e));
     },
     test: function(){
+      this.form.cent = this.$route.query.centro_id
       alert(this.$route.query.centro_id)
     },
     setTurnos: function(){
       console.log("el boton esta funcionando")
-      var url =  "https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/Api/centros/id_centro/8/reserva";
+      let url =  "https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/Api/centros/id_centro/8/reserva";
       const parms = {
         centro_id : "13",
         email_donante : "probando.post@gmail.com",
         fecha : "2020-11-15",
         hora_fin : "11:00:00",
         hora_inicio : "11:30:00",
-        telefono_donante : "2215930941"  
+        telefono_donante : "2214444444"  
       }
       let json = JSON.stringify(parms)
 
@@ -209,17 +210,16 @@ export default {
       //};
       axios
         .post(url, JSON.stringify(parms))
-        .then((response) => {
-          console.log(response);
-          console.log(parms)
-          alert(parms)
+          .then((response) => {
+           console.log(response);
+           console.log(parms)
+            alert(parms)
           
-          //document.formulario.reset();
-          //this.$router.push('/turnos?s=1')
+            //document.formulario.reset();
+            //this.$router.push('/turnos?s=1')
           
-        }
-        )
-        .catch((e) => console.log(e));
+        })
+          .catch((e) => console.log(e));
         
 
 
