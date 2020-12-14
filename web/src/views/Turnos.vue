@@ -3,12 +3,12 @@
     
       <div class="conteiner">
         <h1>
-          Seleccione las opciones para el turno
+          Seleccione las opciones para el turno id turno: {{ this.form.cent}}
         </h1>
         
       </div>
 
-      <div v-if="this.cent = ''">
+      <div v-if="this.form.cent = ''">
         <label>Municipios:</label>
 
         <select v-model="form.muni" class="browser-default custom-select">
@@ -21,7 +21,7 @@
           </option>
         </select>
       </div>
-      <div v-if="this.cent = ''">
+      <div v-if="this.form.cent ='' ">
         <label>Centros:</label>
 
         <select v-model="form.cent" class="browser-default custom-select">
@@ -123,17 +123,17 @@ export default {
     return {
        
       form:{
-        turnos: "",
-        centros: "",
-        municipios: "",  
-        cent: "", //el centro seleccionado
-        fecha: "", //la fecha seleccionada
-        muni: "", //el municipio selecionado
-        hora: "", //hora seleccionada para el turno
-        nombre: "", //datos del fomulario
-        apellido: "",
-        telefono: "",
-        email: "",
+        turnos: '',
+        centros: '',
+        municipios: '',  
+        cent: '', //el centro seleccionado
+        fecha: '', //la fecha seleccionada
+        muni: '', //el municipio selecionado
+        hora: '', //hora seleccionada para el turno
+        nombre: '', //datos del fomulario
+        apellido: '',
+        telefono: '',
+        email: '',
       },  
     };
   
