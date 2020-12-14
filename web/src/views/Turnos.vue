@@ -3,15 +3,12 @@
     
       <div class="conteiner">
         <h1>
-          Seleccione un Municipio, un Centro y una Fecha para el turno id:{{
-            this.form.cent
-          }}
-          y fecha:{{ this.form.fecha }} y Hora: {{ this.form.hora }}
+          Seleccione las opciones para el turno. id centro: {{ this.form.cent }}
         </h1>
         
       </div>
 
-      <div>
+      <div v-if="this.form.cent == ''">
         <label>Municipios:</label>
 
         <select v-model="form.muni" class="browser-default custom-select">
@@ -24,7 +21,7 @@
           </option>
         </select>
       </div>
-      <div>
+      <div v-if="this.form.cent =='' ">
         <label>Centros:</label>
 
         <select v-model="form.cent" class="browser-default custom-select">
@@ -188,16 +185,16 @@ export default {
     },
     setTurnos: function(){
       console.log("el boton esta funcionando")
-      let url =  "https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/Api/centros/id_centro/8/reserva";
+      let url =  "https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/Api/centros/id_centro/13/reserva";
       const parms = {
-        centro_id : "13",
-        email_donante : "probando.post@gmail.com",
-        fecha : "2020-11-15",
-        hora_fin : "11:00:00",
-        hora_inicio : "11:30:00",
-        telefono_donante : "2214444444"  
+        "centro_id" : 13,
+        "email_donante" : "ejemplo.post@gmail.com",
+        "fecha" : "2020-11-15",
+        "hora_fin" : "11:00:00",
+        "hora_inicio" : "11:30:00",
+        "telefono_donante" : "2214444444"  
       }
-      let json = JSON.stringify(parms)
+      let json = JSON.stringify(parms);
 
       console.log(json)
       alert(json)
@@ -209,10 +206,10 @@ export default {
 
       //};
       axios
-        .post(url, JSON.stringify(parms))
+        .post(url, json)
           .then((response) => {
            console.log(response);
-           console.log(parms)
+           console.log("ENTRO!!")
             alert(parms)
           
             //document.formulario.reset();
