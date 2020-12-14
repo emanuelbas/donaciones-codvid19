@@ -123,17 +123,17 @@ export default {
     return {
        
       form:{
-        turnos: '',
-        centros: '',
-        municipios: '',  
-        cent: '', //el centro seleccionado
-        fecha: '', //la fecha seleccionada
-        muni: '', //el municipio selecionado
-        hora: '', //hora seleccionada para el turno
-        nombre: '', //datos del fomulario
-        apellido: '',
-        telefono: '',
-        email: '',
+        turnos: "",
+        centros: "",
+        municipios: "",  
+        cent: "", //el centro seleccionado
+        fecha: "", //la fecha seleccionada
+        muni: "", //el municipio selecionado
+        hora: "", //hora seleccionada para el turno
+        nombre: "", //datos del fomulario
+        apellido: "",
+        telefono: "",
+        email: "",
       },  
     };
   
