@@ -2,8 +2,10 @@
 https://gitlab.catedras.linti.unlp.edu.ar/proyecto2020/grupo22/-/blob/5de60a76b00fcc6bb43592f370c442d3036c5634/web/src/views/Centros.vue
 -->
 <template>
-  <div style="height: 500px; width: 100%">
+  <div class="container" style="height: 500px; width: 100%">
     <Title title="Mapa de Centros de Ayuda"/>
+    <br>
+    <p> Se muestran los <b>centros de ayuda social</b> publicados, puedes hacer click para ver información y <b>pedir un turno</b>. También podés <b>solicitar el registro</b> de un nuevo centro de ayuda social haciendo <a href="#">click aquí</a>.</p>
     <l-map 
       v-if="showMap"
       :zoom="zoom"
@@ -24,17 +26,17 @@ https://gitlab.catedras.linti.unlp.edu.ar/proyecto2020/grupo22/-/blob/5de60a76b0
               <b>Dirección:</b> {{centro.direccion}}<br>
               <b>Horario:</b> {{centro.hora_apertura}} - {{centro.hora_cierre}}<br>
               <b>Teléfono:</b> {{centro.telefono}}<br><br>
-              <button style="text-align: right;" @click="innerClick(centro)">Pedir turno</button>
+              <button class="btn btn-primary" style="text-align: right;" @click="innerClick(centro)">Pedir turno</button>
             </p>
           </div>
         </l-popup>
       </l-marker>
     </l-map>
     <div v-else>
+      <br>
       <p> ¡Espera! </p>
       <p> El mapa se está cargando </p>
     </div>
-
   </div>
 
 </template>
