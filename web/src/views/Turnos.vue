@@ -3,12 +3,12 @@
     
       <div class="conteiner">
         <h1>
-          Seleccione las opciones para el turno id turno: {{ this.form.cent}}
+          Seleccione las opciones para el turno. id centro: {{ this.form.cent }}
         </h1>
         
       </div>
 
-      <div v-if="this.form.cent = ''">
+      <div v-if="this.form.cent == ''">
         <label>Municipios:</label>
 
         <select v-model="form.muni" class="browser-default custom-select">
@@ -21,7 +21,7 @@
           </option>
         </select>
       </div>
-      <div v-if="this.form.cent ='' ">
+      <div v-if="this.form.cent =='' ">
         <label>Centros:</label>
 
         <select v-model="form.cent" class="browser-default custom-select">
@@ -185,7 +185,7 @@ export default {
     },
     setTurnos: function(){
       console.log("el boton esta funcionando")
-      let url =  "https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/Api/centros/id_centro/8/reserva";
+      let url =  "https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/Api/centros/id_centro/13/reserva";
       const parms = {
         "centro_id" : 13,
         "email_donante" : "ejemplo.post@gmail.com",
