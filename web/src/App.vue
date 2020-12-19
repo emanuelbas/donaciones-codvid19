@@ -3,7 +3,7 @@
     <div id="nav" class="bg-black">
       <router-link to="/">Home</router-link> |
       <router-link to="/centros">Centros</router-link> |
-      <router-link to="/turnos">Turnos</router-link>
+      <router-link to="/estadisticas">Estadisticas</router-link>
       
     </div>
     

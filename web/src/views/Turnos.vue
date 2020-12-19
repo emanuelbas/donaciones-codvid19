@@ -1,5 +1,6 @@
 <template>
   <div id="turnos">
+<<<<<<< HEAD
     <div class="conteiner">
       <h1>
         Seleccione las opciones para el turno. id centro: {{ this.form.cent }}
@@ -45,7 +46,35 @@
     </div>
     <a href="/" class="btn btn-danger">Cancelar</a>
     <button v-on:click="getTurnos()" class="btn btn-primary">Aceptar</button>
+=======
+>>>>>>> development
     <div>
+      <h1>
+        Eligió las opciones para el turno del centro:
+        {{ this.form.cent }} para la fecha: {{ this.form.fecha }} y hora:
+        {{ this.form.hora }}
+      </h1>
+    </div>
+
+    <div v-if="!form.hora">
+      <label>Fecha para el turno:</label>
+      <input
+        v-model="form.fecha"
+        type="date"
+        :state="false"
+        class="form-control my-3"
+      />
+    </div>
+    <button v-on:click="getTurnos()" class="btn btn-primary" v-if="!form.hora">
+      Buscar turnos
+    </button>
+    <p class="alert alert-danger" v-if="!form.turnos">
+        No hay turnos para esta fecha
+    </p>
+    <p class="alert alert-success" v-if="form.turnos">
+        hay turnos para esta fecha
+    </p>
+    <div v-if="!form.hora">
       <label>Hora de turno:</label>
 
       <select v-model="form.hora" class="browser-default custom-select">
@@ -57,7 +86,9 @@
           {{ turno.hora_inicio }}
         </option>
       </select>
+      
     </div>
+<<<<<<< HEAD
 
     <div id="FormTurnos">
       <h1>
@@ -113,6 +144,60 @@
         </button>
       </form>
     </div>
+=======
+
+    <h1 v-if="form.hora">
+      Ingrese sus datos personales para el turno nombre:
+      {{ this.form.nombre }} y apellido: {{ this.form.apellido }} , telefono:
+      {{ this.form.telefono }} y mail:
+      {{ this.form.email }}
+    </h1>
+
+    <div v-if="form.hora">
+      <label>Nombre:</label>
+      <input
+        type="text"
+        v-model="form.nombre"
+        placeholder="Ingrese el nombre"
+        class="form-control my-3"
+        required
+      />
+    </div>
+    <div v-if="form.hora">
+      <label>Apellido:</label>
+      <input
+        type="text"
+        v-model="form.apellido"
+        placeholder="Ingrese el apellido"
+        class="form-control my-3"
+        required
+      />
+    </div>
+    <div v-if="form.hora">
+      <label>Email:</label>
+      <input
+        type="email"
+        v-model="form.email"
+        placeholder="Ingese el email"
+        class="form-control my-3"
+        required
+      />
+    </div>
+    <div v-if="form.hora">
+      <label>Telefono:</label>
+      <input
+        type="number"
+        v-model="form.telefono"
+        placeholder="Ingrese el telefono"
+        class="form-control my-3"
+        required
+      />
+    </div>
+    <a href="/turnos" class="btn btn-danger" v-if="form.hora">Cancelar</a>
+    <button v-on:click="setTurnos()" class="btn btn-primary" v-if="form.hora">
+      Guardar Turno
+    </button>
+>>>>>>> development
   </div>
 </template>
 
@@ -126,11 +211,13 @@ export default {
     return {
       form: {
         turnos: "",
+<<<<<<< HEAD
         centros: "",
         municipios: "",
+=======
+>>>>>>> development
         cent: "", //el centro seleccionado
         fecha: "", //la fecha seleccionada
-        muni: "", //el municipio selecionado
         hora: "", //hora seleccionada para el turno
         nombre: "", //datos del fomulario
         apellido: "",
@@ -142,31 +229,8 @@ export default {
 
   mounted() {
     this.test();
-    this.getCentros();
-    this.getMunicipios();
   },
   methods: {
-    getMunicipios() {
-      axios
-        .get(
-          "https://api-referencias.proyecto2020.linti.unlp.edu.ar/municipios"
-        )
-        .then((response) => {
-          this.form.municipios = response.data.data.Town;
-        })
-        .catch((e) => console.log(e));
-    },
-    getCentros() {
-      axios
-        .get(
-          "https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/Api/centros/todos"
-        )
-        .then((response) => {
-          this.form.centros = response.data.centros;
-        })
-        .catch((e) => console.log(e));
-    },
-
     getTurnos: function () {
       var url =
         "https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/Api/centros/id_centro/" +
@@ -186,6 +250,7 @@ export default {
     setTurnos: function () {
       console.log("el boton esta funcionando");
       let url =
+<<<<<<< HEAD
         "https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/Api/centros/id_centro/" +
         this.form.cent +
         "/reserva";
@@ -202,12 +267,36 @@ export default {
 
       console.log(json);
       alert(json);
+=======
+        "https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/Api/centros/id_centro/13/reserva";
+      const parms = {
+        centro_id: 13,
+        email_donante: "ejemplo.post@gmail.com",
+        fecha: "2020-11-15",
+        hora_fin: "11:00:00",
+        hora_inicio: "11:30:00",
+        telefono_donante: "2214444444",
+      };
+      let json = JSON.stringify(parms);
+
+      console.log(json);
+      alert(json);
+
+      //let config = {
+      // headers:{
+      // "Content-Type": "application/json",
+      // },
+>>>>>>> development
 
       axios
         .post(url, json)
         .then((response) => {
           console.log(response);
+<<<<<<< HEAD
           
+=======
+          console.log("ENTRO!!");
+>>>>>>> development
           alert(parms);
 
           //document.formulario.reset();

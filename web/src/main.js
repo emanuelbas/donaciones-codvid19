@@ -6,9 +6,10 @@ import { Icon } from 'leaflet';
 import 'bootstrap';
 import './assets/app.css';
 import 'leaflet/dist/leaflet.css';
-
+import VCharts from 'v-charts'
 
 Vue.config.productionTip = false
+Vue.use(VCharts)
 
 new Vue({
   router,
