@@ -46,27 +46,23 @@ def create_app():
                      user.backend, methods=['POST'])
     app.add_url_rule('/logout', 'logout', user.logout)
 
-    # ruta a la api centros
+    # Endpoints para api de centros
     app.add_url_rule('/Api/centros', 'api_centros',
                      centros.mostrar_centros, methods=["GET"])
     app.add_url_rule('/Api/centros/page/<int:page>', 'api_centros',
                      centros.mostrar_centros, methods=["GET"])
     app.add_url_rule('/Api/centros/<int:id>', 'api_centro', centros.mostrar_centro, methods=["GET"])
     app.add_url_rule('/Api/centros/todos', 'mostrar_todos_centros', centros.mostrar_todos_centros, methods=["GET"])
-
-    #ruta Post de Api centros
     app.add_url_rule('/Api/crear_centro', 'api_crear_centro',
                      centros.cargarCentros, methods=["GET", "POST"])
 
-    # ruta a la api turnos
+    # Endpoints para api de turnos
     app.add_url_rule('/Api/centros/id_centro/<int:id_centro>/turnos_disponibles/fecha=<fecha>',
                      'turnos_disponibles', turnos.turnos_disponibles, methods=["POST", "GET"])
-    #app.add_url_rule('/centros/id/<id>/turnos_disponibles',
-    #                 'turnos_disponibles', turnos.turnos_disponibles, methods=["GET"])
     app.add_url_rule('/Api/centros/id_centro/<int:id_centro>/reserva', 'pedir_reserva',
         turnos.pedir_reserva, methods=["POST", "GET"])
 
-    # ruta a centros
+    # Endpoints para centros
     app.add_url_rule('/centros', 'centros',
                      centros_de_ayuda.go_index, methods=["POST", "GET"])
     app.add_url_rule('/centros/page/<int:page>', 'centros',
@@ -89,6 +85,10 @@ def create_app():
                      centros_de_ayuda.despublicar_centro,  methods=["POST", "GET"])
     app.add_url_rule('/centros/mostrar_centro/<id>', 'mostrar_centro',
                      centros_de_ayuda.mostrar_centro,  methods=["POST", "GET"])
+
+    # Endpoints para api de estadisticas
+    app.add_url_rule('/api/estadisticas/tipos', 'centros_por_tipos', centros.centros_por_tipos, methods=["GET"])
+
 
     # ruta a login
     app.add_url_rule('/login', 'login', user.login)

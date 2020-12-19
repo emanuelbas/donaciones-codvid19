@@ -133,3 +133,28 @@ def mostrar_todos_centros():
 	# Generar la respuesta con lo que piden en la actividad
 	response = {'centros':lista }
 	return jsonify(response), 200
+
+
+def centros_por_tipos():
+	''' Controlador para el API Endpoint /api/estadisticas/tipos '''
+	# Obtener los datos
+	try:
+		centros = Centro_de_ayuda.query.filter_by(publicado=True).all()
+		tipos = Tipo_de_centro.query.all()
+	except:
+		return jsonify({"error":"500 Error en la lectura de la base de datos"}), 500
+
+	contadores = {}
+	for tipo in tipos:
+		contadores[tipo.nombre] = 0
+
+	# Procesarlos
+	for centro in centros:
+		for tipo_de_centro in centro.tipos_de_centro:
+			contadores[tipo_de_centro.nombre] = contadores[tipo_de_centro.nombre] + 1
+	
+	# Generar respuesta
+	response = {'centros_por_tipo':contadores}
+	
+	return jsonify(response), 200
+
