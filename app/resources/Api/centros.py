@@ -152,9 +152,15 @@ def centros_por_tipos():
 	for centro in centros:
 		for tipo_de_centro in centro.tipos_de_centro:
 			contadores[tipo_de_centro.nombre] = contadores[tipo_de_centro.nombre] + 1
+
 	
 	# Generar respuesta
-	response = {'centros_por_tipo':contadores}
+	res = []
+	for tipo in tipos:
+		res.append({"tipo" : tipo.nombre, "cantidad" : contadores[tipo.nombre]})
+
+
+	response = {'centros_por_tipo':res}
 	
 	return jsonify(response), 200
 

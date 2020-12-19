@@ -26,13 +26,14 @@
 
 <script>
 import VeLine from 'v-charts/lib/line.common';
-//import axios from "axios";
+import axios from "axios";
 import Title from '@/components/Title.vue';
 export default {
   name: 'Estadisticas',
   components: { VeLine, Title },
   data () {
     return {
+      filas: [],
       tiposDeCentro: {
           columns: ['tipo','cantidad'],
           rows: [
@@ -87,6 +88,23 @@ export default {
           ]
         }
 
+    }
+  },  
+  mounted() {
+    this.getPieDeTipos();
+  },
+  methods: {
+    getPieDeTipos() {
+      axios
+        .get("https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/api/estadisticas/tipos")
+        .then((response) => {
+          this.tiposDeCentro =
+          {
+            columns: ['tipo','cantidad'],
+            rows: response.data.centros_por_tipo
+          }
+        })
+        .catch((e) => console.log(e));
     }
   }
 }
