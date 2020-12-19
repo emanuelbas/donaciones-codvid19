@@ -33,16 +33,7 @@ export default {
   components: { VeLine, Title },
   data () {
     return {
-      filas: [],
-      tiposDeCentro: {
-          columns: ['tipo','cantidad'],
-          rows: [
-            { 'tipo': 'Sangre', 'cantidad':10 },
-            { 'tipo': 'Plasma', 'cantidad':32 },
-            { 'tipo': 'Ropa', 'cantidad':5 },
-            { 'tipo': 'Comida', 'cantidad':55 },
-          ]
-        },
+      tiposDeCentro: {},
       turnosPorDia: {
           columns: ['date', 'turnos'],
           rows: [
