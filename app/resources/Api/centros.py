@@ -164,3 +164,38 @@ def centros_por_tipos():
 	
 	return jsonify(response), 200
 
+def total_turnos_del_mes():
+	''' Controlador para el API Endpoint /api/estadisticas/total_turnos_del_mes.
+		Responde a un GET brindando los turnos solicitados en los últimos 30 días
+	'''
+	# Obtener los datos
+
+	# Procesarlos
+
+	# Generar respuesta
+	response = ''
+	return jsonify(response), 200
+
+
+def total_turnos_del_mes():
+	''' Controlador para el API Endpoint /api/estadisticas/top10_centros_del_mes.
+		Responde a un GET brindando los 10 con mayor cantidad de turnos y la cantidad de turnos
+	'''
+	# Obtener los datos
+
+	# Procesarlos
+
+	# Generar respuesta
+	response = {'top_10':[
+	{'nombre' : 'Centro pepepito 1', 'cantidad' : 25},
+	{'nombre' : 'Centro pepepito 2', 'cantidad' : 30},
+	{'nombre' : 'Centro pepepito 3', 'cantidad' : 40},
+	{'nombre' : 'Centro pepepito 4', 'cantidad' : 80},
+	{'nombre' : 'Centro pepepito 5', 'cantidad' : 100},
+	{'nombre' : 'Centro pepepito 6', 'cantidad' : 120},
+	{'nombre' : 'Centro pepepito 7', 'cantidad' : 130},
+	{'nombre' : 'Centro pepepito 8', 'cantidad' : 140},
+	{'nombre' : 'Centro pepepito 9', 'cantidad' : 150},
+	{'nombre' : 'Centro pepepito 10', 'cantidad' : 160},
+	]}
+	return jsonify(response), 200

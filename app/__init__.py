@@ -88,6 +88,7 @@ def create_app():
 
     # Endpoints para api de estadisticas
     app.add_url_rule('/api/estadisticas/tipos', 'centros_por_tipos', centros.centros_por_tipos, methods=["GET"])
+    app.add_url_rule('/api/estadisticas/top10_centros_del_mes', 'total_turnos_del_mes', centros.total_turnos_del_mes, methods=["GET"])
 
 
     # ruta a login
