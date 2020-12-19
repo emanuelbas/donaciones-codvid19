@@ -158,7 +158,6 @@ export default {
       // "Content-Type": "application/json",
       // },
 
-      //};
       axios
         .post(url, json)
         .then((response) => {
