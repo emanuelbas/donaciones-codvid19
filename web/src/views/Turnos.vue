@@ -20,7 +20,12 @@
     <button v-on:click="getTurnos()" class="btn btn-primary" v-if="!form.hora">
       Buscar turnos
     </button>
-
+    <p class="alert alert-danger" v-if="!form.turnos">
+        No hay turnos para esta fecha
+    </p>
+    <p class="alert alert-success" v-if="form.turnos">
+        hay turnos para esta fecha
+    </p>
     <div v-if="!form.hora">
       <label>Hora de turno:</label>
 
@@ -33,9 +38,7 @@
           {{ turno.hora_inicio }}
         </option>
       </select>
-      <p class="alert alert-danger" v-if="form.fecha && !form.hora">
-        No hay turnnos para esta fecha
-      </p>
+      
     </div>
 
     <h1 v-if="form.hora">
