@@ -173,11 +173,21 @@ def total_turnos_del_mes():
 	# Procesarlos
 
 	# Generar respuesta
-	response = ''
+	response = {'turnos_por_dia':[
+	{'dia' : '10-12-2020', 'turnos' : 25},
+	{'dia' : '10-12-2020', 'turnos' : 5},
+	{'dia' : '10-12-2020', 'turnos' : 3},
+	{'dia' : '10-12-2020', 'turnos' : 43},
+	{'dia' : '10-12-2020', 'turnos' : 234},
+	{'dia' : '10-12-2020', 'turnos' : 234},
+	{'dia' : '10-12-2020', 'turnos' : 4},
+	{'dia' : '10-12-2020', 'turnos' : 3},
+	{'dia' : '10-12-2020', 'turnos' : 233}
+	]}
 	return jsonify(response), 200
 
 
-def total_turnos_del_mes():
+def top10_centros_del_mes():
 	''' Controlador para el API Endpoint /api/estadisticas/top10_centros_del_mes.
 		Responde a un GET brindando los 10 con mayor cantidad de turnos y la cantidad de turnos
 	'''
