@@ -19,7 +19,7 @@
       <h3>TOP-10 Centros de Ayuda</h3>
       <h5> Se muestran los 10 Centros de ayuda más concurridos en los últimos 30 días</h5>
       <br>
-      <ve-bar :data="top10"></ve-bar>
+      <ve-bar :data="mejoresCentros"></ve-bar>
     </div>
   </div>
 </template>
@@ -34,55 +34,14 @@ export default {
   data () {
     return {
       tiposDeCentro: {},
-      turnosPorDia: {
-          columns: ['date', 'turnos'],
-          rows: [
-            { 'date': '06-01', 'turnos': 233 },
-            { 'date': '07-01', 'turnos': 1223 },
-            { 'date': '08-01', 'turnos': 2123 },
-            { 'date': '09-01', 'turnos': 4123 },
-            { 'date': '10-01', 'turnos': 3123},
-            { 'date': '11-01', 'turnos': 7123 },
-            { 'date': '12-01', 'turnos': 123 },
-            { 'date': '13-01', 'turnos': 1223 },
-            { 'date': '14-01', 'turnos': 2123 },
-            { 'date': '15-01', 'turnos': 4123 },
-            { 'date': '16-01', 'turnos': 3123},
-            { 'date': '21-01', 'turnos': 123 },
-            { 'date': '22-01', 'turnos': 1223 },
-            { 'date': '23-01', 'turnos': 2123 },
-            { 'date': '24-01', 'turnos': 4123 },
-            { 'date': '25-01', 'turnos': 3123},
-            { 'date': '26-01', 'turnos': 123 },
-            { 'date': '27-01', 'turnos': 1223 },
-            { 'date': '28-01', 'turnos': 2123 },
-            { 'date': '29-01', 'turnos': 4123 },
-            { 'date': '30-01', 'turnos': 3123},
-          ]
-        },
-
-      top10: {
-          columns: ['centro', 'turnos'],
-          rows: [
-            { 'centro': 'Centro de ayuda Pepito', 'turnos': 10 },
-            { 'centro': 'Centro de ayuda Cruz Roja', 'turnos': 40},
-            { 'centro': 'Hospital de Niños', 'turnos': 80 },
-            { 'centro': 'Comedor La Esperanza', 'turnos': 125 },
-            { 'centro': 'Club Deportivo los Saltamontes', 'turnos': 200 },
-            { 'centro': 'Escuela Secundaria Nº5', 'turnos': 300 },
-            { 'centro': 'Centro de ayuda Pepito', 'turnos': 310 },
-            { 'centro': 'Centro de ayuda Cruz Roja', 'turnos': 320},
-            { 'centro': 'Hospital de Niños', 'turnos': 330 },
-            { 'centro': 'Comedor La Esperanza', 'turnos': 350 },
-            { 'centro': 'Club Deportivo los Saltamontes', 'turnos': 400 },
-            { 'centro': 'Escuela Secundaria Nº5', 'turnos': 500 }        
-          ]
-        }
-
+      mejoresCentros: {},
+      turnosPorDia: {}
     }
   },  
   mounted() {
     this.getPieDeTipos();
+    this.getTopTen();
+    this.getTotalTurnosDelMes();
   },
   methods: {
     getPieDeTipos() {
@@ -93,6 +52,30 @@ export default {
           {
             columns: ['tipo','cantidad'],
             rows: response.data.centros_por_tipo
+          }
+        })
+        .catch((e) => console.log(e));
+    },
+    getTopTen(){
+      axios
+        .get("https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/api/estadisticas/top10_centros_del_mes")
+        .then((response) => {
+          this.mejoresCentros =
+          {
+            columns: ['nombre','cantidad'],
+            rows: response.data.top_10
+          }
+        })
+        .catch((e) => console.log(e));
+    },
+    getTotalTurnosDelMes(){
+      axios
+        .get("https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/api/estadisticas/total_turnos_del_mes")
+        .then((response) => {
+          this.turnosPorDia =
+          {
+            columns: ['dia','turnos'],
+            rows: response.data.turnos_por_dia
           }
         })
         .catch((e) => console.log(e));
