@@ -84,8 +84,11 @@ class Turno(db.Model):
 
     def ultimos_turnos_para_centro(centro_id):
         turnos = Turno.query.filter_by(centro_id=centro_id).filter_by(dia>='1985-01-17').filter_by(disponible=0).all()
+        return turnos
 
     def turnos_tomados_del_mes():
-        fecha_hace_30_dias = datetime.datetime.now() - timedelta(days=30)
-        fecha_hace_30_dias = fecha_hace_30_dias.strftime("%m-%d-%Y")
-        turnos = Turno.query.filter_by(dia>=fecha_hace_30_dias).filter_by(disponible=0).all()
+        # Tenemos que arreglar esta funcion en caso que se modifique el sistema de turnos
+        # Ademas mejorarla para que devuelva solo los turnos del mes
+        # fecha_hace_30_dias = datetime.now() - timedelta(days=30)
+        # fecha_hace_30_dias = fecha_hace_30_dias.strftime("%m-%d-%Y")
+        return Turno.query.filter_by(disponible=0).all()

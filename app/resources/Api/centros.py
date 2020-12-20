@@ -6,7 +6,7 @@ from app.models.turnos_para_centro import Turno
 from flask import Response
 from app.models.configuracion import Configuracion
 import math
-import datetime, timedelta
+from datetime import datetime, timedelta
 
 def mostrar_centros(page=1):
 
@@ -172,28 +172,33 @@ def total_turnos_del_mes():
 	'''
 	# Inicializar variables
 	contadores_turnos_por_dia = {}
-	dia_actual = datetime.datetime.now()
+	dia_actual = datetime.now()
 	for i in range(30):
 		contadores_turnos_por_dia[dia_actual.strftime("%m-%d-%Y")] = 0	
-		dia_cctual = dia_actual - timedelta(days=1)
+		dia_actual = dia_actual - timedelta(days=1)
 	# Leer tablas
 	try:
-		Turno.turnos_tomados_del_mes()
+		turnos = Turno.turnos_tomados_del_mes()
+		print(turnos)
 	except:
 		return jsonify({"error":"500 Error en la lectura de la base de datos"}), 500
 
 	# Procesar
 	for turno in turnos:
-		contadores_turnos_por_dia[turno.dia] = contadores_turnos_por_dia + 1
-
+		try:
+			contadores_turnos_por_dia[turno.dia.strftime("%m-%d-%Y")] = contadores_turnos_por_dia[turno.dia.strftime("%m-%d-%Y")] + 1
+		except:
+			res = []
 	# Generar respuesta
 	res = []
-
-	dia_actual = datetime.datetime.now()
+	dia_actual = datetime.now()
 	for i in range(30):
 		str_del_dia = dia_actual.strftime("%m-%d-%Y")
-		turnos_del_dia = contadores_turnos_por_dia[str_del_dia]
-		res.append({"dia" : str_del_dia , "turnos" : turnos_del_dia})
+		try:
+			turnos_del_dia = contadores_turnos_por_dia[str_del_dia]
+			res.append({"dia" : str_del_dia , "turnos" : turnos_del_dia})
+		except:
+			nada = 'nada'
 		dia_actual = dia_actual - timedelta(days=1)
 
 	response = {'turnos_por_dia': res}
