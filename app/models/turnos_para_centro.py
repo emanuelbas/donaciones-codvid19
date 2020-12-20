@@ -93,5 +93,5 @@ class Turno(db.Model):
         # fecha_hace_30_dias = fecha_hace_30_dias.strftime("%m-%d-%Y")
         return Turno.query.filter_by(disponible=0).all()
 
-    def turnos_para_centro(id_centro):
-        return Turno.query.filter_by(centro_id=id_centro).all()
+    def turnos_tomados_para_centro(id_centro):
+        return Turno.query.filter_by(centro_id=id_centro).filter_by(disponible=0).all()

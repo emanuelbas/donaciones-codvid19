@@ -213,14 +213,14 @@ def top10_centros_del_mes():
 		centros_y_sus_turnos = []
 		todos_los_centros = Centro_de_ayuda.publicados()
 		for centro in todos_los_centros:
-			turnos_para_centro = Turno.turnos_para_centro(centro.id)
+			turnos_para_centro = Turno.turnos_tomados_para_centro(centro.id)
 			cant_turnos = len(turnos_para_centro)
 			centros_y_sus_turnos.append({"nombre" : centro.nombre , "cantidad" : cant_turnos})
 	except:
 		return jsonify({"error":"500 Error en la lectura de la base de datos"}), 500
 
 	# Procesar
-	centros_ordenados = sorted(centros_y_sus_turnos, key=lambda k: k['cantidad'], reverse=True) 
+	centros_ordenados = sorted(centros_y_sus_turnos, key=lambda k: k['cantidad']) 
 	mejores_10_centros = centros_ordenados[:10]
 
 	# Generar respuesta
