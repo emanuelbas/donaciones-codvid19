@@ -5,7 +5,7 @@ https://gitlab.catedras.linti.unlp.edu.ar/proyecto2020/grupo22/-/blob/5de60a76b0
   <div class="container" style="height: 500px; width: 100%">
     <Title title="Mapa de Centros de Ayuda"/>
     <br>
-    <p> Se muestran los <b>centros de ayuda social</b> publicados, puedes hacer click para ver información y <b>pedir un turno</b>. También podés <b>solicitar el registro</b> de un nuevo centro de ayuda social haciendo <a href="#">click aquí</a>.</p>
+    <p> Se muestran los <b>centros de ayuda social</b> publicados, puedes hacer click para ver información y <b>pedir un turno</b>. También podés <b>solicitar el registro</b> de un nuevo centro de ayuda social haciendo <router-link to="/alta_centro">Click Aquí</router-link>.</p>
     <l-map 
       v-if="showMap"
       :zoom="zoom"

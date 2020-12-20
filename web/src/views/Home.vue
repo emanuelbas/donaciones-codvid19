@@ -28,7 +28,6 @@
                <div class="col-sm-12">
             
                 <h3><b>Ver Centro mas cercano</b></h3>
-                <p> Aquí ira el mapa</p>
                 <p>Dirección: Calle 12 286 - La PLata - Buenos Aires - Argentina <br>
                 <a title="Abrir" href="https://caritaslaplata.org/">Haz click aquí para ver más información de este centro</a></p>
                 <br><br>
@@ -40,7 +39,7 @@
                <div class="col-sm-12">
             
                 <h3><b>Crear un nuevo centro de ayuda</b></h3>
-                <a title="crear" href="">Crear centro</a>
+                <router-link to="/alta_centro">Crear Centro</router-link>
                 <br><br>
                 </div>
 
