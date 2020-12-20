@@ -81,3 +81,5 @@ class Turno(db.Model):
             return True
         else:
             return False
+
+    #def ultimos_turnos_para_centro(centro_id):
