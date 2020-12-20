@@ -17,7 +17,7 @@
 
     <div class="container mt-5">
       <h3>TOP-10 Centros de Ayuda</h3>
-      <h5> Se muestran los 10 Centros de ayuda más concurridos en los últimos 30 días</h5>
+      <h5> Se muestran los 10 Centros de ayuda más concurridos </h5>
       <br>
       <ve-bar :data="mejoresCentros"></ve-bar>
     </div>
@@ -75,7 +75,7 @@ export default {
           this.turnosPorDia =
           {
             columns: ['dia','turnos'],
-            rows: response.data.turnos_por_dia.reverse()
+            rows: response.data.turnos_por_dia
           }
         })
         .catch((e) => console.log(e));
