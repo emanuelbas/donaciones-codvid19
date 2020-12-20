@@ -125,6 +125,9 @@ class Centro_de_ayuda(db.Model):
         db.session.commit()
         return True
 
+    def publicados():
+        return Centro_de_ayuda.query.filter_by(publicado=True).all()
+
     def hola_mundo():
         print("Hola mundo")
         return True

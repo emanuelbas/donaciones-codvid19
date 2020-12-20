@@ -179,7 +179,6 @@ def total_turnos_del_mes():
 	# Leer tablas
 	try:
 		turnos = Turno.turnos_tomados_del_mes()
-		print(turnos)
 	except:
 		return jsonify({"error":"500 Error en la lectura de la base de datos"}), 500
 
@@ -209,26 +208,21 @@ def top10_centros_del_mes():
 	''' Controlador para el API Endpoint /api/estadisticas/top10_centros_del_mes.
 		Responde a un GET brindando los 10 con mayor cantidad de turnos y la cantidad de turnos
 	'''
-	# Obtener los datos
+	# Leer tablas
 	try:
-		centros = Centro_de_ayuda.query.filter_by(publicado=True).all()
-		tipos = Tipo_de_centro.query.all()
+		centros_y_sus_turnos = []
+		todos_los_centros = Centro_de_ayuda.publicados()
+		for centro in todos_los_centros:
+			turnos_para_centro = Turno.turnos_para_centro(centro.id)
+			cant_turnos = len(turnos_para_centro)
+			centros_y_sus_turnos.append({"nombre" : centro.nombre , "cantidad" : cant_turnos})
 	except:
 		return jsonify({"error":"500 Error en la lectura de la base de datos"}), 500
 
-	# Procesarlos
+	# Procesar
+	centros_ordenados = sorted(centros_y_sus_turnos, key=lambda k: k['cantidad'], reverse=True) 
+	mejores_10_centros = centros_ordenados[:10]
 
 	# Generar respuesta
-	response = {'top_10':[
-	{'nombre' : 'Centro pepepito 1', 'cantidad' : 25},
-	{'nombre' : 'Centro pepepito 2', 'cantidad' : 30},
-	{'nombre' : 'Centro pepepito 3', 'cantidad' : 40},
-	{'nombre' : 'Centro pepepito 4', 'cantidad' : 80},
-	{'nombre' : 'Centro pepepito 5', 'cantidad' : 100},
-	{'nombre' : 'Centro pepepito 6', 'cantidad' : 120},
-	{'nombre' : 'Centro pepepito 7', 'cantidad' : 130},
-	{'nombre' : 'Centro pepepito 8', 'cantidad' : 140},
-	{'nombre' : 'Centro pepepito 9', 'cantidad' : 150},
-	{'nombre' : 'Centro pepepito 10', 'cantidad' : 160},
-	]}
+	response = {'top_10': mejores_10_centros}
 	return jsonify(response), 200
