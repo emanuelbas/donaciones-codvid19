@@ -221,8 +221,9 @@ def top10_centros_del_mes():
 
 	# Procesar
 	centros_ordenados = sorted(centros_y_sus_turnos, key=lambda k: k['cantidad'], reverse=True) 
-	mejores_10_centros = centros_ordenados[:10].reverse()
-
+	mejores_10_centros = centros_ordenados[:10]
+	mejores_10_centros.reverse()
+	
 	# Generar respuesta
 	response = {'top_10': mejores_10_centros}
 	return jsonify(response), 200
