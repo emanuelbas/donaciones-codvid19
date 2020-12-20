@@ -75,7 +75,7 @@ export default {
           this.turnosPorDia =
           {
             columns: ['dia','turnos'],
-            rows: response.data.turnos_por_dia
+            rows: response.data.turnos_por_dia.reverse()
           }
         })
         .catch((e) => console.log(e));
