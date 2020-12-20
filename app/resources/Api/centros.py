@@ -220,7 +220,7 @@ def top10_centros_del_mes():
 		return jsonify({"error":"500 Error en la lectura de la base de datos"}), 500
 
 	# Procesar
-	centros_ordenados = sorted(centros_y_sus_turnos, key=lambda k: k['cantidad']) 
+	centros_ordenados = sorted(centros_y_sus_turnos, key=lambda k: k['cantidad'], reverse=True) 
 	mejores_10_centros = centros_ordenados[:10]
 
 	# Generar respuesta
