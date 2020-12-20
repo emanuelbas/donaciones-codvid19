@@ -2,9 +2,11 @@ from flask import Flask
 from flask import jsonify
 from flask import request 
 from app.models.centro_de_ayuda import Centro_de_ayuda, Municipio, Tipo_de_centro, Estado_centro
+from app.models.turnos_para_centro import Turno
 from flask import Response
 from app.models.configuracion import Configuracion
 import math
+import datetime, timedelta
 
 def mostrar_centros(page=1):
 
@@ -168,22 +170,33 @@ def total_turnos_del_mes():
 	''' Controlador para el API Endpoint /api/estadisticas/total_turnos_del_mes.
 		Responde a un GET brindando los turnos solicitados en los últimos 30 días
 	'''
-	# Obtener los datos
+	# Inicializar variables
+	contadores_turnos_por_dia = {}
+	dia_actual = datetime.datetime.now()
+	for i in range(30):
+		contadores_turnos_por_dia[dia_actual.strftime("%m-%d-%Y")] = 0	
+		dia_cctual = dia_actual - timedelta(days=1)
+	# Leer tablas
+	try:
+		Turno.turnos_tomados_del_mes()
+	except:
+		return jsonify({"error":"500 Error en la lectura de la base de datos"}), 500
 
-	# Procesarlos
+	# Procesar
+	for turno in turnos:
+		contadores_turnos_por_dia[turno.dia] = contadores_turnos_por_dia + 1
 
 	# Generar respuesta
-	response = {'turnos_por_dia':[
-	{'dia' : '10-12-2020', 'turnos' : 25},
-	{'dia' : '11-12-2020', 'turnos' : 5},
-	{'dia' : '12-12-2020', 'turnos' : 3},
-	{'dia' : '13-12-2020', 'turnos' : 43},
-	{'dia' : '14-12-2020', 'turnos' : 234},
-	{'dia' : '15-12-2020', 'turnos' : 234},
-	{'dia' : '16-12-2020', 'turnos' : 4},
-	{'dia' : '17-12-2020', 'turnos' : 3},
-	{'dia' : '18-12-2020', 'turnos' : 233}
-	]}
+	res = []
+
+	dia_actual = datetime.datetime.now()
+	for i in range(30):
+		str_del_dia = dia_actual.strftime("%m-%d-%Y")
+		turnos_del_dia = contadores_turnos_por_dia[str_del_dia]
+		res.append({"dia" : str_del_dia , "turnos" : turnos_del_dia})
+		dia_actual = dia_actual - timedelta(days=1)
+
+	response = {'turnos_por_dia': res}
 	return jsonify(response), 200
 
 
@@ -192,6 +205,11 @@ def top10_centros_del_mes():
 		Responde a un GET brindando los 10 con mayor cantidad de turnos y la cantidad de turnos
 	'''
 	# Obtener los datos
+	try:
+		centros = Centro_de_ayuda.query.filter_by(publicado=True).all()
+		tipos = Tipo_de_centro.query.all()
+	except:
+		return jsonify({"error":"500 Error en la lectura de la base de datos"}), 500
 
 	# Procesarlos
 

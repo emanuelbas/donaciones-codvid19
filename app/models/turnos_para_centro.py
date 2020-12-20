@@ -1,5 +1,5 @@
 from app.db import db
-from datetime import datetime
+from datetime import datetime, timedelta
 
 
 class Turno(db.Model):
@@ -82,4 +82,10 @@ class Turno(db.Model):
         else:
             return False
 
-    #def ultimos_turnos_para_centro(centro_id):
+    def ultimos_turnos_para_centro(centro_id):
+        turnos = Turno.query.filter_by(centro_id=centro_id).filter_by(dia>='1985-01-17').filter_by(disponible=0).all()
+
+    def turnos_tomados_del_mes():
+        fecha_hace_30_dias = datetime.datetime.now() - timedelta(days=30)
+        fecha_hace_30_dias = fecha_hace_30_dias.strftime("%m-%d-%Y")
+        turnos = Turno.query.filter_by(dia>=fecha_hace_30_dias).filter_by(disponible=0).all()
