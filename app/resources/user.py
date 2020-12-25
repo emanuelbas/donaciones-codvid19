@@ -16,7 +16,7 @@ def login():
         usuario = User.get_by_email_and_pass(params['usuario'], params['clave'])
         user = User.get_by_username(params['usuario'])
         if user.activo == 0:
-            return render_template('usuarioDesactivar.html')
+            return render_template('errores/usuario_deshabilitado.html')
         if usuario:
             mensaje = "Se logueo correctamente"
             session['usuario'] = usuario
