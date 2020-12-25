@@ -4,11 +4,13 @@ from app.models.turnos_para_centro import Turno
 from app.models.centro_de_ayuda import Centro_de_ayuda
 from app.models.turnos_para_cada_centro import Turnos_para_cada_centro
 from app.models.configuracion import Configuracion
+from app.helpers import permisos
 import time
 import datetime
 
 
 def index_turno(id='', page=1, email=' '):
+    permisos.validar_permisos('turno_index')
     per_page = Configuracion.get_config().cantPagina
     
     
@@ -44,6 +46,7 @@ def index_turno(id='', page=1, email=' '):
 
 
 def crear_turno():
+    permisos.validar_permisos('turno_create')
     centros = Centro_de_ayuda.all()
     turnos_todos = Turno.all()
     if request.method == 'POST':
@@ -75,6 +78,7 @@ def crear_turno():
 
 
 def editar_turno(id):
+    permisos.validar_permisos('turno_edit')
     turno = Turno.get_by_id(id)
     if request.method == 'POST':
         t = request.form
@@ -89,6 +93,7 @@ def editar_turno(id):
 
 
 def sacar_turno(id):
+    permisos.validar_permisos('turno_edit')
     turno = Turno.get_by_id(id)
     if request.method == 'POST':
         t = request.form
@@ -103,6 +108,7 @@ def sacar_turno(id):
 
 
 def borrar_turno(id):
+    permisos.validar_permisos('turno_delete')
     Turno.delete(id)
     turno = Turno.all()
     return redirect(url_for('index_turno', turno=turno))

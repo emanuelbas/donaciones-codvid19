@@ -4,54 +4,33 @@ from datetime import date
 from app.helpers import permisos
 from app.models.configuracion import Configuracion
 from app.models.rol import Rol
-def quienesomos():
-    #configuracion = Configuracion.get_config() #esto hay que poner en algunos def para que cuando este desactivado el user no pueda entrar
-    #if configuracion.activo == 0:
-    #    return render_template('sitioDesactivado.html')
-    permisos.validar_permisos('')
-    usuario = User.all()
-    print(usuario)
-    return render_template('quienesomos.html', usuario=usuario)
-
 
 def centros():
     permisos.validar_permisos('')
-    #configuracion = Configuracion.get_config() #esto hay que poner en algunos def para que cuando este desactivado el user no pueda entrar
-    #if configuracion.activo == 0:
-    #    return render_template('sitioDesactivado.html')
     return render_template('centros.html')
 
 
 def login():
+    if request.method == 'POST':    
+        params = request.form
+        usuario = User.get_by_email_and_pass(params['usuario'], params['clave'])
+        user = User.get_by_username(params['usuario'])
+        if user.activo == 0:
+            return render_template('usuarioDesactivar.html')
+        if usuario:
+            mensaje = "Se logueo correctamente"
+            session['usuario'] = usuario
+            permisos.validar_permisos('')
+            configuracion = Configuracion.get_config()
+            return render_template('index.html', mensaje=mensaje, configuracion=configuracion)
+        else:
+            mensaje = "No logro autenticarse, vuelva a intentarlo."
+            return render_template('/auth/login.html', mensaje=mensaje)
     return render_template('/auth/login.html')
-
-# agregado para el login
-
-
-# A tener en cuenta!
-# When the session data is stored in the server you can be sure that any 
-# data that you write to it is as secure as your server.
-def backend():
-
-    params = request.form
-    usuario = User.get_by_email_and_pass(params['usuario'], params['clave'])
-    user = User.get_by_username(params['usuario'])
-    #print(user.activo)
-    if user.activo == 0:#preguntamos si el usuario esta desactivado
-        return render_template('usuarioDesactivar.html')
-    if usuario:
-        mensaje = "Se logueo correctamente"
-        session['usuario'] = usuario
-        permisos.validar_permisos('')
-        return render_template('backend.html', mensaje=mensaje)
-    else:
-        mensaje = "No logro autenticarse, vuelva a intentarlo."
-        return render_template('/auth/login.html', mensaje=mensaje)
 
 def logout():
     session.clear()
     return redirect(url_for('index'))
-
 
 def edit_usuario(id):
     permisos.validar_permisos('user_edit')
@@ -157,4 +136,3 @@ def agregar_rol(usuario,rol):
     User.agregar_rol(usuario,rol)
     lista_de_usuarios = User.all()
     return render_template('usuario/index_usuario.html', usuario = lista_de_usuarios)
-
