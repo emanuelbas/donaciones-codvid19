@@ -81,7 +81,7 @@ def crear_centro():
 			# Teniendo la id del nuevo centro puedo guardar su archivo
 			file = request.files['pdf']
 			path = 'app/static/uploads/'
-			filename = str(res.id)+'_' + secure_filename(file.filename)
+			filename = str(res.id)+'_' + "Protocolo_de_visita.pdf"
 			file.save(path+filename)
 			Centro_de_ayuda.set_protocolo(id=res.id,fn=filename)
 
