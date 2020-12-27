@@ -8,9 +8,9 @@ from app.models.rol import Rol
 # Hay un trucazo para generar la BD en el minuto 11:37
 roles = db.Table('usuario_tiene_rol',
                  db.Column('usuario_id', db.Integer, db.ForeignKey(
-                     'usuario.id'), primary_key=True),
+                     'usuario.id')),
                  db.Column('rol_id', db.Integer, db.ForeignKey(
-                     'rol.id'), primary_key=True)
+                     'rol.id'))
                  )
 
 

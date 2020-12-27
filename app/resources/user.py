@@ -44,7 +44,8 @@ def edit_usuario(id):
         elif User.existe_email(u['email']) and not u['email'] == usuario.email:
             mensaje="El email ya existe"
         else:
-            User.edit(id, u['usuario'], u['clave'], u['nombre'], u['apellido'], u['email'], u['activo'], u['roles'])
+            nuevos_roles = request.form.getlist("roles")
+            User.edit(id, u['usuario'], u['clave'], u['nombre'], u['apellido'], u['email'], u['activo'], nuevos_roles)
             mensaje = "Usuario creado exitosamente"
             usuarios = User.all()
             #return render_template('usuario/editar_usuario.html', mensaje=mensaje, usuario=usuario)
