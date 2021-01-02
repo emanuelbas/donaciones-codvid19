@@ -30,6 +30,7 @@ Ajustar las credenciales en el archivo /config.py
 Instalar las dependencias de la parte privada
 
 ```
+cd donaciones-codvid19
 pip3 install -r requirements.txt
 ```
 Instalar las dependencias de la parte pública
@@ -44,15 +45,12 @@ npm install
 * [Vue.js](https://vuejs.org/) - The Progressive JavaScript Framework
 * [Flask](https://flask.palletsprojects.com/en/1.1.x/) - Web development, one drop at a time
 * [XAMP](https://www.apachefriends.org/es/index.html) - Apache + MariaDB + PHP + Perl
-
+* [SQLAlchemy](https://www.sqlalchemy.org/) - The Python SQL Toolkit and Object Relational Mapper
+* [Leaflet](https://leafletjs.com/) - An open-source JavaScript library for mobile-friendly interactive maps
+* [Axios](https://www.npmjs.com/package/axios) - Promise based HTTP client for the browser and node.js
+* [Bootstrap](https://getbootstrap.com/) - Build fast, responsive sites with Bootstrap
 
 ## Autores ✒️
-
-
- 11894/3
- 11177/8
- 10486/5
- 11123/4
 
 * **Mayra Anabela Luengo Orellano**
 * **Emanuel Bastons**
