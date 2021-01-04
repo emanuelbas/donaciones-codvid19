@@ -10,22 +10,11 @@
 
     <div v-if="!form.hora">
       <label>Fecha para el turno:</label>
-      <input
-        v-model="form.fecha"
-        type="date"
-        :state="false"
-        class="form-control my-3"
-      />
+      <input v-model="form.fecha" type="date" :state="false" class="form-control my-3" />
     </div>
-    <button v-on:click="getTurnos()" class="btn btn-primary" v-if="!form.hora">
-      Buscar turnos
-    </button>
-    <p class="alert alert-danger" v-if="!form.turnos">
-        No hay turnos para esta fecha
-    </p>
-    <p class="alert alert-success" v-if="form.turnos">
-        hay turnos para esta fecha
-    </p>
+    <button v-on:click="getTurnos()" class="btn btn-primary" v-if="!form.hora">Buscar turnos</button>
+    <p class="alert alert-danger" v-if="!form.turnos">No hay turnos para esta fecha</p>
+    <p class="alert alert-success" v-if="form.turnos">hay turnos para esta fecha</p>
     <div v-if="!form.hora">
       <label>Hora de turno:</label>
 
@@ -34,11 +23,8 @@
           v-for="turno in form.turnos"
           :key="turno.id"
           :value="turno.hora_inicio"
-        >
-          {{ turno.hora_inicio }}
-        </option>
+        >{{ turno.hora_inicio }}</option>
       </select>
-      
     </div>
 
     <h1 v-if="form.hora">
@@ -89,9 +75,7 @@
       />
     </div>
     <a href="/turnos" class="btn btn-danger" v-if="form.hora">Cancelar</a>
-    <button v-on:click="setTurnos()" class="btn btn-primary" v-if="form.hora">
-      Guardar Turno
-    </button>
+    <button v-on:click="setTurnos()" class="btn btn-primary" v-if="form.hora">Guardar Turno</button>
   </div>
 </template>
 
@@ -142,7 +126,7 @@ export default {
         "https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/Api/centros/id_centro/13/reserva";
       const parms = {
         centro_id: 13,
-        email_donante: "ejemplo.post@gmail.com",
+        email_donante: "ejemplo.70@gmail.com",
         fecha: "2020-11-15",
         hora_fin: "11:00:00",
         hora_inicio: "11:30:00",
@@ -150,19 +134,20 @@ export default {
       };
       let json = JSON.stringify(parms);
 
-      console.log(json);
-      alert(json);
+      //console.log(json);
+      //alert(json);
 
-      //let config = {
-      // headers:{
-      // "Content-Type": "application/json",
-      // },
+      let config = {
+       headers:{
+       "Content-Type": "application/json"
+       }
+      };
 
       axios
-        .post(url, json)
+        .post(url, json, config)
         .then((response) => {
           console.log(response);
-          console.log("ENTRO!!");
+          alert("ENTRO!!");
           alert(parms);
 
           //document.formulario.reset();
