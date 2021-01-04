@@ -71,8 +71,8 @@ class Turno(db.Model):
     def reservar_turno(centro_id,nombre,apellido,email_donante,telefono_donante,hora_inicio,hora_fin,fecha):
         turno = Turno.query.filter_by(centro_id=centro_id).filter_by(hora_ini=hora_inicio).filter_by(dia=fecha).first()
         if turno and turno.disponible:
-            nombre = nombre
-            apellido = apellido
+            turno.nombre = nombre
+            turno.apellido = apellido
             turno.email = email_donante
             turno.telefono = telefono_donante
             turno.disponible = 0

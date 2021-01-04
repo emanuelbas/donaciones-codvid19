@@ -137,7 +137,7 @@ export default {
       };
       let json = JSON.stringify(parms);
 
-      //console.log(json);
+      console.log(json);
       //alert(json);
 
       let config = {
