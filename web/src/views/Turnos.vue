@@ -126,6 +126,8 @@ export default {
         "https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/Api/centros/id_centro/"+this.form.cent+"/reserva";
       const parms = {
         centro_id: this.form.cent,
+        nombre: this.form.nombre,
+        apellido: this.form.apellido,
         email_donante: this.form.email,
         telefono_donante: this.form.telefono,
         hora_inicio: this.form.hora,

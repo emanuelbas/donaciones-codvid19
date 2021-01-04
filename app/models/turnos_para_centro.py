@@ -5,6 +5,8 @@ from datetime import datetime, timedelta
 class Turno(db.Model):
     __tablename__ = 'turnos_para_centro'
     id = db.Column(db.Integer, primary_key=True)
+    nombre = db.Column(db.String)
+    apellido = db.Column(db.String)
     email = db.Column(db.String)
     telefono = db.Column(db.String)
     hora_ini = db.Column(db.String)
@@ -17,13 +19,15 @@ class Turno(db.Model):
     def all():
         return Turno.query.all()
 
-    def create(hi, hf, di, ce):
+    def create(hi, hf, di, ce ):
         em = ""
         te = ""
+        no = ""
+        ap = ""
         act = 1
         disponible = 1
         nuevo_turno = Turno(email=em, telefono=te, hora_ini=hi, hora_fin=hf,
-                            dia=di, borrado=act, centro_id=ce, disponible=disponible)
+                            dia=di, borrado=act, centro_id=ce, disponible=disponible, nombre=no, apellido=ap)
         db.session.add(nuevo_turno)
         db.session.commit()
         return True
@@ -64,9 +68,11 @@ class Turno(db.Model):
         db.session.commit()
         return True
 
-    def reservar_turno(centro_id,email_donante,telefono_donante,hora_inicio,hora_fin,fecha):
+    def reservar_turno(centro_id,nombre,apellido,email_donante,telefono_donante,hora_inicio,hora_fin,fecha):
         turno = Turno.query.filter_by(centro_id=centro_id).filter_by(hora_ini=hora_inicio).filter_by(dia=fecha).first()
         if turno and turno.disponible:
+            nombre = nombre
+            apellido = apellido
             turno.email = email_donante
             turno.telefono = telefono_donante
             turno.disponible = 0

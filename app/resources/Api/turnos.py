@@ -89,6 +89,8 @@ def pedir_reserva(id_centro):
         # Devuelvo el cuerpo de la consulta post
         response = {
             "centro_id":"8",
+            "nombre":"Juan",
+            "apellido":"Perez",
             "email_donante": "juan.perez@gmail.com",
             "telefono_donante": "2215930941",
             "hora_inicio": "09:30",
@@ -107,6 +109,8 @@ def pedir_reserva(id_centro):
             try:
                 if Turno.reservar_turno(
                     centro_id = nuevo_turno["centro_id"],
+                    nombre = nuevo_turno["nombre"],
+                    apellido = nuevo_turno["apellido"],
                     email_donante = nuevo_turno["email_donante"],
                     telefono_donante = nuevo_turno["telefono_donante"],
                     hora_inicio = nuevo_turno["hora_inicio"],
@@ -115,6 +119,8 @@ def pedir_reserva(id_centro):
                     ):
                     diccionario = {
                         "centro_id": nuevo_turno["centro_id"],
+                        "nombre": nuevo_turno["nombre"],
+                        "apellido": nuevo_turno["apellido"],
                         "email_donante" : nuevo_turno["email_donante"],
                         "telefono_donante": nuevo_turno["telefono_donante"],
                         "hora_inicio": nuevo_turno["hora_inicio"],
