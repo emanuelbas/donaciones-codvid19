@@ -90,10 +90,11 @@ def pedir_reserva(id_centro):
         response = {
             "centro_id":"8",
             "email_donante": "juan.perez@gmail.com",
-            "fecha": "2020-11-12",
-            "hora_fin": "10:00",
+            "telefono_donante": "2215930941",
             "hora_inicio": "09:30",
-            "telefono_donante": "2215930941"
+            "hora_fin": "10:00",
+            "fecha": "2020-11-12"
+            
         }
         return jsonify(response), 200
     else:

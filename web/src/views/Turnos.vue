@@ -123,14 +123,15 @@ export default {
     setTurnos: function () {
       console.log("el boton esta funcionando");
       let url =
-        "https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/Api/centros/id_centro/13/reserva";
+        "https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/Api/centros/id_centro/"+this.form.cent+"/reserva";
       const parms = {
-        centro_id: 13,
-        email_donante: "ejemplo.70@gmail.com",
-        fecha: "2020-11-15",
-        hora_fin: "11:00:00",
-        hora_inicio: "11:30:00",
-        telefono_donante: "2214444444",
+        centro_id: this.form.cent,
+        email_donante: this.form.email,
+        telefono_donante: this.form.telefono,
+        hora_inicio: this.form.hora,
+        hora_fin: this.form.hora,
+        fecha: this.form.fecha,
+        
       };
       let json = JSON.stringify(parms);
 
@@ -147,14 +148,13 @@ export default {
         .post(url, json, config)
         .then((response) => {
           console.log(response);
-          alert("ENTRO!!");
           alert(parms);
 
           //document.formulario.reset();
           //this.$router.push('/turnos?s=1')
         })
         .catch((e) => console.log(e));
-    },
-  },
-};
+    }
+    }
+    }
 </script>
