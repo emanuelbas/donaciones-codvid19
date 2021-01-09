@@ -24,7 +24,7 @@ def index_turno(id='', page=1, email=' '):
     if email ==' ':
         if id:
            
-           turnos_todos = Turno.query.filter_by(centro_id=id).filter(Turno.email.like('%'+'%')).paginate(page, per_page=per_page)
+           turnos_todos = Turno.get_proximos_turnos(id).filter(Turno.email.like('%'+'%')).paginate(page, per_page=per_page)
            return render_template('turnos_para_centro/index_turno.html', turnos=turnos_todos, centros=centros, email=email, id=id)
         else:
            turnos_todos = Turno.query.filter(Turno.email.like('%'+'%')).paginate(page, per_page=per_page)

@@ -95,3 +95,10 @@ class Turno(db.Model):
 
     def turnos_tomados_para_centro(id_centro):
         return Turno.query.filter_by(centro_id=id_centro).filter_by(disponible=0).all()
+
+    def get_proximos_turnos(centro_id):
+        """ Devuelve un objeto paginable con los turnos de un centro para hoy y los proximos 2 dias """
+
+        fecha_hoy = '1921-01-09'
+        fecha_fin = '2021-01-12'
+        return Turno.query.filter_by(centro_id=centro_id).filter(Turno.dia>=fecha_hoy).filter(Turno.dia<=fecha_fin).filter_by(disponible=0)
