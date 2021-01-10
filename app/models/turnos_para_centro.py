@@ -99,6 +99,26 @@ class Turno(db.Model):
     def get_proximos_turnos(centro_id):
         """ Devuelve un objeto paginable con los turnos de un centro para hoy y los proximos 2 dias """
 
-        fecha_hoy = '1921-01-09'
-        fecha_fin = '2021-01-12'
+        fecha_hoy = datetime.now().strftime("%Y-%m-%d")
+        fecha_fin = (datetime.now() + timedelta(days=2)).strftime("%Y-%m-%d")
         return Turno.query.filter_by(centro_id=centro_id).filter(Turno.dia>=fecha_hoy).filter(Turno.dia<=fecha_fin).filter_by(disponible=0)
+
+    def reservar(centro_id,email_donante,telefono_donante,hora_inicio,hora_fin,fecha):
+        """ Se encarga de reservar el turno, en caso de no ser posible devuelve false """
+
+        turno = Turno.query.filter_by(centro_id=centro_id).filter_by(hora_ini=hora_inicio).filter_by(dia=fecha).filter_by(disponible=0).first()
+        if turno == None:
+            return False
+
+        nueva_reserva = Turno(
+            email=email_donante,
+            telefono=telefono_donante,
+            hora_ini=hora_inicio,
+            hora_fin=hora_fin,
+            dia=fecha,
+            borrado=0,
+            centro_id=centro_id,
+            disponible=0)
+        db.session.add(nueva_reserva)
+        db.session.commit()
+        return True
