@@ -12,6 +12,70 @@
     <span class="card-text">
         <form action="{{url_for('crear_turno')}}" method="POST">
 
+
+<!-- Cambios para turnos 10 January 2021 (Sunday) -->
+            <!-- Fecha (mayor a la actual) -->
+            <section class="form-group">
+                <label for="fecha"> Fecha </label>
+                <input type="date" class="form-control form-control-lg rounded-0" name="fecha" id="fecha"
+                    value="{{fecha}}" required>
+            </section>
+
+            <!-- Bloque horario -->
+            <section class="form-group">
+                <label>Estado:</label>
+                <select name="horario" id="hora_ini">
+                    <!-- For hora min a hora max -->
+                    <option value="10:00">09:00 - 09:30</option>
+                    <option value="09:30">09:30 - 10:00</option>
+                    <option value="10:00">10:00 - 10:30</option>
+                    <option value="10:30">10:30 - 11:00</option>
+                    <option value="11:00">11:00 - 11:30</option>
+                    <option value="11:30">11:30 - 12:00</option>
+                    <option value="12:00">12:00 - 12:30</option>
+                    <option value="12:30">12:30 - 13:00</option>
+                    <option value="13:00">13:00 - 13:30</option>
+                    <option value="13:30">13:30 - 14:00</option>
+                    <option value="14:00">14:00 - 14:30</option>
+                    <option value="14:30">14:30 - 15:00</option>
+                    <option value="15:00">15:00 - 15:30</option>
+                    <option value="15:30">15:30 - 16:00</option>
+                </select>
+            </section>
+
+            <!-- Un botoncito para validar si esta disponible -->
+            <!-- Podria mandarlo a un _blank que consulte con python y muestre una ventana con fondo verde o rojo -->
+            <button>Validar disponibilidad del turno</button>
+
+            <!-- Nombre -->
+            <section class="form-group">
+                <label for="nombre"> Nombre </label>
+                <input type="text" class="form-control form-control-lg rounded-0" name="nombre" id="nombre" placeholder="Ingrese el nombre" required>
+            </section>
+
+            <!-- Apellido -->
+            <section class="form-group">
+                <label for="apellido"> Apellido </label>
+                <input type="text" class="form-control form-control-lg rounded-0" name="apellido" id="apellido" placeholder="Ingrese el apellido de contacto" required>
+            </section>
+
+            <!-- Email -->
+            <section class="form-group">
+                <label for="email"> Email </label>
+                <input type="email" class="form-control form-control-lg rounded-0" name="email" id="email" placeholder="Ingrese el email de contacto" required>
+            </section>
+
+            <!-- Telefono -->
+            <section class="form-group">
+                <label for="tel"> Teléfono </label>
+                <input type="text" class="form-control form-control-lg rounded-0" name="telefono" id="telefono" placeholder="Ingrese el teléfono de contacto" required>
+            </section>
+
+<!-- Cambios para turnos 10 January 2021 (Sunday)  -->
+
+
+           
+
             <section class="form-group">
                 <label for="titulo"> Hora del Inicio </label>
                 <input type="time" class="form-control form-control-lg rounded-0" name="hora_ini" id="hora_ini"
@@ -35,6 +99,7 @@
                 <option value="{{centro.id}}">{{centro.nombre}}</option>
                 {% endfor %}
             </select>
+
 
             <div class="text-right">
                 <a href="{{ url_for('index_turno') }}" class="btn btn-white">Cancelar</a>
