@@ -14,6 +14,14 @@
 
 
 <!-- Cambios para turnos 10 January 2021 (Sunday) -->
+
+<!-- 16 January 2021 (Saturday) 
+ - Va a ser necesario crear 2 ventanas de formularios
+ - Template 1,  el usuario elije la fecha. Tambien podria ir directamente en index turnos.
+ - Template 2,  mostrar el centro y fecha seleccionados (sin permitir modificarlos)
+                mostrar select con los bloques horarios disponibles para centro/hora
+Dejo diagrama de flujo https://gitlab.catedras.linti.unlp.edu.ar/proyecto2020/grupo22/uploads/716c9bc0125e1c6092a930bb746a1bcf/Alta_Turno.png
+ -->
             <!-- Fecha (mayor a la actual) -->
             <section class="form-group">
                 <label for="fecha"> Fecha </label>
@@ -23,7 +31,7 @@
 
             <!-- Bloque horario -->
             <section class="form-group">
-                <label>Estado:</label>
+                <label>Bloque horario:</label>
                 <select name="horario" id="hora_ini">
                     <!-- For hora min a hora max -->
                     <option value="10:00">09:00 - 09:30</option>
@@ -42,10 +50,6 @@
                     <option value="15:30">15:30 - 16:00</option>
                 </select>
             </section>
-
-            <!-- Un botoncito para validar si esta disponible -->
-            <!-- Podria mandarlo a un _blank que consulte con python y muestre una ventana con fondo verde o rojo -->
-            <button>Validar disponibilidad del turno</button>
 
             <!-- Nombre -->
             <section class="form-group">
