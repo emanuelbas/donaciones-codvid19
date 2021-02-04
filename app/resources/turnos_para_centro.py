@@ -45,10 +45,11 @@ def index_turno(id='', page=1, email=' '):
     #   return render_template('turnos_para_centro/index_turno.html', turnos=turnos_todos, centros=centros)
 
 
-def crear_turno():
+def crear_turno(id_centro):
     permisos.validar_permisos('turno_create')
     centros = Centro_de_ayuda.all()
     turnos_todos = Turno.all()
+    centro = Centro_de_ayuda.query.filter_by(id=id_centro).first()
     if request.method == 'POST':
         t = request.form
         h_i = t['hora_ini']
@@ -62,7 +63,7 @@ def crear_turno():
             hora_ini = t['hora_ini']
             hora_fin = t['hora_fin']
             dia = t['dia']
-            return render_template('turnos_para_centro/crear_turno.html', mensaje=mensaje, centros=centros, h_ini=hora_ini, h_fin=hora_fin, dia=dia)
+            return render_template('turnos_para_centro/crear_turno.html', mensaje=mensaje, centro= centro, centros=centros, h_ini=hora_ini, h_fin=hora_fin, dia=dia)
         while hora_ini != hora_fin:
             var1 = hora_ini
             var1 = str(var1.hour)+':'+str(var1.minute)
@@ -74,8 +75,14 @@ def crear_turno():
 
     else:
 
-        return render_template('turnos_para_centro/crear_turno.html', centros=centros)
+        return render_template('turnos_para_centro/crear_turno.html', centro= centro, centros=centros)
 
+def crear_turno_para_fecha():
+    permisos.validar_permisos('turno_create')
+    form = request.form
+    centro = form['centro']
+    fecha = form['fecha']
+    return render_template('turnos_para_centro/crear_turno_para_fecha.html', centro=centro, fecha=fecha)
 
 def editar_turno(id):
     permisos.validar_permisos('turno_edit')

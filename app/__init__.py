@@ -119,6 +119,12 @@ def create_app():
                      'index_turno', turnos_para_centro.index_turno, methods=["POST", "GET"])
     app.add_url_rule('/turnos_para_centro/crear_turno', 'crear_turno',
                      turnos_para_centro.crear_turno, methods=["POST", "GET"])
+    # Modificacion de turnos 04 February 2021 (Thursday)
+    app.add_url_rule('/turnos_para_centro/crear_turno/<int:id_centro>', 'crear_turno',
+                     turnos_para_centro.crear_turno, methods=["POST", "GET"])
+    app.add_url_rule('/turnos_para_centro/crear_turno/<int:id_centro>/fecha=<fecha>', 'crear_turno_para_fecha',
+                     turnos_para_centro.crear_turno_para_fecha, methods=["POST", "GET"])
+    # /04 February 2021 (Thursday)
     app.add_url_rule('/turnos_para_centro/editar_turno/<id>', 'editar_turno',
                      turnos_para_centro.editar_turno, methods=["POST", "GET"])
     app.add_url_rule('/turnos_para_centro/borrar_turno/<id>', 'borrar_turno',

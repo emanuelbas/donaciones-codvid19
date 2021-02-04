@@ -6,7 +6,7 @@
     <p>{{ mensaje }}</p>
 </div>
 {% endif %}
-<h1>Nuevos Turnos</h1>
+<h1>Registrar Turno</h1>
 
 <div class="container card-body">
     <span class="card-text">
@@ -22,6 +22,13 @@
                 mostrar select con los bloques horarios disponibles para centro/hora
 Dejo diagrama de flujo https://gitlab.catedras.linti.unlp.edu.ar/proyecto2020/grupo22/uploads/716c9bc0125e1c6092a930bb746a1bcf/Alta_Turno.png
  -->
+
+            <!-- Mostrar centro -->
+            <p> {{ centro.nombre }} </p><br>
+
+            <!-- Mostrar fecha -->
+            <p> {{ fecha_nuevo_turno }} </p><br>
+
             <!-- Fecha (mayor a la actual) -->
             <section class="form-group">
                 <label for="fecha"> Fecha </label>
@@ -29,11 +36,10 @@ Dejo diagrama de flujo https://gitlab.catedras.linti.unlp.edu.ar/proyecto2020/gr
                     value="{{fecha}}" required>
             </section>
 
-            <!-- Bloque horario -->
+            <!-- Bloque horario 
             <section class="form-group">
                 <label>Bloque horario:</label>
                 <select name="horario" id="hora_ini">
-                    <!-- For hora min a hora max -->
                     <option value="10:00">09:00 - 09:30</option>
                     <option value="09:30">09:30 - 10:00</option>
                     <option value="10:00">10:00 - 10:30</option>
@@ -50,36 +56,41 @@ Dejo diagrama de flujo https://gitlab.catedras.linti.unlp.edu.ar/proyecto2020/gr
                     <option value="15:30">15:30 - 16:00</option>
                 </select>
             </section>
+            -->
 
-            <!-- Nombre -->
+            <!-- Nombre 
             <section class="form-group">
                 <label for="nombre"> Nombre </label>
                 <input type="text" class="form-control form-control-lg rounded-0" name="nombre" id="nombre" placeholder="Ingrese el nombre" required>
             </section>
+            -->
 
-            <!-- Apellido -->
+            <!-- Apellido 
             <section class="form-group">
                 <label for="apellido"> Apellido </label>
                 <input type="text" class="form-control form-control-lg rounded-0" name="apellido" id="apellido" placeholder="Ingrese el apellido de contacto" required>
             </section>
+            -->
 
-            <!-- Email -->
+            <!-- Email 
             <section class="form-group">
                 <label for="email"> Email </label>
                 <input type="email" class="form-control form-control-lg rounded-0" name="email" id="email" placeholder="Ingrese el email de contacto" required>
             </section>
+            -->
 
-            <!-- Telefono -->
+            <!-- Telefono 
             <section class="form-group">
                 <label for="tel"> Teléfono </label>
                 <input type="text" class="form-control form-control-lg rounded-0" name="telefono" id="telefono" placeholder="Ingrese el teléfono de contacto" required>
             </section>
+            -->
 
 <!-- Cambios para turnos 10 January 2021 (Sunday)  -->
 
 
            
-
+<!-- Esto estaba antes
             <section class="form-group">
                 <label for="titulo"> Hora del Inicio </label>
                 <input type="time" class="form-control form-control-lg rounded-0" name="hora_ini" id="hora_ini"
@@ -109,7 +120,10 @@ Dejo diagrama de flujo https://gitlab.catedras.linti.unlp.edu.ar/proyecto2020/gr
                 <a href="{{ url_for('index_turno') }}" class="btn btn-white">Cancelar</a>
                 <button type="submit" class="btn btn-info">Aceptar</button>
             </div>
+-->
+
         </form>
+        <button href="{{url_for('crear_turno_para_fecha', id_centro='4', fecha='05/02/2021')}}"></button>
     </span>
 </div>
 {% endblock %}
