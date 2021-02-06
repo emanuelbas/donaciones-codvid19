@@ -51,10 +51,28 @@ def crear_turno(id_centro):
     turnos_todos= Turno.all()
     centro      = Centro_de_ayuda.query.filter_by(id=id_centro).first()
     if request.method == 'POST':
-        t        = request.form
-        fecha    = t['fecha']
-        id_centro= t['id_centro']
-        return render_template('turnos_para_centro/crear_turno_con_fecha.html', centro=id_centro, fecha=fecha)
+        t         = request.form
+        fecha     = t['fecha']
+        id_centro = t['id_centro']
+        solo_fecha= t['solo_fecha']
+
+        if solo_fecha == "si":
+            # Leer los turnos ocupados
+            #fecha = fecha.strftime("%Y-%m-%d")
+            turnos_ocupados = Turno.query.filter_by(centro_id=id_centro).filter_by(dia=fecha).all()
+
+            # Generar lista de horarios disponibles
+            turnos_disponibles = ["09:00 - 09:30","09:30 - 10:00", "10:00 - 10:30", "10:30 - 11:00",
+            "11:00 - 11:30", "11:30 - 12:00", "12:00 - 12:30", "12:30 - 13:00", "13:00 - 13:30",
+            "13:30 - 14:00", "14:00 - 14:30", "14:30 - 15:00", "15:00 - 15:30", "15:30 - 16:00"]
+            for turno_ocupado in turnos_ocupados:
+                # Armar fecha_ocupada
+                # Quitar de turnos_disponibles
+                
+            # Enviar a un template
+            return render_template('turnos_para_centro/crear_turno_con_fecha.html', centro=id_centro, fecha=fecha, turnos=turnos_disponibles)
+
+        # Teniendo todos los datos solo queda hacer el alta como antes
         # 06 February 2021 (Saturday) - Quito esto para la modificacion de turnos
         #h_i = t['hora_ini']
         #h_f = t['hora_fin']

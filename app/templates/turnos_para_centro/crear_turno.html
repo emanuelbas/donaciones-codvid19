@@ -28,6 +28,10 @@ Dejo diagrama de flujo https://gitlab.catedras.linti.unlp.edu.ar/proyecto2020/gr
                 <label for="centro"> ID Centro </label>
                 <input type="text" name="id_centro" id="id_centro" value="{{centro.id}}">
             </section>
+            <section hidden class="form-group">
+                <label for="solo_fecha"> Solo fecha </label>
+                <input type="text" name="solo_fecha" id="solo_fecha" value="si">
+            </section>
 
             <!-- Mostrar centro -->
             <p> {{ centro.nombre }} </p><br>

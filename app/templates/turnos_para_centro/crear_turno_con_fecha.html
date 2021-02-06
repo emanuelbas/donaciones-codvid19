@@ -25,6 +25,10 @@
                     value="{{fecha}}" required>
             </section>
 
+
+            {% for turno in turnos %}
+                <p> {{turno}} </p>
+            {% endfor %}
             <!-- Bloque horario 
             <section class="form-group">
                 <label>Bloque horario:</label>
