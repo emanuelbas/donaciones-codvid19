@@ -10,7 +10,7 @@
 
 <div class="container card-body">
     <span class="card-text">
-        <form action="{{url_for('crear_turno')}}" method="POST">
+        <form action="" method="POST">
 
 
 <!-- Cambios para turnos 10 January 2021 (Sunday) -->
@@ -23,11 +23,14 @@
 Dejo diagrama de flujo https://gitlab.catedras.linti.unlp.edu.ar/proyecto2020/grupo22/uploads/716c9bc0125e1c6092a930bb746a1bcf/Alta_Turno.png
  -->
 
+            <h1> Ventana de crear turno nueva </h1>
+            <section hidden class="form-group">
+                <label for="centro"> ID Centro </label>
+                <input type="text" name="id_centro" id="id_centro" value="{{centro.id}}">
+            </section>
+
             <!-- Mostrar centro -->
             <p> {{ centro.nombre }} </p><br>
-
-            <!-- Mostrar fecha -->
-            <p> {{ fecha_nuevo_turno }} </p><br>
 
             <!-- Fecha (mayor a la actual) -->
             <section class="form-group">
@@ -35,6 +38,8 @@ Dejo diagrama de flujo https://gitlab.catedras.linti.unlp.edu.ar/proyecto2020/gr
                 <input type="date" class="form-control form-control-lg rounded-0" name="fecha" id="fecha"
                     value="{{fecha}}" required>
             </section>
+
+            <button type="submit" class="btn btn-info">Aceptar</button>
 
             <!-- Bloque horario 
             <section class="form-group">
@@ -123,7 +128,6 @@ Dejo diagrama de flujo https://gitlab.catedras.linti.unlp.edu.ar/proyecto2020/gr
 -->
 
         </form>
-        <button href="{{url_for('crear_turno_para_fecha', id_centro='4', fecha='05/02/2021')}}"></button>
     </span>
 </div>
 {% endblock %}
