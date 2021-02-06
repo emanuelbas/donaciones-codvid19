@@ -72,10 +72,11 @@ def crear_turno(id_centro):
                     pass
             return render_template('turnos_para_centro/crear_turno_con_fecha.html', centro=id_centro, fecha=fecha, turnos=turnos_disponibles)
 
-        hora_ini    = fecha[0:5]
-        hora_fin    = fecha[8:13]
+        hora_ini    = t['bloque_horario'][0:5]
+        hora_fin    = t['bloque_horario'][8:13]
         email       = t['email']
         telefono    = t['telefono']
+        fecha       = t['fecha']
         borrado     = 0
         disponible  = 0
         nuevo_turno = Turno(email=email, telefono=telefono, hora_ini=hora_ini, hora_fin=hora_fin,
