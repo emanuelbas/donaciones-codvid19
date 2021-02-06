@@ -10,48 +10,58 @@
 
 <div class="container card-body">
     <span class="card-text">
-        <form action="{{url_for('crear_turno')}}" method="POST">
-            <h1> Estas viendo el template 2</h1>
-            <!-- Mostrar centro -->
-            <p> {{ centro }} </p><br>
+        <form action="" method="POST">
 
-            <!-- Mostrar fecha -->
-            <p> {{ fecha }} </p><br>
-
-            <!-- Fecha (mayor a la actual) -->
-            <section class="form-group">
+            <section hidden class="form-group">
+                <label for="centro"> ID Centro </label>
+                <input type="text" name="id_centro" id="id_centro" value="{{centro.id}}">
+            </section>
+            <section hidden class="form-group">
+                <label for="solo_fecha"> Solo fecha </label>
+                <input type="text" name="solo_fecha" id="solo_fecha" value="no">
+            </section>
+            <section hidden class="form-group">
                 <label for="fecha"> Fecha </label>
                 <input type="date" class="form-control form-control-lg rounded-0" name="fecha" id="fecha"
                     value="{{fecha}}" required>
             </section>
 
-
-            {% for turno in turnos %}
-                <p> {{turno}} </p>
-            {% endfor %}
-            <!-- Bloque horario 
+            <!-- Mostrar centro -->
+            <p> Creando turno para el centro con ID {{centro}} para la fecha {{ fecha }} </p><br>
+            
             <section class="form-group">
                 <label>Bloque horario:</label>
-                <select name="horario" id="hora_ini">
-                    <option value="10:00">09:00 - 09:30</option>
-                    <option value="09:30">09:30 - 10:00</option>
-                    <option value="10:00">10:00 - 10:30</option>
-                    <option value="10:30">10:30 - 11:00</option>
-                    <option value="11:00">11:00 - 11:30</option>
-                    <option value="11:30">11:30 - 12:00</option>
-                    <option value="12:00">12:00 - 12:30</option>
-                    <option value="12:30">12:30 - 13:00</option>
-                    <option value="13:00">13:00 - 13:30</option>
-                    <option value="13:30">13:30 - 14:00</option>
-                    <option value="14:00">14:00 - 14:30</option>
-                    <option value="14:30">14:30 - 15:00</option>
-                    <option value="15:00">15:00 - 15:30</option>
-                    <option value="15:30">15:30 - 16:00</option>
-                </select>
+                <select name="bloque_horario" id="bloque_horario">
+                    {% for turno in turnos %}
+                        <option value="{{turno}}">{{turno}}</option>
+                    {% endfor %}
+                </select><small>(Se muestran solo los turnos disponibles para el día {{ fecha }})</small>
             </section>
-            -->
 
+            <section class="form-group">
+                <label for="nombre"> Nombre </label>
+                <input type="text" class="form-control form-control-lg rounded-0" name="nombre" id="nombre" placeholder="Ingrese el nombre" required>
+            </section>
 
+            <section class="form-group">
+                <label for="apellido"> Apellido </label>
+                <input type="text" class="form-control form-control-lg rounded-0" name="apellido" id="apellido" placeholder="Ingrese el apellido de contacto" required>
+            </section>
+
+            <section class="form-group">
+                <label for="email"> Email </label>
+                <input type="email" class="form-control form-control-lg rounded-0" name="email" id="email" placeholder="Ingrese el email de contacto" required>
+            </section>
+
+            <section class="form-group">
+                <label for="tel"> Teléfono </label>
+                <input type="text" class="form-control form-control-lg rounded-0" name="telefono" id="telefono" placeholder="Ingrese el teléfono de contacto" required>
+            </section>
+
+            <div class="text-right">
+                <a href="{{ url_for('index_turno') }}" class="btn btn-white">Cancelar</a>
+                <button type="submit" class="btn btn-info">Aceptar</button>
+            </div>
         </form>
     </span>
 </div>

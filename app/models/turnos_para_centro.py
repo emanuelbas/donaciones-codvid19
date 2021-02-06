@@ -4,24 +4,24 @@ from datetime import datetime, timedelta
 
 class Turno(db.Model):
     __tablename__ = 'turnos_para_centro'
-    id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String)
-    telefono = db.Column(db.String)
-    hora_ini = db.Column(db.String)
-    hora_fin = db.Column(db.String)
-    dia = db.Column(db.String)
-    borrado = db.Column(db.Integer)
-    centro_id = db.Column(db.Integer)
+    id         = db.Column(db.Integer, primary_key=True)
+    email      = db.Column(db.String)
+    telefono   = db.Column(db.String)
+    hora_ini   = db.Column(db.String)
+    hora_fin   = db.Column(db.String)
+    dia        = db.Column(db.String)
+    borrado    = db.Column(db.Integer)
+    centro_id  = db.Column(db.Integer)
     disponible = db.Column(db.Integer)
 
     def all():
         return Turno.query.all()
 
     def create(hi, hf, di, ce):
-        em = ""
-        te = ""
-        act = 1
-        disponible = 1
+        em          = ""
+        te          = ""
+        act         = 1
+        disponible  = 1
         nuevo_turno = Turno(email=em, telefono=te, hora_ini=hi, hora_fin=hf,
                             dia=di, borrado=act, centro_id=ce, disponible=disponible)
         db.session.add(nuevo_turno)
@@ -29,10 +29,10 @@ class Turno(db.Model):
         return True
 
     def create_reserva(i, em, te, ce):
-        datos = Turno.query.filter_by(centro_id=ce).first()
-        datos.email = em
-        datos.telefono = te
-        datos.borrado = 1
+        datos            = Turno.query.filter_by(centro_id=ce).first()
+        datos.email      = em
+        datos.telefono   = te
+        datos.borrado    = 1
         datos.disponible = 0
         db.session.commit()
         return datos
@@ -48,18 +48,18 @@ class Turno(db.Model):
 
     def edit(i, em, te, disponible):
 
-        datos = Turno.query.filter_by(id=i).first()
-        datos.email = em
-        datos.telefono = te
-        datos.borrado = 1
+        datos            = Turno.query.filter_by(id=i).first()
+        datos.email      = em
+        datos.telefono   = te
+        datos.borrado    = 1
         datos.disponible = disponible
         db.session.commit()
         return datos
 
     def delete(idx):
-        turno = Turno.query.filter_by(id=idx).first()
-        turno.email = ''
-        turno.telefono = ''
+        turno            = Turno.query.filter_by(id=idx).first()
+        turno.email      = ''
+        turno.telefono   = ''
         turno.disponible = 1
         db.session.commit()
         return True
@@ -67,8 +67,8 @@ class Turno(db.Model):
     def reservar_turno(centro_id,email_donante,telefono_donante,hora_inicio,hora_fin,fecha):
         turno = Turno.query.filter_by(centro_id=centro_id).filter_by(hora_ini=hora_inicio).filter_by(dia=fecha).first()
         if turno and turno.disponible:
-            turno.email = email_donante
-            turno.telefono = telefono_donante
+            turno.email      = email_donante
+            turno.telefono   = telefono_donante
             turno.disponible = 0
             db.session.commit()
             return True

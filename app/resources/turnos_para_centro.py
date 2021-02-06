@@ -1,5 +1,6 @@
 from flask import render_template, abort, url_for, request, redirect, session, flash, jsonify
 from datetime import date
+from app.db import db
 from app.models.turnos_para_centro import Turno
 from app.models.centro_de_ayuda import Centro_de_ayuda
 from app.models.turnos_para_cada_centro import Turnos_para_cada_centro
@@ -57,43 +58,32 @@ def crear_turno(id_centro):
         solo_fecha= t['solo_fecha']
 
         if solo_fecha == "si":
-            # Leer los turnos ocupados
-            #fecha = fecha.strftime("%Y-%m-%d")
             turnos_ocupados = Turno.query.filter_by(centro_id=id_centro).filter_by(dia=fecha).all()
 
-            # Generar lista de horarios disponibles
             turnos_disponibles = ["09:00 - 09:30","09:30 - 10:00", "10:00 - 10:30", "10:30 - 11:00",
             "11:00 - 11:30", "11:30 - 12:00", "12:00 - 12:30", "12:30 - 13:00", "13:00 - 13:30",
             "13:30 - 14:00", "14:00 - 14:30", "14:30 - 15:00", "15:00 - 15:30", "15:30 - 16:00"]
             for turno_ocupado in turnos_ocupados:
-                # Armar fecha_ocupada
-                # Quitar de turnos_disponibles
-                
-            # Enviar a un template
+                # Armar fecha_ocupada - Tuve que cambiar hora_ini y hora_fin a VARCHAR en la BD
+                fecha_ocupada = turno_ocupado.hora_ini+" - "+turno_ocupado.hora_fin
+                try:
+                    turnos_disponibles.remove(fecha_ocupada)
+                except:
+                    pass
             return render_template('turnos_para_centro/crear_turno_con_fecha.html', centro=id_centro, fecha=fecha, turnos=turnos_disponibles)
 
-        # Teniendo todos los datos solo queda hacer el alta como antes
-        # 06 February 2021 (Saturday) - Quito esto para la modificacion de turnos
-        #h_i = t['hora_ini']
-        #h_f = t['hora_fin']
-        #hora_ini = datetime.datetime.strptime(h_i, "%H:%M")
-        #hora_fin = datetime.datetime.strptime(h_f, "%H:%M")
+        hora_ini    = fecha[0:5]
+        hora_fin    = fecha[8:13]
+        email       = t['email']
+        telefono    = t['telefono']
+        borrado     = 0
+        disponible  = 0
+        nuevo_turno = Turno(email=email, telefono=telefono, hora_ini=hora_ini, hora_fin=hora_fin,
+                            dia=fecha, borrado=borrado, centro_id=id_centro, disponible=disponible)
+        db.session.add(nuevo_turno)
+        db.session.commit()
 
-        #print(hora_ini.hour, ':', hora_ini.minute)
-        #if str(t['dia']) < str(date.today()):
-        #    mensaje = "La fecha ya paso, no puede crear los turnos"
-        #    hora_ini = t['hora_ini']
-        #    hora_fin = t['hora_fin']
-        #    dia = t['dia']
-        #    return render_template('turnos_para_centro/crear_turno.html', mensaje=mensaje, centro= centro, centros=centros, h_ini=hora_ini, h_fin=hora_fin, dia=dia)
-        #while hora_ini != hora_fin:
-        #    var1 = hora_ini
-        #    var1 = str(var1.hour)+':'+str(var1.minute)
-        #    var = hora_ini + datetime.timedelta(minutes=30)
-        #    var = str(var.hour)+':'+str(var.minute)
-        #    Turno.create(var1, var, t['dia'], t['centro'])
-        #    hora_ini = hora_ini + datetime.timedelta(minutes=30)
-        #return redirect(url_for('index_turno', id=id_centro, turnos=turnos_todos))
+        return redirect(url_for('index_turno', id=id_centro, turnos=turnos_todos))
 
     else:
 
