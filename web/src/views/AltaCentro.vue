@@ -1,5 +1,9 @@
  <template>
-    <div id="nuevo_centro">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12 text-center">
+          <div class="col-md-12 col-sm-12">
+            <div id="nuevo_centro">
         <div>
           <h1> Nuevo Centro:</h1>
         </div>
@@ -144,6 +148,10 @@
           </button>
           <a href="/Centros" class="btn btn-danger" type="reset" >Cancelar</a>
         </div>
+            </div>
+          </div>
+        </div>
+      </div>    
     </div>
 </template>
 <script>

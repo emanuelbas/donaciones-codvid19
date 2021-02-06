@@ -52,8 +52,6 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12 text-center bottom-separator">
-
-            </div>
                   <div class="col-md-12 col-sm-12">
                     <div id="contacto" class="contact-form bottom">
                        <h2>Ponete en contacto con nosotros</h2>
@@ -74,6 +72,7 @@
                             <button tabindex="44" id="send-button" name="submit" class="btn btn-primary"> Enviar mensaje</button>
                         </div>
                     </form>
+                    </div>
                 </div>
             </div>
             <div class="col-sm-12">
