@@ -27,7 +27,8 @@
 
                <div class="col-sm-12">
             
-                <h3><b>Ver Centro mas cercano</b></h3>
+                <h3 style="font-family: 'Monoton'"><b>Ver Centro mas cercano</b></h3>
+                <img src="../assets/mapas.png" alt="Icono que denota ubicación" style='height:100px'>
                 <p>Dirección: Calle 12 286 - La PLata - Buenos Aires - Argentina <br>
                 <a title="Abrir" href="https://caritaslaplata.org/">Haz click aquí para ver más información de este centro</a></p>
                 <br><br>
@@ -38,9 +39,12 @@
 
                <div class="col-sm-12">
             
-                <h3><b>Crear un nuevo centro de ayuda</b></h3>
-                <router-link to="/alta_centro">Crear Centro</router-link>
+                <h3 style="font-family: 'Monoton'"><b>Crear un nuevo centro de ayuda</b></h3>
+                <img src="../assets/asistencia.png" alt="Icono que denota un centro de ayuda" style='height:100px'>
+                <div>
+                <router-link to="/alta_centro" class="btn btn-primary">Crear Centro</router-link>
                 <br><br>
+                </div>
                 </div>
 
       </div>
@@ -48,8 +52,6 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12 text-center bottom-separator">
-
-            </div>
                   <div class="col-md-12 col-sm-12">
                     <div id="contacto" class="contact-form bottom">
                        <h2>Ponete en contacto con nosotros</h2>
@@ -70,6 +72,7 @@
                             <button tabindex="44" id="send-button" name="submit" class="btn btn-primary"> Enviar mensaje</button>
                         </div>
                     </form>
+                    </div>
                 </div>
             </div>
             <div class="col-sm-12">
