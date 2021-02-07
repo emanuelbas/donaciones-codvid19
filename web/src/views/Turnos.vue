@@ -112,10 +112,10 @@ export default {
   },
   methods: {
     getTurnos: function () {
-      //"https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/Api/centros/id_centro/"
-      //"http://localhost:5000/Api/centros/id_centro/"
+      //"https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/api/centros/id_centro/"
+      //"http://localhost:5000/api/centros/id_centro/"
       var url =
-        "https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/Api/centros/id_centro/" +
+        "https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/api/centros/id_centro/" +
         this.form.cent +
         "/turnos_disponibles/fecha=" +
         this.form.fecha;
@@ -131,10 +131,10 @@ export default {
     },
     setTurnos: function () {
       console.log("el boton esta funcionando");
-      // "https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/Api/centros/id_centro/"
-      // "http://localhost:5000/Api/centros/id_centro/"
+      // "https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/api/centros/id_centro/"
+      // "http://localhost:5000/api/centros/id_centro/"
       let url =
-        "https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/Api/centros/id_centro/"+this.form.cent+"/reserva";
+        "https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/api/centros/id_centro/"+this.form.cent+"/reserva";
       const parms = {
         centro_id: this.form.cent,
         email_donante: this.form.email,
