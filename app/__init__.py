@@ -13,8 +13,8 @@ from app.resources import turnos_para_centro
 from app.helpers import permisos
 from requests import get
 from app.resources import api
-from app.resources.api import centros
-from app.resources.api import turnos
+from app.resources.Api import centros
+from app.resources.Api import turnos
 #from flask_cors import CORS
 
 def create_app():
