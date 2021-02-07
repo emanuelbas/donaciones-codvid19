@@ -115,8 +115,9 @@ export default {
   methods: {
     getTurnos: function () {
       //"https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/Api/centros/id_centro/"
+      //"http://localhost:5000/Api/centros/id_centro/"
       var url =
-        "http://localhost:5000/Api/centros/id_centro/" +
+        "https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/Api/centros/id_centro/" +
         this.form.cent +
         "/turnos_disponibles/fecha=" +
         this.form.fecha;
@@ -132,9 +133,10 @@ export default {
     },
     setTurnos: function () {
       console.log("el boton esta funcionando");
-      // "https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/Api/centros/id_centro/13/reserva"
+      // "https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/Api/centros/id_centro/"
+      // "http://localhost:5000/Api/centros/id_centro/"
       let url =
-        "http://localhost:5000/Api/centros/id_centro/"+this.form.cent+"/reserva";
+        "https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/Api/centros/id_centro/"+this.form.cent+"/reserva";
       const parms = {
         centro_id: this.form.cent,
         email_donante: this.form.email,
@@ -142,10 +144,7 @@ export default {
         bloque_horario: this.form.hora,
         telefono_donante: this.form.telefono
       };
-      let json = JSON.stringify(parms);
-
-      console.log(json);
-      alert(json);
+      //let json = JSON.stringify(parms);
 
       //let config = {
       // headers:{
@@ -155,10 +154,8 @@ export default {
       axios
         .post(url, parms)
         .then((response) => {
-          console.log(response);
-          console.log("ENTRO!!");
-          alert(parms);
-
+          console.log(response)
+          alert("Alta exitosa")
           //document.formulario.reset();
           //this.$router.push('/turnos?s=1')
         })
