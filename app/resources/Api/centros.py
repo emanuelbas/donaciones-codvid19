@@ -67,7 +67,7 @@ def get_list_of_tipos(centro):
 	return tipos
 
 def cargarCentros():
-	''' Controlador para el API Endpoint /Api/crear_centro '''
+	''' Controlador para el api Endpoint /api/crear_centro '''
 	if request.method == "GET" :
 		response = { "nombre" : "Nombre de Centro" , 
 		 "direccion" : "La Plata, Calle 23 numero 123",
@@ -138,7 +138,7 @@ def mostrar_todos_centros():
 
 
 def centros_por_tipos():
-	''' Controlador para el API Endpoint /api/estadisticas/tipos '''
+	''' Controlador para el api Endpoint /api/estadisticas/tipos '''
 	# Obtener los datos
 	try:
 		centros = Centro_de_ayuda.query.filter_by(publicado=True).all()
@@ -167,7 +167,7 @@ def centros_por_tipos():
 	return jsonify(response), 200
 
 def total_turnos_del_mes():
-	''' Controlador para el API Endpoint /api/estadisticas/total_turnos_del_mes.
+	''' Controlador para el api Endpoint /api/estadisticas/total_turnos_del_mes.
 		Responde a un GET brindando los turnos solicitados en los últimos 30 días
 	'''
 	# Inicializar variables
@@ -205,7 +205,7 @@ def total_turnos_del_mes():
 
 
 def top10_centros_del_mes():
-	''' Controlador para el API Endpoint /api/estadisticas/top10_centros_del_mes.
+	''' Controlador para el api Endpoint /api/estadisticas/top10_centros_del_mes.
 		Responde a un GET brindando los 10 con mayor cantidad de turnos y la cantidad de turnos
 	'''
 	# Leer tablas

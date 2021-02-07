@@ -12,8 +12,8 @@ import datetime
 def turnos_disponibles(id_centro, fecha):
     ''' Devuelve una lista de bloques horarios disponibles para un centro y fecha determinados 
 
-    USO: /Api/centros/id_centro/<int:id_centro>/turnos_disponibles/fecha=<fecha>
-    EJ : http://localhost:5000/Api/centros/id_centro/1/turnos_disponibles/fecha=2021-02-08
+    USO: /api/centros/id_centro/<int:id_centro>/turnos_disponibles/fecha=<fecha>
+    EJ : http://localhost:5000/api/centros/id_centro/1/turnos_disponibles/fecha=2021-02-08
     '''
 
     #centros = Centro_de_ayuda.all()
