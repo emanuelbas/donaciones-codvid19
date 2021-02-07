@@ -58,7 +58,7 @@ def crear_turno(id_centro):
         solo_fecha= t['solo_fecha']
 
         if solo_fecha == "si":
-            turnos_ocupados = Turno.query.filter_by(centro_id=id_centro).filter_by(dia=fecha).all()
+            turnos_ocupados = Turno.query.filter_by(centro_id=id_centro).filter_by(dia=fecha).filter_by(disponible=0).filter_by(borrado=0).all()
 
             turnos_disponibles = ["09:00 - 09:30","09:30 - 10:00", "10:00 - 10:30", "10:30 - 11:00",
             "11:00 - 11:30", "11:30 - 12:00", "12:00 - 12:30", "12:30 - 13:00", "13:00 - 13:30",
@@ -108,7 +108,7 @@ def editar_turno(id):
         else:
             disponible = 0
         Turno.edit(id, t['email'], t['telefono'], disponible)
-        return redirect(url_for('index_turno', turno=turno))
+        return redirect(url_for('index_turno', id=turno.centro_id ,turno=turno))
     else:
         return render_template('turnos_para_centro/editar_turno.html', turno=turno)
 
@@ -130,9 +130,10 @@ def sacar_turno(id):
 
 def borrar_turno(id):
     permisos.validar_permisos('turno_delete')
+    id_centro = Turno.query.filter_by(id=id).first().centro_id
     Turno.delete(id)
     turno = Turno.all()
-    return redirect(url_for('index_turno', turno=turno))
+    return redirect(url_for('index_turno', id=id_centro))
 
 
 def horas_validas(h_ini, h_fin):

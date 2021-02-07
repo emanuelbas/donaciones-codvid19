@@ -4,15 +4,14 @@
 
 <div class="container">
     <form action="" method="POST">
-        <input type="text" value="{{ request.form['email'] }}" placeholder="Buscar por email" id="email" name="email">
         <div>
+            <input type="text" value="{{ request.form['email'] }}" placeholder="Buscar por email" id="email" name="email">
             <button type="submit" class="btn btn-info">Buscar</button>
         </div>
 
     </form>
     <div class="text-right">
-        <a href="{{ url_for('crear_turno', id_centro=id)}}" class="btn btn-info mb-2">Cargar Turno
-            <!-- span alt="Nuevo usuario" title="Agregar usuario" class="fas fa-user-plus"></span--></a>
+        <a href="{{ url_for('crear_turno', id_centro=id)}}" class="btn btn-info mb-2">Cargar Turno</a>
     </div>
     <table class="table table-striped table-bordered bg-white table-sm">
         <thead>
