@@ -20,7 +20,7 @@ from flask_cors import CORS
 def create_app():
     # Configuración inicial de la app
     app = Flask(__name__)
-    cors = CORS(app, resources={r"/Api/*": {"origins": "*"}})
+    #cors = CORS(app, resources={r"/Api/*": {"origins": "*"}})
     app.config.from_object(Config)
     fa = FontAwesome(app)
     app.config['SESSION_TYPE'] = 'filesystem'
