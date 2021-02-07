@@ -73,14 +73,23 @@ class Turno(db.Model):
             db.session.commit()
             return True
         else:
-            return False
+            # Mod turnos - 07 February 2021 (Sunday)
+            if turno:
+                return False
+            nuevo_turno = Turno(email=email_donante, telefono=telefono_donante, hora_ini=hora_inicio, hora_fin=hora_fin,
+                dia=fecha, borrado=0, centro_id=centro_id, disponible=0)
+            db.session.add(nuevo_turno)
+            db.session.commit()
+            # /Mod turnos
+            return True
 
     def es_valido(centro_id, hora_inicio, fecha):
-        turno = Turno.query.filter_by(centro_id=centro_id).filter_by(hora_ini=hora_inicio).filter_by(dia=fecha).first()
+        turno = Turno.query.filter_by(centro_id=centro_id).filter_by(hora_ini=hora_inicio).filter_by(dia=fecha).filter_by(disponible=0).first()
         if turno:
-            return True
-        else:
+            print("Se intento reservar un turno ocupado")
             return False
+        else:
+            return True
 
     def ultimos_turnos_para_centro(centro_id):
         turnos = Turno.query.filter_by(centro_id=centro_id).filter_by(dia>='1985-01-17').filter_by(disponible=0).all()

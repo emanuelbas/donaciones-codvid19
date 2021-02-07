@@ -102,38 +102,55 @@ def pedir_reserva(id_centro):
             "centro_id":"8",
             "email_donante": "juan.perez@gmail.com",
             "fecha": "2020-11-12",
-            "hora_fin": "10:00",
-            "hora_inicio": "09:30",
+            "bloque_horario": "09:30 - 10:00",
             "telefono_donante": "2215930941"
         }
         return jsonify(response), 200
     else:
         # Me estan haciendo post!
         nuevo_turno = request.get_json()
+        print("Se va a imprimir el json")
         print(request.get_json())
-        if Turno.es_valido(centro_id = nuevo_turno["centro_id"],
-            fecha= nuevo_turno["fecha"],
-            hora_inicio= nuevo_turno["hora_inicio"]):
+
+        # Obtengo los datos
+
+        centro_id      = nuevo_turno["centro_id"]
+        fecha          = nuevo_turno["fecha"]
+        bloque_horario = nuevo_turno["bloque_horario"]
+        hora_ini       = bloque_horario[0:5]
+        hora_fin       = bloque_horario[8:13]
+        email_donante  = nuevo_turno["email_donante"]
+        telefono       = nuevo_turno["telefono_donante"]
+        print("Se pudo leer bien el json")
+        print(hora_ini)
+        print(centro_id)
+        print(fecha)
+        # Proceso
+
+        if Turno.es_valido(centro_id = centro_id,
+            fecha= fecha,
+            hora_inicio= hora_ini):
             try:
                 if Turno.reservar_turno(
-                    centro_id = nuevo_turno["centro_id"],
-                    email_donante = nuevo_turno["email_donante"],
-                    telefono_donante = nuevo_turno["telefono_donante"],
-                    hora_inicio = nuevo_turno["hora_inicio"],
-                    hora_fin = nuevo_turno["hora_fin"],
-                    fecha =  nuevo_turno["fecha"]
+                    centro_id = centro_id,
+                    email_donante = email_donante,
+                    telefono_donante = telefono,
+                    hora_inicio = hora_ini,
+                    hora_fin = hora_fin,
+                    fecha =  fecha
                     ):
                     diccionario = {
-                        "centro_id": nuevo_turno["centro_id"],
-                        "email_donante" : nuevo_turno["email_donante"],
-                        "telefono_donante": nuevo_turno["telefono_donante"],
-                        "hora_inicio": nuevo_turno["hora_inicio"],
-                        "hora_fin": nuevo_turno["hora_fin"],
-                        "fecha":  nuevo_turno["fecha"]
+                        "centro_id": centro_id,
+                        "email_donante" : email_donante,
+                        "telefono_donante": telefono,
+                        "hora_inicio": hora_ini,
+                        "hora_fin": hora_fin,
+                        "fecha":  fecha
                         }
                     response = {"atributos": diccionario}
                     return jsonify(response), 201
             except Exception as e:
                 return jsonify({"error":"500 Internal Server Error"}), 500
         else:
+            print("Sale porque le turno ya esta ocupado")
             return jsonify({"error":"400 Bad request"}), 400
