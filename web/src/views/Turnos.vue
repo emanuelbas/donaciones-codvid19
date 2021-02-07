@@ -30,8 +30,8 @@
         >
           {{ bloque }}
         </option>
+
       </select>
-      
     </div>
 
     <h1 v-if="form.hora">
@@ -82,9 +82,7 @@
       />
     </div>
     <a href="/turnos" class="btn btn-danger" v-if="form.hora">Cancelar</a>
-    <button v-on:click="setTurnos()" class="btn btn-primary" v-if="form.hora">
-      Guardar Turno
-    </button>
+    <button v-on:click="setTurnos()" class="btn btn-primary" v-if="form.hora">Guardar Turno</button>
   </div>
 </template>
 
@@ -146,10 +144,12 @@ export default {
       };
       //let json = JSON.stringify(parms);
 
-      //let config = {
-      // headers:{
-      // "Content-Type": "application/json",
-      // },
+
+      let config = {
+       headers:{
+       "Content-Type": "application/json"
+       }
+      };
 
       axios
         .post(url, parms)
@@ -160,7 +160,7 @@ export default {
           //this.$router.push('/turnos?s=1')
         })
         .catch((e) => console.log(e));
-    },
-  },
-};
+    }
+    }
+    }
 </script>

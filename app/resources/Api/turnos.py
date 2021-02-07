@@ -100,6 +100,8 @@ def pedir_reserva(id_centro):
         # Devuelvo el cuerpo de la consulta post
         response = {
             "centro_id":"8",
+            "nombre":"Juan",
+            "apellido":"Perez",
             "email_donante": "juan.perez@gmail.com",
             "fecha": "2020-11-12",
             "bloque_horario": "09:30 - 10:00",
