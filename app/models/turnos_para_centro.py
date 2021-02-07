@@ -23,7 +23,7 @@ class Turno(db.Model):
         act         = 1
         disponible  = 1
         nuevo_turno = Turno(email=em, telefono=te, hora_ini=hi, hora_fin=hf,
-                            dia=di, borrado=act, centro_id=ce, disponible=disponible, nombre=no, apellido=ap)
+                            dia=di, borrado=act, centro_id=ce, disponible=disponible)
         db.session.add(nuevo_turno)
         db.session.commit()
         return True
@@ -64,7 +64,7 @@ class Turno(db.Model):
         db.session.commit()
         return True
 
-    def reservar_turno(centro_id,nombre,apellido,email_donante,telefono_donante,hora_inicio,hora_fin,fecha):
+    def reservar_turno(centro_id,email_donante,telefono_donante,hora_inicio,hora_fin,fecha):
         turno = Turno.query.filter_by(centro_id=centro_id).filter_by(hora_ini=hora_inicio).filter_by(dia=fecha).first()
         if turno and turno.disponible:
             turno.email      = email_donante
