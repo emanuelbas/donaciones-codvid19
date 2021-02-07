@@ -10,30 +10,41 @@ import datetime
 
 
 def turnos_disponibles(id_centro, fecha):
+    ''' Devuelve una lista de bloques horarios disponibles para un centro y fecha determinados 
+
+    USO: /Api/centros/id_centro/<int:id_centro>/turnos_disponibles/fecha=<fecha>
+    EJ : http://localhost:5000/Api/centros/id_centro/1/turnos_disponibles/fecha=2021-02-08
+    '''
+
     #centros = Centro_de_ayuda.all()
-    print("la fecha es:", str(fecha))
+
+    # Obtener datos
     if fecha == 'fecha':
         fecha = str(date.today())
         print("ahora la fecha es:", fecha)
-    turnos = Turno.query.filter_by(centro_id=id_centro).filter_by(
-        dia=fecha).filter_by(disponible=1).all()
-    print(turnos)
+    turnos_ocupados = Turno.query.filter_by(centro_id=id_centro).filter_by(
+        dia=fecha).filter_by(disponible=0).filter_by(borrado=0).all()
 
-    if len(turnos) == 0:
+
+    # Procesar
+    turnos_disponibles = ["09:00 - 09:30","09:30 - 10:00", "10:00 - 10:30", "10:30 - 11:00",
+    "11:00 - 11:30", "11:30 - 12:00", "12:00 - 12:30", "12:30 - 13:00", "13:00 - 13:30",
+    "13:30 - 14:00", "14:00 - 14:30", "14:30 - 15:00", "15:00 - 15:30", "15:30 - 16:00"]
+
+    for turno_ocupado in turnos_ocupados:
+        fecha_ocupada = turno_ocupado.hora_ini+" - "+turno_ocupado.hora_fin
+        try:
+            turnos_disponibles.remove(fecha_ocupada)
+        except:
+            pass
+
+    if len(turnos_disponibles) == 0:
         response = {'turnos': [],
                     'error': 'No existe turno para la fecha seleccionada'}
         return jsonify(response), 400
 
-    lista = []
-
-    for turno in turnos:
-        dic = {'centro_id': turno.centro_id,
-               'hora_inicio': str(turno.hora_ini),
-               'hora_fin': str(turno.hora_fin),
-               'fecha': str(turno.dia)
-               }
-        lista.append(dic)
-    response = {'turnos': lista}
+    # Armar respuesta
+    response = {'turnos': turnos_disponibles}
     return jsonify(response), 200
 
 
@@ -126,22 +137,3 @@ def pedir_reserva(id_centro):
                 return jsonify({"error":"500 Internal Server Error"}), 500
         else:
             return jsonify({"error":"400 Bad request"}), 400
-
-
-
-
-# def turnos_disponibles(id):
- #   turnos = Turno.all()  # filtrar por fecha y si esta disponible
-  #  lista = []             # la hora y la fecha no son modificables solo mostrarlas, generar todos los turnos de un dia vacios y irlos reservando
-   # for turno in turnos:  # directamente filtrar los turnos disponibles y por fecha para no hacer esos 2 if
-    #    if turno.disponible == 1:  # recibir el centro_id para buscar la fecha del turno por id centro , agregar el campo telefono
-    #       if str(turno.dia) == str(date.today()):
-    #          dic = {'fecha': str(turno.dia),
-    #                'hora_fin': turno.hora_fin,
-    #               'hora_inicio': turno.hora_ini,
-    #              'centro_id': turno.centro_id
-    #             }
-    #      lista.append(dic)
-    # response = {'Turnos': lista,
-    #           'Error': 'No esxiste turno para la fecha seleccionada'}
-    # return jsonify(response)

@@ -52,7 +52,7 @@ def create_app():
     app.add_url_rule('/Api/centros/id_centro/<int:id_centro>/turnos_disponibles/fecha=<fecha>',
                      'turnos_disponibles', turnos.turnos_disponibles, methods=["POST", "GET"])
     app.add_url_rule('/Api/centros/id_centro/<int:id_centro>/reserva', 'pedir_reserva',
-        turnos.pedir_reserva, methods=["POST", "GET"])   
+        turnos.pedir_reserva, methods=["POST", "GET"])
 
     # Endpoints para API de estadisticas
     app.add_url_rule('/api/estadisticas/tipos', 'centros_por_tipos', centros.centros_por_tipos, methods=["GET"])
