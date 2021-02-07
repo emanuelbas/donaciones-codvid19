@@ -15,7 +15,7 @@ from requests import get
 from app.resources import api
 from app.resources.Api import centros
 from app.resources.Api import turnos
-from flask_cors import CORS
+# from flask_cors import CORS
 
 def create_app():
     # Configuración inicial de la app
