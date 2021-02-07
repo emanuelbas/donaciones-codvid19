@@ -77,10 +77,12 @@ def crear_turno(id_centro):
         email       = t['email']
         telefono    = t['telefono']
         fecha       = t['fecha']
+        nombre      = t['nombre']
+        apellido    = t['apellido']
         borrado     = 0
         disponible  = 0
         nuevo_turno = Turno(email=email, telefono=telefono, hora_ini=hora_ini, hora_fin=hora_fin,
-                            dia=fecha, borrado=borrado, centro_id=id_centro, disponible=disponible)
+                            dia=fecha, borrado=borrado, centro_id=id_centro, disponible=disponible, nombre=nombre, apellido=apellido)
         db.session.add(nuevo_turno)
         db.session.commit()
 

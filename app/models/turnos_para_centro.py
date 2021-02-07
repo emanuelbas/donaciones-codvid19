@@ -7,6 +7,8 @@ class Turno(db.Model):
     id         = db.Column(db.Integer, primary_key=True)
     email      = db.Column(db.String)
     telefono   = db.Column(db.String)
+    nombre     = db.Column(db.String)
+    apellido   = db.Column(db.String)
     hora_ini   = db.Column(db.String)
     hora_fin   = db.Column(db.String)
     dia        = db.Column(db.String)
@@ -23,7 +25,7 @@ class Turno(db.Model):
         act         = 1
         disponible  = 1
         nuevo_turno = Turno(email=em, telefono=te, hora_ini=hi, hora_fin=hf,
-                            dia=di, borrado=act, centro_id=ce, disponible=disponible)
+                            dia=di, borrado=act, centro_id=ce, disponible=disponible, nombre="sin nombre", apellido="sin apellido")
         db.session.add(nuevo_turno)
         db.session.commit()
         return True
@@ -77,7 +79,7 @@ class Turno(db.Model):
             if turno:
                 return False
             nuevo_turno = Turno(email=email_donante, telefono=telefono_donante, hora_ini=hora_inicio, hora_fin=hora_fin,
-                dia=fecha, borrado=0, centro_id=centro_id, disponible=0)
+                dia=fecha, borrado=0, centro_id=centro_id, disponible=0, nombre="sin nombre", apellido="sin apellido")
             db.session.add(nuevo_turno)
             db.session.commit()
             # /Mod turnos
@@ -127,7 +129,9 @@ class Turno(db.Model):
             dia=fecha,
             borrado=0,
             centro_id=centro_id,
-            disponible=0)
+            disponible=0,
+            nombre="sin nombre",
+            apellido="sin apellido")
         db.session.add(nueva_reserva)
         db.session.commit()
         return True

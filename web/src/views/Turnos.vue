@@ -140,7 +140,9 @@ export default {
         email_donante: this.form.email,
         fecha: this.form.fecha,
         bloque_horario: this.form.hora,
-        telefono_donante: this.form.telefono
+        telefono_donante: this.form.telefono,
+        nombre_donante: this.form.nombre,
+        apellido_donante: this.form.apellido
       };
       //let json = JSON.stringify(parms);
 

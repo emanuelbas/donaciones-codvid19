@@ -123,6 +123,8 @@ def pedir_reserva(id_centro):
         hora_fin       = bloque_horario[8:13]
         email_donante  = nuevo_turno["email_donante"]
         telefono       = nuevo_turno["telefono_donante"]
+        nombre         = nuevo_turno["nombre_donante"]
+        apellido       = nuevo_turno["apellido_donante"]
         print("Se pudo leer bien el json")
         print(hora_ini)
         print(centro_id)
@@ -137,6 +139,8 @@ def pedir_reserva(id_centro):
                     centro_id = centro_id,
                     email_donante = email_donante,
                     telefono_donante = telefono,
+                    nombre_donante = nombre,
+                    apellido_donante = apellido,
                     hora_inicio = hora_ini,
                     hora_fin = hora_fin,
                     fecha =  fecha
@@ -145,6 +149,8 @@ def pedir_reserva(id_centro):
                         "centro_id": centro_id,
                         "email_donante" : email_donante,
                         "telefono_donante": telefono,
+                        "nombre_donante" : nombre,
+                        "apellido_donante" : apellido,
                         "hora_inicio": hora_ini,
                         "hora_fin": hora_fin,
                         "fecha":  fecha
