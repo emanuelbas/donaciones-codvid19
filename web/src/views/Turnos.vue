@@ -144,13 +144,6 @@ export default {
       };
       //let json = JSON.stringify(parms);
 
-
-      let config = {
-       headers:{
-       "Content-Type": "application/json"
-       }
-      };
-
       axios
         .post(url, parms)
         .then((response) => {
