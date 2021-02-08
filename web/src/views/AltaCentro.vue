@@ -107,20 +107,6 @@
                 />
               </div>
               <br />
-              <div>
-                <label>Estado:</label>
-                <select
-                  v-model="form.estado"
-                  class="browser-default custom-select"
-                >
-                  <option value="1">
-                    Publicado
-                  </option>
-                  <option value="2">
-                    Despublicado
-                  </option>
-                </select>
-              </div>
               <br />
               <div>
                 <label>Latitud: </label>
@@ -217,20 +203,15 @@ export default {
       let url =
         "https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/api/crear_centro";
       const parms = {
-        nombre: "hugo",
-        direccion: "hugo",
-        telefono: "22222222",
-        hora_de_apertura: "20:00",
-        hora_de_cierre: "21:00",
-        email: "hugo@gmail.com",
-        sitio_web: "hugo.com",
-        corx: "-38",
-        cory: "-58",
-        lista_de_tipos: 1,
-        id_municipio: 2,
-        id_estado: 1,
-        protocolo: "PDF",
-        historico: 0,
+        direccion: this.form.direccion,
+        email: this.form.email,
+        hora_de_apertura: this.form.horaA,
+        hora_de_cierre: this.fomr.horaC,
+        id_municipio: this.form.municipio,
+        nombre: this.form.nombre,
+        sitio_web: this.form.web,
+        telefono: this.form.telefono,
+        tipos: this.form.tipos
       };
       //let json = JSON.stringify(parms);
 
