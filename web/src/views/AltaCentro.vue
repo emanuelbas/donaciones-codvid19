@@ -172,7 +172,12 @@
 <script>
 import axios from "axios";
 //import VueRecaptcha from "vue-recaptcha";
+<<<<<<< HEAD
 export default {
+=======
+export default 
+{
+>>>>>>> aba612ea12be8900d5d2c274e820203a74aff964
   name: "nuevo_centro",
   data() {
     return {
