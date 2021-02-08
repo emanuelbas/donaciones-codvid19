@@ -206,12 +206,12 @@ export default {
         direccion: this.form.direccion,
         email: this.form.email,
         hora_de_apertura: this.form.horaA,
-        hora_de_cierre: this.fomr.horaC,
+        hora_de_cierre: this.form.horaC,
         id_municipio: this.form.municipio,
         nombre: this.form.nombre,
         sitio_web: this.form.web,
         telefono: this.form.telefono,
-        tipos: this.form.tipos
+        tipos: []
       };
       //let json = JSON.stringify(parms);
 
