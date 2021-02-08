@@ -81,6 +81,11 @@ def cargarCentros():
         }
 		return jsonify(response)
 	datos = request.get_json()
+	
+	# if !(datos["captcha"] = "ok") :
+	# 	return jsonify({"error":"401 Error en el recaptcha"}), 401
+
+
 	nombre = datos["nombre"]
 	tipos = []
 	for tipo in datos['tipos']:

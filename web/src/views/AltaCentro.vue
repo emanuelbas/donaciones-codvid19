@@ -134,12 +134,23 @@
               <label>Geolocalizacion: </label>
           </div>
           <div>
-            <label> CAPTCHA </label>
-               <vue-recaptcha 
+          <label> Captcha - Ingrese el resultado de la siguiente operación aritmetica: </label>
+          <br>
+          <label> 2 + 2 </label>
+          <input
+                  v-model="form.captcha"
+                  type="text"
+                  class="form-control my-3"
+                 />
+
+               <!-- <vue-recaptcha 
                   sitekey="6Le9WAEVAAAAAO-U7wI50TYIP5nKAxb7VkbkyoSY"
                   @verify="mxVerify"
                >
-               </vue-recaptcha>
+               </vue-recaptcha> -->
+              
+
+
                <br />
           </div>
           <br>
@@ -155,8 +166,8 @@
     </div>
 </template>
 <script>
-//import axios from "axios";
-import VueRecaptcha from "vue-recaptcha";
+import axios from "axios";
+//import VueRecaptcha from "vue-recaptcha";
 export default 
 {
   name: "nuevo_centro",
@@ -176,7 +187,7 @@ export default
         coordenadas: "",
         latitud: "",
         longitud: "",
-        recaptcha: null
+        captcha: "",
            },
     };
   },    
@@ -187,12 +198,32 @@ export default
         alert("el boton aceptar esta funcionando")
         //console.log("el boton aceptar esta funcionando");
     },
-    mxVerify( response ) {
-      alert("entro");
-      this.recaptcha = response
+    // mxVerify( response ) {
+    //   alert("entro");
+    //   this.recaptcha = response
+    // },
+
+   validarCaptcha: function(){
+        if(this.captcha == "4"){ this.captcha == "ok" 
+
+        }
+        
     },
+   altaCentros: async function(){
+        try {
+              this.validarCaptcha() 
+              await axios.post('centros/crear_centro', {nombre:this.nombre,direccion:this.direccion,
+                  telefono:this.telefono, horaA:this.horaA,horaC:this.horaC,tipoC:this.tipoC, 
+                  municipio:this.municipio,web:this.web,email:this.email,estado:this.estado,
+                   coordenadas:this.coordenadas,latitud:this.latitud,longitud:this.longitud,captcha:this.captcha});
+                
+        }catch(e){
+           console.error(e);
+        }
+    },
+
     components: {
-      "vue-recaptcha": VueRecaptcha
+      // "vue-recaptcha": VueRecaptcha
   }
 }
 }
