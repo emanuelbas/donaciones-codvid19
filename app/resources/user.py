@@ -12,9 +12,9 @@ def centros():
 
 def login():
     if request.method == 'POST':    
-        params = request.form
+        params  = request.form
         usuario = User.get_by_email_and_pass(params['usuario'], params['clave'])
-        user = User.get_by_username(params['usuario'])
+        user    = User.get_by_username(params['usuario'])
         if user.activo == 0:
             return render_template('errores/usuario_deshabilitado.html')
         if usuario:
@@ -35,7 +35,7 @@ def logout():
 def edit_usuario(id):
     permisos.validar_permisos('user_edit')
     usuario = User.get_by_id(id)
-    roles = Rol.query.all()
+    roles   = Rol.query.all()
     if request.method == 'POST':
         u = request.form
         mensaje = ''

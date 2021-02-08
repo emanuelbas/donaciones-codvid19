@@ -1,5 +1,6 @@
 from flask import render_template, abort, url_for, request, redirect, session, flash, jsonify
 from datetime import date
+from app.db import db
 from app.models.turnos_para_centro import Turno
 from app.models.centro_de_ayuda import Centro_de_ayuda
 from app.models.turnos_para_cada_centro import Turnos_para_cada_centro
@@ -47,31 +48,43 @@ def index_turno(id='', page=1, email=' '):
 
 def crear_turno(id_centro):
     permisos.validar_permisos('turno_create')
-    centros = Centro_de_ayuda.all()
-    turnos_todos = Turno.all()
-    centro = Centro_de_ayuda.query.filter_by(id=id_centro).first()
+    centros     = Centro_de_ayuda.all()
+    turnos_todos= Turno.all()
+    centro      = Centro_de_ayuda.query.filter_by(id=id_centro).first()
     if request.method == 'POST':
-        t = request.form
-        h_i = t['hora_ini']
-        h_f = t['hora_fin']
-        hora_ini = datetime.datetime.strptime(h_i, "%H:%M")
-        hora_fin = datetime.datetime.strptime(h_f, "%H:%M")
+        t         = request.form
+        fecha     = t['fecha']
+        id_centro = t['id_centro']
+        solo_fecha= t['solo_fecha']
 
-        print(hora_ini.hour, ':', hora_ini.minute)
-        if str(t['dia']) < str(date.today()):
-            mensaje = "La fecha ya paso, no puede crear los turnos"
-            hora_ini = t['hora_ini']
-            hora_fin = t['hora_fin']
-            dia = t['dia']
-            return render_template('turnos_para_centro/crear_turno.html', mensaje=mensaje, centro= centro, centros=centros, h_ini=hora_ini, h_fin=hora_fin, dia=dia)
-        while hora_ini != hora_fin:
-            var1 = hora_ini
-            var1 = str(var1.hour)+':'+str(var1.minute)
-            var = hora_ini + datetime.timedelta(minutes=30)
-            var = str(var.hour)+':'+str(var.minute)
-            Turno.create(var1, var, t['dia'], t['centro'])
-            hora_ini = hora_ini + datetime.timedelta(minutes=30)
-        return redirect(url_for('index_turno', turnos=turnos_todos))
+        if solo_fecha == "si":
+            turnos_ocupados = Turno.query.filter_by(centro_id=id_centro).filter_by(dia=fecha).filter_by(disponible=0).filter_by(borrado=0).all()
+
+            turnos_disponibles = ["09:00 - 09:30","09:30 - 10:00", "10:00 - 10:30", "10:30 - 11:00",
+            "11:00 - 11:30", "11:30 - 12:00", "12:00 - 12:30", "12:30 - 13:00", "13:00 - 13:30",
+            "13:30 - 14:00", "14:00 - 14:30", "14:30 - 15:00", "15:00 - 15:30", "15:30 - 16:00"]
+            for turno_ocupado in turnos_ocupados:
+                # Armar fecha_ocupada - Tuve que cambiar hora_ini y hora_fin a VARCHAR en la BD
+                fecha_ocupada = turno_ocupado.hora_ini+" - "+turno_ocupado.hora_fin
+                try:
+                    turnos_disponibles.remove(fecha_ocupada)
+                except:
+                    pass
+            return render_template('turnos_para_centro/crear_turno_con_fecha.html', centro=id_centro, fecha=fecha, turnos=turnos_disponibles)
+
+        hora_ini    = t['bloque_horario'][0:5]
+        hora_fin    = t['bloque_horario'][8:13]
+        email       = t['email']
+        telefono    = t['telefono']
+        fecha       = t['fecha']
+        borrado     = 0
+        disponible  = 0
+        nuevo_turno = Turno(email=email, telefono=telefono, hora_ini=hora_ini, hora_fin=hora_fin,
+                            dia=fecha, borrado=borrado, centro_id=id_centro, disponible=disponible)
+        db.session.add(nuevo_turno)
+        db.session.commit()
+
+        return redirect(url_for('index_turno', id=id_centro, turnos=turnos_todos))
 
     else:
 
@@ -79,9 +92,10 @@ def crear_turno(id_centro):
 
 def crear_turno_para_fecha():
     permisos.validar_permisos('turno_create')
-    form = request.form
-    centro = form['centro']
+    form  = request.form
+    centro= form['id_centro']
     fecha = form['fecha']
+    print("Ok se esta abriendo el segundo template")
     return render_template('turnos_para_centro/crear_turno_para_fecha.html', centro=centro, fecha=fecha)
 
 def editar_turno(id):
@@ -94,7 +108,7 @@ def editar_turno(id):
         else:
             disponible = 0
         Turno.edit(id, t['email'], t['telefono'], disponible)
-        return redirect(url_for('index_turno', turno=turno))
+        return redirect(url_for('index_turno', id=turno.centro_id ,turno=turno))
     else:
         return render_template('turnos_para_centro/editar_turno.html', turno=turno)
 
@@ -116,17 +130,18 @@ def sacar_turno(id):
 
 def borrar_turno(id):
     permisos.validar_permisos('turno_delete')
+    id_centro = Turno.query.filter_by(id=id).first().centro_id
     Turno.delete(id)
     turno = Turno.all()
-    return redirect(url_for('index_turno', turno=turno))
+    return redirect(url_for('index_turno', id=id_centro))
 
 
 def horas_validas(h_ini, h_fin):
-    h_ini = h_ini.split(":")
-    ini_horas = int(h_ini[0])
+    h_ini    = h_ini.split(":")
+    ini_horas= int(h_ini[0])
     ini_mins = int(h_ini[1])
-    h_fin = h_fin.split(":")
-    fin_horas = int(h_fin[0])
+    h_fin    = h_fin.split(":")
+    fin_horas= int(h_fin[0])
     fin_mins = int(h_fin[1])
     if ini_horas < fin_horas:
         if ini_mins < fin_mins:

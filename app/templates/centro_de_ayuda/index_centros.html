@@ -78,6 +78,11 @@
                         onclick="return confirm('¿Estás seguro de que deseas eliminar este Centro de Ayuda?')">Eliminar
                     </a>
                     {% endif %}
+                    <!-- Mod turnos - 06 February 2021 (Saturday)  -->
+                    {%if session['usuario'].tiene_permiso("centro_edit")%}
+                    <a href="{{ url_for('index_turno', id=centro.id)}}" class="btn btn-info mb-2">Turnos</a>
+                    {% endif %}
+                    <!-- /Mod turnos - 06 February 2021 (Saturday) -->
                     {%if session['usuario'].tiene_permiso("centro_edit")%}
                     {% if centro.estado.nombre == 'pendiente' %}
 					<a href="{{ url_for('aprobar_centro', id=centro.id)}}" class="btn btn-info mb-2">Aprobar</a>

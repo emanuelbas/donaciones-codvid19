@@ -15,10 +15,12 @@ from requests import get
 from app.resources import api
 from app.resources.Api import centros
 from app.resources.Api import turnos
+#from flask_cors import CORS
 
 def create_app():
     # Configuración inicial de la app
     app = Flask(__name__)
+    #cors = CORS(app, resources={r"/api/*": {"origins": "https://grupo22.proyecto2020.linti.unlp.edu.ar/"}}, support_credentials=True)
     app.config.from_object(Config)
     fa = FontAwesome(app)
     app.config['SESSION_TYPE'] = 'filesystem'
@@ -38,23 +40,23 @@ def create_app():
     app.add_url_rule('/login', 'login', user.login, methods=["GET", "POST"])
     app.add_url_rule('/logout', 'logout', user.logout)
 
-    # Endpoints para API de centros
-    app.add_url_rule('/Api/centros', 'api_centros',
+    # Endpoints para api de centros
+    app.add_url_rule('/api/centros', 'api_centros',
                      centros.mostrar_centros, methods=["GET"])
-    app.add_url_rule('/Api/centros/page/<int:page>', 'api_centros',
+    app.add_url_rule('/api/centros/page/<int:page>', 'api_centros',
                      centros.mostrar_centros, methods=["GET"])
-    app.add_url_rule('/Api/centros/<int:id>', 'api_centro', centros.mostrar_centro, methods=["GET"])
-    app.add_url_rule('/Api/centros/todos', 'mostrar_todos_centros', centros.mostrar_todos_centros, methods=["GET"])
-    app.add_url_rule('/Api/crear_centro', 'api_crear_centro',
+    app.add_url_rule('/api/centros/<int:id>', 'api_centro', centros.mostrar_centro, methods=["GET"])
+    app.add_url_rule('/api/centros/todos', 'mostrar_todos_centros', centros.mostrar_todos_centros, methods=["GET"])
+    app.add_url_rule('/api/crear_centro', 'api_crear_centro',
                      centros.cargarCentros, methods=["GET", "POST"])
 
-    # Endpoints para API de turnos
-    app.add_url_rule('/Api/centros/id_centro/<int:id_centro>/turnos_disponibles/fecha=<fecha>',
+    # Endpoints para api de turnos
+    app.add_url_rule('/api/centros/id_centro/<int:id_centro>/turnos_disponibles/fecha=<fecha>',
                      'turnos_disponibles', turnos.turnos_disponibles, methods=["POST", "GET"])
-    app.add_url_rule('/Api/centros/id_centro/<int:id_centro>/reserva', 'pedir_reserva',
-        turnos.pedir_reserva, methods=["POST", "GET"])   
+    app.add_url_rule('/api/centros/id_centro/<int:id_centro>/reserva', 'pedir_reserva',
+        turnos.pedir_reserva, methods=["POST", "GET"])
 
-    # Endpoints para API de estadisticas
+    # Endpoints para api de estadisticas
     app.add_url_rule('/api/estadisticas/tipos', 'centros_por_tipos', centros.centros_por_tipos, methods=["GET"])
     app.add_url_rule('/api/estadisticas/top10_centros_del_mes', 'top10_centros_del_mes', centros.top10_centros_del_mes, methods=["GET"])
     app.add_url_rule('/api/estadisticas/total_turnos_del_mes', 'total_turnos_del_mes', centros.total_turnos_del_mes, methods=["GET"])
@@ -122,8 +124,11 @@ def create_app():
     # Modificacion de turnos 04 February 2021 (Thursday)
     app.add_url_rule('/turnos_para_centro/crear_turno/<int:id_centro>', 'crear_turno',
                      turnos_para_centro.crear_turno, methods=["POST", "GET"])
-    app.add_url_rule('/turnos_para_centro/crear_turno/<int:id_centro>/fecha=<fecha>', 'crear_turno_para_fecha',
+    app.add_url_rule('/turnos_para_centro/crear_turno/<int:id_centro>/fecha=<fecha>', 'crear_turno_para_fechax',
                      turnos_para_centro.crear_turno_para_fecha, methods=["POST", "GET"])
+    # Modificacion de turnos 06 February 2021 (Saturday)
+    app.add_url_rule('/turnos_para_centro/crear_turno', 'crear_turno_para_fecha',
+                     turnos_para_centro.crear_turno_para_fecha, methods=["POST"])
     # /04 February 2021 (Thursday)
     app.add_url_rule('/turnos_para_centro/editar_turno/<id>', 'editar_turno',
                      turnos_para_centro.editar_turno, methods=["POST", "GET"])

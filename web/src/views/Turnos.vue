@@ -11,34 +11,27 @@
     <div v-if="!form.hora">
       <label>Fecha para el turno:</label>
       <input
+        v-on:change="getTurnos()"
         v-model="form.fecha"
         type="date"
         :state="false"
         class="form-control my-3"
       />
     </div>
-    <button v-on:click="getTurnos()" class="btn btn-primary" v-if="!form.hora">
-      Buscar turnos
-    </button>
-    <p class="alert alert-danger" v-if="!form.turnos">
-        No hay turnos para esta fecha
-    </p>
-    <p class="alert alert-success" v-if="form.turnos">
-        hay turnos para esta fecha
-    </p>
+
     <div v-if="!form.hora">
       <label>Hora de turno:</label>
 
       <select v-model="form.hora" class="browser-default custom-select">
         <option
-          v-for="turno in form.turnos"
-          :key="turno.id"
-          :value="turno.hora_inicio"
+          v-for="bloque in form.bloques"
+          :key="bloque"
+          :value="bloque"
         >
-          {{ turno.hora_inicio }}
+          {{ bloque }}
         </option>
+
       </select>
-      
     </div>
 
     <h1 v-if="form.hora">
@@ -89,9 +82,7 @@
       />
     </div>
     <a href="/turnos" class="btn btn-danger" v-if="form.hora">Cancelar</a>
-    <button v-on:click="setTurnos()" class="btn btn-primary" v-if="form.hora">
-      Guardar Turno
-    </button>
+    <button v-on:click="setTurnos()" class="btn btn-primary" v-if="form.hora">Guardar Turno</button>
   </div>
 </template>
 
@@ -104,7 +95,7 @@ export default {
   data() {
     return {
       form: {
-        turnos: "",
+        bloques: "",
         cent: "", //el centro seleccionado
         fecha: "", //la fecha seleccionada
         hora: "", //hora seleccionada para el turno
@@ -121,15 +112,17 @@ export default {
   },
   methods: {
     getTurnos: function () {
+      //"https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/api/centros/id_centro/"
+      //"http://localhost:5000/api/centros/id_centro/"
       var url =
-        "https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/Api/centros/id_centro/" +
+        "https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/api/centros/id_centro/" +
         this.form.cent +
         "/turnos_disponibles/fecha=" +
         this.form.fecha;
       axios
         .get(url)
         .then((response) => {
-          this.form.turnos = response.data.turnos;
+          this.form.bloques = response.data.turnos;
         })
         .catch((e) => console.log(e));
     },
@@ -138,38 +131,29 @@ export default {
     },
     setTurnos: function () {
       console.log("el boton esta funcionando");
+      // "https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/api/centros/id_centro/"
+      // "http://localhost:5000/api/centros/id_centro/"
       let url =
-        "https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/Api/centros/id_centro/13/reserva";
+        "https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/api/centros/id_centro/"+this.form.cent+"/reserva";
       const parms = {
-        centro_id: 13,
-        email_donante: "ejemplo.post@gmail.com",
-        fecha: "2020-11-15",
-        hora_fin: "11:00:00",
-        hora_inicio: "11:30:00",
-        telefono_donante: "2214444444",
+        centro_id: this.form.cent,
+        email_donante: this.form.email,
+        fecha: this.form.fecha,
+        bloque_horario: this.form.hora,
+        telefono_donante: this.form.telefono
       };
-      let json = JSON.stringify(parms);
-
-      console.log(json);
-      alert(json);
-
-      //let config = {
-      // headers:{
-      // "Content-Type": "application/json",
-      // },
+      //let json = JSON.stringify(parms);
 
       axios
-        .post(url, json)
+        .post(url, parms)
         .then((response) => {
-          console.log(response);
-          console.log("ENTRO!!");
-          alert(parms);
-
+          console.log(response)
+          alert("Alta exitosa")
           //document.formulario.reset();
           //this.$router.push('/turnos?s=1')
         })
         .catch((e) => console.log(e));
-    },
-  },
-};
+    }
+    }
+    }
 </script>

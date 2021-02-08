@@ -94,7 +94,7 @@ export default {
     },
     getCentros() {
       axios
-        .get("https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/Api/centros/todos")
+        .get("https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/api/centros/todos")
         .then((response) => {
           this.centros = response.data.centros;
           this.showMap = true

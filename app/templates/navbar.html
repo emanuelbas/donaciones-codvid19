@@ -34,11 +34,13 @@
               </li>
               {%endif%}
 
+<!--Mod turnos 06 February 2021 (Saturday)
               {%if session['usuario'].tiene_permiso("turno_index")%}
               <li class="nav-item">
               <a class="nav-link" href="{{ url_for('index_turno')}}">Turnos</a>
               </li>
               {%endif%}
+-->
 
               <li class="nav-item">
                 <p class="nav-link">¡Bienvenido/a {{ session['usuario'].usuario }}!</p>

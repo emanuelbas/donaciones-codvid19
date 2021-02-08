@@ -10,24 +10,20 @@
 
 <div class="container card-body">
     <span class="card-text">
-        <form action="{{url_for('crear_turno')}}" method="POST">
+        <form action="" method="POST">
 
-
-<!-- Cambios para turnos 10 January 2021 (Sunday) -->
-
-<!-- 16 January 2021 (Saturday) 
- - Va a ser necesario crear 2 ventanas de formularios
- - Template 1,  el usuario elije la fecha. Tambien podria ir directamente en index turnos.
- - Template 2,  mostrar el centro y fecha seleccionados (sin permitir modificarlos)
-                mostrar select con los bloques horarios disponibles para centro/hora
-Dejo diagrama de flujo https://gitlab.catedras.linti.unlp.edu.ar/proyecto2020/grupo22/uploads/716c9bc0125e1c6092a930bb746a1bcf/Alta_Turno.png
- -->
+            <!-- Variables autocargadas invisibles -->
+            <section hidden class="form-group">
+                <label for="centro"> ID Centro </label>
+                <input type="text" name="id_centro" id="id_centro" value="{{centro.id}}">
+            </section>
+            <section hidden class="form-group">
+                <label for="solo_fecha"> Solo fecha </label>
+                <input type="text" name="solo_fecha" id="solo_fecha" value="si">
+            </section>
 
             <!-- Mostrar centro -->
-            <p> {{ centro.nombre }} </p><br>
-
-            <!-- Mostrar fecha -->
-            <p> {{ fecha_nuevo_turno }} </p><br>
+            <p> Se creará un turno para el <b>centro {{ centro.nombre }}</b> (ID: {{centro.id}}), seleccione una fecha para continuar </p><br>
 
             <!-- Fecha (mayor a la actual) -->
             <section class="form-group">
@@ -36,94 +32,9 @@ Dejo diagrama de flujo https://gitlab.catedras.linti.unlp.edu.ar/proyecto2020/gr
                     value="{{fecha}}" required>
             </section>
 
-            <!-- Bloque horario 
-            <section class="form-group">
-                <label>Bloque horario:</label>
-                <select name="horario" id="hora_ini">
-                    <option value="10:00">09:00 - 09:30</option>
-                    <option value="09:30">09:30 - 10:00</option>
-                    <option value="10:00">10:00 - 10:30</option>
-                    <option value="10:30">10:30 - 11:00</option>
-                    <option value="11:00">11:00 - 11:30</option>
-                    <option value="11:30">11:30 - 12:00</option>
-                    <option value="12:00">12:00 - 12:30</option>
-                    <option value="12:30">12:30 - 13:00</option>
-                    <option value="13:00">13:00 - 13:30</option>
-                    <option value="13:30">13:30 - 14:00</option>
-                    <option value="14:00">14:00 - 14:30</option>
-                    <option value="14:30">14:30 - 15:00</option>
-                    <option value="15:00">15:00 - 15:30</option>
-                    <option value="15:30">15:30 - 16:00</option>
-                </select>
-            </section>
-            -->
-
-            <!-- Nombre 
-            <section class="form-group">
-                <label for="nombre"> Nombre </label>
-                <input type="text" class="form-control form-control-lg rounded-0" name="nombre" id="nombre" placeholder="Ingrese el nombre" required>
-            </section>
-            -->
-
-            <!-- Apellido 
-            <section class="form-group">
-                <label for="apellido"> Apellido </label>
-                <input type="text" class="form-control form-control-lg rounded-0" name="apellido" id="apellido" placeholder="Ingrese el apellido de contacto" required>
-            </section>
-            -->
-
-            <!-- Email 
-            <section class="form-group">
-                <label for="email"> Email </label>
-                <input type="email" class="form-control form-control-lg rounded-0" name="email" id="email" placeholder="Ingrese el email de contacto" required>
-            </section>
-            -->
-
-            <!-- Telefono 
-            <section class="form-group">
-                <label for="tel"> Teléfono </label>
-                <input type="text" class="form-control form-control-lg rounded-0" name="telefono" id="telefono" placeholder="Ingrese el teléfono de contacto" required>
-            </section>
-            -->
-
-<!-- Cambios para turnos 10 January 2021 (Sunday)  -->
-
-
-           
-<!-- Esto estaba antes
-            <section class="form-group">
-                <label for="titulo"> Hora del Inicio </label>
-                <input type="time" class="form-control form-control-lg rounded-0" name="hora_ini" id="hora_ini"
-                    placeholder="Ingrese hora de inicio del turno" value="{{h_ini}}" required>
-            </section>
-            <section class="form-group">
-                <label for="titulo"> Hora del Fin </label>
-                <input type="time" class="form-control form-control-lg rounded-0" name="hora_fin" id="hora_fin"
-                    placeholder="Ingrese hora de fin del turno" value="{{h_fin}}" required>
-            </section>
-            <section class="form-group">
-                <label for="titulo"> Dia </label>
-                <input type="date" class="form-control form-control-lg rounded-0" name="dia" id="dia"
-                    placeholder="Ingrese el dia" value="{{dia}}" required>
-            </section>
-
-            <label for="centros">Seleccione el centro</label>
-
-            <select id="centro" name="centro">
-                {% for centro in centros %}
-                <option value="{{centro.id}}">{{centro.nombre}}</option>
-                {% endfor %}
-            </select>
-
-
-            <div class="text-right">
-                <a href="{{ url_for('index_turno') }}" class="btn btn-white">Cancelar</a>
-                <button type="submit" class="btn btn-info">Aceptar</button>
-            </div>
--->
+            <button type="submit" class="btn btn-info">Aceptar</button>
 
         </form>
-        <button href="{{url_for('crear_turno_para_fecha', id_centro='4', fecha='05/02/2021')}}"></button>
     </span>
 </div>
 {% endblock %}
