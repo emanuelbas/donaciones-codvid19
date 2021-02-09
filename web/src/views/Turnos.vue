@@ -1,26 +1,25 @@
 <template>
-  <div id="turnos">
-    <div>
+  <div id="turnos" class="container">
+    <div class="pb-5">
       <h1>
-        Eligió las opciones para el turno del centro:
-        {{ this.form.cent }} para la fecha: {{ this.form.fecha }} y hora:
-        {{ this.form.hora }}
+        Solicitud de turno para Centro de Ayuda <b>#{{ this.form.cent }}</b>
       </h1>
     </div>
 
-    <div v-if="!form.hora">
-      <label>Fecha para el turno:</label>
+    <br>
+    <div>
+      <label>Por favor, seleccione una fecha para poder ver los horarios disponibles</label>
       <input
         v-on:change="getTurnos()"
         v-model="form.fecha"
         type="date"
         :state="false"
-        class="form-control my-3"
+        class="form-control"
       />
     </div>
 
-    <div v-if="!form.hora">
-      <label>Hora de turno:</label>
+    <div v-if="form.bloques" >
+      <label>Seleccione uno de los siguientes <b>bloques de horario disponibles</b></label>
 
       <select v-model="form.hora" class="browser-default custom-select">
         <option
@@ -34,60 +33,60 @@
       </select>
     </div>
 
-    <h1 v-if="form.hora">
-      Ingrese sus datos personales para el turno nombre:
-      {{ this.form.nombre }} y apellido: {{ this.form.apellido }} , telefono:
-      {{ this.form.telefono }} y mail:
-      {{ this.form.email }}
-    </h1>
+    <p v-if="form.hora" class="mt-4">
+      Ahora ingrese sus datos personales para completar la solicitud.
+    </p>
 
     <div v-if="form.hora">
-      <label>Nombre:</label>
+      <label>Nombre</label>
       <input
         type="text"
         v-model="form.nombre"
         placeholder="Ingrese el nombre"
-        class="form-control my-3"
+        class="form-control"
         required
       />
     </div>
     <div v-if="form.hora">
-      <label>Apellido:</label>
+      <label>Apellido</label>
       <input
         type="text"
         v-model="form.apellido"
         placeholder="Ingrese el apellido"
-        class="form-control my-3"
+        class="form-control"
         required
       />
     </div>
     <div v-if="form.hora">
-      <label>Email:</label>
+      <label>Email</label>
       <input
         type="email"
         v-model="form.email"
         placeholder="Ingese el email"
-        class="form-control my-3"
+        class="form-control "
         required
       />
     </div>
     <div v-if="form.hora">
-      <label>Telefono:</label>
+      <label>Telefono</label>
       <input
         type="number"
         v-model="form.telefono"
         placeholder="Ingrese el telefono"
-        class="form-control my-3"
+        class="form-control"
         required
       />
     </div>
-    <a href="/turnos" class="btn btn-danger" v-if="form.hora">Cancelar</a>
-    <button v-on:click="setTurnos()" class="btn btn-primary" v-if="form.hora">Guardar Turno</button>
+    <div id="caja-botones" class="mt-4">
+      <a href="/centros" class="btn btn-danger">Cancelar</a>
+      <button v-on:click="setTurnos()" class="btn btn-primary" v-if="form.hora">Guardar Turno</button>
+    </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import router from '../router'
 
 export default {
   name: "turnos",
@@ -148,9 +147,9 @@ export default {
 
       axios
         .post(url, parms)
-        .then((response) => {
-          console.log(response)
-          alert("Alta exitosa")
+        .then(() => {
+          alert("¡Su turno fue reservado con éxito!")
+          router.push("/")
           //document.formulario.reset();
           //this.$router.push('/turnos?s=1')
         })
