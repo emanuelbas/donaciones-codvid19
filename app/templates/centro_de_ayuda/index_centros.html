@@ -79,7 +79,7 @@
                     </a>
                     {% endif %}
                     <!-- Mod turnos - 06 February 2021 (Saturday)  -->
-                    {%if session['usuario'].tiene_permiso("centro_edit")%}
+                    {%if ( ( session['usuario'].tiene_permiso("centro_edit") ) and ( centro.publicado == 1 ) )%}
                     <a href="{{ url_for('index_turno', id=centro.id)}}" class="btn btn-info mb-2">Turnos</a>
                     {% endif %}
                     <!-- /Mod turnos - 06 February 2021 (Saturday) -->

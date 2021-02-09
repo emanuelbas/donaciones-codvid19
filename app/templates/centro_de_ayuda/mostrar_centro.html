@@ -48,7 +48,9 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 </details>
 
 <a href="/static/uploads/{{centro.protocolo_de_vista}}" class="btn btn-info mt-5 mb-2">Ver protocolo de visita</a>
-<a href="{{ url_for('index_turno', id=centro.id)}}" class="btn btn-info mt-5 mb-2">Turnos</a>
+{% if centro.publicado == 1 %}
+  <a href="{{ url_for('index_turno', id=centro.id)}}" class="btn btn-info mt-5 mb-2">Turnos</a>
+{% endif %}
 
 {% if centro.estado.nombre == 'pendiente' %}
 <a href="{{ url_for('aprobar_centro', id=centro.id)}}" class="btn btn-info mt-5 mb-2">Aprobar</a>
