@@ -12,6 +12,7 @@
       <input
         v-on:change="getTurnos()"
         v-model="form.fecha"
+        :min="fecha_hoy"
         type="date"
         :state="false"
         class="form-control"
@@ -103,11 +104,12 @@ export default {
         telefono: "",
         email: "",
       },
+      fecha_hoy: ""
     };
   },
 
   mounted() {
-    this.test();
+    this.initialize();
   },
   methods: {
     getTurnos: function () {
@@ -125,8 +127,10 @@ export default {
         })
         .catch((e) => console.log(e));
     },
-    test: function () {
+    initialize: function () {
       this.form.cent = this.$route.query.centro_id;
+      this.fecha_hoy = new Date().toISOString().slice(0, 10)
+      console.log(this.fecha_hoy)
     },
     setTurnos: function () {
       console.log("el boton esta funcionando");
