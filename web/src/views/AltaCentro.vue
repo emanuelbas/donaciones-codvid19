@@ -1,6 +1,6 @@
  <template>
 <div id="alta_centro" class="container" >
-  <h1>Registra tu centro</h1>
+  <Title title="Registra tu Centro de Ayuda"/>
   <p class="mb-5"> Una vez registrado quedará pendiente de aprobación por el personal </p>
   <div id="formulario" class="container">
     
@@ -168,13 +168,15 @@
 
 <script>
 import axios from "axios";
-import router from '../router'
+import router from '../router';
+import Title from '@/components/Title.vue';
 import { latLng, latLngBounds } from "leaflet";
 import { LMap, LTileLayer  } from "vue2-leaflet"; //, LPopupLMarker,
 //import VueRecaptcha from "vue-recaptcha";
 export default {
   name: "alta_centro",
   components: {
+    Title,
     LMap,
     LTileLayer,
     //LMarker

@@ -1,26 +1,38 @@
 <template>
   <div>
     <Title title="Estadísticas"/>
-    <div class="container mt-5">
-      <h3>Cantidad de Centros por Tipo</h3>
-      <h5>Se muestran los distintos tipos de centros y cuantos hay registrados</h5>
-      <br>
-      <ve-pie  :data="tiposDeCentro"></ve-pie>
+
+    <div id="caja-de-graficos">
+
+      <div v-if="current == 0" class="container mt-5">
+        <h3>Cantidad de Centros por Tipo</h3>
+        <h5>Se muestran los distintos tipos de centros y cuantos hay registrados</h5>
+        <br>
+        <ve-pie  :data="tiposDeCentro"></ve-pie>
+      </div>
+
+      <div v-if="current == 1" class="container mt-5">
+        <h3>Cantidad de Turnos por Fecha</h3>
+        <h5> Se muestran las fechas de los últimos 30 días</h5>
+        <br>
+        <ve-line class="container" :data="turnosPorDia"></ve-line>
+      </div>
+
+      <div v-if="current == 2" class="container mt-5">
+        <h3>TOP-10 Centros de Ayuda</h3>
+        <h5> Se muestran los 10 Centros de ayuda más concurridos </h5>
+        <br>
+        <ve-bar :data="mejoresCentros"></ve-bar>
+      </div>
     </div>
 
-    <div class="container mt-5">
-      <h3>Cantidad de Turnos por Fecha</h3>
-      <h5> Se muestran las fechas de los últimos 30 días</h5>
-      <br>
-      <ve-line class="container" :data="turnosPorDia"></ve-line>
+    <div id="caja-de-botones">
+      <button v-if="current != 0" v-on:click="current -= 1" class="btn btn-primary">◄</button>
+      <button v-if="current == 0" disabled class="btn btn-primary">◄</button>
+      <button v-if="current != 2" v-on:click="current += 1" class="btn btn-primary">►</button>
+      <button v-if="current == 2" disabled class="btn btn-primary">►</button>
     </div>
 
-    <div class="container mt-5">
-      <h3>TOP-10 Centros de Ayuda</h3>
-      <h5> Se muestran los 10 Centros de ayuda más concurridos </h5>
-      <br>
-      <ve-bar :data="mejoresCentros"></ve-bar>
-    </div>
   </div>
 </template>
 
@@ -33,9 +45,10 @@ export default {
   components: { VeLine, Title },
   data () {
     return {
-      tiposDeCentro: {},
+      current       : 0,
+      tiposDeCentro : {},
       mejoresCentros: {},
-      turnosPorDia: {}
+      turnosPorDia  : {}
     }
   },  
   mounted() {
@@ -51,7 +64,7 @@ export default {
           this.tiposDeCentro =
           {
             columns: ['tipo','cantidad'],
-            rows: response.data.centros_por_tipo
+            rows   : response.data.centros_por_tipo
           }
         })
         .catch((e) => console.log(e));
@@ -63,7 +76,7 @@ export default {
           this.mejoresCentros =
           {
             columns: ['nombre','cantidad'],
-            rows: response.data.top_10
+            rows   : response.data.top_10
           }
         })
         .catch((e) => console.log(e));
@@ -75,7 +88,7 @@ export default {
           this.turnosPorDia =
           {
             columns: ['dia','turnos'],
-            rows: response.data.turnos_por_dia
+            rows   : response.data.turnos_por_dia
           }
         })
         .catch((e) => console.log(e));
