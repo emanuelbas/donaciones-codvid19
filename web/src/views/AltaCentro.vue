@@ -241,7 +241,7 @@ export default {
     alta_centro: function() {
       // "https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/api/crear_centro"
       // "http://localhost:5000/api/crear_centro"
-      let url     = "http://localhost:5000/api/crear_centro";
+      let url     = "https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/api/crear_centro";
       const parms = {
         direccion       : this.form.direccion,
         email           : this.form.email,
