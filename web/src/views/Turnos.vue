@@ -95,14 +95,14 @@ export default {
   data() {
     return {
       form: {
-        bloques: "",
-        cent: "", //el centro seleccionado
-        fecha: "", //la fecha seleccionada
-        hora: "", //hora seleccionada para el turno
-        nombre: "", //datos del fomulario
+        bloques : "",
+        cent    : "", //el centro seleccionado
+        fecha   : "", //la fecha seleccionada
+        hora    : "", //hora seleccionada para el turno
+        nombre  : "", //datos del fomulario
         apellido: "",
         telefono: "",
-        email: "",
+        email   : "",
       },
       fecha_hoy: ""
     };
@@ -139,12 +139,12 @@ export default {
       let url =
         "https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/api/centros/id_centro/"+this.form.cent+"/reserva";
       const parms = {
-        centro_id: this.form.cent,
-        email_donante: this.form.email,
-        fecha: this.form.fecha,
-        bloque_horario: this.form.hora,
+        centro_id       : this.form.cent,
+        email_donante   : this.form.email,
+        fecha           : this.form.fecha,
+        bloque_horario  : this.form.hora,
         telefono_donante: this.form.telefono,
-        nombre_donante: this.form.nombre,
+        nombre_donante  : this.form.nombre,
         apellido_donante: this.form.apellido
       };
       //let json = JSON.stringify(parms);
