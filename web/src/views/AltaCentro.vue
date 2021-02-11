@@ -138,6 +138,7 @@
           :url="url"
           :attribution="attribution"
         ></l-tile-layer>
+        <l-marker :lat-lng="markerLatLng" ></l-marker>
         <!--l-marker :lat-lng="marker_position">
           <p>A verrrrr</p>
         </l-marker-->
@@ -183,7 +184,7 @@ import axios from "axios";
 import router from '../router';
 import Title from '@/components/Title.vue';
 import { latLng, latLngBounds } from "leaflet";
-import { LMap, LTileLayer  } from "vue2-leaflet"; //, LPopupLMarker,
+import { LMap, LTileLayer, LMarker  } from "vue2-leaflet"; //, LPopupLMarker,
 import myCaptcha from 'vue-captcha'// prueba
 //import VueRecaptcha from "vue-recaptcha";
 export default {
@@ -192,14 +193,14 @@ export default {
     Title,
     LMap,
     LTileLayer,
-    'my-captcha': myCaptcha
-    //LMarker
+    'my-captcha': myCaptcha,
+    LMarker
     //LPopup
     //LTooltip
   },
   data() {
     return {
-      btndis         : true, //Prueba
+      btndis         : true,
       form           : {
         nombre          : "",
         direccion       : "",
@@ -216,7 +217,7 @@ export default {
       municipios     : [],
       recaptcha      : null,
       //Variables del mapa
-      marker_position: latLng(-34.921127, -57.937775),
+      markerLatLng   : [0, 0],
       showMap        : true,
       zoom           : 13,
       center         : latLng(-34.921127, -57.937775),
@@ -239,7 +240,7 @@ export default {
       
       this.form.latitud  = event.latlng.lat
       this.form.longitud = event.latlng.lng
-      alert("¡Posición actualizada! Lat-"+this.form.latitud+" Lng-"+this.form.longitud)
+      this.markerLatLng  = [event.latlng.lat, event.latlng.lng]
     },
     addMarker(event) {
       console.log(event)
