@@ -152,9 +152,14 @@
       >
       </vue-recaptcha>
     </div-->
+    <div id="captcha">
+      <p class="captcha-text">¡Confirma que no sos un robot!</p>
+      <my-captcha :callSuccess="captchaBtn"></my-captcha>
+    </div>
 
     <div class="pt-5 mb-5" id="botones">
       <button
+        v-bind:disabled="btndis"
         v-on:click="alta_centro()"
         class="btn btn-primary"
         type="submit"
@@ -162,6 +167,13 @@
       <a href="/Centros" class="btn btn-danger" type="reset">Cancelar</a>
     </div>
   </div>
+
+  <!-- prueba -->
+
+      
+
+
+  <!-- Fin prueba -->
 </div>
 </template>
 
@@ -172,6 +184,7 @@ import router from '../router';
 import Title from '@/components/Title.vue';
 import { latLng, latLngBounds } from "leaflet";
 import { LMap, LTileLayer  } from "vue2-leaflet"; //, LPopupLMarker,
+import myCaptcha from 'vue-captcha'// prueba
 //import VueRecaptcha from "vue-recaptcha";
 export default {
   name: "alta_centro",
@@ -179,12 +192,14 @@ export default {
     Title,
     LMap,
     LTileLayer,
+    'my-captcha': myCaptcha
     //LMarker
     //LPopup
     //LTooltip
   },
   data() {
     return {
+      btndis         : true, //Prueba
       form           : {
         nombre          : "",
         direccion       : "",
@@ -198,7 +213,7 @@ export default {
         latitud         : "",
         longitud        : "",
       },
-      municipios     :[],
+      municipios     : [],
       recaptcha      : null,
       //Variables del mapa
       marker_position: latLng(-34.921127, -57.937775),
@@ -288,7 +303,56 @@ export default {
       }
 
       return "ok"
+    },
+    captchaOk () {
+      console.log('captcha ok.!')
+    },
+    captchaBtn () {
+     this.btndis = false
+    },
+    clicked () {
+      alert('button active.!')
     }
   }
 };
 </script>
+
+
+<style scope>
+  label {
+    text-shadow: #CCC 1px 0 10px;
+    font-size: 20px
+  }
+  .form {
+    margin: 10px;
+  }
+  .row {
+    margin: 10px;
+  }
+  .button {
+    margin-top      : 5px;
+    background-color: #1D9D74;
+    border          : 1px solid transparent;
+    border-radius   : 3px;
+    border-color    : #dbdbdb;
+    text-align      : center;
+    font-size       : 1em;
+    height          : 2.25em;
+    line-height     : 1.5;
+    color           : white;
+    cursor          : pointer;
+    padding-bottom  : calc(0.375em - 1px);
+    padding-left    : calc(0.625em - 1px);
+    padding-right   : calc(0.625em - 1px);
+    padding-top     : calc(0.375em - 1px);
+  }
+  .button[disabled] {
+    cursor : not-allowed;
+    opacity: 0.6;
+  }
+  .captcha-text {
+    text-shadow: #CCC 1px 0 10px;
+    font-size: 20px;
+    text-align: left;
+  }
+</style>
