@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-<h1> CRUD turnos </h1>
+<h1> Turnos </h1>
 
 <div class="container">
     <form action="" method="POST">
@@ -17,12 +17,13 @@
         <thead>
             <tr>
                 <td>Nombre de centro</td>
+                <td>Nombre</td>
+                <td>Apellido</td>
                 <td>Email</td>
                 <td>Telefono</td>
                 <td>Hora de Inicio</td>
                 <td>Hora de Fin</td>
                 <td>Dia</td>
-                <td>Disponible</td>
                 <td>Operaciones</td>
             </tr>
         </thead>
@@ -33,18 +34,14 @@
                 {% if (turno.centro_id == centro.id)%}
                 <tr>
                     <td> {{ centro.nombre }} </td>
+                    <td> {{ turno.nombre }} </td>
+                    <td> {{ turno.apellido }} </td>
                     <td> {{ turno.email }} </td>
                     <td> {{ turno.telefono }} </td>
                     <td> {{ turno.hora_ini }} </td>
                     <td> {{ turno.hora_fin }} </td>
                     <td> {{ turno.dia }} </td>
-                    <td>
-                        {% if (turno.disponible == 1) %}
-				        <p>Si</p>
-			            {% else %}
-				        <p>No</p>
-			            {%  endif  %}
-                    </td>
+                   
                     <td>
                         <a href="{{ url_for('editar_turno', id=turno.id)}}" class="btn btn-info">Editar turno</a>
                         <a href="{{ url_for('borrar_turno', id=turno.id)}}" class="btn btn-danger"
