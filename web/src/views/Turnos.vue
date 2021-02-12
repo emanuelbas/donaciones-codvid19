@@ -6,9 +6,12 @@
       </h1>
     </div>
 
-    <br>
+    <br />
     <div>
-      <label>Por favor, seleccione una fecha para poder ver los horarios disponibles</label>
+      <label
+        >Por favor, seleccione una fecha para poder ver los horarios
+        disponibles</label
+      >
       <input
         v-on:change="getTurnos()"
         v-model="form.fecha"
@@ -19,18 +22,16 @@
       />
     </div>
 
-    <div v-if="form.bloques" >
-      <label>Seleccione uno de los siguientes <b>bloques de horario disponibles</b></label>
+    <div v-if="form.bloques">
+      <label
+        >Seleccione uno de los siguientes
+        <b>bloques de horario disponibles</b></label
+      >
 
       <select v-model="form.hora" class="browser-default custom-select">
-        <option
-          v-for="bloque in form.bloques"
-          :key="bloque"
-          :value="bloque"
-        >
+        <option v-for="bloque in form.bloques" :key="bloque" :value="bloque">
           {{ bloque }}
         </option>
-
       </select>
     </div>
 
@@ -80,14 +81,16 @@
     </div>
     <div id="caja-botones" class="mt-4">
       <a href="/centros" class="btn btn-danger">Cancelar</a>
-      <button v-on:click="setTurnos()" class="btn btn-primary" v-if="form.hora">Guardar Turno</button>
+      <button v-on:click="setTurnos()" class="btn btn-primary" v-if="form.hora">
+        Guardar Turno
+      </button>
     </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import router from '../router'
+import router from "../router";
 
 export default {
   name: "turnos",
@@ -95,14 +98,14 @@ export default {
   data() {
     return {
       form: {
-        bloques : "",
-        cent    : "", //el centro seleccionado
-        fecha   : "", //la fecha seleccionada
-        hora    : "", //hora seleccionada para el turno
-        nombre  : "", //datos del fomulario
+        bloques: "",
+        cent: "", //el centro seleccionado
+        fecha: "", //la fecha seleccionada
+        hora: "", //hora seleccionada para el turno
+        nombre: "", //datos del fomulario
         apellido: "",
         telefono: "",
-        email   : "",
+        email: ""
       },
       fecha_hoy: ""
     };
@@ -112,7 +115,7 @@ export default {
     this.initialize();
   },
   methods: {
-    getTurnos: function () {
+    getTurnos: function() {
       //"https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/api/centros/id_centro/"
       //"http://localhost:5000/api/centros/id_centro/"
       var url =
@@ -122,43 +125,62 @@ export default {
         this.form.fecha;
       axios
         .get(url)
-        .then((response) => {
+        .then(response => {
           this.form.bloques = response.data.turnos;
         })
-        .catch((e) => console.log(e));
+        .catch(e => console.log(e));
     },
-    initialize: function () {
+    initialize: function() {
       this.form.cent = this.$route.query.centro_id;
-      this.fecha_hoy = new Date().toISOString().slice(0, 10)
-      console.log(this.fecha_hoy)
+      this.fecha_hoy = new Date().toISOString().slice(0, 10);
+      console.log(this.fecha_hoy);
     },
-    setTurnos: function () {
+    setTurnos: function() {
       console.log("el boton esta funcionando");
       // "https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/api/centros/id_centro/"
       // "http://localhost:5000/api/centros/id_centro/"
       let url =
-        "https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/api/centros/id_centro/"+this.form.cent+"/reserva";
+        "https://admin-grupo22.proyecto2020.linti.unlp.edu.ar/api/centros/id_centro/" +
+        this.form.cent +
+        "/reserva";
       const parms = {
-        centro_id       : this.form.cent,
-        email_donante   : this.form.email,
-        fecha           : this.form.fecha,
-        bloque_horario  : this.form.hora,
+        centro_id: this.form.cent,
+        email_donante: this.form.email,
+        fecha: this.form.fecha,
+        bloque_horario: this.form.hora,
         telefono_donante: this.form.telefono,
-        nombre_donante  : this.form.nombre,
+        nombre_donante: this.form.nombre,
         apellido_donante: this.form.apellido
       };
       //let json = JSON.stringify(parms);
+      let mensaje = this.validar_formulario();
+      if (mensaje != "ok") {
+        alert(mensaje);
+        return 0;
+      }
+        axios
+          .post(url, parms)
+          .then(() => {
+            alert("¡Su turno fue reservado con éxito!");
+            router.push("/");
+            //document.formulario.reset();
+            //this.$router.push('/turnos?s=1')
+          })
+          .catch(e => console.log(e));
+    
+    },
+    validar_formulario: function() {
+      if (
+        this.form.nombre == "" ||
+        this.form.apellido == "" ||
+        this.form.email == "" ||
+        this.form.telefono == ""
+      ) {
+        return "Faltan completar uno o mas campos";
+      }
 
-      axios
-        .post(url, parms)
-        .then(() => {
-          alert("¡Su turno fue reservado con éxito!")
-          router.push("/")
-          //document.formulario.reset();
-          //this.$router.push('/turnos?s=1')
-        })
-        .catch((e) => console.log(e));
+      return "ok";
     }
-    }
-    }
+  }
+};
 </script>
