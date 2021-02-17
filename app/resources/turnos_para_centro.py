@@ -51,6 +51,7 @@ def crear_turno(id_centro):
     centros     = Centro_de_ayuda.all()
     turnos_todos= Turno.all()
     centro      = Centro_de_ayuda.query.filter_by(id=id_centro).first()
+    f = str(date.today())
     if request.method == 'POST':
         t         = request.form
         fecha     = t['fecha']
@@ -90,7 +91,7 @@ def crear_turno(id_centro):
 
     else:
 
-        return render_template('turnos_para_centro/crear_turno.html', centro= centro, centros=centros)
+        return render_template('turnos_para_centro/crear_turno.html', centro= centro, centros=centros, f=f)
 
 def crear_turno_para_fecha():
     permisos.validar_permisos('turno_create')

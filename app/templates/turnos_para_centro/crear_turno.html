@@ -26,10 +26,11 @@
             <p> Se creará un turno para el <b>centro {{ centro.nombre }}</b> (ID: {{centro.id}}), seleccione una fecha para continuar </p><br>
 
             <!-- Fecha (mayor a la actual) -->
+           
             <section class="form-group">
-                <label for="fecha"> Fecha </label>
+                <label for="fecha"> Fechas </label>
                 <input type="date" class="form-control form-control-lg rounded-0" name="fecha" id="fecha"
-                    value="{{fecha}}" required>
+                    value="{{fecha}}" min="{{ f }}" required>
             </section>
 
             <button type="submit" class="btn btn-info">Aceptar</button>
