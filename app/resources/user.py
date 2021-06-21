@@ -30,7 +30,9 @@ def login():
 
 def logout():
     session.clear()
-    return redirect(url_for('index'))
+    configuracion = Configuracion.get_config()
+    mensaje = "Su sesion fue cerrada correctamente."
+    return render_template('index.html', mensaje=mensaje, configuracion=configuracion)
 
 def edit_usuario(id):
     permisos.validar_permisos('user_edit')

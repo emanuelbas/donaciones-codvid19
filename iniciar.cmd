@@ -3,6 +3,7 @@
 COLOR CF
 echo Bienvenido al sistema de gestion de comandos del Grupo 22
 echo  
+
 :rutina
 SET /P OPT="Que desea hacer? ingrese b(Base de datos), f(Flask), v(Vue), s(Stop BD): "
 
