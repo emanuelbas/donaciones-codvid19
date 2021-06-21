@@ -38,6 +38,16 @@ class TestAplicacionArriba(unittest.TestCase):
         self.assertTrue(b'Su sesion fue cerrada correctamente.' in response.data)
 
     # Probar que cierta ubicacion solo este disponible para usuario logueado
+    def test_access_denied(self):
+        response = self.app.get('/centros')
+        self.assertTrue(b'debe autenticarse' in response.data)
+
+    def test_access_allowed(self):
+        self.app.post('/login',
+            data=dict(usuario='admin',clave='1234'),
+            follow_redirects = True)
+        response = self.app.get('/centros')
+        self.assertTrue(b'Centros de ayuda' in response.data)
 
 if __name__ == '__main__':
     unittest.main()
