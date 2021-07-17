@@ -103,7 +103,8 @@ def crear_usuario():
                 mensaje_exito = "Usuario creado exitosamente"
             else:
                 mensaje_error = "Hubo algun problema"
-            return redirect(url_for('index_usuario', mensaje_error= mensaje_error, mensaje_exito=mensaje_exito))
+            #return redirect(url_for('index_usuario', mensaje_error= mensaje_error, mensaje_exito=mensaje_exito))
+            return render_template('usuario/crear_usuario.html', mensaje_error= mensaje_error, mensaje_exito=mensaje_exito)
         return render_template('usuario/crear_usuario.html', mensaje_error= mensaje_error, mensaje_exito=mensaje_exito)
     else:
         return render_template('usuario/crear_usuario.html')
@@ -112,6 +113,12 @@ def borrar(id):
     permisos.validar_permisos('user_delete')
     mensaje= "Se borro el usuario"
     User.delete(id)
+    return redirect(url_for('index_usuario'))
+
+def borrar_por_nombre(nombre):
+    permisos.validar_permisos('user_delete')
+    mensaje= "Se borro el usuario"
+    User.delete_by_name(nombre)
     return redirect(url_for('index_usuario'))
 
 

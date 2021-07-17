@@ -97,6 +97,8 @@ def create_app():
                      user.crear_usuario, methods=["POST", "GET"])
     app.add_url_rule("/usuarios/borrar_usuario/<id>",
                      'borrar_usuario', user.borrar, methods=['GET'])
+    app.add_url_rule("/usuarios/borrar_usuario_por_nombre/<nombre>",
+                     'borrar_usuario_por_nombre', user.borrar_por_nombre, methods=['GET'])
     app.add_url_rule('/usuarios/activar/<id>', 'activar',
                      user.activar,  methods=['POST', 'GET'])
     app.add_url_rule('/usuarios/desactivar/<id>', 'desactivar',

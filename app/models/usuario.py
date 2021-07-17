@@ -85,6 +85,12 @@ class User(db.Model):
         db.session.commit()
         return True
 
+    def delete_by_name(name):
+        user = User.query.filter_by(usuario=name).first()
+        db.session.delete(user)
+        db.session.commit()
+        return True
+
     def get_by_email_and_pass(usuario, clave):
         return User.query.filter_by(usuario=usuario, clave=clave).first()
 
