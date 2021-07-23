@@ -18,20 +18,20 @@ class TestAplicacionArriba(unittest.TestCase):
         response = self.app.get('/login')
         self.assertTrue(b'Login' in response.data)
 
-    # Probar que logue correctamente
-    def test_login_in(self):
-        response = self.app.post('/login',
-            data=dict(usuario='admin',clave='1234'),
-            follow_redirects = True)
-        self.assertTrue(b'Se logueo correctamente' in response.data)
-
     # Probar error en credenciales
     def test_login_wrong_credentials(self):
         response = self.app.post('/login',
             data=dict(usuario='admin',clave='12345'),
             follow_redirects = True)
         self.assertTrue(b'No logro autenticarse, vuelva a intentarlo.' in response.data)
-
+    
+    # Probar que logue correctamente
+    def test_login_in(self):
+        response = self.app.post('/login',
+            data=dict(usuario='admin',clave='1234'),
+            follow_redirects = True)
+        self.assertTrue(b'Se logueo correctamente' in response.data)
+        
     # Probar que des-logue correctamente
     def test_logout(self):
         response = self.app.get('/logout')
@@ -39,14 +39,15 @@ class TestAplicacionArriba(unittest.TestCase):
 
     # Probar que cierta ubicacion solo este disponible para usuario logueado
     def test_access_denied(self):
-        response = self.app.get('/centros')
+        response = self.app.get('/usuario/index_usuario')
         self.assertTrue(b'debe autenticarse' in response.data)
 
     def test_access_allowed(self):
+        self.app.get('/logout')
         self.app.post('/login',
             data=dict(usuario='admin',clave='1234'),
             follow_redirects = True)
-        response = self.app.get('/centros')
+        response = self.app.get('/usuario/index_usuario')
         self.assertTrue(b'Centros de ayuda' in response.data)
 
 if __name__ == '__main__':

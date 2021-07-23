@@ -1,5 +1,6 @@
 @ECHO OFF
 
+set FLASK_ENV=testing
 python -m unittest discover
 
 ECHO        _.-"\
