@@ -26,6 +26,7 @@ class User(db.Model):
     fecha_actualizacion = db.Column(db.String)
     fecha_creacion = db.Column(db.String)
     historico = db.Column(db.Integer)
+    google_token = db.Column(db.String)
 
     # Voy a crear una relacion entre tablas
     # Lleva como argumento las clases involucradas
@@ -40,6 +41,9 @@ class User(db.Model):
 
     def get_by_id(id):
         return User.query.get(id)
+
+    def get_by_email(email):
+        return User.query.filter(User.email.contains(email)).first()
 
     def edit(i, us, cl, no, ap, em, ac, roles):
         lista_roles = []

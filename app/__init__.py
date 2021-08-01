@@ -1,5 +1,5 @@
 from os import path
-from flask import Flask, url_for, render_template, g, abort, request, session, flash, redirect
+from flask import Flask, url_for, render_template, g, abort, request, session, flash, redirect, session
 from app.models.usuario import User
 from app.config import Config
 from app.models.configuracion import Configuracion
@@ -17,6 +17,12 @@ from app.resources.Api import centros
 from app.resources.Api import turnos
 from flask_cors import CORS
 
+from authlib.integrations.flask_client import OAuth
+from flask import url_for, render_template
+
+
+
+
 def create_app():
     # Configuración inicial de la app
     app = Flask(__name__)
@@ -26,6 +32,40 @@ def create_app():
     app.config['SESSION_TYPE'] = 'filesystem'
     app.config['UPLOAD_FOLDER'] = 'app/static/uploads'
     Session(app)
+
+    # OAUTH-INI
+    oauth = OAuth()
+    oauth.init_app(app)
+    google = oauth.register(
+        name = 'google',
+        client_id = '593639469284-m7lqdnnjqrsou05rjv5mm7cda944cdg2.apps.googleusercontent.com',
+        client_secret = 'tX5Zvj88bp1La0OuE1ubYvLN',
+        access_token_url = 'https://accounts.google.com/o/oauth2/token',
+        access_token_params = None,
+        authorize_url= 'https://accounts.google.com/o/oauth2/auth',
+        authorize_params= None,
+        api_base_url='https://www.googleapis.com/oauth2/v1/',
+        client_kwargs={'scope': 'openid profile email'},
+    )
+
+    @app.route('/login_with_google')
+    def login_with_google():
+        google = oauth.create_client('google')
+        redirect_uri = url_for('authorize', _external=True)
+        return google.authorize_redirect(redirect_uri)
+
+    @app.route('/authorize')
+    def authorize():
+        google = oauth.create_client('google')
+        token = google.authorize_access_token()
+        resp = google.get('userinfo')
+        resp.raise_for_status()
+        profile = resp.json()
+        # do something with the token and profile
+        if User.get_by_email(profile['email']):
+            session['usuario'] = User.get_by_email(profile['email'])
+        return redirect('/')
+    
 
     # Configuracion de la BD
     app.secret_key = 'hola'
