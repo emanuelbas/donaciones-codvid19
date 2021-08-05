@@ -33,7 +33,7 @@ def create_app():
     app.config['UPLOAD_FOLDER'] = 'app/static/uploads'
     Session(app)
 
-    # OAUTH-INI
+    # OAuth2
     oauth = OAuth()
     oauth.init_app(app)
     google = oauth.register(

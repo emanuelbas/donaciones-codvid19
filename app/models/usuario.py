@@ -26,7 +26,6 @@ class User(db.Model):
     fecha_actualizacion = db.Column(db.String)
     fecha_creacion = db.Column(db.String)
     historico = db.Column(db.Integer)
-    google_token = db.Column(db.String)
 
     # Voy a crear una relacion entre tablas
     # Lleva como argumento las clases involucradas

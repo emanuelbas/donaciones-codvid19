@@ -48,7 +48,7 @@ class Centro_de_ayuda(db.Model):
         tipos = []
         for tipo in lista_de_tipos:
             tipos.append(Tipo_de_centro.query.filter_by(id=tipo).first())
-        print("Entre al crear del modelo")
+    #    print("Entre al crear del modelo")
         nuevo_centro = Centro_de_ayuda(nombre = nombre,
             direccion = direccion,
             telefono = telefono,
@@ -64,7 +64,7 @@ class Centro_de_ayuda(db.Model):
             municipio_id=id_municipio,
             estado_id=id_estado,
             publicado=False)
-        print("Se creo en memoria el nuevo centro")
+    #    print("Se creo en memoria el nuevo centro")
         db.session.add(nuevo_centro)
         db.session.commit()
         return nuevo_centro

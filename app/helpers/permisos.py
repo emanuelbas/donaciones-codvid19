@@ -6,19 +6,19 @@ from app.models.usuario import User
 
 def validar_permisos(un_permiso):
 	if sitio_cerrado() and no_es_admin():
-		print("Salio xq no estaba cerrado y no esta logueado como admin")
+#		print("Salio xq no estaba cerrado y no esta logueado como admin")
 		abort(503)
 
 	# Si el usuario no tiene una cookie de sesion válida muestro un mensaje de error
 	if not authenticated(session):
-		print("Salio xq no estaba autenticado")
+#		print("Salio xq no estaba autenticado")
 		abort(401)
 	if not usuario_activo(session):
-		print("Salio xq no estaba activo")
+#		print("Salio xq no estaba activo")
 		abort(403)
 	if un_permiso != '' and no_tiene_el_permiso_solicitado(un_permiso):
-		print("Se solicito permiso para "+un_permiso)
-		print("Salio xq no tenia el permiso")
+#		print("Se solicito permiso para "+un_permiso)
+#		print("Salio xq no tenia el permiso")
 		abort(403)
 	return
 
